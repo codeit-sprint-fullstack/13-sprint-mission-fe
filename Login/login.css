@@ -1,3 +1,11 @@
+:root {
+  --primary100: #3692ff; /* 메인 파란색 */
+  --gray100: #f3f4f6; /* 밝은 회색 배경 */
+  --gray200: #9ca3af; /* 중간 회색 텍스트 */
+  --gray300: #1f2937; /* 진한 회색 텍스트 */
+  --blue-bg: #e6f2ff; /* 연한 파란색 배경 */
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,25 +22,24 @@
 .email-input:focus,
 .pw-input:focus {
   outline: none;
-  border: 1px solid #3692ff;
+  border: 1px solid var(--primary100);
 }
 
 @font-face {
-  font-family: ROKAF Sans; /* 폰트 호출 시 사용할 이름 */
-  src: url("../font-family/ROKAFSansMedium.ttf") format("truetype"); /* 폰트 파일 경로 */
+  font-family: ROKAF Sans;
+  src: url("../font-family/ROKAFSansMedium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: Pretendard; /* 폰트 호출 시 사용할 이름 */
-  src: url("/font-family/PretendardVariable.ttf") format("truetype"); /* 폰트 파일 경로 */
+  font-family: Pretendard;
+  src: url("/font-family/PretendardVariable.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-/*section 레이아웃*/
-
+/* section 레이아웃 */
 .login-sec {
   display: flex;
   justify-content: center;
@@ -57,14 +64,11 @@
   font-style: Bold;
   font-size: 66.34px;
   line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  color: #3692ff;
+  color: var(--primary100);
   text-decoration: none;
 }
 
-/*이메일 비밀번호 파트*/
-
+/* 이메일 비밀번호 파트 */
 .input {
   display: flex;
   width: 100%;
@@ -80,25 +84,20 @@
 .email {
   font-family: Pretendard;
   font-weight: 700;
-  font-style: Bold;
   font-size: 18px;
   line-height: 26px;
-  letter-spacing: 0%;
-  color: #1f2937;
+  color: var(--gray300);
 }
 
 .email-input {
   font-family: Pretendard;
   font-weight: 400;
-  font-style: Regular;
   font-size: 16px;
   line-height: 26px;
-  letter-spacing: 0%;
-  color: #9ca3af;
-  background-color: #f3f4f6;
+  color: var(--gray200);
+  background-color: var(--gray100);
   width: 640px;
   height: 56px;
-  gap: 10px;
   border-radius: 12px;
   padding: 16px 24px;
 }
@@ -108,32 +107,26 @@
   justify-content: space-between;
   width: 640px;
   height: 56px;
-  gap: 10px;
-  opacity: 1;
   border-radius: 12px;
   padding: 16px 24px;
-  background-color: #f3f4f6;
+  background-color: var(--gray100);
 }
 
 .pw {
   font-family: Pretendard;
   font-weight: 700;
-  font-style: Bold;
   font-size: 18px;
   line-height: 26px;
-  letter-spacing: 0%;
-  color: #1f2937;
+  color: var(--gray300);
   margin-bottom: 16px;
 }
 
 .pw-input {
   font-family: Pretendard;
   font-weight: 400;
-  font-style: Regular;
   font-size: 16px;
   line-height: 26px;
-  letter-spacing: 0%;
-  color: #9ca3af;
+  color: var(--gray200);
 }
 
 .visible-btn {
@@ -146,31 +139,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #9ca3af;
-  color: #f3f4f6;
+  background-color: var(--gray200);
+  color: var(--gray100);
   width: 640px;
   height: 56px;
-  gap: 10px;
-  opacity: 1;
   border-radius: 40px;
   padding: 16px 124px;
   margin: 24px 0;
   font-family: Pretendard;
   font-weight: 600;
-  font-style: SemiBold;
   font-size: 20px;
   line-height: 32px;
-  letter-spacing: 0%;
   text-align: center;
-  vertical-align: middle;
 }
 
 .link-out {
-  background-color: #e6f2ff;
+  background-color: var(--blue-bg);
   width: 640px;
   height: 74px;
-  gap: 10px;
-  opacity: 1;
   border-radius: 8px;
   padding: 16px 23px;
   display: flex;
@@ -188,11 +174,9 @@
   flex-direction: row;
   font-family: Pretendard;
   font-weight: 500;
-  font-style: Medium;
   font-size: 16px;
   line-height: 26px;
-  letter-spacing: 0%;
-  color: #1f2937;
+  color: var(--gray300);
 }
 
 .favicon {
@@ -216,22 +200,15 @@
 .text1 {
   font-family: Pretendard;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
   line-height: 24px;
-  letter-spacing: 0%;
-  color: #1f2937;
+  color: var(--gray300);
 }
 
 .link-signup {
   font-family: Pretendard;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
   text-decoration: underline;
-  text-decoration-style: solid;
-  text-decoration-thickness: 0%;
-  color: #3692ff;
+  color: var(--primary100);
 }

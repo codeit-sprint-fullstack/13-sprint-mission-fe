@@ -1,0 +1,214 @@
+:root {
+  --primary100: #3692ff; /* 메인 파란색 */
+  --gray100: #f3f4f6; /* 밝은 회색 배경 */
+  --gray200: #9ca3af; /* 중간 회색 텍스트 */
+  --gray300: #1f2937; /* 진한 회색 텍스트 */
+  --blue-bg: #e6f2ff; /* 연한 파란색 배경 */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: hidden;
+}
+
+.email-input:focus,
+.pw-input:focus {
+  outline: none;
+  border: 1px solid var(--primary100);
+}
+
+@font-face {
+  font-family: ROKAF Sans;
+  src: url("../font-family/ROKAFSansMedium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Pretendard;
+  src: url("/font-family/PretendardVariable.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* section 레이아웃 */
+.login-sec {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40rem;
+}
+
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.39rem;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.logo-text {
+  font-family:
+    ROKAF Sans,
+    sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 66.34px;
+  line-height: 100%;
+  color: var(--primary100);
+  text-decoration: none;
+}
+
+/* 이메일 비밀번호 파트 */
+.input {
+  display: flex;
+  width: 100%;
+}
+
+.email-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.email {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--gray300);
+}
+
+.email-input {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray200);
+  background-color: var(--gray100);
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  padding: 16px 24px;
+}
+
+.pw-sec {
+  display: flex;
+  justify-content: space-between;
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  padding: 16px 24px;
+  background-color: var(--gray100);
+}
+
+.pw {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--gray300);
+  margin-bottom: 16px;
+}
+
+.pw-input {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray200);
+}
+
+.visible-btn {
+  display: flex;
+  cursor: pointer;
+}
+
+.login-btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray200);
+  color: var(--gray100);
+  width: 640px;
+  height: 56px;
+  border-radius: 40px;
+  padding: 16px 124px;
+  margin: 24px 0;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.link-out {
+  background-color: var(--blue-bg);
+  width: 640px;
+  height: 74px;
+  border-radius: 8px;
+  padding: 16px 23px;
+  display: flex;
+}
+
+.nav {
+  width: 594px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.simple-in {
+  display: flex;
+  flex-direction: row;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray300);
+}
+
+.favicon {
+  display: flex;
+  gap: 16px;
+}
+
+.signup-link {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.text-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  gap: 4px;
+}
+
+.text1 {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--gray300);
+}
+
+.link-signup {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: underline;
+  color: var(--primary100);
+}

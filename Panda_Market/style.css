@@ -1,0 +1,625 @@
+/* 🔥 RESET CSS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+@font-face {
+  font-family: "ROKAF Sans"; /* 폰트 호출 시 사용할 이름 */
+  src: url("./ROKAF\ Sans\ Medium.ttf") format("truetype"); /* 폰트 파일 경로 */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard"; /* 폰트 호출 시 사용할 이름 */
+  src: url("./PretendardVariable.ttf") format("truetype"); /* 폰트 파일 경로 */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 헤더 전체 레이아웃 */
+#header-background {
+  background-color: #ffffff;
+  width: 100%;
+  border-bottom: 0.0625rem solid #dfdfdf;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
+.header-page {
+  display: flex;
+  justify-content: space-between; /* 양 끝 정렬 */
+  align-items: center; /* 세로 방향 중앙 정렬 */
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 120rem;
+  height: 3.1875rem;
+  margin: 0.5938rem 12.5rem;
+  background-color: #ffffff;
+}
+
+/* 로고 영역 (이미지 + 텍스트) */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5369rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.market-logo {
+  height: 2.5rem;
+  width: 2.5088rem;
+}
+
+.logo-text {
+  font-family: "ROKAF Sans", sans-serif;
+  font-weight: 700;
+  color: #3692ff;
+  font-size: 1.6019rem;
+  width: 6.4375rem;
+  height: 2.1875rem;
+}
+
+/* 로그인 버튼 이미지 */
+.log-in-btn {
+  height: 3rem;
+  width: 8rem;
+  display: block;
+  cursor: pointer;
+}
+
+/* main 전체 레이아웃*/
+
+.hero {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero1 {
+  background-color: #cfe5ff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 33.75rem;
+  margin: 0;
+}
+
+.container1 {
+  width: 100%;
+  max-width: 120rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 12.5rem;
+}
+
+.text-container {
+  width: 22.3125rem;
+  height: 16.25rem;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: left;
+  margin: 2.5rem 0;
+}
+
+.container1-text {
+  color: #374151;
+  width: auto;
+  height: 7rem;
+  margin: 0;
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 2.5rem;
+  line-height: 140%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  align-content: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.goods-link {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  width: 22.3125rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3692ff;
+  color: #f9fafb;
+  border-radius: 6.1875rem;
+  text-decoration: none;
+  margin-top: 2rem;
+}
+
+.continer1-img {
+  width: 46.625rem;
+  width: 21.25rem;
+}
+
+/* hero2 레이아웃*/
+
+.hero2 {
+  background-color: #ffffff; /* 1층: 흰색 배경 */
+  width: 100%;
+  height: 45rem;
+  margin: 0;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.container2 {
+  width: 61.75rem;
+  height: 27.75rem;
+  background-color: #fcfcfc; /* 2층: 회색 배경박스 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+  margin: 8.625rem 29.125rem;
+}
+
+.contatiner2-img {
+  width: 36.75rem;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hot-item.img {
+  position: relative;
+  z-index: 2; /* 3층: 이미지 */
+  max-width: 100%;
+}
+
+.text-container2 {
+  width: 18.75rem;
+  z-index: 2;
+}
+
+.hero2-badge {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 1.125rem;
+
+  line-height: 1.625rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #3692ff;
+}
+
+.hero2-article1 {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 2.5rem;
+
+  line-height: 140%;
+  letter-spacing: 2%;
+  vertical-align: middle;
+  color: #374151;
+}
+
+.hero2-article2 {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 1.5rem;
+
+  line-height: 2rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #374151;
+}
+
+/* hero3 레이아웃*/
+
+.hero3 {
+  background-color: #ffffff; /* 1층: 흰색 배경 */
+  width: 100%;
+  height: 45rem;
+  margin: 0;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.container3 {
+  width: 61.75rem;
+  height: 27.75rem;
+  background-color: #fcfcfc; /* 2층: 회색 배경박스 */
+  gap: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+  margin: 8.625rem 29.125rem;
+}
+
+.container3-img {
+  width: 36.75rem;
+  height: 27.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero3-img {
+  position: relative;
+  z-index: 2; /* 3층: 이미지 */
+  max-width: 100%;
+  width: 36.75rem;
+  height: 27.75rem;
+}
+
+.text-container3 {
+  width: 18.75rem;
+  z-index: 2;
+  text-align: right;
+}
+
+.hero3-badge {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 1.125rem;
+
+  line-height: 1.625rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #3692ff;
+}
+
+.hero3-article1 {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 2.5rem;
+  line-height: 140%;
+  letter-spacing: 2%;
+  vertical-align: middle;
+  color: #374151;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero3-article2 {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #374151;
+}
+
+/* hero4 레이아웃*/
+
+.hero4 {
+  background-color: #ffffff; /* 1층: 흰색 배경 */
+  width: 100%;
+  height: 45rem;
+  margin: 0;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.container4 {
+  width: 61.75rem;
+  height: 27.75rem;
+  background-color: #fcfcfc; /* 2층: 회색 배경박스 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+  margin: 8.625rem 29.125rem;
+}
+
+.hero4-img {
+  position: relative;
+  z-index: 2; /* 3층: 이미지 */
+  max-width: 100%;
+  width: 36.75rem;
+  height: 27.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-container4 {
+  z-index: 2;
+  width: 20.9375rem;
+  height: 14.875rem;
+  opacity: 1;
+  gap: 4rem;
+}
+
+.hero4-badge {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #3692ff;
+}
+
+.hero4-article1 {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 2.5rem;
+  line-height: 140%;
+  letter-spacing: 2%;
+  vertical-align: middle;
+  color: #374151;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero4-article2 {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #374151;
+  width: 21.75rem;
+  height: 4rem;
+  opacity: 1;
+}
+
+/* hero4 레이아웃*/
+
+.hero5 {
+  background-color: #cfe5ff;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 33.75rem;
+  align-items: center;
+  margin-top: 8.625rem;
+}
+
+.container5 {
+  max-width: 120rem;
+  display: flex;
+  margin-top: 8.9375rem;
+  width: 69.375rem;
+  height: 24.8125rem;
+  opacity: 1;
+  gap: 4.3125rem;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.text-container5 {
+  font-family: Pretendard;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #374151;
+  text-align: left;
+}
+
+.hero5-article1 {
+  width: 18.5625rem;
+}
+.hero5-img {
+  width: 46.625rem;
+  height: 24.8125rem;
+  opacity: 1;
+}
+
+/*footer layout*/
+
+#footer-background {
+  background-color: #111827;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 10rem;
+}
+
+.footer-container {
+  max-width: 95rem;
+  width: 95rem;
+  height: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 2rem 12.5rem 6.75rem 12.5rem;
+}
+.footer-text {
+  flex-shrink: 0;
+  font-family: Pretendard;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 1rem;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.footer-link {
+  width: auto;
+  height: 1.1875rem;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  gap: 1.875rem;
+  cursor: pointer;
+}
+
+.privacy-policybtn {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 1rem;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #e5e7eb;
+}
+
+.faq-btn {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 1rem;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #e5e7eb;
+}
+
+.footer-favicon {
+  flex-shrink: 0;
+  width: 7.25rem;
+  height: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  cursor: pointer;
+}

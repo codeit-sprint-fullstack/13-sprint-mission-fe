@@ -45,7 +45,6 @@
   margin: 0.5938rem auto;
   padding: 0 200px;
   height: 64px;
-  /* ★ 3-(2). GNB: flex 로 로고와 메뉴를 양 끝 배치 */
   display: flex;
   align-items: center;
   justify-content: space-between;

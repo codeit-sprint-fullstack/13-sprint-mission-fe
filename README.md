@@ -15,15 +15,6 @@
 ---
 <br>
 
-## 🔗 배포 링크
-https://sprint-mission1-jinwoo.netlify.app/
-
----
-
-<br>
-<br>
-<br>
-
 ## 📌 프로젝트 수행 내용
 
 ### 🖥 랜딩 페이지 제작 (sprint_mission_1)

@@ -1,0 +1,235 @@
+a {
+  text-decoration: none;
+}
+body {
+  background: #fcfcfc;
+}
+#header {
+  border-bottom: 1px solid #dfdfdf;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+#header .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 75rem; /* 1200px */
+  padding: 0.5625rem 1.25rem; /* 9px 20px */
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  width: 153px;
+  height: 51px;
+}
+
+.login {
+  width: 8rem; /* 128px */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1.4375rem; /* 12px 23px */
+  border-radius: 0.5rem; /* 8px */
+  background: var(--Primary-100, #3692ff);
+  border: 0;
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 1rem; /* 16px */
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.625rem; /* 26px */
+}
+main {
+  display: flex;
+  flex-direction: column;
+}
+.top-section {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  background: #cfe5ff;
+  height: 33.75rem; /* 540px */
+}
+.top-inner {
+  display: flex;
+  align-items: center;
+  max-width: 75rem;
+  margin: 0 auto;
+  gap: 0.4375rem;
+}
+.top-inner .text-area {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 360px;
+}
+
+.text-area .text {
+  color: var(--Secondary-700, #374151);
+  font-family: Pretendard;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 3.5rem; /* 56px */
+}
+
+.text-area .button {
+  display: flex;
+  height: 32px;
+  padding: 1rem 7.75rem; /* 16px 124px */
+  color: var(--Secondary-50, #f9fafb);
+  text-align: center;
+  /* pretendard/xl-20px-semibold */
+  font-family: Pretendard;
+  font-size: 1.25rem; /* 20px */
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem; /* 32px */
+  border-radius: 2.5rem; /* 40px */
+  background: var(--brand-blue, #3692ff);
+  margin-bottom: 3.75rem; /* 60px */
+}
+.mid-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.mid-inner {
+  display: flex;
+  padding: 138px 360px;
+  justify-content: center;
+  align-items: center;
+  max-width: 75rem;
+  gap: 4rem; /* 64px */
+  margin: 0 auto;
+}
+
+.mid-inner .text-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.text-area .textbox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.text-area .text-deco {
+  color: var(--Primary-Primary-brand, #3692ff);
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 1.125rem; /* 18px */
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+}
+
+.text-area .info-text {
+  color: var(--Secondary-700, #374151);
+  font-family: Pretendard;
+  font-size: 2.5rem; /* 40px */
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 56px */
+  letter-spacing: 0.8px;
+}
+
+.text-area .info-text-1 {
+  color: var(--Secondary-700, #374151);
+
+  /* pretendard/2xl-24px-medium */
+  font-family: Pretendard;
+  font-size: 1.5rem; /* 24px */
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px; /* 133.333% */
+}
+
+.bot-section {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  background: #cfe5ff;
+  height: 540px;
+}
+
+.bot-inner {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 69px;
+}
+
+.bot-inner .text {
+  color: var(--Secondary-700, #374151);
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 56px */
+  margin-bottom: 60px;
+  min-width: 300px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--Secondary-900, #111827);
+  height: 10rem; /* 160px */
+  padding: 2rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.co-info {
+  color: var(--Secondary-400, #9ca3af);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  min-width: 120px;
+}
+
+.footer-a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-width: 160px;
+}
+
+.privacy,
+.FAQ {
+  color: var(--Secondary-200, #e5e7eb);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.icon {
+  display: flex;
+  gap: 12px;
+  min-width: 120px;
+}

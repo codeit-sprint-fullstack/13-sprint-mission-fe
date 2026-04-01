@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --Primary100: #3692ff;
+  --Primary200: #1967d6;
+  --Primary300: #1251aa;
+  --gray900: #111827;
+  --gray800: #1f2937;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+  --error: #f74747;
+}
+
+.signup_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 60px auto;
+}
+.login_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 230px auto;
+}
+
+.logo {
+  width: 396px;
+  height: 132px;
+}
+.text_area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.input_area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input_box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input_box p {
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--gray800);
+}
+
+.password {
+  position: relative;
+  width: 640px;
+  height: 56px;
+}
+.password img {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+}
+.input {
+  border: none;
+  width: 640px;
+  height: 56px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: var(--gray100);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #3692ff;
+}
+
+.login_button {
+  width: 640px;
+  height: 56px;
+  padding: 16px 124px;
+  border-radius: 40px;
+  border: 0px;
+  background: var(--gray400);
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--gray100);
+}
+
+.social_login {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 640px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background: #e6f2ff;
+}
+.social_login p {
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--gray800);
+}
+
+.icon {
+  display: flex;
+  gap: 16px;
+}
+
+.signup {
+  color: var(--gray800);
+
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}

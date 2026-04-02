@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판다마켓</title>
-    <link rel="stylesheet" href="auth.css" />
-    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="/styles/auth.css" />
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link
       rel="stylesheet"
       as="style"
@@ -16,22 +16,15 @@
   <body>
     <main class="auth-container">
       <header class="logo-area">
-        <a href="index.html"><img src="img/auth_logo.png" alt="판다마켓 로고" /></a>
+        <a href="/index.html"
+          ><img src="/assets/img/auth_logo.png" alt="판다마켓 로고"
+        /></a>
       </header>
 
       <form class="auth-form">
         <div class="input-group">
           <label for="email">이메일</label>
           <input type="email" id="email" placeholder="이메일을 입력해주세요" />
-        </div>
-
-        <div class="input-group">
-          <label for="nickname">닉네임</label>
-          <input
-            type="text"
-            id="nickname"
-            placeholder="닉네임을 입력해주세요"
-          />
         </div>
 
         <div class="input-group password-field">
@@ -43,42 +36,31 @@
               placeholder="비밀번호를 입력해주세요"
             />
             <button type="button" class="toggle-password">
-              <img src="img/btn_visibility_on.png" alt="비밀번호 보기" />
+              <img
+                src="/assets/img/btn_visibility_on.png"
+                alt="비밀번호 보기"
+              />
             </button>
           </div>
         </div>
 
-        <div class="input-group password-field">
-          <label for="password-check">비밀번호 확인</label>
-          <div class="input-wrapper">
-            <input
-              type="password"
-              id="password-check"
-              placeholder="비밀번호를 다시 한 번 입력해주세요"
-            />
-            <button type="button" class="toggle-password">
-              <img src="img/btn_visibility_on.png" alt="비밀번호 보기" />
-            </button>
-          </div>
-        </div>
-
-        <button type="submit" class="auth-submit-btn">회원가입</button>
+        <button type="submit" class="auth-submit-btn">로그인</button>
       </form>
 
       <section class="social-section">
         <p>간편 로그인하기</p>
         <div class="social-icons">
           <a href="https://www.google.com/"
-            ><img src="img/ic_google.png" alt="구글 로그인"
+            ><img src="/assets/img/ic_google.png" alt="구글 로그인"
           /></a>
           <a href="https://www.kakaocorp.com/page/"
-            ><img src="img/ic_kakao.png" alt="카카오 로그인"
+            ><img src="/assets/img/ic_kakao.png" alt="카카오 로그인"
           /></a>
         </div>
       </section>
 
       <footer class="footer-link">
-        이미 회원이신가요? <a href="login.html">로그인</a>
+        판다마켓이 처음이신가요? <a href="/pages/signup.html">회원가입</a>
       </footer>
     </main>
   </body>

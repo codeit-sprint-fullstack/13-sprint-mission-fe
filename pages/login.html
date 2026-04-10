@@ -34,12 +34,12 @@
         <div class="form-group">
           <label for="email" class="form-label">이메일</label>
           <input id="email" class="form-input" type="email" name="email" placeholder="이메일을 입력해주세요"
-            pattern=".+@gmail\.com" autocomplete="on" required>
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" autocomplete="on" required>
         </div>
         <!-- Input Password -->
         <div class="form-group">
           <label for="password" class="form-label">비밀번호</label>
-          <input id="password" class="form-input" type="password" name="password" placeholder="비밀번호를 입력해주세요">
+          <input id="password" class="form-input" type="password" name="password" placeholder="비밀번호를 입력해주세요" required>
           <img class="visibility-off-img" src="../src/images/form/ic_visibility_off.svg" alt="비밀번호 숨기기 끄기 아이콘 이미지">
         </div>
         <!-- Submit Button -->

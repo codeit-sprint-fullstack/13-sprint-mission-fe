@@ -13,17 +13,17 @@
   padding: 2rem 12.5rem;
   margin: 0 auto;
 }
-.ft-menu {
+.footer-menu {
   display: flex;
   gap: 1.875rem;
 }
-.ft-menu-text {
+.footer-menu-text {
   color: var(--Secondary-200);
 }
-.ft-copyright {
+.footer-copyright {
   color: var(--Secondary-400);
 }
-.ft-social {
+.footer-social {
   display: flex;
   gap: 0.75rem;
 }

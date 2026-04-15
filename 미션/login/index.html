@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 - 판다마켓</title>
+
+    <link rel="stylesheet" href="../reset.css" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header class="gnb">
+      <div class="gnb__inner">
+        <a href="/" class="gnb__logo">
+          <img
+            src="../images/logo.svg"
+            class="gnb__logo-icon"
+            alt="판다마켓 로고"
+          />
+          판다마켓
+        </a>
+      </div>
+    </header>
+
+    <main class="login">
+      <div class="login__box">
+        <h1 class="login__title">로그인</h1>
+
+        <form class="login__form" action="/">
+          <input
+            type="text"
+            name="email"
+            placeholder="이메일"
+            class="login__input"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            class="login__input"
+          />
+
+          <button class="login__button" type="submit">로그인</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "spms1-2-3",
+  "version": "1.0.0",
+  "description": "이번 프로젝트에서는 판다마켓 웹사이트의 기본 구조를 직접 구현하며  \r HTML과 CSS의 기초를 학습하고 적용했습니다.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choihoomba/13-sprint-mission-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/choihoomba/13-sprint-mission-fe/issues"
+  },
+  "homepage": "https://github.com/choihoomba/13-sprint-mission-fe#readme"
+}

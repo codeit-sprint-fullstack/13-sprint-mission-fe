@@ -1,0 +1,22 @@
+{
+  "name": "13-sprint-mission-fe",
+  "version": "1.0.0",
+  "description": "판다마켓은 이웃과 함께하는 따뜻한 중고거래 커뮤니티 플랫폼입니다. 단순한 거래를 넘어 사용자들이 소통하고 정보를 나누는 공간을 지향합니다.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damdadaxx/13-sprint-mission-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/damdadaxx/13-sprint-mission-fe/issues"
+  },
+  "homepage": "https://github.com/damdadaxx/13-sprint-mission-fe#readme"
+}

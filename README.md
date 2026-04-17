@@ -45,19 +45,20 @@ _위 이미지는 판다마켓의 대표 이미지입니다._ 📸
 
 ```bash
 .
-├── faq.html
 ├── index.html
-├── items.html
-├── login.html
-├── privacy.html
+├── package.json
+├── pages/
 ├── README.md
-├── signup.html
 └── src
+    ├── api
+    │   ├── ArticleService.js
+    │   └── ProductService.js
     ├── images
     │   ├── form/
     │   └── home/
-    └── style
-        └── components/
+    ├── main.js
+    └── styles
+        ├── components/
         └── home.css
 ```
 

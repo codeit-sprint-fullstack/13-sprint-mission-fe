@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API TEST</title>
+  <!-- Favicon -->
+  <link rel="icon" href="../src/images/favicon.ico" />
+  <!-- Font (Pretendard)) -->
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <!-- Style -->
+  <link rel="stylesheet" href="../src/styles/components/global.css">
+  <link rel="stylesheet" href="../src/styles/components/apis.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CTG3DWZ9S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-8CTG3DWZ9S');
+  </script>
+</head>
+
+<body class="apis-content">
+  <h1 class="apis-title">API TEST PAGE</h1>
+  <p class="apis-desc">우측 <strong>🚀버튼</strong>을 클릭하시면 API 요청을 Console 창에서 확인하실 수 있습니다 ☺️</p>
+  <main>
+    <!-- Article API -->
+    <section class="article-apis">
+      <h2 class="section-title">🔫 Article API</h2>
+      <div class="content">
+        <h3 class="title">게시글 목록 조회</h3>
+        <button id="api-getArticleList" class="api-btn">🚀 getArticleList( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">게시글 상세 조회</h3>
+        <button id="api-getArticle" class="api-btn">🚀 getArticle( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">게시글 등록</h3>
+        <button id="api-createArticle" class="api-btn">🚀 createArticle( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">게시글 수정</h3>
+        <button id="api-patchArticle" class="api-btn">🚀 patchArticle( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">게시글 삭제</h3>
+        <button id="api-deleteArticle" class="api-btn">🚀 deleteArticle( )</button>
+      </div>
+    </section>
+    <!-- Product API -->
+    <section class="product-apis">
+      <h2 class="section-title">🔫 Product API</h2>
+      <div class="content">
+        <h3 class="title">상품 목록 조회</h3>
+        <button id="api-getProductList" class="api-btn">🚀 getProductList( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">상품 상세 조회</h3>
+        <button id="api-getProduct" class="api-btn">🚀 getProduct( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">상품 등록</h3>
+        <button id="api-createProduct" class="api-btn">🚀 createProduct( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">상품 수정</h3>
+        <button id="api-patchProduct" class="api-btn">🚀 patchProduct( )</button>
+      </div>
+      <div class="content">
+        <h3 class="title">상품 삭제</h3>
+        <button id="api-deleteProduct" class="api-btn">🚀 deleteProduct( )</button>
+      </div>
+    </section>
+  </main>
+  <!-- Main JavaScript -->
+  <script type="module" src="../src/main.js"></script>
+</body>
+
+</html>

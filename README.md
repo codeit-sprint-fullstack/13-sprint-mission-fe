@@ -52,7 +52,12 @@ _위 이미지는 판다마켓의 대표 이미지입니다._ 📸
 └── src
     ├── api
     │   ├── ArticleService.js
-    │   └── ProductService.js
+    │   ├── config
+    │   │   ├── articleConfig.js
+    │   │   └── productConfig.js
+    │   ├── ProductService.js
+    │   └── utils
+    │       └── request.js
     ├── images
     │   ├── form/
     │   └── home/

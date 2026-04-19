@@ -1,127 +1,63 @@
 // Article API
 
+// IMPORT
+import articleConfig from "./config/articleConfig.js";
+
 // BASE URL
 const BASE_URL = "https://panda-market-api-crud.vercel.app";
 
 /**
- * 게시글 목록을 조회합니다.
- * @param {number} [page=1] - 현재 페이지 번호
- * @param {number} [pageSize=10] - 페이지당 게시글 수
- * @param {string} [keyword=""] - 검색 키워드 (선택)
- * @returns {Promise<Object>} - 게시글 목록 응답 데이터
+ * 게시글 관련 API 메서드 모음
+ * @type {{
+ *   getAll: (endpoint: string) => Promise<any>,
+ *   get: (endpoint: string) => Promise<any>,
+ *   post: (endpoint: string, data: Object) => Promise<any>,
+ *   patch: (endpoint: string, data: Object) => Promise<any>,
+ *   delete: (endpoint: string) => Promise<null | any>
+ * }}
  */
-function getArticleList(page, pageSize, keyword) {
-  const params = new URLSearchParams({
-    page: page ?? 1,
-    pageSize: pageSize ?? 10,
-    keyword: keyword ?? "",
-  });
-  const url = `${BASE_URL}/articles?${params}`;
-
-  return fetch(url)
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
-      return response.json();
-    })
-    .catch((error) => {
-      throw new Error(`❌ API Error : ${error.message}`);
-    });
-}
-
-/**
- * 게시글 상세를 조회합니다.
- * @param {number} articleId - 게시글 ID
- * @returns {Promise<Object>} - 게시글 상세 조회 응답 데이터
- */
-function getArticle(articleId) {
-  const url = `${BASE_URL}/articles/${articleId}`;
-
-  return fetch(url)
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
-      return response.json();
-    })
-    .catch((error) => {
-      throw new Error(`❌ API Error : ${error.message}`);
-    });
-}
-
-/**
- * 새로운 게시글을 등록합니다.
- * @param {{ image: string, content: string, title: string }} newPost - 게시글 데이터
- * @returns {Promise<Object>} - 게시글 등록 응답 데이터
- */
-function createArticle(newPost) {
-  const url = `${BASE_URL}/articles`;
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newPost),
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
-      return response.json();
-    })
-    .catch((error) => {
-      throw new Error(`❌ API Error : ${error.message}`);
-    });
-}
-
-/**
- * 게시글을 수정 합니다.
- * @param {number} articleId -수정할 게시글 ID
- * @param {{image: string, content: string, title: string}} updatedPost - 수정할 데이터
- * @returns {Promise<Object>} - 수정된 게시글 응답 데이터
- */
-function patchArticle(articleId, updatedPost) {
-  const url = `${BASE_URL}/articles/${articleId}`;
-  return fetch(url, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedPost),
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
-      return response.json();
-    })
-    .catch((error) => {
-      throw new Error(`❌ API Error : ${error.message}`);
-    });
-}
-
-/**
- * 게시글을 삭제 합니다.
- * @param {number} articleId - 삭제할 게시글 ID
- * @returns {Promise<void>} - 게시글 삭제 요청 결과
- */
-function deleteArticle(articleId) {
-  const url = `${BASE_URL}/articles/${articleId}`;
-  return fetch(url, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
-      return response.json();
-    })
-    .catch((error) => {
-      throw new Error(`❌ API Error : ${error.message}`);
-    });
-}
-
-// EXPORT
-export {
-  getArticleList,
-  getArticle,
-  createArticle,
-  patchArticle,
-  deleteArticle,
+const articleApis = {
+  getAll: (endpoint) => requestApi(endpoint),
+  get: (endpoint) => requestApi(endpoint),
+  post: (endpoint, data) =>
+    requestApi(endpoint, { method: "POST", body: JSON.stringify(data) }),
+  patch: (endpoint, data) =>
+    requestApi(endpoint, { method: "PATCH", body: JSON.stringify(data) }),
+  delete: (endpoint) => requestApi(endpoint, { method: "DELETE" }),
 };
+
+/**
+ * 공통 API 요청 함수
+ *
+ * @template T
+ * @param {string} endpoint - API 엔드포인트 (e.g. /articles)
+ * @param {RequestInit} [options={}] - fetch 옵션 (method, headers, body 등)
+ * @returns {Promise<T|null>} 응답 데이터 (204 No Content일 경우 null)
+ *
+ * @throws {Error} 서버 응답 실패 또는 네트워크 에러 발생 시
+ */
+function requestApi(endpoint, options = {}) {
+  const config = {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  };
+
+  return fetch(`${BASE_URL}${endpoint}`, config)
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`⚠️ 서버 응답 실패, ${response.status}`);
+      console.log(response);
+
+      if (response.status === 204) return null;
+
+      return response.json();
+    })
+    .catch((error) => {
+      throw new Error(`❌ API Error : ${error.message}`);
+    });
+}
+
+export default articleApis;

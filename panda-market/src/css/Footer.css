@@ -1,31 +1,31 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  height: 16rem; /*160px;*/
-  padding: 3.2rem 20rem; /*32px 200px;*/
+  height: 160px;
+  padding: 32px 200px;
   background: var(--color-secondary-900);
 }
 .footer-copyright {
   color: var(--color-secondary-400);
-  font-size: 1.6rem; /*16px;*/
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 400px;
 }
 .footer-nav {
   display: flex;
-  gap: 3rem; /*30px;*/
+  gap: 30px;
 }
 .footer-nav-link {
   color: var(--color-secondary-200);
-  font-size: 1.6rem; /*16px;*/
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 400px;
   cursor: pointer;
 }
 .footer-social {
   display: flex;
-  gap: 1.2rem; /*12px;*/
+  gap: 12px;
 }
 .footer-social-link {
-  width: 2rem; /*20px;*/
-  height: 2rem; /*20px;*/
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }

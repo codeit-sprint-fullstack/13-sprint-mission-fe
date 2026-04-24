@@ -1,0 +1,133 @@
+/* Common.module.css */
+.header {
+  position: fixed;
+  background-color: white;
+  height: 7rem;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding-bottom: 1.3rem;
+  z-index: 100;
+  border-bottom: solid 1px #dfdfdf;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 20rem;
+  max-width: 192rem;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.logoLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.logoImage {
+  width: auto;
+  height: auto;
+}
+
+.logoText {
+  font-family: var(--font-rokaf);
+  font-weight: 700;
+  font-size: 2.56rem;
+  margin-left: 0.85rem;
+  color: var(--primary-100);
+}
+
+.navLink {
+  font-family: var(--font-pretendard);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--gray-800);
+  text-decoration: none;
+}
+
+.loginBtn {
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--font-pretendard);
+  width: 12.8rem;
+  height: 4.8rem;
+  background-color: var(--primary-100);
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer */
+
+Footer {
+  height: 16rem;
+  width: 100%;
+  position: fixed;
+  justify-content: bottom;
+  background-color: var(--gray-900);
+  bottom: 0;
+}
+
+.footerNavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 192rem;
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 6.75rem;
+  padding-left: 12.5rem;
+  padding-right: 12.5rem;
+}
+
+.footerInfoTxt {
+  font-family: var(--font-pretendard);
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.footerStatTxt {
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.footerCenterTxt {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.footerCenterTxt a {
+  color: var(--gray-200);
+  white-space: nowrap;
+}
+
+.footerSnsUl {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.footer-sns-ul li {
+  display: flex;
+}
+
+ul {
+  list-style: none;
+}

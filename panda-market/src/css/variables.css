@@ -1,0 +1,200 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+
+:root {
+  --font-family-base: "PretendardVariable", sans-serif;
+
+  /* Font Size */
+  --font-size-3xl: 3.2rem;
+  --font-size-2xl: 2.4rem;
+  --font-size-xl: 2rem;
+  --font-size-2lg: 1.8rem;
+  --font-size-lg: 1.6rem;
+  --font-size-md: 1.4rem;
+  --font-size-sm: 1.3rem;
+  --font-size-xs: 1.2rem;
+
+  /* Line Height */
+  --line-height-3xl: 4.2rem;
+  --line-height-2xl: 3.2rem;
+  --line-height-xl: 3.2rem;
+  --line-height-2lg: 2.6rem;
+  --line-height-lg: 2.6rem;
+  --line-height-md: 2.4rem;
+  --line-height-sm: 2.2rem;
+  --line-height-xs-semibold: 2rem;
+  --line-height-xs: 1.8rem;
+
+  /* Font Weight */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+
+  /* Primary Color */
+  --color-primary-100: #3692ff;
+  --color-primary-200: #1967d6;
+  --color-primary-300: #1251aa;
+
+  /* Error Color */
+  --color-error: #f74747;
+
+  /* Gray Color */
+  --color-secondary-900: #111827;
+  --color-secondary-800: #1f2937;
+  --color-secondary-700: #374151;
+  --color-secondary-600: #4b5563;
+  --color-secondary-500: #6b7280;
+  --color-secondary-400: #9ca3af;
+  --color-secondary-200: #e5e7eb;
+  --color-secondary-100: #f3f4f6;
+  --color-secondary-50: #f9fafb;
+}
+
+/* Typography */
+body {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-3xl-bold {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-3xl);
+  font-weight: var(--font-weight-bold);
+}
+.text-3xl-semibold {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-3xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.text-2xl-bold {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-bold);
+}
+.text-2xl-semibold {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+.text-2xl-medium {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+.text-2xl-regular {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-xl-bold {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  font-weight: var(--font-weight-bold);
+}
+.text-xl-semibold {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  font-weight: var(--font-weight-semibold);
+}
+.text-xl-medium {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+.text-xl-regular {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-2lg-bold {
+  font-size: var(--font-size-2lg);
+  line-height: var(--line-height-2lg);
+  font-weight: var(--font-weight-bold);
+}
+.text-2lg-semibold {
+  font-size: var(--font-size-2lg);
+  line-height: var(--line-height-2lg);
+  font-weight: var(--font-weight-semibold);
+}
+.text-2lg-medium {
+  font-size: var(--font-size-2lg);
+  line-height: var(--line-height-2lg);
+  font-weight: var(--font-weight-medium);
+}
+.text-2lg-regular {
+  font-size: var(--font-size-2lg);
+  line-height: var(--line-height-2lg);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-lg-bold {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-bold);
+}
+.text-lg-semibold {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-semibold);
+}
+.text-lg-medium {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-medium);
+}
+.text-lg-regular {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-md-bold {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-bold);
+}
+.text-md-semibold {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-semibold);
+}
+.text-md-medium {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-medium);
+}
+.text-md-regular {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-sm-semibold {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-semibold);
+}
+.text-sm-medium {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.text-xs-semibold {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-xs-medium {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-medium);
+}
+.text-xs-regular {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-regular);
+}

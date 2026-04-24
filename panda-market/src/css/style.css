@@ -1,0 +1,325 @@
+/* common */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* rem단위 변환 */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: var(--font-family-base);
+}
+
+a {
+  text-decoration: none;
+}
+
+/* layout */
+
+.gnb {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  height: 7rem; /*70px;*/
+  padding: 0.9rem 20rem; /*9px 200px;*/
+  border-bottom: 1px solid #dfdfdf;
+  background-color: white;
+}
+.gnb-inner {
+  display: flex;
+  justify-content: space-between;
+}
+.gnb-logo {
+  width: 15.3rem; /*153px;*/
+  height: 5.1rem; /*51px;*/
+  cursor: pointer;
+}
+.gnb-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12.8rem; /*128px;*/
+  height: 4.8rem; /*48px;*/
+  padding: 1.2rem 2.3rem; /*12px 23px;*/
+  border-radius: 0.8rem; /*8px;*/
+  border: none;
+  background: var(--color-primary-100);
+  color: var(--color-secondary-100);
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  height: 16rem; /*160px;*/
+  padding: 3.2rem 20rem; /*32px 200px;*/
+  background: var(--color-secondary-900);
+}
+.footer-copyright {
+  color: var(--color-secondary-400);
+  font-size: 1.6rem; /*16px;*/
+  font-weight: 400;
+}
+.footer-nav {
+  display: flex;
+  gap: 3rem; /*30px;*/
+}
+.footer-nav-link {
+  color: var(--color-secondary-200);
+  font-size: 1.6rem; /*16px;*/
+  font-weight: 400;
+  cursor: pointer;
+}
+.footer-social {
+  display: flex;
+  gap: 1.2rem; /*12px;*/
+}
+.footer-social-link {
+  width: 2rem; /*20px;*/
+  height: 2rem; /*20px;*/
+  cursor: pointer;
+}
+
+.main {
+  margin-top: 7rem; /*70px;*/
+  flex: 1;
+}
+
+/* banner */
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 54rem; /*540px;*/
+  background: #cfe5ff;
+}
+.banner-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 111rem; /*1110px;*/
+  height: 34rem; /*340px;*/
+}
+.banner-txt {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 6rem; /*60px;*/
+  gap: 3.2rem; /*32px;*/
+}
+.banner-title {
+  color: #374151;
+  font-family: "Pretendard";
+  font-size: 4rem; /*40px;*/
+  font-weight: 700;
+  line-height: 5.6rem; /*56px*/
+}
+.banner-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5.6rem; /*56px;*/
+  padding: 1.6rem 12.4rem; /*16px 124px;*/
+  border-radius: 4rem; /*40px;*/
+  border: none;
+  background: var(--color-primary-100);
+  color: var(--color-secondary-50);
+  cursor: pointer;
+}
+.banner-img {
+  width: 74.6rem; /*746px;*/
+  height: 34rem; /*340px;*/
+}
+
+/* card-container */
+
+.card-container {
+  margin-top: 13.8rem; /*138px;*/
+}
+.card-section {
+  display: flex;
+  justify-content: center;
+  margin: 0rem auto 27.6rem; /*0px 466px 276px;*/
+}
+
+.card-inner {
+  display: flex;
+  justify-content: center;
+  gap: 6.4rem; /*64px;*/
+  width: 98.8rem; /*988px;*/
+  background: #fcfcfc;
+}
+.card-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem; /*12px;*/
+}
+
+.card-contents-reverse {
+  /* card-reverse*/ /* 이미지-텍스트 순서 바뀐 컴포넌트 */
+  display: flex;
+  flex-direction: column; /* flex의 주축 결정: row-가로, column-세로 */
+  justify-content: center; /* 주축 방향 제어 */
+  align-items: flex-end; /* 교차축 방향 제어*/
+  gap: 1.2rem; /*12px;*/
+}
+.card-contents-reverse .card-txt {
+  text-align: right;
+}
+.card-img {
+  width: 58.8rem; /*588px;*/
+  height: 44.4rem; /*444px;*/
+}
+.card-txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem; /*24px;*/
+}
+.card-subtitle {
+  color: var(--color-primary-100);
+}
+.card-title {
+  color: var(--color-secondary-700);
+  font-size: 4rem; /*40px;*/
+  font-weight: 700;
+  line-height: 5.6rem; /*56px*/
+  letter-spacing: 0.8px;
+}
+.card-desc {
+  color: var(--color-secondary-700);
+}
+
+/* account */
+
+.account {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  gap: 4rem;
+}
+.account-logo {
+  width: 39.6rem;
+  height: 13.2rem;
+}
+.account-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 64rem;
+  gap: 2.4rem;
+}
+.account-container-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.6rem;
+}
+.account-input-inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+.account-label {
+  width: 100%;
+  color: var(--color-secondary-800);
+}
+.account-input {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 5.6rem;
+  padding: 1.6rem 2.4rem;
+  border-radius: 1.2rem;
+  border: none;
+  color: var(--color-secondary-800);
+  background: var(--color-secondary-100);
+}
+.account-input::placeholder {
+  color: var(--color-secondary-400);
+}
+.account-input:focus {
+  outline: 1px solid var(--color-primary-100);
+}
+.account-input-icon {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: 2.4rem;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  color: var(--color-secondary-600);
+}
+.account-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5.6rem;
+  padding: 1.6rem 12.4rem;
+  border-radius: 4rem;
+  border: none;
+  background: var(--color-primary-100);
+  color: var(--color-secondary-100);
+}
+
+.account-social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 7.4rem;
+  padding: 1.6rem 2.3rem;
+  border-radius: 0.8rem;
+  background: #e6f2ff;
+}
+.account-social-title {
+  color: var(--color-secondary-800);
+}
+.account-social-icon {
+  display: flex;
+  gap: 1.6rem;
+}
+.account-social-link {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.account-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0.4rem;
+}
+.account-info-title {
+  color: var(--color-secondary-800);
+}
+.account-info-textbtn {
+  color: var(--color-primary-100);
+  font-family: var(--font-family-base);
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+}

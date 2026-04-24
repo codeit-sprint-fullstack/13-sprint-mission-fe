@@ -1,0 +1,21 @@
+{
+  "name": "13-sprint-mission-fe",
+  "version": "1.0.0",
+  "description": "> 판다마켓 랜딩 페이지 로그인 회원가입을 HTML과 CSS로 구현한 프로젝트입니다.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myfunnyhome/13-sprint-mission-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/myfunnyhome/13-sprint-mission-fe/issues"
+  },
+  "homepage": "https://github.com/myfunnyhome/13-sprint-mission-fe#readme"
+}

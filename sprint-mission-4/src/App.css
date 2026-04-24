@@ -1,4 +1,175 @@
-.counter {
+/* homepage.css 에서 가져옴  */
+
+main {
+  margin-top: 70px;
+  flex-direction: column;
+  gap: 40px; /*  */
+  padding: 0 200px;
+}
+.best-sale-title {
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap; /* */
+  padding-top: 26px;
+  padding-left: 200px;
+}
+.best-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* */
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px 200px;
+}
+
+.product-grid {
+  display: grid;
+  flex-direction: row;
+  align-items: flex-start;
+  grid-template-columns: repeat(5, 1fr); /* */
+  gap: 24px;
+  padding: 30px 200px;
+}
+
+.product-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.sale-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 200px;
+}
+
+.sale-title {
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap; /* */
+}
+
+.sale-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrap input {
+  padding: 10px 16px 10px 40px; /*  */
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f3f4f6;
+  width: 280px;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+}
+
+.btn-register {
+  padding: 10px 20px;
+  background: #3692ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-register:hover {
+  background: #1a7af0;
+}
+
+.sort-select {
+  padding: 10px 14px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.product-card-small {
+  border: 1px solid #eee;
+  border-radius: 9px;
+  padding: 12px;
+}
+.product-card .thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f3f4f6;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden; /*  */
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*  */
+  display: block;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 30px;
+  padding: 20px 200px;
+}
+
+.page-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* */
+  border: 1px solid #e5e7eb;
+  background: white;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.page-btn:hover {
+  border-color: #3692ff;
+  color: #3692ff;
+}
+
+.page-btn.active {
+  background: #3692ff;
+  border-color: #3692ff;
+  color: white;
+}
+
+.page-btn.arrow {
+  font-size: 18px;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+}
+
+/*
+ .counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -15,6 +186,9 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
+}
+.app-container {
+  font-size: 16px;
 }
 
 .hero {
@@ -167,7 +341,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4.5px;
     border: 5px solid transparent;
@@ -181,4 +355,4 @@
     right: 0;
     border-right-color: var(--border);
   }
-}
+} */

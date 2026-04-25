@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^1.0.0-rc.17",
     "normalize.css": "^8.0.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

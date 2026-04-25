@@ -1,0 +1,13 @@
+/* 태블릿: 화면 너비 1023px 이하일 때 2열로 */
+@media (max-width: 1023px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 1열로 */
+@media (max-width: 767px) {
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -78,6 +78,15 @@ export default function ProductPage() {
         <div className="best-nav">
           <h2 className="stockproduct-title">판매 중인 상품</h2>
           <div className="product-feature">
+            {/* 검색 및 정렬 */}
+            <form className="stock-search">
+              <input
+                type="text"
+                className="stock-search"
+                placeholder="🔎검색할 상품을 입력해주세요"
+              />{" "}
+            </form>
+            <button className="product-register ">상품 등록하기</button>
             <select
               className="product-sort"
               value={orderBy}

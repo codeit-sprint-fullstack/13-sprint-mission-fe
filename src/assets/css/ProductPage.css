@@ -121,7 +121,7 @@
   gap: 12px;
 }
 
-#stock-search {
+.stock-search {
   width: 325px;
   height: 42px;
   display: inline-flex;

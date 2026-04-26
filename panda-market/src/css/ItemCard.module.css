@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  padding-bottom: 16px;
+}
+.title {
+  width: 100%;
+  padding-bottom: 6px;
+}
+.price {
+  width: 100%;
+  padding-bottom: 6px;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+.likeIcon {
+  width: 16px;
+  height: 16px;
+}
+.favoriteCount {
+}

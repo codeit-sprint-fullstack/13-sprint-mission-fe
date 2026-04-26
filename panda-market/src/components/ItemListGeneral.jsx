@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
+import styles from "../css/ItemListGeneral.module.css";
 
 export default function ItemListGeneral() {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ export default function ItemListGeneral() {
   }, []);
 
   return (
-    <div className="products-list">
+    <div className={styles.list}>
       {products.map((product) => (
         <ItemCard
           id={product.id}

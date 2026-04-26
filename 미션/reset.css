@@ -1,0 +1,50 @@
+/* reset.css */
+
+/* 모든 요소 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 기본 폰트 */
+html {
+  font-size: 16px;
+}
+
+/* body */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 리스트 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 링크 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 이미지 */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* 버튼 */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* 입력창 */
+input,
+textarea {
+  outline: none;
+}

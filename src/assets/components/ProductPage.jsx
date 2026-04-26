@@ -86,7 +86,7 @@ export default function ProductPage() {
                 placeholder="🔎검색할 상품을 입력해주세요"
               />{" "}
             </form>
-            <button className="product-register ">상품 등록하기</button>
+            <button className="product-register `">상품 등록하기</button>
             <select
               className="product-sort"
               value={orderBy}

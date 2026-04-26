@@ -190,7 +190,7 @@
   border: 1px solid #ddd;
   background: #fff;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 50px;
 }
 
 .pagination button.active {

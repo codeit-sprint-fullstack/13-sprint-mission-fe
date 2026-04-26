@@ -130,11 +130,8 @@ export default function ProductPage() {
 
         {/* 페이지네이션 */}
         <div className="pagination">
-          <button disabled={page === 1} onClick={() => setPage(1)}>
-            처음
-          </button>
           <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-            이전
+            &lt;
           </button>
 
           {getPageGroup().map((p) => (
@@ -151,13 +148,7 @@ export default function ProductPage() {
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
           >
-            다음
-          </button>
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(totalPages)}
-          >
-            끝
+            &gt;
           </button>
         </div>
       </section>

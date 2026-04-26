@@ -4,25 +4,25 @@
   --font-family-base: "PretendardVariable", sans-serif;
 
   /* Font Size */
-  --font-size-3xl: 3.2rem;
-  --font-size-2xl: 2.4rem;
-  --font-size-xl: 2rem;
-  --font-size-2lg: 1.8rem;
-  --font-size-lg: 1.6rem;
-  --font-size-md: 1.4rem;
-  --font-size-sm: 1.3rem;
-  --font-size-xs: 1.2rem;
+  --font-size-3xl: 32px;
+  --font-size-2xl: 24px;
+  --font-size-xl: 20px;
+  --font-size-2lg: 18px;
+  --font-size-lg: 16px;
+  --font-size-md: 14px;
+  --font-size-sm: 13px;
+  --font-size-xs: 12px;
 
   /* Line Height */
-  --line-height-3xl: 4.2rem;
-  --line-height-2xl: 3.2rem;
-  --line-height-xl: 3.2rem;
-  --line-height-2lg: 2.6rem;
-  --line-height-lg: 2.6rem;
-  --line-height-md: 2.4rem;
-  --line-height-sm: 2.2rem;
-  --line-height-xs-semibold: 2rem;
-  --line-height-xs: 1.8rem;
+  --line-height-3xl: 42px;
+  --line-height-2xl: 32px;
+  --line-height-xl: 32px;
+  --line-height-2lg: 26px;
+  --line-height-lg: 26px;
+  --line-height-md: 24px;
+  --line-height-sm: 2px;
+  --line-height-xs-semibold: 20px;
+  --line-height-xs: 18px;
 
   /* Font Weight */
   --font-weight-bold: 700;

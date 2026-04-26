@@ -3,8 +3,8 @@
   width: 100%;
   top: 0;
   z-index: 100;
-  height: 7rem; /*70px;*/
-  padding: 0.9rem 20rem; /*9px 200px;*/
+  height: 70px;
+  padding: 9px 200px;
   border-bottom: 1px solid #dfdfdf;
   background-color: white;
 }
@@ -13,18 +13,18 @@
   justify-content: space-between;
 }
 .gnb-logo {
-  width: 15.3rem; /*153px;*/
-  height: 5.1rem; /*51px;*/
+  width: 153px;
+  height: 51px;
   cursor: pointer;
 }
 .gnb-login {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12.8rem; /*128px;*/
-  height: 4.8rem; /*48px;*/
-  padding: 1.2rem 2.3rem; /*12px 23px;*/
-  border-radius: 0.8rem; /*8px;*/
+  width: 128px;
+  height: 48px;
+  padding: 12px 23px;
+  border-radius: 8px;
   border: none;
   background: var(--color-primary-100);
   color: var(--color-secondary-100);

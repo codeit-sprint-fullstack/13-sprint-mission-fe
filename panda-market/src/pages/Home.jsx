@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="page-wrapper">
       <Navbar />
-      <div className="content">
+      <div className="container">
         <LinkButton href="/itemlist">상품리스트 스프린트4</LinkButton>
       </div>
       <Footer />

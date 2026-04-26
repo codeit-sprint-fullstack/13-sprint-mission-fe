@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "./Button";
 import styles from "../css/SectionTitle.module.css";
 
 const SectionTitle = ({ title = "title", children }) => {

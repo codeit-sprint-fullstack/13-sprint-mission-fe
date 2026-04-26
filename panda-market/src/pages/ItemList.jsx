@@ -1,26 +1,36 @@
 import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Button from "../components/Button";
+import SectionTitle from "../components/SectionTitle";
+import ItemListGeneral from "../components/ItemListGeneral";
 
 const ItemList = () => {
   return (
-    <div>
-      <section>
-        <h2>베스트 상품</h2>
-        <ul>
-          <li>card</li>
-        </ul>
-      </section>
-      <section>
-        <div>
-          <h2>판매 중인 상품</h2>
+    <div className="page-wrapper">
+      <Navbar />
+      <div className="container">
+        <section>
+          <SectionTitle title="베스트 상품"></SectionTitle>
+          <ul>
+            <li>card</li>
+          </ul>
+        </section>
+        <section>
           <div>
-            <input></input>
-            <button>상품 등록하기</button>
+            <SectionTitle title="판매 중인 상품">
+              <input></input>
+              <Button>상품 등록하기</Button>
+            </SectionTitle>
           </div>
-        </div>
-        <ul>
-          <li>card</li>
-        </ul>
-      </section>
+          <ul>
+            <li>
+              <ItemListGeneral />
+            </li>
+          </ul>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 };

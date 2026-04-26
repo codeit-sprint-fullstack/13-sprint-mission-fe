@@ -20,14 +20,18 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 100vw;
   font-family: var(--font-family-base);
 }
 
-.content {
+.container {
+  /* 콘텐츠 Flex 컨테이너 */
   display: flex;
+  flex-direction: column;
   flex: 1;
   justify-content: center;
-  align-items: center;
+  width: 100%;
+  padding: 0 200px;
 }
 
 /* .main {

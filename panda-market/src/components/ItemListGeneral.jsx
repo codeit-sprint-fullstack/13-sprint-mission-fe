@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
-// import heart-fill from '../assets/icon/heart-fill.svg'
 
 export default function ItemListGeneral() {
   const [products, setProducts] = useState([]);

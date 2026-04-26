@@ -1,11 +1,12 @@
 import React from "react";
 import Button from "./Button";
+import styles from "../css/SectionTitle.module.css";
 
 const SectionTitle = ({ title = "title", children }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-      <div>{children}</div>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.container}>{children}</div>
     </div>
   );
 };

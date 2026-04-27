@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>판다마켓 - 중고거래</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">🐼 판다마켓</a>
+      <nav>
+        <a href="#">자유게시판</a>
+        <a href="#" class="active">중고마켓</a>
+      </nav>
+      <button class="btn-login">로그인</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 베스트 상품 -->
+    <section class="section container">
+      <div class="section-header">
+        <h2>🏆 베스트 상품</h2>
+      </div>
+      <ul id="best-list" class="best-list"></ul>
+    </section>
+
+    <!-- 판매 중인 상품 -->
+    <section class="section container">
+      <div class="section-header">
+        <h2>판매 중인 상품</h2>
+        <div class="section-controls">
+          <div class="search-wrap">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="검색할 상품을 입력해주세요" />
+          </div>
+          <button class="btn-register">+ 상품 등록하기</button>
+          <select id="sort-select" class="sort-select">
+            <option value="recent">최신순</option>
+            <option value="favorite">좋아요순</option>
+          </select>
+        </div>
+      </div>
+      <ul id="product-list" class="product-list"></ul>
+      <div id="pagination" class="pagination"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

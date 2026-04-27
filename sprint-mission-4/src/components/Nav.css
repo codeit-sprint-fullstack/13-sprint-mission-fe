@@ -5,24 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
-/* .counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-} */
 nav {
   position: fixed;
   top: 0;
@@ -83,6 +66,7 @@ nav .menu a {
   font-style: normal;
   font-weight: 700;
   line-height: 26px;
+  text-decoration: none;
 }
 
 .login-btn {

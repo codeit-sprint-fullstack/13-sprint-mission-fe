@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import "./Article.css";
 import heart from "../assets/ic_heart.svg";
 import search from "../assets/ic_search.svg";
+import arrowLeft from "../assets/arrow_left.svg";
+import arrowRight from "../assets/arrow_right.svg";
 
 // page, pageSize, orderBy = "favortie"
 // 상품 베스트 4개 뽑는 용
@@ -42,6 +44,8 @@ export default function Article() {
   const [productsList, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,12 +59,19 @@ export default function Article() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await getProducts(1, 10, keyword, orderBy);
+      const res = await getProducts(currentPage, 10, keyword, orderBy);
+
       setProducts(res?.list || []);
+      setTotalCount(res?.totalCount || 0);
     };
 
     fetchProducts();
-  }, [keyword, orderBy]);
+  }, [currentPage, keyword, orderBy]);
+
+  const totalPages = Math.ceil(totalCount / 10);
+  const currentGroup = Math.ceil(currentPage / 5);
+  const startPage = (currentGroup - 1) * 5 + 1;
+  const endPage = Math.min(startPage + 4, totalPages);
 
   return (
     <>
@@ -125,6 +136,36 @@ export default function Article() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="pages">
+          <button
+            disabled={startPage === 1}
+            onClick={() => setCurrentPage(startPage - 1)}
+            className="page"
+          >
+            <img src={arrowLeft} />
+          </button>
+
+          {Array.from(
+            { length: endPage - startPage + 1 },
+            (_, i) => i + startPage,
+          ).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`page ${page === currentPage ? "active" : ""}`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <button
+            disabled={endPage === totalPages}
+            onClick={() => setCurrentPage(endPage + 1)}
+            className="page"
+          >
+            <img src={arrowRight} />
+          </button>
         </div>
       </div>
     </>

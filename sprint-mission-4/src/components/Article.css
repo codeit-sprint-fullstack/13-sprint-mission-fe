@@ -101,7 +101,7 @@ h2 {
   /* justify-content: end; d왜 안도미??  */
   gap: 12px;
 }
-/* 여기서 정렬이 중앙에 안되는데... 깔끔하게 해결하는방법없나...?  */
+/* 여기서 정렬이 중앙에 안되는데... 깔끔하게 해결하는방법없나...?  -> 해결?? */
 .search-box-container {
   display: flex;
   align-items: center;
@@ -201,6 +201,15 @@ h2 {
   height: 221px;
   border-radius: 8px;
 }
+/* @media (max-width: 375px) {
+  .selling-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .selling-container .card img {
+    width: 168px;
+    height: 168px;
+  }
+} */
 
 /* 속성이 같은것 같아서 안써도 될것 같음 ㅇㅇ  */
 .selling-container .card .name {
@@ -246,3 +255,36 @@ h2 {
   line-height: 18px; /* 150% */
 }
 /* 여기까지 중복도미 ㅇㅇ  */
+.pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 43px;
+}
+.page {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+
+  color: var(--Cool-Gray-500, #6b7280);
+  font-family: Pretendard, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  cursor: pointer;
+}
+.page.active {
+  background-color: #2f80ed;
+  color: #ffffff;
+  border-color: #2f80ed;
+}
+.page.arrow img {
+  width: 16px;
+  height: 16px;
+}

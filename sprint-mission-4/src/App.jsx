@@ -1,20 +1,18 @@
-// import { Routes, Route } from "react-router-dom";
+// App.jsx
+
+// PC, Tablet, Mobile 디자인에 해당하는 중고마켓 페이지를 만들어 주세요.
+// 상품 데이터는 https://panda-market-api.vercel.app/docs/에 명세된 GET 메소드 “/products” 를 사용해주세요.
+// 중고마켓 페이지 url path는 별도로 설정하지 않고, ‘/’에 보이도록 합니다.
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import BestProducts from "./components/BestProductList";
-import ProductGrid from "./components/ProductGrid";
-import BestProductList from "./components/BestProductList";
 import "./App.css";
+import Article from "./components/Article";
 
 function App() {
   return (
-    <div>
-      {/* <h1>Hello, React! 👋</h1>
-      <p>나의 첫 리액트 프로젝트입니다.</p> */}
+    <div className="App">
       <Nav />
-      {/* <BestProductList /> */}
-      {/* <Mid />  */}
-      {/* <ProductGrid /> */}
+      <Article />
       <Footer />
     </div>
   );

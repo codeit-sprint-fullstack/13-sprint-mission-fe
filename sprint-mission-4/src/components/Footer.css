@@ -15,9 +15,13 @@ footer {
   justify-content: center;
 }
 .footer-copy {
-  color: var(--Secondary);
+  color: var(--Secondary-400, #9ca3af);
+  text-align: center;
+  font-family: Pretendard;
   font-size: 16px;
-  white-space: nowrap;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .footer-links {
   display: flex;
@@ -26,9 +30,13 @@ footer {
   margin-right: auto;
 }
 .footer-links a {
-  color: #e5e7eb;
+  color: var(--Secondary-200, #e5e7eb);
   text-decoration: none;
+  font-family: Pretendard;
   font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   cursor: pointer;
 }
 .footer-sns {

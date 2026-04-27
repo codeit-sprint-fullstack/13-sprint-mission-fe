@@ -4,6 +4,7 @@ import facebook from "../assets/ic_facebook.svg";
 import twitter from "../assets/ic_twitter.svg";
 import instagram from "../assets/ic_instagram.svg";
 import youtube from "../assets/ic_youtube.svg";
+// 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요
 
 export default function Footer() {
   return (

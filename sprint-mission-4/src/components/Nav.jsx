@@ -1,10 +1,10 @@
 import React from "react";
 import "./Nav.css";
 import pandaLogo from "../assets/판다 얼굴.svg";
+// 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요
 
 export default function Nav() {
   const handleLoginClick = () => {
-    // 실제 서비스에서는 여기에 로그인 API 호출이나 페이지 이동 로직을 넣습니다.
     alert("로그인 페이지로 이동합니다.");
   };
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../css/ProductPage.css";
 
 export default function ProductPage() {
@@ -112,6 +112,7 @@ export default function ProductPage() {
                 }
                 alt="판매 중인 상품 이미지"
                 className="stock-image"
+                onError={(e) => (e.target.src = "/public/warning.png")}
               />
               <div className="stock-contents-box">
                 <p className="stock-name">{stockproduct.name}</p>

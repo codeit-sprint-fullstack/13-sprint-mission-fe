@@ -60,12 +60,9 @@ export default function ProductPage() {
               <div className="contents-box">
                 <p className="best-name">{bestproduct.name}</p>
                 <p className="best-price">{bestproduct.price}원</p>
-                <p className="best-tags">{bestproduct.tags.join(", ")}</p>
-                <p className="best-date">
-                  {new Date(bestproduct.createdAt).toLocaleDateString()}
-                </p>
+
                 <p className="best-favorite-count">
-                  ♥️ {bestproduct.favoriteCount}
+                  ♡ {bestproduct.favoriteCount}
                 </p>
               </div>
             </li>
@@ -79,24 +76,28 @@ export default function ProductPage() {
           <h2 className="stockproduct-title">판매 중인 상품</h2>
           <div className="product-feature">
             {/* 검색 및 정렬 */}
-            <form className="stock-search">
+            <label htmlFor="stock-search">
               <input
-                type="text"
+                type="search"
                 className="stock-search"
                 placeholder="🔎검색할 상품을 입력해주세요"
               />{" "}
-            </form>
+            </label>
             <button className="product-register `">상품 등록하기</button>
             <select
               className="product-sort"
               value={orderBy}
               onChange={(e) => {
                 setOrderBy(e.target.value);
-                setPage(1); // 정렬 바꾸면 첫 페이지로 이동
+                setPage(1);
               }}
             >
-              <option value="recent">최신 순</option>
-              <option value="favorite">좋아요 순</option>
+              <option value="recent" className="recent">
+                최신 순
+              </option>
+              <option value="favorite" className="favorite">
+                좋아요 순
+              </option>
             </select>
           </div>
         </div>
@@ -117,12 +118,9 @@ export default function ProductPage() {
               <div className="stock-contents-box">
                 <p className="stock-name">{stockproduct.name}</p>
                 <p className="stock-price">{stockproduct.price}원</p>
-                <p className="stock-tags">{stockproduct.tags.join(", ")}</p>
-                <p className="stock-date">
-                  {new Date(stockproduct.createdAt).toLocaleDateString()}
-                </p>
+
                 <p className="stock-favorite-count">
-                  ♥️ {stockproduct.favoriteCount}
+                  ♡ {stockproduct.favoriteCount}
                 </p>
               </div>
             </li>

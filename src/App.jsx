@@ -12,7 +12,7 @@ function App() {
       <Routes>
         {/* 메인 페이지 */}
         <Route
-          path="/home"
+          path="/"
           element={
             <>
               <Header />

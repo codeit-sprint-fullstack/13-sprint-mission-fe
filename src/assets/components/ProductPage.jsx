@@ -7,7 +7,6 @@ export default function ProductPage() {
   const [orderBy, setOrderBy] = useState("recent"); // 기본은 최신순
   const [page, setPage] = useState(1); // 현재 페이지
   const [totalCount, setTotalCount] = useState(0); // 전체 상품 개수
-
   // 판매 중인 상품 (페이지네이션 + 정렬)
   useEffect(() => {
     fetch(
@@ -83,7 +82,7 @@ export default function ProductPage() {
                 placeholder="🔎검색할 상품을 입력해주세요"
               />{" "}
             </label>
-            <button className="product-register `">상품 등록하기</button>
+            <button className="product-register">상품 등록하기</button>
             <select
               className="product-sort"
               value={orderBy}

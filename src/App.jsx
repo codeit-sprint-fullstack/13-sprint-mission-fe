@@ -12,7 +12,7 @@ function App() {
       <Routes>
         {/* 메인 페이지 */}
         <Route
-          path="/"
+          path="/home"
           element={
             <>
               <Header />
@@ -39,7 +39,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
 
         {/* 회원가입 페이지 <헤더/푸터 없음) */}
-        {/* 로그인 페이지 (헤더/푸터 없음) */}
+
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

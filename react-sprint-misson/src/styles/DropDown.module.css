@@ -1,0 +1,77 @@
+.selectBox {
+  position: relative;
+  width: 13rem;
+  height: 4.2rem;
+  border-radius: 1.2rem;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+}
+
+.label {
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-family: var(--font-pretendard);
+  margin-left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 0.8rem;
+  transform: translateY(-50%);
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.options {
+  position: absolute;
+  top: 3.8rem;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  justify-items: center;
+  background-color: #fefefe;
+  border-radius: 1.2rem;
+  border: solid 1px var(--gray-200);
+  max-height: 0;
+  overflow: hidden;
+  border: none;
+}
+
+.show {
+  max-height: none;
+  border: 1px solid #cccccc;
+}
+.option {
+  border-top: solid 1px var(--gray-200);
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-family: var(--font-pretendard);
+  padding: 1rem 0;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+.option:first-child {
+  border-top: none;
+}
+
+@media (max-width: 375px) {
+  .selectBox {
+    width: 4.2rem; /* 정사각형 */
+    margin-left: auto;
+  }
+
+  .label {
+    visibility: hidden;
+  }
+
+  .arrow {
+    right: 50%;
+    transform: translate(50%, -50%); /* 수평 중앙 정렬 */
+  }
+}

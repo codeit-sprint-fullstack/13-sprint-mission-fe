@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Button from "../components/Button";
 import SectionTitle from "../components/SectionTitle";
 import ItemListGeneral from "../components/ItemListGeneral";
+import ItemListBest from "../components/ItemListBest";
 
 const ItemList = () => {
   return (
@@ -11,23 +12,10 @@ const ItemList = () => {
       <Navbar />
       <div className="container">
         <section>
-          <SectionTitle title="베스트 상품"></SectionTitle>
-          <ul>
-            <li>card</li>
-          </ul>
+          <ItemListBest />
         </section>
         <section>
-          <div>
-            <SectionTitle title="판매 중인 상품">
-              <input></input>
-              <Button>상품 등록하기</Button>
-            </SectionTitle>
-          </div>
-          <ul>
-            <li>
-              <ItemListGeneral />
-            </li>
-          </ul>
+          <ItemListGeneral />
         </section>
       </div>
       <Footer />

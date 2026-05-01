@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import styles from "../css/ItemListGeneral.module.css";
 import SectionTitle from "./SectionTitle";
+import ListSearch from "./ListSearch";
 import Button from "./Button";
+import Dropdown from "./Dropdown";
 
 export default function ItemListGeneral() {
   const [products, setProducts] = useState([]);
@@ -13,12 +15,13 @@ export default function ItemListGeneral() {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const start = Math.max(1, currentPage - 2) - 1;
   const [orderBy, setorderBy] = useState("recent");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     async function getProducts() {
       try {
         const response = await fetch(
-          `https://panda-market-api.vercel.app/products?page=${currentPage}&pageSize=${size}&orderBy=${orderBy}`,
+          `https://panda-market-api.vercel.app/products?page=${currentPage}&pageSize=${size}&orderBy=${orderBy}&keyword=${searchText}`,
         );
         const data = await response.json();
         setProducts(data.list);
@@ -28,16 +31,16 @@ export default function ItemListGeneral() {
       }
     }
     getProducts();
-  }, [currentPage]);
+  }, [currentPage, searchText]);
 
   return (
     <>
       {/* 인풋박스 컴포넌트 만들기
     드롭다운 컴포넌트 만들기 */}
       <SectionTitle title="판매 중인 상품">
-        <input></input>
+        <ListSearch onSearch={(value) => setSearchText(value)} />
         <Button>상품 등록하기</Button>
-        <dropdown></dropdown>
+        <Dropdown />
       </SectionTitle>
       <div className={styles.list}>
         {products.map((product) => (

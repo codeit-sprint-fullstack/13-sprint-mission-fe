@@ -159,6 +159,9 @@
   }
 
   /* search Input */
+  .searchBar {
+    order: 3;
+  }
   .searchInput {
     /* Viewport Width - (Body Padding * 2) - SortBtn Width - Gap Size */
     width: calc(100vw - (16px * 2) - 42px - 14px);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import styles from "../css/ItemListBest.module.css";
+import SectionTitle from "./SectionTitle";
 
 export default function ItemListBest() {
   const [products, setProducts] = useState([]);
@@ -21,16 +22,19 @@ export default function ItemListBest() {
   }, []);
 
   return (
-    <div className={styles.list}>
-      {products.map((product) => (
-        <ItemCard
-          key={product.id}
-          image={product.images}
-          name={product.name}
-          price={product.price}
-          favoriteCount={product.favoriteCount}
-        />
-      ))}
-    </div>
+    <>
+      <SectionTitle title="베스트 상품"></SectionTitle>
+      <div className={styles.list}>
+        {products.slice(0, 4).map((product) => (
+          <ItemCard
+            key={product.id}
+            image={product.images}
+            name={product.name}
+            price={product.price}
+            favoriteCount={product.favoriteCount}
+          />
+        ))}
+      </div>
+    </>
   );
 }

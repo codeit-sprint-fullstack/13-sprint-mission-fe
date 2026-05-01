@@ -1,0 +1,28 @@
+/* ---------- App Styles ---------- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+.app {
+  /* Common Font Style */
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    Roboto,
+    "Helvetica Neue",
+    sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+body {
+  /* Body Padding Style */
+  padding: 0 var(--body-padding);
+}
+
+/* 모바일: 화면 너비 767px 이하 */
+@media (max-width: 767px) {
+  /* Body Padding Style */
+  body {
+    padding: 0 var(--body-padding-m);
+  }
+}

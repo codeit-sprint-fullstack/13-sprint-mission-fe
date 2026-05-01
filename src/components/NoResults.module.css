@@ -1,0 +1,11 @@
+/* ---------- No Result Styles ---------- */
+.noResults {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 100px 0;
+  font-size: 18px;
+  line-height: calc(32 / 18);
+  color: var(--Cool-Gray-900);
+}

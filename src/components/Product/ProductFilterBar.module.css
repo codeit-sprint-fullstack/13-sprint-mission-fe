@@ -1,0 +1,193 @@
+/* ---------- Product Filter Bar Styles ---------- */
+.productFilterBar {
+  display: flex;
+  align-content: center;
+  gap: 12px;
+  width: 100%;
+}
+.title {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: calc(32 / 20);
+  color: var(--Secondary-900);
+}
+
+/* Search Input */
+.searchBar {
+  position: relative;
+}
+.searchIc {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  z-index: 10;
+  display: block;
+  width: 24px;
+  height: 24px;
+  transform: translate(0, -50%);
+  background: url("../../assets/ic_search.svg") no-repeat center / cover;
+}
+.searchInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 325px;
+  height: 42px;
+  padding: 9px 20px 9px 44px;
+  border-radius: 12px;
+  color: var(--Secondary-900);
+  background: var(--Secondary-100);
+  line-height: calc(26 / 16);
+}
+.searchInput::placeholder {
+  color: var(--Secondary-400);
+}
+
+/* Search Button */
+.searchBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 12px 23px;
+  border-radius: 8px;
+  font-weight: 600;
+  line-height: calc(26 / 16);
+  color: var(--Cool-Gray-100);
+  background: var(--Primary-100);
+  cursor: pointer;
+}
+
+/* Sort Group */
+.sortGroup {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sort Selected Option */
+.selectedOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 130px;
+  height: 42px;
+  padding: 12px 20px;
+  gap: 5px;
+  border-radius: 12px;
+  border: 1px solid var(--Cool-Gray-200);
+  background: #fff;
+  cursor: pointer;
+}
+.selectedValue {
+  line-height: calc(26 / 16);
+  color: var(--Secondary-800);
+}
+.arrowBtn {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("../../assets/ic_arrow_down.svg") no-repeat center / cover;
+}
+.sortBtn {
+  display: none;
+}
+
+/* Sort Select */
+.sortSelect {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  width: 130px;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 12px;
+  border: 1px solid var(--Cool-Gray-200);
+  background: #fff;
+  overflow: hidden;
+}
+.sortSelect li {
+  width: 100%;
+}
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 42px;
+  line-height: calc(26 / 16);
+  color: var(--Secondary-800);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.option:not(:last-child) {
+  border-bottom: 1px solid var(--Cool-Gray-200);
+}
+.option:hover {
+  color: #fff;
+  background-color: var(--Primary-100);
+}
+
+/* 태블릿: 화면 너비 1023px 이하 */
+@media (max-width: 1023px) {
+  /* Search Input Style */
+  .searchInput {
+    width: 242px;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하 */
+@media (max-width: 767px) {
+  /* Filter Bar */
+  .productFilterBar {
+    flex-wrap: wrap;
+  }
+  .title {
+    flex: 0 0 auto;
+    order: 1;
+  }
+
+  /* Search Group */
+  .searchGroup {
+    order: 3;
+    justify-content: flex-end;
+  }
+
+  /* search Input */
+  .searchInput {
+    /* Viewport Width - (Body Padding * 2) - SortBtn Width - Gap Size */
+    width: calc(100vw - (16px * 2) - 42px - 14px);
+  }
+
+  /* Search Button */
+  .searchBtn {
+    order: 2;
+  }
+
+  /* Sorting Group  */
+  .sortGroup {
+    order: 4;
+  }
+  .selectedOption {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    gap: 0;
+  }
+  .selectedValue,
+  .arrowBtn {
+    display: none;
+    pointer-events: none;
+  }
+  .sortBtn {
+    display: block;
+    width: 42px;
+    height: 42px;
+    background: url("../../assets/ic_sort.svg") no-repeat center / 24px 24px;
+  }
+}

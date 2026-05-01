@@ -1,0 +1,30 @@
+/* ---------- 404 Styles ---------- */
+.empty {
+  text-align: center;
+  padding: 150px 20px;
+  color: #888;
+}
+
+.emptyTitle {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+}
+
+.button {
+  display: inline-flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: calc(26 / 16);
+  color: var(--Cool-Gray-100);
+  background: var(--Primary-100);
+}

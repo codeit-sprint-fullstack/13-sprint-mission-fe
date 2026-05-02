@@ -14,7 +14,7 @@ export default function ItemListGeneral() {
   const paginationLimit = 5;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const start = Math.max(1, currentPage - 2) - 1;
-  const [orderBy, setorderBy] = useState("recent");
+  const [orderBy, setOrderBy] = useState("recent");
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -31,16 +31,14 @@ export default function ItemListGeneral() {
       }
     }
     getProducts();
-  }, [currentPage, searchText]);
+  }, [currentPage, searchText, orderBy]);
 
   return (
     <>
-      {/* 인풋박스 컴포넌트 만들기
-    드롭다운 컴포넌트 만들기 */}
       <SectionTitle title="판매 중인 상품">
         <ListSearch onSearch={(value) => setSearchText(value)} />
         <Button>상품 등록하기</Button>
-        <Dropdown />
+        <Dropdown onList={(value) => setOrderBy(value)} />
       </SectionTitle>
       <div className={styles.list}>
         {products.map((product) => (

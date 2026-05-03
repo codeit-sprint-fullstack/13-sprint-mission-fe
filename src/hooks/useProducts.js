@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BASE_URL = "https://panda-market-api.vercel.app";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function useProducts({ page, pageSize, orderBy, keyword = "" }) {
   const [products, setProducts] = useState([]);

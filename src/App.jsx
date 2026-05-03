@@ -1,4 +1,3 @@
-import { useState } from "react";
 import MarketPage from "./pages/MarketPage.jsx";
 
 function App() {

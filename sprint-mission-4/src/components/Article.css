@@ -40,9 +40,9 @@ h2 {
   gap: 6px;
 } */
 .best-products-container .card img {
-  width: 282px;
-  /* height: 282px;
-  width: 100%; */
+  /* width: 282px; */
+  /* height: 282px; */
+  width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 8px;
@@ -53,9 +53,10 @@ h2 {
     gap: 15px;
     /* gap 이 따로 안적혀 있음,,,,  */
   }
-  .best-products-container .card img {
+  /* .best-products-container .card img {
     width: 343px;
-  }
+    width: 100%;
+  } */
 }
 @media (max-width: 375px) {
   .best-products-container {
@@ -220,9 +221,9 @@ h2 {
   flex-direction: column;
 }
 .selling-container .card img {
-  width: 221px;
+  /* width: 221px; */
   /* height: 221px; */
-  /* width: 100%; */
+  width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 8px;
@@ -238,10 +239,11 @@ h2 {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-  .selling-container .card img {
-    width: 168px;
-    /* height: 168px; */
-  }
+  /* .selling-container .card img {
+    width: 168px; 
+     height: 168px;
+    width: 100%; 
+  } */
 }
 
 /* 속성이 같은것 같아서 안써도 될것 같음 ㅇㅇ  */

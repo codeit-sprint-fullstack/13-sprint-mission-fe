@@ -9,10 +9,10 @@ import arrowRight from "../assets/arrow_right.svg";
 
 // page, pageSize, orderBy = "favortie"
 // 상품 베스트 4개 뽑는 용
-async function getBestProducts() {
+async function getBestProducts(pageSize = 4) {
   try {
     const res = await fetch(
-      `https://panda-market-api.vercel.app/products?page=1&pageSize=4&orderBy=favorite`,
+      `https://panda-market-api.vercel.app/products?page=1&pageSize=${pageSize}&orderBy=favorite`,
     );
     if (!res.ok) throw new Error(`에러 발생: ${res.status}`);
     return await res.json();
@@ -46,29 +46,71 @@ export default function Article() {
   const [orderBy, setOrderBy] = useState("recent");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  // 반응형
+  const [pageSize, setPageSize] = useState(10);
+  const [bestLimit, setBestLimit] = useState(4);
 
+  // 반응형
   useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      let newPageSize = 10;
+      let newBestLimit = 4;
+      if (width <= 375) {
+        newPageSize = 4;
+        newBestLimit = 1;
+      } else if (width <= 767) {
+        newPageSize = 6;
+        newBestLimit = 2;
+      }
+
+      setBestLimit(newBestLimit);
+
+      setPageSize((prevSize) => {
+        if (prevSize !== newPageSize) {
+          setCurrentPage(1);
+          return newPageSize;
+        }
+        return prevSize;
+      });
+    };
+
     const fetchData = async () => {
-      const data = await getBestProducts();
-      console.log("API 응답 데이터 확인:", data); // 👈 여기를 추가해서 콘솔창(F12)을 확인해보세요!
+      const data = await getBestProducts(bestLimit);
       setBest(data?.list || []);
     };
 
     fetchData();
-  }, []);
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [bestLimit]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await getBestProducts(bestLimit);
+  //     setBest(data?.list || []);
+  //   };
+
+  //   fetchData();
+  // }, [bestLimit]); 왠진 모르겠지... 만 .. 이걸 안에 넣으니 되네..?
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await getProducts(currentPage, 10, keyword, orderBy);
+      const res = await getProducts(currentPage, pageSize, keyword, orderBy);
 
       setProducts(res?.list || []);
       setTotalCount(res?.totalCount || 0);
     };
 
     fetchProducts();
-  }, [currentPage, keyword, orderBy]);
+  }, [currentPage, pageSize, keyword, orderBy]);
 
-  const totalPages = Math.ceil(totalCount / 10);
+  const totalPages = Math.ceil(totalCount / pageSize);
   const currentGroup = Math.ceil(currentPage / 5);
   const startPage = (currentGroup - 1) * 5 + 1;
   const endPage = Math.min(startPage + 4, totalPages);

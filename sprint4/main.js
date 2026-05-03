@@ -1,6 +1,5 @@
 import { getProductList } from "./ProductService.js";
 
-// 현재 정렬 상태를 저장할 변수 (기본값: 최신순)
 let currentOrderBy = "recent";
 
 export function renderProducts(products, elementId) {
@@ -35,24 +34,18 @@ export function renderProducts(products, elementId) {
     .join("");
 }
 
-// 데이터를 불러오고 렌더링하는 핵심 함수
 async function loadProducts(orderBy = "recent") {
   try {
-    // API 호출 시 정렬 기준(orderBy)을 전달 (API 명세에 맞게 파라미터 확인 필요)
-    // 4개(베스트) + 8개(판매중)를 한 번에 보여주기 위해 넉넉히 12개 이상 가져옵니다.
     const data = await getProductList(1, 20, "", orderBy);
 
     let products =
       data && data.list ? data.list : Array.isArray(data) ? data : [];
 
-    // 특정 이름 제외 필터링
     products = products.filter((item) => !item.name.includes("김대영"));
 
     if (products.length > 0) {
-      // 1. 베스트 상품 (상위 4개)
       renderProducts(products.slice(0, 4), "bestProductList");
 
-      // 2. 판매 중인 상품 (4개씩 2줄 = 8개)
       renderProducts(products.slice(0, 8), "productList");
     } else {
       document.getElementById("productList").innerHTML =
@@ -62,19 +55,16 @@ async function loadProducts(orderBy = "recent") {
     console.error("데이터 로드 중 에러 발생:", err);
   }
 }
-
-// 이벤트 리스너 설정
 function setupEventListeners() {
   const sortSelect = document.getElementById("sortOrder");
   if (sortSelect) {
     sortSelect.addEventListener("change", (e) => {
-      currentOrderBy = e.target.value; // 'recent' 또는 'favorite'
+      currentOrderBy = e.target.value;
       loadProducts(currentOrderBy);
     });
   }
 }
 
-// 초기 실행
 function init() {
   setupEventListeners();
   loadProducts(currentOrderBy);

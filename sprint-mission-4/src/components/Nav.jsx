@@ -1,3 +1,4 @@
+// Nav.jsx
 import React from "react";
 import "./Nav.css";
 import pandaLogo from "../assets/판다 얼굴.svg";

@@ -17,6 +17,7 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 40px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -27,8 +28,10 @@ h2 {
 }
 
 .best-products-container {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Desktop: 4열 */
   gap: 24px;
 }
 /* .card {
@@ -38,10 +41,27 @@ h2 {
 } */
 .best-products-container .card img {
   width: 282px;
-  height: 282px;
+  /* height: 282px;
+  width: 100%; */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 8px;
 }
-
+@media (max-width: 767px) {
+  .best-products-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    /* gap 이 따로 안적혀 있음,,,,  */
+  }
+  .best-products-container .card img {
+    width: 343px;
+  }
+}
+@media (max-width: 375px) {
+  .best-products-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 .best-products-container .card .name {
   margin-top: 16px;
   color: var(--Secondary-800, #1f2937);
@@ -101,6 +121,8 @@ h2 {
   /* justify-content: end; d왜 안도미??  */
   gap: 12px;
 }
+/* wrap 되어여하는데....  */
+
 /* 여기서 정렬이 중앙에 안되는데... 깔끔하게 해결하는방법없나...?  -> 해결?? */
 .search-box-container {
   display: flex;
@@ -191,6 +213,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 24px;
+  width: 100%;
 }
 .selling-container .card {
   display: flex;
@@ -198,18 +221,28 @@ h2 {
 }
 .selling-container .card img {
   width: 221px;
-  height: 221px;
+  /* height: 221px; */
+  /* width: 100%; */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 8px;
 }
-/* @media (max-width: 375px) {
+@media (max-width: 767px) {
+  .selling-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+@media (max-width: 375px) {
   .selling-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   .selling-container .card img {
     width: 168px;
-    height: 168px;
+    /* height: 168px; */
   }
-} */
+}
 
 /* 속성이 같은것 같아서 안써도 될것 같음 ㅇㅇ  */
 .selling-container .card .name {

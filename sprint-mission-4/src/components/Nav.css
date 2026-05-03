@@ -20,7 +20,9 @@ nav {
 .nav-container {
   width: 100%;
   max-width: 1920px;
-  padding: 0 200px;
+  /* padding: 0 200px; */
+  /* padding: 0 auto; */
+  padding: 0 clamp(16px, 26vw, 200px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +39,6 @@ nav {
   height: 40px;
   flex-shrink: 0;
 }
-
 .logo-wrap {
   display: flex;
   align-items: center;
@@ -52,7 +53,6 @@ nav {
   padding: 5.017px 0 5.848px 0;
   flex-shrink: 0;
 }
-
 nav .menu {
   display: flex;
   flex: 1;
@@ -67,6 +67,22 @@ nav .menu a {
   font-weight: 700;
   line-height: 26px;
   text-decoration: none;
+
+  white-space: nowrap;
+}
+
+/* @media (max-width: 767px) {
+  .nav-container {
+    padding: 0 clamp(8px, 3vw, 200px);
+  }
+} */
+@media (max-width: 375px) {
+  /* .nav-container {
+    padding: 0 10px;
+  } */
+  nav .menu a {
+    font-size: 16px;
+  }
 }
 
 .login-btn {

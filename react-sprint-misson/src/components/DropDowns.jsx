@@ -1,6 +1,6 @@
 // components/Dropdown.jsx
 import styles from "../styles/DropDown.module.css";
-import { useDropdown } from "../hooks/useDropdown";
+import { useDropdown } from "../hooks/useDropDown";
 import dropdownArrow from "../assets/icons/ic_arrow_down.png";
 import mobileDropDown from "../assets/icons/ic_sort.svg";
 import { useWindowSize } from "../hooks/useWindowSize";

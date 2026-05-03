@@ -5,13 +5,13 @@ import Products from "./pages/Products";
 
 function App() {
   return (
-    <body>
+    <>
       <Header />
       <main>
         <Products />
       </main>
       <Footer />
-    </body>
+    </>
   );
 }
 

@@ -8,7 +8,7 @@
   font-family: "Pretendard Variable";
   font-style: normal;
   font-display: swap;
-  src: url("../fonts/PretendardVariable.woff2") format("woff2");
+  src: url("./assets/fonts/PretendardVariable.woff2") format("woff2");
 }
 
 :root {
@@ -52,7 +52,13 @@ a {
   text-decoration: none;
 }
 
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
 }

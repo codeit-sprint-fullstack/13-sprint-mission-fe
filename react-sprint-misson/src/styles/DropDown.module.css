@@ -33,15 +33,13 @@
   left: 0;
   width: 100%;
   padding: 0;
-  justify-items: center;
   background-color: #fefefe;
   border-radius: 1.2rem;
-  border: solid 1px var(--gray-200);
   max-height: 0;
   overflow: hidden;
   border: none;
+  z-index: 10;
 }
-
 .show {
   max-height: none;
   border: 1px solid #cccccc;
@@ -62,7 +60,7 @@
 
 @media (max-width: 375px) {
   .selectBox {
-    width: 4.2rem; /* 정사각형 */
+    width: 4.2rem;
     margin-left: auto;
   }
 
@@ -72,6 +70,12 @@
 
   .arrow {
     right: 50%;
-    transform: translate(50%, -50%); /* 수평 중앙 정렬 */
+    transform: translate(50%, -50%);
+  }
+
+  .options {
+    width: 13rem;
+    left: auto;
+    right: 0;
   }
 }

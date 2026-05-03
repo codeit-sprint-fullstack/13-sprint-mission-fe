@@ -1,16 +1,16 @@
 /* App.css */
 body {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
-
 main {
-  margin-left: 36rem;
-  margin-right: 36rem;
-  margin-top: 11.5rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 192rem;
+  margin: 0 auto;
+  margin-top: 6.8rem;
   flex: 1;
-  padding-bottom: 10rem;
+  padding-bottom: 14rem;
 }

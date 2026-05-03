@@ -174,7 +174,7 @@ h2 {
   border: 1px solid var(--Cool-Gray-200, #e5e7eb);
   background: #fff;
 }
-@media (max-width: 575px) {
+@media (max-width: 375px) {
   .sort-dropdown {
     width: 42px;
     background-image: url("../assets/ic_sort.svg");

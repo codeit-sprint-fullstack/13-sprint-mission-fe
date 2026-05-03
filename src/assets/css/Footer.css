@@ -60,3 +60,33 @@
   flex-direction: row;
   gap: 12px;
 }
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    height: auto;
+    min-height: 160px;
+    padding: 32px 16px;
+  }
+
+  .footer-page {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px 16px;
+    align-items: start;
+  }
+
+  .copy-right {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .footer-links {
+    gap: 16px;
+  }
+}

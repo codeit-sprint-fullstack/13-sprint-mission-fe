@@ -40,6 +40,11 @@
   font-weight: 500;
   text-decoration: none;
 }
+
+.second-hands.active {
+  color: var(--primary100);
+  font-weight: 700;
+}
 .logo-mark {
   width: 40px;
   height: 40px;
@@ -75,4 +80,59 @@
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  #header {
+    padding: 0 24px;
+  }
+
+  .market-logo {
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  .second-hands {
+    font-size: 16px;
+  }
+
+  .lgn-btn {
+    width: 88px;
+    height: 42px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #header {
+    height: 56px;
+    padding: 0 16px;
+  }
+
+  .market-logo {
+    gap: 12px;
+  }
+
+  .community {
+    display: none;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  #logo-title {
+    font-size: 1.25rem;
+  }
+
+  .second-hands {
+    font-size: 15px;
+  }
+
+  .lgn-btn {
+    width: 72px;
+    height: 38px;
+    font-size: 14px;
+  }
 }

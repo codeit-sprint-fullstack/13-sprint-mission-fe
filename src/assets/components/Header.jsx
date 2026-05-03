@@ -1,7 +1,7 @@
 import pandalogo from "../Image/header-img.png";
 import "../css/Header.css";
 import "../css/root.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -16,9 +16,14 @@ export default function Header() {
           <p id="logo-title">판다마켓</p>
         </Link>
         <p className="community">자유게시판</p>
-        <Link to="/product">
-          <p className="second-hands">중고마켓</p>
-        </Link>
+        <NavLink
+          to="/product"
+          className={({ isActive }) =>
+            isActive ? "second-hands active" : "second-hands"
+          }
+        >
+          중고마켓
+        </NavLink>
       </div>
 
       <div className="login-container">

@@ -10,7 +10,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* 메인 페이지 */}
         <Route
           path="/"
           element={
@@ -22,7 +21,6 @@ function App() {
           }
         />
 
-        {/* 상품 페이지 */}
         <Route
           path="/product"
           element={
@@ -34,14 +32,8 @@ function App() {
           }
         />
 
-        {/* 로그인 페이지 (헤더/푸터 없음) */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-
-        {/* 회원가입 페이지 <헤더/푸터 없음) */}
-
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );

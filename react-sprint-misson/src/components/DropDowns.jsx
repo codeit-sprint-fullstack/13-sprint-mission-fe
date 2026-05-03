@@ -1,9 +1,9 @@
 // components/Dropdown.jsx
 import styles from "../styles/DropDown.module.css";
-import { useDropdown } from "../hooks/useDropDown";
+import { useDropdown } from "../hooks/useDropDown.js";
 import dropdownArrow from "../assets/icons/ic_arrow_down.png";
 import mobileDropDown from "../assets/icons/ic_sort.svg";
-import { useWindowSize } from "../hooks/useWindowSize";
+import { useWindowSize } from "../hooks/useWindowSize.js";
 
 const ORDER_OPTIONS = ["최신순", "좋아요순"];
 

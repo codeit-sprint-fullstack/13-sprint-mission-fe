@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 import "./Article.css";
 import heart from "../assets/ic_heart.svg";
 import search from "../assets/ic_search.svg";
 import arrowLeft from "../assets/arrow_left.svg";
 import arrowRight from "../assets/arrow_right.svg";
+import sort from "../assets/ic_sort.svg";
 
 // page, pageSize, orderBy = "favortie"
-// 상품 베스트 4개 뽑는 용
+// 상품 베스트 4개 뽑는 용 + 반응형 추가
 async function getBestProducts(pageSize = 4) {
   try {
     const res = await fetch(
@@ -89,15 +89,6 @@ export default function Article() {
       window.removeEventListener("resize", handleResize);
     };
   }, [bestLimit]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await getBestProducts(bestLimit);
-  //     setBest(data?.list || []);
-  //   };
-
-  //   fetchData();
-  // }, [bestLimit]); 왠진 모르겠지... 만 .. 이걸 안에 넣으니 되네..?
 
   useEffect(() => {
     const fetchProducts = async () => {

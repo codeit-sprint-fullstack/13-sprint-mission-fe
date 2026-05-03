@@ -46,3 +46,28 @@
   width: 20px;
   height: 20px;
 }
+
+@media screen and (max-width: 1024px) {
+  .footerInner {
+    padding: 32px 0 108px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footerInner {
+    padding: 32px 0 108px;
+    gap: 24px 0;
+  }
+
+  .footerCopyright {
+    order: 1;
+  }
+
+  .footerNav {
+    order: 2;
+  }
+
+  .footerSocial {
+    order: 3;
+  }
+}

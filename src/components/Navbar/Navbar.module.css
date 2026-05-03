@@ -13,7 +13,6 @@
   padding: 9px 200px;
   margin: 0 auto;
 }
-
 .headerLeft {
   display: flex;
   align-items: center;
@@ -52,11 +51,37 @@
   padding: 11px 23px;
   justify-content: center;
   align-items: center;
-  min-width: 128px;
-
   color: #f3f4f6;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.625;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .headerInner {
+    padding: 9px 0;
+  }
+  .headerLeft {
+    gap: 35px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .headerInner {
+    padding: 9px 0;
+  }
+  .headerLogo img {
+    display: none;
+  }
+
+  .headerLeft {
+    gap: 8px;
+  }
+  .headerLogoText {
+    font-size: 1.4rem;
+  }
+  .headerMenu {
+    gap: 8px;
+  }
 }

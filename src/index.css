@@ -94,6 +94,7 @@ canvas {
 
 img {
   object-fit: cover;
+  object-position: center;
   height: 100%;
 }
 
@@ -137,7 +138,16 @@ table {
   line-height: 1.5;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 0 16px;
+  }
   .mobile-hide {
     display: none !important;
   }

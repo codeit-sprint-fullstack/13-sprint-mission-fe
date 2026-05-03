@@ -2,97 +2,54 @@ import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import styles from "./MarketPage.module.css";
 import ProductCard from "../components/ProductCard/ProductCard.jsx";
-import { use, useEffect } from "react";
 import { useState } from "react";
+import useProducts from "../hooks/useProducts.js";
 
 function MarketPage() {
-  const BASE_URL = "https://panda-market-api.vercel.app";
-
-  /* BestProducts Section */
-  const [bestProducts, setBestProducts] = useState([]);
-  const [isBestLoading, setIsBestLoading] = useState(false);
-  const [bestError, setBestError] = useState(null);
-
-  useEffect(() => {
-    async function fetchBestProducts() {
-      setIsBestLoading(true);
-      setBestError(null);
-
-      try {
-        const params = new URLSearchParams({
-          orderBy: "favorite",
-          page: "1",
-          pageSize: "4",
-        });
-
-        const response = await fetch(`${BASE_URL}/products?${params}`);
-
-        if (!response.ok) {
-          throw new Error(`error! status ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        console.log("데이터 가져오기 성공:", data);
-
-        setBestProducts(data.list);
-      } catch (error) {
-        console.error("데이터 가져오기 실패", error);
-        setBestError(error.message);
-      } finally {
-        setIsBestLoading(false);
-      }
-    }
-    fetchBestProducts();
-  }, []);
-
-  /* Product Section */
-  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
-  const [isProductsLoading, setIsProductsLoading] = useState(false);
-  const [productsError, setProductsError] = useState(null);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      setIsProductsLoading(true);
-      setProductsError(null);
+  const pageSize = 10;
 
-      try {
-        const params = new URLSearchParams({
-          page: String(page),
-          pageSize: String(pageSize),
-          orderBy,
-          keyword,
-        });
+  const {
+    products: bestProducts,
+    isLoading: isBestLoading,
+    error: bestError,
+  } = useProducts({
+    page: 1,
+    pageSize: 4,
+    orderBy: "favorite",
+    keyword: "",
+  });
 
-        const response = await fetch(`${BASE_URL}/products?${params}`);
+  const {
+    products,
+    totalCount,
+    isLoading: isProductsLoading,
+    error: productsError,
+  } = useProducts({
+    page,
+    pageSize,
+    orderBy,
+    keyword,
+  });
 
-        if (!response.ok) {
-          throw new Error(`error! status ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("데이터 가져오기 성공:", data);
-        setProducts(data.list);
-      } catch (error) {
-        console.error("데이터 가져오기 실패", error);
-        setProductsError(error.message);
-      } finally {
-        setIsProductsLoading(false);
-      }
-    }
-
-    fetchProducts();
-  }, [page, orderBy, keyword]);
-
-  /* search toggle */
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
-  /* pagenation */
-  const pageNumbers = [1, 2, 3, 4, 5];
+  const totalPages = Math.ceil(totalCount / pageSize);
 
+  const pageGroupSize = 5;
+  const currentGroup = Math.ceil(page / pageGroupSize);
+
+  const startPage = (currentGroup - 1) * pageGroupSize + 1;
+  const endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
+
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index,
+  );
 
   return (
     <div className={styles.page}>
@@ -137,6 +94,14 @@ function MarketPage() {
                         className={styles.searchInput}
                         type="text"
                         placeholder="검색할 상품을 입력해주세요"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            setKeyword(searchInput.trim());
+                            setPage(1);
+                          }
+                        }}
                       />
                     </div>
                   </div>
@@ -149,10 +114,50 @@ function MarketPage() {
                       className={styles.sortButton}
                       onClick={() => setIsSortOpen((prev) => !prev)}
                     >
-                      <span>
+                      <span className={styles.sortText}>
                         {orderBy === "recent" ? "최신순" : "좋아요순"}
                       </span>
+                      <span
+                        className={styles.sortMobileIcon}
+                        aria-hidden="true"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M15 6.5V17.5M15 17.5L11.5 14M15 17.5L18.5 14"
+                            stroke="#1F2937"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
 
+                          <path
+                            d="M7.8999 15.5L9.4999 15.5"
+                            stroke="#1F2937"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+
+                          <path
+                            d="M5 7.5H10"
+                            stroke="#1F2937"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+
+                          <path
+                            d="M6.30005 11.5L9.50005 11.5"
+                            stroke="#1F2937"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </span>
                       <svg
                         className={styles.sortIcon}
                         xmlns="http://www.w3.org/2000/svg"
@@ -176,6 +181,7 @@ function MarketPage() {
                             className={styles.sortOption}
                             onClick={() => {
                               setOrderBy("recent");
+                              setPage(1);
                               setIsSortOpen(false);
                             }}
                           >
@@ -188,6 +194,7 @@ function MarketPage() {
                             className={styles.sortOption}
                             onClick={() => {
                               setOrderBy("favorite");
+                              setPage(1);
                               setIsSortOpen(false);
                             }}
                           >
@@ -207,11 +214,34 @@ function MarketPage() {
               <nav className={styles.pagination} aria-label="페이지네이션">
                 <button
                   type="button"
-                  className={styles.pageButton}
+                  className={styles.pageArrowButton}
                   disabled={page === 1}
                   onClick={() => setPage((prev) => prev - 1)}
                 >
-                  이전
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="19.5"
+                      fill="white"
+                      stroke="#E5E7EB"
+                    />
+
+                    <path
+                      d="M22 14L16 20L22 26"
+                      stroke="#9CA3AF"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
 
                 {pageNumbers.map((pageNumber) => (
@@ -229,10 +259,34 @@ function MarketPage() {
 
                 <button
                   type="button"
-                  className={styles.pageButton}
+                  className={styles.pageArrowButton}
+                  disabled={page === totalPages || totalPages === 0}
                   onClick={() => setPage((prev) => prev + 1)}
                 >
-                  다음
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="20"
+                      cy="20"
+                      r="19.5"
+                      fill="white"
+                      stroke="#E5E7EB"
+                    />
+
+                    <path
+                      d="M18 14L24 20L18 26"
+                      stroke="#9CA3AF"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
               </nav>
             </div>

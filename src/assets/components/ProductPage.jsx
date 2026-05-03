@@ -3,24 +3,21 @@ import "../css/ProductPage.css";
 
 export default function ProductPage() {
   const [bestProducts, setBestProduct] = useState([]);
-  const [stockProducts, setStockProduct] = useState([]);
-  const [orderBy, setOrderBy] = useState("recent"); // 기본은 최신순
+  const [allProducts, setAllProducts] = useState([]); // 전체 상품
+  const [orderBy, setOrderBy] = useState("recent");
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const [page, setPage] = useState(1); // 현재 페이지
-  const [totalCount, setTotalCount] = useState(0); // 전체 상품 개수
-  // 판매 중인 상품 (페이지네이션 + 정렬)
+  const pageSize = 10;
+
+  // 전체 상품 불러오기
   useEffect(() => {
     fetch(
-      `https://panda-market-api.vercel.app/products?page=${page}&pageSize=10&orderBy=${orderBy}`,
+      `https://panda-market-api.vercel.app/products?page=1&pageSize=9999&orderBy=${orderBy}`,
     )
       .then((res) => res.json())
-      .then((data) => {
-        setStockProduct(data.list);
-        setTotalCount(data.totalCount);
-      })
-      .catch((err) => console.error("데이터를 불러올 수 없습니다.", err));
-  }, [page, orderBy]);
-
-  const totalPages = Math.ceil(totalCount / 10);
+      .then((data) => setAllProducts(data.list))
+      .catch((err) => console.error("전체 상품 불러오기 실패", err));
+  }, [orderBy]);
 
   // 베스트 상품
   useEffect(() => {
@@ -32,7 +29,19 @@ export default function ProductPage() {
       .catch((err) => console.error("API 에러:", err));
   }, []);
 
-  // 페이지네이션 그룹 계산 (5개씩)
+  // 검색어로 필터링된 상품 리스트
+  const filteredProducts = allProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  // 페이지네이션 계산
+  const totalCount = filteredProducts.length;
+  const totalPages = Math.ceil(totalCount / pageSize);
+  const paginatedProducts = filteredProducts.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
+  );
+
   const getPageGroup = () => {
     const start = Math.floor((page - 1) / 5) * 5 + 1;
     const end = Math.min(start + 4, totalPages);
@@ -59,7 +68,6 @@ export default function ProductPage() {
               <div className="contents-box">
                 <p className="best-name">{bestproduct.name}</p>
                 <p className="best-price">{bestproduct.price}원</p>
-
                 <p className="best-favorite-count">
                   ♡ {bestproduct.favoriteCount}
                 </p>
@@ -69,18 +77,22 @@ export default function ProductPage() {
         </ul>
       </section>
 
-      {/* 판매 중인 상품 */}
+      {/* 전체 상품 검색 + 페이지네이션 */}
       <section className="stockproduct-list">
         <div className="best-nav">
           <h2 className="stockproduct-title">판매 중인 상품</h2>
           <div className="product-feature">
-            {/* 검색 및 정렬 */}
             <label htmlFor="stock-search">
               <input
                 type="search"
                 className="stock-search"
                 placeholder="🔎검색할 상품을 입력해주세요"
-              />{" "}
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setPage(1); // 검색 시 첫 페이지로 이동
+                }}
+              />
             </label>
             <button className="product-register">상품 등록하기</button>
             <select
@@ -91,35 +103,30 @@ export default function ProductPage() {
                 setPage(1);
               }}
             >
-              <option value="recent" className="recent">
-                최신 순
-              </option>
-              <option value="favorite" className="favorite">
-                좋아요 순
-              </option>
+              <option value="recent">최신 순</option>
+              <option value="favorite">좋아요 순</option>
             </select>
           </div>
         </div>
 
         <ul className="stockproduct-grid">
-          {stockProducts.map((stockproduct) => (
-            <li className="stock-feed" key={stockproduct.id}>
+          {paginatedProducts.map((product) => (
+            <li className="stock-feed" key={product.id}>
               <img
                 src={
-                  stockproduct.images && stockproduct.images.length > 0
-                    ? stockproduct.images[0]
+                  product.images && product.images.length > 0
+                    ? product.images[0]
                     : "/placeholder.png"
                 }
-                alt="판매 중인 상품 이미지"
+                alt="상품 이미지"
                 className="stock-image"
                 onError={(e) => (e.target.src = "/public/warning.png")}
               />
               <div className="stock-contents-box">
-                <p className="stock-name">{stockproduct.name}</p>
-                <p className="stock-price">{stockproduct.price}원</p>
-
+                <p className="stock-name">{product.name}</p>
+                <p className="stock-price">{product.price}원</p>
                 <p className="stock-favorite-count">
-                  ♡ {stockproduct.favoriteCount}
+                  ♡ {product.favoriteCount}
                 </p>
               </div>
             </li>
@@ -131,7 +138,6 @@ export default function ProductPage() {
           <button disabled={page === 1} onClick={() => setPage(page - 1)}>
             &lt;
           </button>
-
           {getPageGroup().map((p) => (
             <button
               key={p}
@@ -141,7 +147,6 @@ export default function ProductPage() {
               {p}
             </button>
           ))}
-
           <button
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}

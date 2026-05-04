@@ -1,0 +1,27 @@
+.footer {
+  background: #111;
+  color: white;
+  margin-top: 80px;
+}
+
+.footer .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .center {
+  display: flex;
+  gap: 16px;
+  color: #ccc;
+}
+
+.footer .right {
+  display: flex;
+  gap: 12px;
+  font-size: 18px;
+}

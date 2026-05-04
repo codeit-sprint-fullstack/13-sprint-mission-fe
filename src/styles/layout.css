@@ -1,0 +1,27 @@
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 160px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header-area .right {
+  display: flex;
+  gap: 12px;
+}

@@ -6,8 +6,6 @@ import Pagenation from "./Pagenation";
 export default function MainCard() {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("최신순");
-  const options = ["최신순", "좋아요순"];
-
   const [currentPage, setCurrentPage] = useState(1);
 
   return (

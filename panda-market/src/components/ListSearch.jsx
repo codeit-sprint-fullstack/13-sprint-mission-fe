@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import styles from "../css/ListSearch.module.css";
+import searchIcon from "../assets/icon/search.svg";
 
 const ListSearch = ({ onSearch }) => {
   const [text, setText] = useState();
@@ -9,8 +11,10 @@ const ListSearch = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.wrapper}>
+      <img src={searchIcon} />
       <input
+        className={`${styles.container} text-lg-regular`}
         type="search"
         placeholder="검색할 상품을 입력해주세요"
         value={text}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import arrowDown from "../assets/icon/arrow-down.svg";
 import arrowUp from "../assets/icon/arrow-up.svg";
+import styles from "../css/Dropdown.module.css";
 
 const Dropdown = ({ onList }) => {
   // 현재 정렬 상태
@@ -23,14 +24,17 @@ const Dropdown = ({ onList }) => {
 
   return (
     <div>
-      <div onClick={handleToggle}>
+      <div
+        onClick={handleToggle}
+        className={`${styles.wrapper} text-lg-regular`}
+      >
         <label>{currentValue === "recent" ? "최신순" : "좋아요순"}</label>
         <img src={arrowIcon} />
       </div>
       {isDropdownOpen && (
-        <div>
-          {/* 드롭다운 기능 만들다가 작업 종료 */}
-          <li
+        <div className={styles.container}>
+          <span
+            className={`${styles.list} text-lg-regular`}
             onClick={() => {
               setCurrentValue("recent");
               onList("recent");
@@ -38,8 +42,9 @@ const Dropdown = ({ onList }) => {
             }}
           >
             최신순
-          </li>
-          <li
+          </span>
+          <span
+            className={`${styles.list} text-lg-regular`}
             onClick={() => {
               setCurrentValue("favorite");
               onList("favorite");
@@ -47,7 +52,7 @@ const Dropdown = ({ onList }) => {
             }}
           >
             좋아요순
-          </li>
+          </span>
         </div>
       )}
     </div>

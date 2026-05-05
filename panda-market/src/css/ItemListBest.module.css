@@ -1,6 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  padding-top: 26px;
+}
 .list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: 24px;
-  column-gap: 40px;
+  column-gap: 24px;
 }

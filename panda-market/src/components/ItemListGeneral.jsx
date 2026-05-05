@@ -5,6 +5,8 @@ import SectionTitle from "./SectionTitle";
 import ListSearch from "./ListSearch";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
+import arrowLeft from "../assets/icon/arrow-left.svg";
+import arrowRight from "../assets/icon/arrow-right.svg";
 
 export default function ItemListGeneral() {
   const [products, setProducts] = useState([]);
@@ -34,10 +36,10 @@ export default function ItemListGeneral() {
   }, [currentPage, searchText, orderBy]);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <SectionTitle title="판매 중인 상품">
         <ListSearch onSearch={(value) => setSearchText(value)} />
-        <Button>상품 등록하기</Button>
+        <Button size={"small-40"}>상품 등록하기</Button>
         <Dropdown onList={(value) => setOrderBy(value)} />
       </SectionTitle>
       <div className={styles.list}>
@@ -51,28 +53,34 @@ export default function ItemListGeneral() {
           />
         ))}
       </div>
-      <div className="pagination">
+      <div className={styles.pagination}>
         <button
+          className={styles.button}
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
         >
-          이전
+          <img src={arrowLeft} />
         </button>
-        <span>
+        <span className={styles.pagination}>
           {pages.slice(start, start + paginationLimit).map((page) => (
-            <button key={page} onClick={() => setCurrentPage(page)}>
+            <button
+              className={`${styles.button} ${currentPage === page ? styles.current : ""}`}
+              key={page}
+              onClick={() => setCurrentPage(page)}
+            >
               {page}
             </button>
           ))}
         </span>
 
         <button
+          className={styles.button}
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((prev) => prev + 1)}
         >
-          다음
+          <img src={arrowRight} />
         </button>
       </div>
-    </>
+    </div>
   );
 }

@@ -22,7 +22,7 @@ export default function ItemListBest() {
   }, []);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <SectionTitle title="베스트 상품"></SectionTitle>
       <div className={styles.list}>
         {products.slice(0, 4).map((product) => (
@@ -35,6 +35,6 @@ export default function ItemListBest() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,36 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 23px;
+  border-radius: 8px;
+}
+
+/* size */
+.small-40 {
+  height: 42px;
+}
+.small-48 {
+  height: 48px;
+}
+
+/* type */
+.filled {
+  background: var(--color-primary-100);
+}
+.outlined {
+  border: 1px solid var(--Primary-100, #3692ff);
+  background: var(--Cool-Gray-50, #f9fafb);
+}
+
+/* status */
+.filled:hover {
+  background: var(--color-primary-200);
+}
+.filled:click {
+  background: var(--color-primary-200);
+}
+.filled:disabled,
+.filled.disabled {
+  background: var(--color-secondary-400);
+}

@@ -17,10 +17,13 @@
 /* type */
 .filled {
   background: var(--color-primary-100);
+  border: none;
+  color: var(--color-secondary-100);
 }
 .outlined {
-  border: 1px solid var(--Primary-100, #3692ff);
+  border: 1px solid var(--color-primary-100);
   background: var(--Cool-Gray-50, #f9fafb);
+  color: var(--color-primary-100);
 }
 
 /* status */

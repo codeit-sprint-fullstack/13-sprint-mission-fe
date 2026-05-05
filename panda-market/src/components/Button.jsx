@@ -14,7 +14,7 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
     >
-      {children}
+      <span className="text-lg-semibold">{children}</span>
     </button>
   );
 };

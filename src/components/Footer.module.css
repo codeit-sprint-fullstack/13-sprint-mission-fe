@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: var(--z-index-footer);
   display: flex;
   justify-content: space-between;
   gap: 20px;

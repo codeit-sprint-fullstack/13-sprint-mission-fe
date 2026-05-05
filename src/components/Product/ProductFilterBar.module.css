@@ -22,7 +22,7 @@
   position: absolute;
   top: 50%;
   left: 16px;
-  z-index: 10;
+  z-index: var(--z-index-search-icon);
   display: block;
   width: 24px;
   height: 24px;
@@ -65,7 +65,6 @@
 /* Sort Group */
 .sortGroup {
   position: relative;
-  z-index: 1;
 }
 
 /* Sort Selected Option */
@@ -101,7 +100,7 @@
   position: absolute;
   top: 50px;
   right: 0;
-  z-index: 10;
+  z-index: var(--z-index-sort-select);
   display: flex;
   width: 130px;
   flex-direction: column;

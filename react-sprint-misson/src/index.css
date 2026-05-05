@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "ROKAFSans";
+  src: url("./assets/fonts/ROKAFBold.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-display: swap;
+  src: url("./assets/fonts/PretendardVariable.woff2") format("woff2");
+}
+
+:root {
+  --landing-background-color: #cfe5ff;
+  --sns-background-color: #e6f2ff;
+
+  /* Primary */
+  --primary-100: #3692ff;
+  --primary-200: #1967d6;
+  --primary-300: #1251aa;
+
+  /* gray */
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+
+  /* Error */
+  --error-red: #f74747;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  /* font */
+  --font-rokaf: "ROKAFSans", sans-serif;
+  --font-pretendard: "Pretendard Variable", sans-serif;
+
+  font: 10px/145% var(--font-pretendard);
+
+  @media (max-width: 1024px) {
+    font-size: 10px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}

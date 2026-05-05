@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "ROKAFSans";
+  src: url("../fonts/ROKAFBold.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/PretendardVariable.woff2") format("woff2");
+}
+
+:root {
+  --font-rokaf: "ROKAFSans", sans-serif;
+  --font-pretendard: "Pretendard Variable", sans-serif;
+}

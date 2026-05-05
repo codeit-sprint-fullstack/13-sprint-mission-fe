@@ -1,0 +1,105 @@
+.header {
+  position: fixed;
+  background-color: white;
+  height: 6.8rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: solid 0.1rem #dfdfdf;
+  z-index: 100;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 192rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 2.4rem;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.logoLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.logoImage {
+  width: auto;
+  height: auto;
+}
+
+.logoText {
+  font-family: var(--font-rokaf);
+  font-weight: 700;
+  font-size: 2.56rem;
+  margin-left: 0.85rem;
+  color: var(--primary-100);
+}
+
+.navLink {
+  font-family: var(--font-pretendard);
+  font-weight: 600;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  color: var(--gray-800);
+  text-decoration: none;
+}
+
+.loginBtn {
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--font-pretendard);
+  width: 8.8rem;
+  height: 4.2rem;
+  background-color: var(--primary-100);
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 모바일 (375px 이하) */
+@media (max-width: 375px) {
+  .navBar {
+    padding: 0 1.6rem;
+  }
+
+  .logoImage {
+    display: none; /* 로고 이미지 숨김 */
+  }
+
+  .logoText {
+    font-size: 1.6rem;
+    margin-left: 0;
+  }
+
+  .navLeft {
+    gap: 1.2rem;
+  }
+
+  .navLink {
+    font-size: 1.4rem;
+  }
+
+  .loginBtn {
+    width: 7.4rem;
+    height: 3.4rem;
+    font-size: 1.4rem;
+    border-radius: 0.6rem;
+  }
+}

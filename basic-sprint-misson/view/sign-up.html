@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/color.css" />
+    <link rel="stylesheet" href="../css/font.css" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/sign.css" />
+    <title>판다마켓 - 회원가입</title>
+
+    <script defer src="../js/util/auth.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1YB5RZW542"
+    ></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-1YB5RZW542");
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="title-header">
+        <a href="../index.html">
+          <img src="../images/login-logo.png" alt="판다마켓 로고" />
+          <p>판다마켓</p>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="login-container">
+        <div class="email-container inner-container">
+          <label class="auth-label" for="email">이메일</label>
+          <input
+            class="auth-input"
+            type="email"
+            id="email"
+            placeholder="이메일을 입력해주세요"
+          />
+        </div>
+
+        <div class="nickname-container inner-container">
+          <label class="auth-label" for="text">닉네임</label>
+          <input
+            class="auth-input"
+            type="text"
+            id="nickname"
+            placeholder="닉네임을 입력해주세요"
+          />
+        </div>
+
+        <div class="pwd-container inner-container">
+          <label class="auth-label" for="password">비밀번호</label>
+          <div class="pwd-input">
+            <input
+              class="auth-input"
+              type="password"
+              id="sign-up-pwd"
+              placeholder="비밀번호를 입력해주세요"
+            />
+            <button id="sign-up-pwd-toggle-btn" class="pwd-toggle-btn">
+              <img src="../images/btn_visiblity_off.png" alt="비밀번호 확인" />
+            </button>
+          </div>
+        </div>
+
+        <div class="pwd-check-container inner-container">
+          <label class="auth-label" for="password">비밀번호 확인</label>
+          <div class="pwd-input">
+            <input
+              class="auth-input"
+              type="password"
+              id="sign-up-pwd-check"
+              placeholder="비밀번호를 다시 한 번 입력해주세요"
+            />
+            <button id="sign-up-pwd-check-toggle-btn" class="pwd-toggle-btn">
+              <img src="../images/btn_visiblity_off.png" alt="비밀번호 확인" />
+            </button>
+          </div>
+        </div>
+
+        <button class="register-btn">회원가입</button>
+
+        <div class="sns-container">
+          <p>간편 로그인하기</p>
+
+          <div class="sns-icons">
+            <a href="https://www.google.com/">
+              <img
+                src="../images/icons/google-icon.png"
+                srcset="
+                  ../images/icons/google-icon.png    1x,
+                  ../images/icons/google-icon@2x.png 2x,
+                  ../images/icons/google-icon@3x.png 3x
+                "
+                alt="구글 로그인"
+              />
+            </a>
+            <a href="https://www.kakaocorp.com/page/">
+              <img
+                src="../images/icons/kakao-icon.png"
+                srcset="
+                  ../images/icons/kakao-icon.png    1x,
+                  ../images/icons/kakao-icon@2x.png 2x,
+                  ../images/icons/kakao-icon@3x.png 3x
+                "
+                alt="카카오 로그인"
+              />
+            </a>
+          </div>
+        </div>
+
+        <div class="auth-container">
+          <p>이미 회원이신가요?</p>
+          <a href="./login.html">로그인</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

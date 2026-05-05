@@ -1,0 +1,73 @@
+/* 1. 기본 리셋 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. 기본 요소 초기화 */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  line-height: 1.5;
+  font-family: sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. 이미지/미디어 */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  height: auto;
+}
+
+/* 4. 폼 요소 */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* 5. 버튼/링크 */
+button,
+[role="button"] {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 6. 목록 / 표준 요소 */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 7. 접근성/기본 포커스 */
+:focus-visible {
+  outline: 0.125rem solid #0066cc;
+  outline-offset: 0.125rem;
+}

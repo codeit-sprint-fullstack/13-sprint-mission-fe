@@ -35,17 +35,20 @@ const Dropdown = ({ onList }) => {
         <div className={styles.container}>
           <span
             className={`${styles.list} text-lg-regular`}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggle();
               setCurrentValue("recent");
               onList("recent");
-              console.log("recent::", currentValue);
             }}
           >
             최신순
           </span>
           <span
             className={`${styles.list} text-lg-regular`}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggle();
               setCurrentValue("favorite");
               onList("favorite");
               console.log("favorite::", currentValue);

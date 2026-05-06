@@ -1,11 +1,11 @@
 import { useState } from "react";
-import styles from "../styles/Products.module.css";
-import searchIcon from "../assets/icons/ic_search.png";
-import icHeart from "../assets/icons/ic_heart.png";
-import Dropdown from "./DropDowns";
-import PageNation from "./PageNation";
-import { useWindowSize } from "../hooks/useWindowSize.js";
-import { useGetProduct } from "../hooks/useGetProducts.js";
+import styles from "./SellItems.module.css";
+import searchIcon from "../../assets/icons/ic_search.png";
+import icHeart from "../../assets/icons/ic_heart.png";
+import Dropdown from "../DropDowns.jsx";
+import PageNation from "../PageNation.jsx";
+import { useWindowSize } from "../../hooks/useWindowSize.js";
+import { useGetProduct } from "../../hooks/useGetProducts.js";
 
 const BREAKPOINTS = {
   MOBILE: 375,
@@ -88,7 +88,7 @@ export default function SellItems() {
   );
 
   return (
-    <section>
+    <section className={styles.sellContainer}>
       <div className={styles.sellHeader}>
         <div className={styles.sellHeaderLeft}>
           <h2 className={styles.title}>판매 중인 상품</h2>

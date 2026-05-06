@@ -1,7 +1,5 @@
-.contentContainer {
-  width: 100%;
-  max-width: 120rem;
-  margin: 2.6rem auto;
+.sellContainer {
+  margin-top: 9.2rem;
 }
 
 .title {
@@ -10,14 +8,6 @@
   font-size: 2rem;
   font-weight: 700;
   white-space: nowrap;
-}
-
-.favoriteList {
-  display: grid;
-  margin-top: 3rem;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 0;
-  gap: 2.4rem;
 }
 
 .productItmes {
@@ -158,12 +148,6 @@ section {
 
 /* 태블릿 (744px 이하) */
 @media (max-width: 744px) {
-  .contentContainer {
-    display: flex;
-    flex-direction: column;
-    margin: 2.6rem auto;
-  }
-
   .searchForm {
     display: flex;
     border: 1px solid #ccc;
@@ -174,11 +158,6 @@ section {
 
   .searchRow {
     margin-top: 0;
-  }
-
-  .favoriteList {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.6rem;
   }
 
   .sellList {
@@ -204,10 +183,6 @@ section {
     padding-right: 2.4rem;
   }
 
-  .cardView {
-    height: 34.3rem;
-  }
-
   .sellCardView {
     height: 22.1rem;
   }
@@ -219,26 +194,9 @@ section {
 
 /* 모바일 (375px 이하) */
 @media (max-width: 375px) {
-  .contentContainer {
-    max-width: 100%;
-    margin: 0;
-    padding-left: 1.6rem;
-    padding-right: 1.6rem;
-    box-sizing: border-box;
-  }
-
-  .favoriteList {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.2rem;
-  }
-
   .sellList {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
-  }
-
-  .cardView {
-    height: 34.3rem;
   }
 
   .sellCardView {

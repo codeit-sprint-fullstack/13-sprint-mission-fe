@@ -1,12 +1,12 @@
-import styles from "../styles/Products.module.css";
-import icHeart from "../assets/icons/ic_heart.png";
-import searchIcon from "../assets/icons/ic_search.png";
-import Dropdown from "../components/DropDowns";
-import PageNation from "../components/PageNation";
+import styles from "./ProductPage.module.css";
+import icHeart from "@/assets/icons/ic_heart.png";
+import searchIcon from "@/assets/icons/ic_search.png";
+import Dropdown from "@/components/DropDowns";
+import PageNation from "@/components/PageNation";
 import { useState } from "react";
-import { useGetProduct } from "../hooks/useGetProducts";
-import { useWindowSize } from "../hooks/useWindowSize";
-import SellItems from "../components/SellItems";
+import { useGetProduct } from "@/hooks/useGetProducts";
+import { useWindowSize } from "@/hooks/useWindowSize";
+import SellItems from "@/components/SellItems/SellItems";
 
 export default function Products() {
   return (

@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: var(--gray50);
+  border-bottom: 0.0625rem solid var(--gray250);
+  height: 64px;
+  padding: 0 200px;
+}
+.market-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.market-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 32px;
+  color: #4b5563;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.second-hands {
+  color: #4b5563;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.second-hands.active {
+  color: var(--primary100);
+  font-weight: 700;
+}
+.logo-mark {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+#logo-title {
+  font-family: ROKAF Sans;
+  font-weight: 700;
+  font-size: 1.6019rem;
+  color: var(--primary100);
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.lgn-btn {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: var(--gray50);
+  background-color: var(--primary100);
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  width: 8rem;
+  height: 3rem;
+  gap: 0.625rem;
+  padding: 0.75rem 1.4375rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  #header {
+    padding: 0 24px;
+  }
+
+  .market-logo {
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  .second-hands {
+    font-size: 16px;
+  }
+
+  .lgn-btn {
+    width: 88px;
+    height: 42px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #header {
+    height: 56px;
+    padding: 0 16px;
+  }
+
+  .market-logo {
+    gap: 12px;
+  }
+
+  .community {
+    display: none;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  #logo-title {
+    font-size: 1.25rem;
+  }
+
+  .second-hands {
+    font-size: 15px;
+  }
+
+  .lgn-btn {
+    width: 72px;
+    height: 38px;
+    font-size: 14px;
+  }
+}

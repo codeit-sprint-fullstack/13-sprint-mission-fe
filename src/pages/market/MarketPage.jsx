@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import {
   Button,
   Dropdown,
@@ -122,11 +123,16 @@ export default function MarketPage() {
                 }
               }}
             />
-            <Button variant="rectangle">상품 등록하기</Button>
+            <Link to="/registeration">
+              <Button variant="rectangle">상품 등록하기</Button>
+            </Link>
           </>
         ) : (
           <>
-            <Button variant="rectangle">상품 등록하기</Button>
+            <Link to="/registeration">
+              <Button variant="rectangle">상품 등록하기</Button>
+            </Link>
+
             <Input
               placeholder="검색할 상품을 입력해주세요"
               value={input}

@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  height: 160px;
+  padding: 32px 200px;
+  background: var(--color-secondary-900);
+}
+.footer-copyright {
+  color: var(--color-secondary-400);
+  font-size: 16px;
+  font-weight: 400px;
+}
+.footer-nav {
+  display: flex;
+  gap: 30px;
+}
+.footer-nav-link {
+  color: var(--color-secondary-200);
+  font-size: 16px;
+  font-weight: 400px;
+  cursor: pointer;
+}
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+.footer-social-link {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

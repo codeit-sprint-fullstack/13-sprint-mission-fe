@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  padding-top: 40px;
+  padding-bottom: 140px;
+}
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 40px;
+  column-gap: 24px;
+  padding-bottom: 43px;
+}
+
+/* pagination */
+.pagination {
+  display: flex;
+  gap: 4px;
+}
+.button {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  stroke-width: 1px;
+  border-radius: 40px;
+  border: 1px solid var(--color-secondary-200);
+  color: var(--color-secondary-600);
+}
+.button:disabled,
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.current {
+  color: var(--color-secondary-100);
+  border: none;
+  background-color: #2f80ed;
+}

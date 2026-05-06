@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-inner">
+        <div class="nav-left">
+          <a href="/" class="logo-wrap">
+            <img src="./images/pandalogo.svg" class="logo-image" alt="로고" />
+          </a>
+          <nav class="nav-menu">
+            <a href="/" class="active">자유게시판</a>
+            <a href="/">중고마켓</a>
+          </nav>
+        </div>
+        <a href="/login.html" class="login-button">로그인</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="best-section">
+        <h2 class="section-title">베스트 상품</h2>
+        <div id="bestProductList" class="best-product-list"></div>
+      </section>
+
+      <section class="product-section">
+        <div class="section-header">
+          <h2 class="section-title">판매 중인 상품</h2>
+          <div class="section-controls">
+            <div class="search-bar">
+              <input type="text" placeholder="검색할 상품을 입력해주세요" />
+            </div>
+            <button class="add-button">상품 등록하기</button>
+            <select id="sortOrder" class="sort-dropdown">
+              <option value="recent">최신순</option>
+              <option value="favorite">좋아요순</option>
+            </select>
+          </div>
+        </div>
+        <div id="productList" class="product-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span>©codeit - 2026</span>
+        </div>
+        <div class="footer-center">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/faq">FAQ</a>
+        </div>
+        <div class="footer-right">
+          <div class="sns-links">
+            <a href="https://facebook.com"
+              ><img src="./images/facebook-icon.png" alt="facebook"
+            /></a>
+            <a href="https://twitter.com"
+              ><img src="./images/twitter-icon.png" alt="twitter"
+            /></a>
+            <a href="https://youtube.com"
+              ><img src="./images/youtube-icon.png" alt="youtube"
+            /></a>
+            <a href="https://instagram.com"
+              ><img src="./images/instagram-icon.png" alt="instagram"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

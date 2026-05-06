@@ -1,15 +1,26 @@
 .container {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background-color: var(--secondary-100);
   border-radius: 1.2rem;
-  padding: 0.9rem 1.6rem;
+  padding: 1.5rem 1.6rem;
 }
 .container input {
+  flex: 1;
   border: none;
   outline: none;
   background: none;
 }
 .container input::placeholder {
+  color: var(--secondary-400);
+}
+.container textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  resize: none;
+}
+.container textarea::placeholder {
   color: var(--secondary-400);
 }

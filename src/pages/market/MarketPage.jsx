@@ -10,6 +10,7 @@ import {
 } from "@/components";
 import { useResponsiveWidth } from "@/hooks";
 import { signIn, getProduct } from "@/apis";
+import { icSearch } from "../../assets/icons";
 import constant from "../../components/Dropdown/constant";
 import styles from "./MarketPage.module.css";
 
@@ -96,6 +97,7 @@ export default function MarketPage() {
         {size !== "mobile" ? (
           <>
             <Input
+              prefix={<img src={icSearch} />}
               placeholder="검색할 상품을 입력해주세요"
               value={input}
               onChange={(e) => {

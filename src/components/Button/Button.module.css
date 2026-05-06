@@ -24,3 +24,7 @@
   color: var(--secondary-100);
   background-color: var(--primary-100);
 }
+.btn.disabled {
+  color: var(--secondary-100);
+  background-color: var(--secondary-400);
+}

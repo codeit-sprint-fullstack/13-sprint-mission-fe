@@ -17,7 +17,7 @@ export default function Main() {
               일상의 모든 물건을 <br />
               거래해 보세요
             </h1>
-            <Link to="/product">
+            <Link to="/items">
               <buttton className="top-desc">구경하러 가기</buttton>
             </Link>
           </div>

@@ -11,8 +11,8 @@ function App() {
     <Router>
       <Routes>
         <Route
-          path="/home"
-          element={
+          path="/"
+          element={ 
             <>
               <Header />
               <Main />
@@ -22,7 +22,7 @@ function App() {
         />
 
         <Route
-          path="/"
+          path="items"
           element={
             <>
               <Header />

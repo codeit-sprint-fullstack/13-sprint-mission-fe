@@ -17,7 +17,7 @@ export default function Header() {
         </Link>
         <p className="community">자유게시판</p>
         <NavLink
-          to="/product"
+          to="/items"
           className={({ isActive }) =>
             isActive ? "second-hands active" : "second-hands"
           }

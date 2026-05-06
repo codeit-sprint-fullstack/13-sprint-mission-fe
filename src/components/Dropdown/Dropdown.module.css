@@ -7,7 +7,7 @@
 }
 .currentContainer {
   padding: 1.2rem 2rem;
-  border: 1px var(--cool-gray-200) solid;
+  border: 1px var(--secondary-200) solid;
   border-radius: 1.2rem;
 }
 .current {
@@ -45,11 +45,11 @@
   align-items: center;
 }
 .menu + .menu {
-  border-top: 1px solid var(--cool-gray-200);
+  border-top: 1px solid var(--secondary-200);
 }
 .menu:hover {
   cursor: pointer;
-  background-color: var(--cool-gray-200);
+  background-color: var(--secondary-200);
 }
 @media (max-width: 720px) {
   .current {

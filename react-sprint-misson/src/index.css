@@ -12,6 +12,10 @@
 }
 
 :root {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+
   --landing-background-color: #cfe5ff;
   --sns-background-color: #e6f2ff;
 
@@ -58,7 +62,7 @@ html {
 }
 
 body {
+  margin: 0;
   width: 100%;
-  min-height: 100vh;
   overflow-x: hidden;
 }

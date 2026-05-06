@@ -1,0 +1,168 @@
+.onsale-section {
+  max-width: 1200px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.onsale-title-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.onsale-title-text {
+  color: var(--Secondary-900, #111827);
+
+  /* pretendard/xl-20px-bold */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 160% */
+}
+
+.onsale-toolbar {
+  display: flex;
+  gap: 12px;
+}
+
+.onsale-toolbar input {
+  display: flex;
+  width: 325px;
+  height: 42px;
+  padding: 9px 20px 9px 16px;
+  border-style: none;
+  border-radius: 12px;
+  background: var(--Secondary-100, #f3f4f6);
+}
+
+.toolbar-btn {
+  display: flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--Primary-100, #3692ff);
+  border-style: none;
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 162.5% */
+}
+
+.toolbar-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 130px;
+  height: 42px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--Cool-Gray-200, #e5e7eb);
+  background: #fff;
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+  cursor: pointer;
+}
+
+.onsaleproducts {
+  display: grid;
+  place-items: center;
+  /* 그리드에서 요소 중앙 배치 */
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+  min-height: 678px;
+}
+
+.onsale-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 40px;
+  min-width: 200px;
+}
+
+.onsale-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.onsale-card-name {
+  text-wrap: wrap;
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/md-14px-medium */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 171.429% */
+}
+
+.onsale-card-price {
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/lg-16px-bold */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 162.5% */
+}
+
+.onsale-favorite-state {
+  display: flex;
+  gap: 3px;
+}
+
+.onsale-favorite-state p {
+  align-items: center;
+  padding-bottom: 3px;
+}
+
+.dropdown-box {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 130px;
+  height: 42px;
+}
+
+.dropdown-menu button {
+  border-radius: 12px;
+  border: 1px solid var(--Cool-Gray-200, #e5e7eb);
+  background: #fff;
+  cursor: pointer;
+}
+
+.pagination-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 160px;
+  gap: 4px;
+}
+
+.pagination-box button.active {
+  background-color: black;
+  color: white;
+}

@@ -1,0 +1,48 @@
+.footer {
+  height: 160px;
+  padding: 32px 200px;
+  display: flex;
+  background: #111827;
+}
+
+.footer-span-box {
+  display: flex;
+  justify-content: space-between;
+  /* 텍스트의 밑줄 기준선에 맞춰 아이콘도 정렬 */
+  align-items: baseline;
+  width: 100%;
+}
+
+.footer-first-text {
+  color: #9ca3af;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer-center-box {
+  display: flex;
+  gap: 30px;
+}
+
+.privacy-a,
+.FAQ-a {
+  text-decoration: none;
+  color: #e5e7eb !important;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer-icon-box {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-icon-box img {
+  width: 20px;
+  height: 20px;
+}

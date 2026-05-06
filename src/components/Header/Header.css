@@ -1,0 +1,84 @@
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  /* position: fixed; */
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 30px;
+}
+
+.header-inner {
+  max-width: 1920px;
+  padding: 0 200px;
+  margin: 0 auto;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-name {
+  display: flex;
+  height: 51px;
+  padding: 5.017px 0 5.848px 0;
+  color: #3692ff;
+  font-family: "ROKAF Sans";
+  font-size: 25.633px;
+  font-weight: 700;
+  line-height: normal;
+  text-wrap: nowrap;
+}
+
+.logo-a-box {
+  display: flex;
+  gap: 8.592px;
+  text-decoration: none;
+  color: var(--brand-blue);
+}
+
+.logo-img {
+  width: 40px;
+  height: 40.135px;
+}
+
+.login-button {
+  display: flex;
+  cursor: pointer;
+  width: 128px;
+  height: 48px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border-style: none;
+  background: #3692ff;
+  color: #f3f4f6;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.header-links {
+  margin-left: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.freeboard,
+.usedmarket {
+  padding: 21px 15px;
+  text-decoration: none;
+  color: var(--Secondary-600, #4b5563);
+  text-align: center;
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+}

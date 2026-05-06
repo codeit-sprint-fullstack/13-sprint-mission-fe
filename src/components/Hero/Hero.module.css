@@ -1,0 +1,37 @@
+.banner {
+  height: 54rem;
+  background-color: var(--secondary-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.bannerWrapper {
+  width: fit-content;
+  height: 40rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bannerText {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--secondary-700);
+  line-height: 140%;
+  margin-bottom: 3.2rem;
+  white-space: pre-line;
+}
+.look-btn {
+  width: 35.7rem;
+  height: 5.6rem;
+  border-radius: 4rem;
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-tag);
+}
+.bannerImg {
+  width: 75.2rem;
+  height: auto;
+}

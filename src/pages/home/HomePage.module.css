@@ -1,0 +1,8 @@
+.btn {
+  padding: 1.6rem 12.4rem;
+  color: var(--secondary-100);
+  background-color: var(--brand-blue);
+  border-radius: 4rem;
+  font-weight: 600;
+  font-size: 2rem;
+}

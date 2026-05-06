@@ -3,8 +3,6 @@
 본 프로젝트는 React를 활용하여 개발된 중고마켓 웹 서비스의 상품 목록 페이지입니다. 
 Figma 시안을 바탕으로 PC, Tablet, Mobile 환경에 최적화된 반응형 웹(Responsive Web)으로 구현되었습니다.
 
-## 🚀 배포 링크
-- **Demo:** [여기에 배포된 Vercel/Netlify 링크를 입력하세요]
 
 ## 🛠️ 기술 스택
 - **Framework:** React.js

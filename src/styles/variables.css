@@ -1,0 +1,42 @@
+/* ---------- Variable Styles ---------- */
+
+:root {
+  /** Color Variable **/
+  /* Primary color */
+  --Primary-100: #3692ff;
+  --Primary-200: #1967d6;
+  --Primary-300: #1251aa;
+  /* Secondary color */
+  --Secondary-900: #111827;
+  --Secondary-800: #1f2937;
+  --Secondary-700: #374151;
+  --Secondary-600: #4b5563;
+  --Secondary-500: #6b7280;
+  --Secondary-400: #9ca3af;
+  --Secondary-300: #e5e7eb;
+  --Secondary-200: #e5e7eb;
+  --Secondary-100: #e5e7eb;
+  --Cool-Gray-500: #6b7280;
+  --Cool-Gray-200: #e5e7eb;
+  --Cool-Gray-100: #f3f4f6;
+  --Cool-Gray-50: #f9fafb;
+  /* Error color */
+  --error-red: #f74747;
+
+  /** Body Variable **/
+  --body-padding: 24px;
+  --body-padding-m: 16px;
+
+  /** Header Variable **/
+  --gnb-height: 68px;
+  --gnb-height-m: 70px;
+
+  /** Header Variable **/
+  --footer-height: 160px;
+
+  /** Z-index **/
+  --z-index-header: 1000;
+  --z-index-footer: 1000;
+  --z-index-sort-group: 1;
+  --z-index-sort-select: 10;
+}

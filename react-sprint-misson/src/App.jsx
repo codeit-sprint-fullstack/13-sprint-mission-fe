@@ -1,5 +1,5 @@
 import "./App.css";
-import Footer from "./layouts/Footer";
+import Footer from "./layouts/Footer/Footer.jsx";
 import Header from "./layouts/Header";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import MarketPage from "./pages/MarketPage/MarketPage.jsx";

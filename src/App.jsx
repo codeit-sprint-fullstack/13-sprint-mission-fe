@@ -19,7 +19,7 @@ export default function App() {
         <Route path='/' element={<MainLayout />}>
           <Route index element={<Main />}></Route>
           <Route path='board' element={<Board />}></Route>
-          <Route path='products' element={<Products />}></Route>
+          <Route path='items' element={<Products />}></Route>
           <Route path='faq' element={<Faq />}></Route>
           <Route path='privacy' element={<Privacy />}></Route>
         </Route>

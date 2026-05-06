@@ -20,7 +20,7 @@ export default function Header() {
               </NavLink>
             </li>
             <li className={styles.menu}>
-              <NavLink to='/products' className={styles.menuLink}>
+              <NavLink to='/items' className={styles.menuLink}>
                 중고마켓
               </NavLink>
             </li>

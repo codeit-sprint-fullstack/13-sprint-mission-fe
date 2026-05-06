@@ -8,6 +8,7 @@
 ![PandaMarket](https://github.com/user-attachments/assets/3784b99f-73c9-4349-a9a9-92b2a7563574)  
 _위 이미지는 판다마켓의 대표 이미지입니다._ 📸
 
+<br>
 
 ## 🛠 Tech Stack
 
@@ -16,6 +17,7 @@ _위 이미지는 판다마켓의 대표 이미지입니다._ 📸
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white)
 
+<br>
 
 ## 💡 Key Experience
 
@@ -28,6 +30,7 @@ CSS Modules를 적용하여 스타일 충돌을 방지하고, 컴포넌트 단�
 **3. 사용자 중심의 반응형 UX 설계**
 다양한 해상도 환경에서 일관된 사용자 경험을 제공하기 위한 최적의 레이아웃 구현.
 
+<br>
 
 ## 🚀 실행 방법
 
@@ -48,6 +51,20 @@ CSS Modules를 적용하여 스타일 충돌을 방지하고, 컴포넌트 단�
   npm run dev
 ```
 
+<br>
+
+## ⚙️ 환경 변수 설정 (Environment Variables)
+
+이 프로젝트는 API 통신 및 환경 설정을 위해 환경 변수를 사용합니다. 프로젝트를 처음 클론(Clone)받으셨다면 아래 절차에 따라 환경 설정 파일을 생성해 주세요.
+
+1. 프로젝트 루트 폴더에 `.env` 파일을 생성합니다.
+2. `.env.example` 파일의 내용을 복사하여 `.env` 파일에 붙여넣습니다.
+3. 공유된 API 서버 주소를 아래와 같이 입력합니다.
+```bash
+VITE_API_BASE_URL=공유받은_API_주소_입력
+```
+
+<br>
 
 ## 📁 프로젝트 구조
 
@@ -64,6 +81,7 @@ src/
 └── styles/     # 글로벌 스타일 및 공통 CSS 변수 (Reset, Variables 등)
 ```
 
+<br>
 
 ## 🎯 주요 기능
 

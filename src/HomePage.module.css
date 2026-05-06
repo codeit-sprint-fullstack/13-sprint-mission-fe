@@ -1,0 +1,100 @@
+.container {
+  max-width: 1200px;
+  margin: 94px auto 120px;
+}
+
+.section {
+  margin-bottom: 80px;
+}
+
+.bestGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 24px;
+
+  margin-top: 24px;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 24px;
+
+  margin-top: 24px;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.rightControls {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.searchInput {
+  width: 300px;
+  height: 42px;
+
+  padding: 0 16px;
+
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+}
+
+.addButton {
+  height: 42px;
+
+  padding: 0 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #3692ff;
+  color: white;
+
+  cursor: pointer;
+}
+
+.select {
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 40px;
+}
+
+.pagination button {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+
+  background-color: white;
+
+  cursor: pointer;
+}
+
+.activePage {
+  background-color: #3692ff !important;
+  color: white;
+}

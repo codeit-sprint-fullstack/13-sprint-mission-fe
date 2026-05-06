@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./LandingPage.module.css";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
@@ -12,12 +13,12 @@ export default function LandingPage() {
               <br />
               거래해 보세요
             </h2>
-            <a
-              href="./view/items.html"
+            <Link
+              to="/items"
               className={`${style.productsBtn} ${style.clickable}`}
             >
               구경하러 가기
-            </a>
+            </Link>
           </div>
           <img
             className={style.bannerImage}

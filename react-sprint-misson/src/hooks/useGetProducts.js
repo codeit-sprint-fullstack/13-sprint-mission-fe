@@ -8,7 +8,6 @@ export function useGetProduct(options = {}) {
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-
     const params = new URLSearchParams({
       page: 1,
       pageSize: 4,
@@ -21,18 +20,13 @@ export function useGetProduct(options = {}) {
       try {
         const result = await products.getProductList(params);
         setProductList(result.list);
-        setTotalCount(result.totalCount)
+        setTotalCount(result.totalCount);
       } catch (error) {
         console.error(error.message);
       }
     }
     getApi();
-  }, [
-    options.orderBy,
-    options.pageSize,
-    options.keyword,
-    options.page,
-  ]);
+  }, [options.orderBy, options.pageSize, options.keyword, options.page]);
 
   return { productList, totalCount };
 }

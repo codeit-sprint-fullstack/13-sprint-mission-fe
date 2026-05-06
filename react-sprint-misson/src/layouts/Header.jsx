@@ -12,12 +12,12 @@ export default function Header() {
             <img src={logo} alt="판다마켓 로고" className={styles.logoImage} />
             <span className={styles.logoText}>판다마켓</span>
           </Link>
-          <a href="/board" className={styles.navLink}>
+          <Link to="/board" className={styles.navLink}>
             자유게시판
-          </a>
-          <a href="/market" className={styles.navLink}>
+          </Link>
+          <Link to="/items" className={styles.navLink}>
             중고마켓
-          </a>
+          </Link>
         </div>
 
         <a href="/login" className={styles.loginBtn}>

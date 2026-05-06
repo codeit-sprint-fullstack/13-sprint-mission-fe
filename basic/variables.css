@@ -1,0 +1,36 @@
+/*CSS Variables*/
+:root {
+  /*breakpoint variables(min-width 기준)*/
+  /*media query에는 사용 못 하지만 어떤 breakpoint를 지정했는지 표기하기 위한 용도*/
+  --bp-large: 1440px;
+  --bp-desktop: 1200px;
+  --bp-tablet: 1024px;
+  --bp-mobile: 768px;
+  --bp-small: 480px;
+
+  /*font size variables*/
+  --font-size-big-logo: 6.5rem;
+  --font-size-banner: 4rem;
+  --font-size-title: 4rem;
+  --font-size-logo: 2.56rem;
+  --font-size-content: 2.4rem;
+  --font-size-tag: 1.8rem;
+  --font-size-menu: 1.6rem;
+
+  /*weight variables*/
+  --font-weight-title: 700;
+  --font-weight-content: 500;
+  --font-weight-btn: 600;
+
+  /*color variables*/
+  --brand-blue: #3182f6;
+  --primary-bg-color: #3692ff;
+  --secondary-bg-color: #cfe5ff;
+  --secondary-bg-color-400: #9ca3af;
+  --tertiary-bg-color: #fcfcfc;
+  --quaternary-bg-color: #e6f2ff;
+  --primary-color: #374151;
+  --secondary-color-800: #1f2937;
+  --secondary-color: #f3f4f6;
+  --tertiary-color: #e5e7eb;
+}

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./assets/font/ROKAF Slab Serif Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./assets/font/ROKAF Slab Serif Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}

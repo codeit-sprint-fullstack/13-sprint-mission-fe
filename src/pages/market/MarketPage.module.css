@@ -1,0 +1,22 @@
+.content {
+  width: 120rem;
+  margin: auto;
+  padding-top: 1.6rem;
+  padding-bottom: 14rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+.input input {
+  width: 27rem;
+}
+/* Desktop (1280px 이하) */
+@media (max-width: 1280px) {
+  .content {
+    width: fit-content;
+    padding: 1.6rem 2.4rem 14rem 2.4rem;
+  }
+  .input input {
+    width: 17.4rem;
+  }
+}

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  background-color: var(--secondary-100);
+  border-radius: 1.2rem;
+  padding: 0.9rem 1.6rem;
+}
+.container input {
+  border: none;
+  outline: none;
+  background: none;
+}
+.container input::placeholder {
+  color: var(--secondary-400);
+}

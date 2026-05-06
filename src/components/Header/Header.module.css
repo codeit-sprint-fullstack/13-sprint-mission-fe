@@ -1,0 +1,62 @@
+.container {
+  width: 100%;
+  height: 6.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rem;
+}
+.containerLeft {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+.logo {
+  color: var(--primary-100);
+  font-weight: 700;
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.nav {
+  height: 100%;
+  color: var(--secondary-700);
+  display: flex;
+}
+.navBtn {
+  width: 10rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+/* Desktop (1280px 이하) */
+@media (max-width: 1280px) {
+  .container {
+    padding: 2.4rem;
+  }
+  .containerLeft {
+    gap: 2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .logoImg {
+    display: none;
+  }
+  .containerLeft {
+    gap: 0.8rem;
+  }
+  .logo {
+    font-size: 2rem;
+  }
+  .navBtn {
+    width: 8rem;
+    font-size: 1.6rem;
+  }
+}

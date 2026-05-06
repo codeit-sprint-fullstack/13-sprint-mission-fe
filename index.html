@@ -1,52 +1,36 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-XXXXXXXXXX");
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./reset.css/reset.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./root.css" />
     <title>판다마켓</title>
   </head>
 
   <body>
     <header class="header">
       <div class="header-inner">
-        <div class="header-logo">
-          <a href="/index.html">
-            <img
-              src="./header-img/header-img.png"
-              alt="판다로고"
-              class="header-lmg"
-            />
-          </a>
-          <div class="market-name">
-            <a href="/index.html" class="market-name">판다마켓</a>
-          </div>
-        </div>
+        <a href="/index.html" class="header-logo">
+          <img
+            src="./header-img/header-img.png"
+            alt="판다로고"
+            class="header-lmg"
+          />
+          <p class="market-name">판다마켓</p>
+        </a>
         <div class="sign-up">
-          <a href="/Login/login.html"
-            ><span class="signup-text">로그인</span></a
-          >
+          <a href="/Login/login.html">
+            <span class="signup-text">로그인</span>
+          </a>
         </div>
       </div>
     </header>
 
     <div class="main">
       <section class="hero">
+        <!-- Hero1 -->
         <div class="hero1">
           <div class="hero1-wrapper">
             <div class="hero1-text">
@@ -54,9 +38,9 @@
                 일상의 모든 물건을<br />거래해 보세요
               </div>
               <div class="items-link">
-                <a href="/items/items.html"
-                  ><span class="items-link">구경하러 가기</span></a
-                >
+                <a href="/items/items.html">
+                  <span class="items-link">구경하러 가기</span>
+                </a>
               </div>
             </div>
             <div class="hero1-img">
@@ -68,6 +52,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Hero2 -->
         <div class="hero2">
           <div class="hero2-wrapper">
             <div class="hero2-img">
@@ -86,6 +72,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Hero3 -->
         <div class="hero3">
           <div class="hero3-wrapper">
             <div class="hero3-text">
@@ -104,6 +92,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Hero4 -->
         <div class="hero4">
           <div class="hero4-wrapper">
             <div class="hero4-img">
@@ -122,6 +112,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Hero5 -->
         <div class="hero5">
           <div class="hero5-wrapper">
             <div class="hero5-text">
@@ -141,10 +133,7 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        <!-- 왼쪽: 카피라이트 -->
-        <p class="footer-copy">&copy;©codeit - 2024</p>
-
-        <!-- 가운데: 링크 모음 -->
+        <p class="footer-copy">&copy; codeit - 2024</p>
         <div class="footer-links">
           <div class="privacy">
             <a href="./footer-links/Policy.html" class="privacy"
@@ -155,27 +144,26 @@
             <a href="./footer-links/FAQ.html" class="faq">FAQ</a>
           </div>
         </div>
-        <!-- 오른쪽: 파비콘 링크 모음 -->
         <div class="favicon">
           <div class="facebook">
             <a href="https://www.facebook.com/?locale=ko_KR">
-              <img src="./footer-img/ic_facebook.png" />
+              <img src="./footer-img/ic_facebook.png" alt="Facebook" />
             </a>
           </div>
           <div class="twitter">
             <a href="https://x.com/?lang=ko">
-              <img src="./footer-img/ic_twitter.png"
-            /></a>
+              <img src="./footer-img/ic_twitter.png" alt="Twitter" />
+            </a>
           </div>
           <div class="youtube">
             <a href="https://www.youtube.com/">
-              <img src="./footer-img/ic_youtube.png" />
+              <img src="./footer-img/ic_youtube.png" alt="YouTube" />
             </a>
           </div>
           <div class="instagram">
             <a href="https://www.instagram.com/">
-              <img src="./footer-img/ic_instagram.png"
-            /></a>
+              <img src="./footer-img/ic_instagram.png" alt="Instagram" />
+            </a>
           </div>
         </div>
       </div>

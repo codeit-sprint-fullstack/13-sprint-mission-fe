@@ -4,30 +4,12 @@
   text-decoration: none;
 }
 
-:root {
-  --primary100: #3692ff; /* 메인 파란색 */
-  --gray50: #ffffff; /* 흰색 */
-  --gray75: #fcfcfc; /* 아주 연한 회색 */
-  --gray100: #f9fafb; /* 밝은 회색 */
-  --gray200: #f3f4f6; /* 회색 배경 */
-  --gray250: #dfdfdf; /* 테두리용 회색 */
-  --gray300: #374151; /* 진한 회색 텍스트 */
-  --gray400: #9ca3af; /* 중간 회색 텍스트 */
-  --gray500: #e5e7eb; /* 밝은 회색 텍스트 */
-  --blue-light: #cfe5ff; /* 연한 파란색 배경 */
-  --footer-bg: #111827; /* 푸터 배경 */
-}
-
 .body {
   min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-}
-
-.body a {
-  cursor: pointer;
 }
 
 /*header 전체 레이아웃*/

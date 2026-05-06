@@ -139,7 +139,7 @@
   justify-content: center;
 }
 
-.visible-btn svg {
+.visible-btn {
   width: 20px;
   height: 20px;
   fill: var(--gray300);

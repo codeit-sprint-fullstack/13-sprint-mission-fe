@@ -11,3 +11,4 @@ export { default as ItemSkeleton } from "./ItemSkeleton/ItemSkeleton";
 export { default as Shimmer } from "./Shimmer/Shimmer";
 export { default as TagChip } from "./TagChip/TagChip";
 export { default as Hero } from "./Hero/Hero";
+export { default as Card } from "./Card/Card";

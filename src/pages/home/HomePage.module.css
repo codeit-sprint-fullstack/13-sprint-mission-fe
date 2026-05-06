@@ -6,3 +6,9 @@
   font-weight: 600;
   font-size: 2rem;
 }
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14rem;
+  padding: 14rem 0;
+}

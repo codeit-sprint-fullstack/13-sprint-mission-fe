@@ -12,7 +12,7 @@ export default function Button({
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`${styles.btn} ${styles[`btn-${variant}`]}`}
+      className={`${styles.btn} ${styles[`btn-${variant}`]} ${disabled && styles.disabled}`}
     >
       {children}
     </button>

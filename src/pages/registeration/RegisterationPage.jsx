@@ -12,7 +12,12 @@ export default function RegisterationPage() {
   const [tagInput, setTagInput] = useState("");
 
   return (
-    <form className={styles.form}>
+    <form
+      className={styles.form}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <div className={styles.titleContainer}>
         <h2 className={styles.title}>상품 등록하기</h2>
         <Button variant="rectangle" disabled={true}>

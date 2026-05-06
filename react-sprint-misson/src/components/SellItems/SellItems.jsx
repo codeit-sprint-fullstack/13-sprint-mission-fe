@@ -117,6 +117,10 @@ export default function SellItems() {
               className={`${styles.cardView} ${styles.sellCardView}`}
               src={product.images}
               alt={product.name}
+              onError={(e) => {
+                e.target.onError = null;
+                e.target.src = defaulImg;
+              }}
             />
             <p className={styles.productTitle}>{product.name}</p>
             <p className={styles.productPrice}>

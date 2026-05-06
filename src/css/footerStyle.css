@@ -1,0 +1,40 @@
+.footer {
+  background: var(--Secondary-900, #111827);
+}
+.footer-inner {
+  display: flex;
+  height: 10rem;
+  padding: 2rem 12.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-self: stretch;
+}
+.footer-left {
+  color: var(--Secondary-400, #9ca3af);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.footer-center {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.875rem;
+}
+.footer-center a {
+  color: var(--Secondary-200, #e5e7eb);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.footer-right {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}

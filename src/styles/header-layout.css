@@ -1,0 +1,37 @@
+.header {
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.header .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.logo img {
+  height: 32px;
+}
+
+.login-btn {
+  background: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,202 @@
+.market-items-section {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.market-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.market-title {
+  color: var(--secondary-900);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2rem; /* 160% */
+}
+
+.market-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-input-wrapper {
+  display: flex;
+  width: auto;
+  min-width: 15.8rem;
+  height: 2.625rem;
+  align-items: center;
+  position: relative;
+}
+
+.search-input-wrapper img {
+  position: absolute;
+  left: 1rem;
+}
+
+.search-input {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0.5625rem 1.25rem 0.5625rem 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border-radius: 0.75rem;
+  border: none;
+  outline: none;
+  background: var(--secondary-100);
+  color: var(--secondary-400);
+  padding-left: 3rem;
+}
+
+.btn-add-product {
+  display: flex;
+  height: 2.625rem;
+  padding: 0.75rem 1.4375rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  background: var(--primary-100);
+  color: var(--cool-gray-100);
+}
+
+.sort-dropdown-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8.125rem;
+  height: 2.625rem;
+  position: relative;
+  border-radius: 0.75rem;
+  border: 1px solid var(--cool-gray-200);
+  outline: none;
+  background: #fff;
+  padding-right: 3rem;
+  cursor: pointer;
+}
+
+.sort-dropdown-wrapper img {
+  position: absolute;
+  right: 1rem;
+}
+
+.sort-options-list {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid var(--cool-gray-200);
+  border-radius: 0.75rem;
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.sort-option {
+  width: 100%;
+  height: 2.625rem;
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.sort-option:first-child {
+  border-bottom: 1px solid var(--cool-gray-200);
+}
+
+.sort-option:hover {
+  background-color: var(--secondary-50);
+}
+
+.market-items-grid {
+  list-style: none;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 1023px) {
+  .market-header {
+    margin: 2.5rem 1.5rem 0 1.5rem;
+  }
+  .market-items-grid {
+    grid-template-columns: repeat(3, 1fr);
+    margin: 1.5rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .market-header {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .market-title {
+    order: 1;
+    width: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .market-controls {
+    display: contents;
+  }
+
+  .btn-add-product {
+    order: 2;
+    width: auto;
+    margin-right: 2.81rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-input-wrapper {
+    order: 3;
+    width: 85%;
+  }
+
+  .sort-dropdown-wrapper {
+    order: 4;
+    width: 2.625rem;
+    height: 2.625rem;
+    display: flex;
+    justify-content: center;
+    padding: 0.5625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .sort-dropdown-current {
+    display: none;
+  }
+
+  .sort-options-list {
+    width: 8.125rem;
+  }
+
+  .sort-dropdown-wrapper img {
+    position: static;
+  }
+
+  .market-items-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 1rem;
+    row-gap: 2rem;
+    column-gap: 0.5rem;
+  }
+}

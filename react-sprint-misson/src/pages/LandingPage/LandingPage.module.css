@@ -1,0 +1,152 @@
+/* LandingPage.module.css */
+
+main {
+  margin: 0 auto;
+  padding-bottom: 0;
+}
+/* BANNER */
+.bannerSection {
+  display: flex;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  background-color: var(--landing-background-color);
+  min-height: 33.75rem;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bannerInner {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 120rem;
+  padding: 12.5rem 25.313rem 0;
+  gap: 2rem;
+}
+
+.bannerText h2 {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-pretendard);
+  font-size: 2.5rem;
+  line-height: 140%;
+  color: var(--secondary-700);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.bannerText a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 6.25rem;
+  color: white;
+  background-color: #3692ff;
+  border-radius: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  height: 3.5rem;
+  width: 22.313rem;
+}
+
+.bannerTextBottom {
+  display: flex;
+  margin-bottom: 7.031rem;
+}
+
+.bannerImage {
+  height: auto;
+  display: block;
+}
+
+/* INTRO */
+.introSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotpageSection,
+.searchSection,
+.sellSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin: 8.625rem 29.125rem;
+}
+
+.hotpageImage,
+.searchImage,
+.sellPageImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.hotpageText {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  font-family: var(--font-pretendard);
+  font-weight: 700;
+  background-color: #fcfcfc;
+  padding-top: 6.438rem;
+  padding-bottom: 6.438rem;
+  padding-left: 4rem;
+  padding-right: 1.938rem;
+  width: auto;
+}
+
+.searchText {
+  display: flex;
+  gap: 1.5rem;
+  text-align: right;
+  flex-direction: column;
+  font-family: var(--font-pretendard);
+  font-weight: 700;
+  background-color: #fcfcfc;
+  padding-top: 6.438rem;
+  padding-bottom: 6.438rem;
+  padding-left: 0.75rem;
+  padding-right: 4rem;
+  width: auto;
+}
+
+.sellPageText {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  font-family: var(--font-pretendard);
+  background-color: #fcfcfc;
+  padding-top: 6.438rem;
+  padding-bottom: 6.438rem;
+  padding-left: 4rem;
+  width: auto;
+}
+
+.introTitle {
+  color: var(--primary-100);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.introDescription {
+  color: var(--secondary-700);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 140%;
+}
+
+.introDetail {
+  color: var(--secondary-700);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}

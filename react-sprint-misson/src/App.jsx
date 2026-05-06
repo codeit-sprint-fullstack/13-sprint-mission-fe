@@ -1,6 +1,7 @@
 import "./App.css";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
+import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import Products from "./pages/Products";
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <>
       <Header />
       <main>
-        <Products />
+        <LandingPage />
+        {/* <Products /> */}
       </main>
       <Footer />
     </>

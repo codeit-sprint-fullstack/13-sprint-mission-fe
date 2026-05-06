@@ -1,0 +1,131 @@
+.main {
+  margin-top: 4.375rem;
+}
+
+.hero {
+  display: flex;
+  width: 100%;
+  height: 33.75rem;
+  background-color: #cfe5ff;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4375rem;
+}
+
+.hero-text {
+  display: flex;
+  padding-bottom: 3.75rem;
+  flex-direction: column;
+  gap: 2rem;
+  color: #374151;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 3.5rem;
+}
+
+.go-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 7.75rem;
+  height: 3.5rem;
+  border-radius: 2.5rem;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.feature {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 8.625rem;
+}
+
+.feature-item {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 8.625rem 0;
+}
+.item-inner {
+  display: flex;
+  width: 61.75rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #fcfcfc;
+  gap: 4rem;
+}
+.feature-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-item.reverse .item-inner {
+  flex-direction: row-reverse;
+}
+
+.feature-item.reverse .feature-text {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.feature-tag {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+  color: #3692ff;
+  margin-bottom: 1.5rem;
+}
+
+.feature-tit {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 3.5rem;
+  letter-spacing: 0.05rem;
+  color: #374151;
+  margin-bottom: 1.5rem;
+}
+
+.feature-dec {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: #374151;
+}
+
+.banner {
+  display: flex;
+  width: 100%;
+  height: 33.75rem;
+  background-color: #cfe5ff;
+  justify-content: center;
+  align-items: flex-end;
+}
+.banner-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+.banner-text {
+  display: flex;
+  padding-bottom: 3.75rem;
+  align-items: flex-start;
+  color: #374151;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 3.5rem;
+}

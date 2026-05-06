@@ -23,3 +23,14 @@
 .textarea {
   height: 28.2rem;
 }
+.tagsContainer {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  color: var(--secondary-800);
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+.tagsContainer img:hover {
+  cursor: pointer;
+}

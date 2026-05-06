@@ -1,0 +1,10 @@
+.container {
+  width: fit-content;
+  padding: 0.5rem 1.6rem;
+  background-color: var(--secondary-100);
+  border-radius: 2.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}

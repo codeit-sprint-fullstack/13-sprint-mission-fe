@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { InputBlock, Button } from "@/components";
+import { nanoid } from "nanoid";
+import { InputBlock, Button, TagChip } from "@/components";
 import styles from "./Registeration.module.css";
 
 export default function RegisterationPage() {
@@ -16,6 +17,12 @@ export default function RegisterationPage() {
       className={styles.form}
       onSubmit={(e) => {
         e.preventDefault();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       }}
     >
       <div className={styles.titleContainer}>
@@ -68,14 +75,30 @@ export default function RegisterationPage() {
           value={tagInput}
           onChange={(e) => setTagInput(e.target.value)}
           onKeyDown={(e) => {
-            if (tagInput.trim() && e.code === "Enter")
+            if (tagInput.trim() && e.key === "Enter") {
               setData((prev) => ({
                 ...prev,
-                tags: [...prev.tags, tagInput],
+                tags: [...prev.tags, { id: nanoid(), value: tagInput }],
               }));
+              setTagInput("");
+            }
           }}
           className={styles.input}
         />
+      </div>
+      <div className={styles.tagsContainer}>
+        {data.tags.map((tag) => (
+          <TagChip
+            key={tag.id}
+            text={tag.value}
+            onClick={() => {
+              setData((prev) => ({
+                ...prev,
+                tags: prev.tags.filter((t) => t.id !== tag.id),
+              }));
+            }}
+          />
+        ))}
       </div>
     </form>
   );

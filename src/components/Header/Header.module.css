@@ -52,4 +52,11 @@
   .containerLeft {
     gap: 0.8rem;
   }
+  .logo {
+    font-size: 2rem;
+  }
+  .navBtn {
+    width: 8rem;
+    font-size: 1.6rem;
+  }
 }

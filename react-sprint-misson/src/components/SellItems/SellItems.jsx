@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styles from "./SellItems.module.css";
-import searchIcon from "../../assets/icons/ic_search.png";
-import icHeart from "../../assets/icons/ic_heart.png";
-import Dropdown from "../DropDowns.jsx";
-import PageNation from "../PageNation.jsx";
-import { useWindowSize } from "../../hooks/useWindowSize.js";
-import { useGetProduct } from "../../hooks/useGetProducts.js";
+import searchIcon from "@/assets/icons/ic_search.png";
+import defaulImg from "@/assets/icons/img_default.svg";
+import icHeart from "@/assets/icons/ic_heart.png";
+import Dropdown from "@/components/DropDowns.jsx";
+import PageNation from "@/components/PageNation.jsx";
+import { useWindowSize } from "@/hooks/useWindowSize.js";
+import { useGetProduct } from "@/hooks/useGetProducts.js";
 
 const BREAKPOINTS = {
   MOBILE: 375,

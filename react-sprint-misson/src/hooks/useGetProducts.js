@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductsApi from "../service/ProductsService";
+import ProductsApi from "@/service/ProductsService";
 
 const products = new ProductsApi();
 

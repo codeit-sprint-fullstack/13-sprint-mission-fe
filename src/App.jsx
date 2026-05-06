@@ -1,17 +1,25 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
 import MainLayout from "@/layouts/MainLayout";
-import { MarketPage } from "@/pages";
+import {
+  MarketPage,
+  LoginPage,
+  SignUpPage,
+  HomePage,
+  RegisterationPage,
+} from "@/pages";
 import "./App.css";
-
-const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <MainLayout>
-        <MarketPage />
-      </MainLayout>
-    </QueryClientProvider>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="items" element={<MarketPage />} />
+        <Route path="registeration" element={<RegisterationPage />} />
+      </Route>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+    </Routes>
   );
 }
 

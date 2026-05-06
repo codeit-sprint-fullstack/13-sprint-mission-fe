@@ -1,0 +1,87 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  height: var(--header-height);
+}
+
+.headerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 200px;
+  margin: 0 auto;
+}
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.headerLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerLogoText {
+  color: #3692ff;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.headerMenu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.headerMenuLink {
+  color: #4b5563;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.headerLogin {
+  border-radius: 8px;
+  background: #3692ff;
+  display: flex;
+  padding: 11px 23px;
+  justify-content: center;
+  align-items: center;
+  color: #f3f4f6;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.625;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .headerInner {
+    padding: 9px 0;
+  }
+  .headerLeft {
+    gap: 35px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .headerInner {
+    padding: 9px 0;
+  }
+  .headerLogo img {
+    display: none;
+  }
+
+  .headerLeft {
+    gap: 8px;
+  }
+  .headerLogoText {
+    font-size: 1.4rem;
+  }
+  .headerMenu {
+    gap: 8px;
+  }
+}

@@ -1,0 +1,154 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-std.min.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+:root {
+  --header-height: 70px;
+  --page-width: 1920px;
+  --Primary-100: #3692ff;
+  --Primary-Primary-brand: #3692ff;
+  --Cool-Gray-100: #f3f4f6;
+  --Cool-Gray-200: #e5e7eb;
+  --Secondary-700: #374151;
+  --brand-blue: #3692ff;
+  --Secondary-50: #f9fafb;
+  --Secondary-100: #f3f4f6;
+  --Secondary-900: #111827;
+  --Secondary-400: #9ca3af;
+  --Secondary-200: #e5e7eb;
+  --Secondary-800: #1f2937;
+  --Secondary-600: #4b5563;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  font-family: "Pretendard", Inter, system-ui, sans-serif !important;
+}
+
+body {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.06rem;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+em {
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.btn {
+  width: 100%;
+  display: inline-flex;
+  padding: 16px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 40px;
+  background: var(--brand-blue, #3692ff);
+  color: var(--Secondary-50, #f9fafb);
+  text-align: center;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 0 16px;
+  }
+  .mobile-hide {
+    display: none !important;
+  }
+}

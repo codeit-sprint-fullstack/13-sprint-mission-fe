@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InputBlock, Button } from "@/components";
+import { InputBlock, Button, Social } from "@/components";
 import { lgLogo } from "@/assets/img";
-import {
-  icGoogle,
-  icKakao,
-  icBtnVisibilityOff,
-  icBtnVisibilityOn,
-} from "@/assets/icons";
+import { icBtnVisibilityOff, icBtnVisibilityOn } from "@/assets/icons";
 import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
@@ -43,21 +38,11 @@ export default function LoginPage() {
               />
             }
           />
-          <Button variant="rectangle" className={styles.btn}>
+          <Button variant="rectangle" disabled={true} className={styles.btn}>
             로그인
           </Button>
         </div>
-        <div className={styles.socialContainer}>
-          <p className={styles.socialText}>간편 로그인하기</p>
-          <div className={styles.socials}>
-            <Link to="https://www.google.com/">
-              <img src={icGoogle} className={styles.social} />
-            </Link>
-            <Link to="https://www.kakaocorp.com/">
-              <img src={icKakao} className={styles.social} />
-            </Link>
-          </div>
-        </div>
+        <Social />
         <p className={styles.signup}>
           판다마켓이 처음이신가요?{" "}
           <Link className={styles.link} to="/signup">

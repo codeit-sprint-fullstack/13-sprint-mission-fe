@@ -1,0 +1,23 @@
+.socialContainer {
+  height: 7.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e6f2ff;
+  border-radius: 0.8rem;
+  padding: 0 2.3rem;
+  margin: 2.4rem 0;
+}
+.socialText {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--secondary-800);
+}
+.socials {
+  display: flex;
+  gap: 1.6rem;
+}
+.social {
+  width: 4.2rem;
+  height: 4.2rem;
+}

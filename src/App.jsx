@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Faq from "./pages/Faq";
-import ItemList from "./pages/ItemList";
+import Items from "./pages/Items";
 import Login from "./pages/Login";
 import Privacy from "./pages/Privacy";
 import SignUp from "./pages/SignUp";
@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/itemlist" element={<ItemList />} />
+        <Route path="/itemlist" element={<Items />} />
       </Routes>
     </BrowserRouter>
   );

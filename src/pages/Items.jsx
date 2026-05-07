@@ -6,7 +6,7 @@ import SectionTitle from "../components/SectionTitle";
 import ItemListGeneral from "../components/ItemListGeneral";
 import ItemListBest from "../components/ItemListBest";
 
-const ItemList = () => {
+const Items = () => {
   return (
     <div className="page-wrapper">
       <Navbar />
@@ -23,4 +23,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default Items;

@@ -46,40 +46,21 @@ export const postProduct = asyncHandler(async (req, res) => {
   const result = await Product.create(req.body);
   res.status(201).json(result);
 });
-/*export async function postProduct(req, res) {
-  const result = await Product.create(req.body);
-  res.status(201).json(result);
-}*/
 
 export const patchProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findByIdAndUpdate(productId, req.body);
   res.status(200).json(result);
 });
-/*export async function patchProduct(req, res) {
-  const { productId } = req.params;
-  const result = await Product.findByIdAndUpdate(productId, req.body);
-  res.status(200).json(result);
-}*/
 
 export const deleteProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findByIdAndDelete(productId);
   res.status(200).json(result);
 });
-/*export async function deleteProduct(req, res) {
-  const { productId } = req.params;
-  const result = await Product.findByIdAndDelete(productId);
-  res.status(200).json(result);
-}*/
 
 export const getProductDetail = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findById(productId);
   res.status(200).json(result);
 });
-/*export async function getProductDetail(req, res) {
-  const { productId } = req.params;
-  const result = await Product.findById(productId);
-  res.status(200).json(result);
-}*/

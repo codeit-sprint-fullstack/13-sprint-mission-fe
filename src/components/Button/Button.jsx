@@ -6,13 +6,14 @@ export default function Button({
   children,
   disabled = false,
   onClick,
+  className,
 }) {
   return (
     <button
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`${styles.btn} ${styles[`btn-${variant}`]} ${disabled && styles.disabled}`}
+      className={`${styles.btn} ${styles[`btn-${variant}`]} ${disabled && styles.disabled} ${className}`}
     >
       {children}
     </button>

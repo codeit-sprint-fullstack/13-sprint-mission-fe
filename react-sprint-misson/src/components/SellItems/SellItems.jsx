@@ -7,6 +7,7 @@ import Dropdown from "@/components/DropDowns.jsx";
 import PageNation from "@/components/PageNation.jsx";
 import { useWindowSize } from "@/hooks/useWindowSize.js";
 import { useGetProduct } from "@/hooks/useGetProducts.js";
+import { replace, useNavigate } from "react-router-dom";
 
 const BREAKPOINTS = {
   MOBILE: 375,
@@ -49,6 +50,8 @@ export default function SellItems() {
   const { width } = useWindowSize();
   const isMobile = width <= BREAKPOINTS.MOBILE;
   const pageSize = getPageSize(width);
+
+  const navigate = useNavigate();
 
   const { productList, totalCount } = useGetProduct({
     page: currentPage,
@@ -97,7 +100,12 @@ export default function SellItems() {
 
         <div className={styles.sellHeaderRight}>
           {!isMobile && searchRow}
-          <button className={styles.registerBtn}>상품 등록하기</button>
+          <button
+            className={styles.registerBtn}
+            onClick={() => navigate("/registration")}
+          >
+            상품 등록하기
+          </button>
           {!isMobile && (
             <Dropdown
               onChange={(value) =>

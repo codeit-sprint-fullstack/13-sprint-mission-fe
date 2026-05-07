@@ -17,6 +17,11 @@ const ProductSchema = new mongoose.Schema(
       required: [true, "가격은 필수예요."],
       min: [0, "가격은 0 이상이어야 해요."],
     },
+    favoriteCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     tags: {
       type: [String],
       default: [],

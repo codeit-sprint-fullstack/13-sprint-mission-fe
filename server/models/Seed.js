@@ -13,24 +13,28 @@ const seedData = [
     description: "아군 사용시 힐증, 적군 사용시 힐밴",
     price: 52000,
     tags: ["힐러", "개사기"],
+    favoriteCount: 2509127,
   },
   {
     name: "키리코의 방울",
     description: "폭힐 및 무적기",
     price: 50000,
     tags: ["힐러", "개사기"],
+    favoriteCount: 3219856,
   },
   {
     name: "토르비욘의 망치",
     description: "꼬마 망치 나가신다",
     price: 9200,
     tags: ["딜러", "보조무기", "포탑깡깡", "망치살인마", "싸이코"],
+    favoriteCount: 18,
   },
   {
     name: "설구",
     description: "주변을 얼리는 똑똑한 보조 로봇",
     price: 9200,
     tags: ["딜러", "개쓰레기궁", "제발열려줘", "싸이코"],
+    favoriteCount: 287,
   },
 ];
 

@@ -1,15 +1,46 @@
 import React, { useState } from "react";
 import styles from "./Registration.module.css";
 import { nanoid } from "nanoid/non-secure";
+import { useValidation } from "@/hooks/useValidation";
+import FormField from "@/components/SellItems/FormField";
+import TagInput from "@/components/SellItems/TagInput";
+import formStyles from "@/components/SellItems/FormField.module.css";
 
 export default function RegistrationPage() {
   const [tagValue, setTagValue] = useState("");
   const [tagList, setTagList] = useState([]);
+  const [formValues, setFormValues] = useState({
+    productName: "",
+    productDescription: "",
+    productPrice: "",
+  });
+
+  const { errors, handleCheckValid } = useValidation({
+    productName: { min: 1, max: 10 },
+    productDescription: { min: 10, max: 100 },
+    productPrice: {
+      required: true,
+      validate: (value) =>
+        /^[0-9]+$/.test(value) ? "" : "숫자만 입력해주세요.",
+    },
+    productTags: { min: 1, max: 5 },
+  });
+
+  const isFormValid =
+    formValues.productName.trim() !== "" &&
+    formValues.productDescription.trim() !== "" &&
+    formValues.productPrice.trim() !== "";
+
+  function handleFormChange(e) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  }
 
   function handleTagKeyDown(e) {
     if (e.key !== "Enter") return;
     e.preventDefault();
-    if (tagValue.trim() === "") return;
+    if (tagValue.trim() === "" || tagValue.length > 5)
+      return handleCheckValid(e);
     setTagList((prev) => [
       ...prev,
       {
@@ -24,6 +55,10 @@ export default function RegistrationPage() {
     setTagList((prev) => prev.filter((t) => t.id !== id));
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.header}>
@@ -31,6 +66,7 @@ export default function RegistrationPage() {
         <button
           type="submit"
           form="registration-form"
+          disabled={!isFormValid}
           className={styles.submitButton}
         >
           등록
@@ -42,65 +78,63 @@ export default function RegistrationPage() {
         className={styles.fieldContainer}
         onSubmit={handleSubmit}
       >
-        <label className={styles.label} htmlFor="product-name">
-          상품명
-        </label>
-        <input
-          className={styles.input}
-          id="product-name"
-          name="productName"
-          placeholder="상품명을 입력해주세요"
-        />
+        <FormField
+          label="상품명"
+          htmlFor="product-name"
+          error={errors.productName}
+        >
+          <input
+            className={`${formStyles.input} ${errors.productName ? formStyles.inputError : ""}`}
+            id="product-name"
+            name="productName"
+            value={formValues.productName}
+            onChange={handleFormChange}
+            onBlur={handleCheckValid}
+            placeholder="상품명을 입력해주세요"
+          />
+        </FormField>
 
-        <label className={styles.label} htmlFor="product-description">
-          상품 소개
-        </label>
-        <textarea
-          className={styles.textarea}
-          id="product-description"
-          name="productDescription"
-          placeholder="상품 소개를 입력해주세요."
-        />
+        <FormField
+          label="상품 소개"
+          htmlFor="product-description"
+          error={errors.productDescription}
+        >
+          <textarea
+            className={`${formStyles.textarea} ${errors.productDescription ? formStyles.inputError : ""}`}
+            id="product-description"
+            name="productDescription"
+            value={formValues.productDescription}
+            onChange={handleFormChange}
+            onBlur={handleCheckValid}
+            placeholder="상품 소개를 입력해주세요."
+          />
+        </FormField>
 
-        <label className={styles.label} htmlFor="product-price">
-          판매가격
-        </label>
-        <input
-          className={styles.input}
-          id="product-price"
-          name="productPrice"
-          type="number"
-          placeholder="판매 가격을 입력해주세요"
-        />
+        <FormField
+          label="판매가격"
+          htmlFor="product-price"
+          error={errors.productPrice}
+        >
+          <input
+            className={`${formStyles.input} ${errors.productPrice ? formStyles.inputError : ""}`}
+            id="product-price"
+            name="productPrice"
+            type="number"
+            value={formValues.productPrice}
+            onChange={handleFormChange}
+            onBlur={handleCheckValid}
+            placeholder="판매 가격을 입력해주세요"
+          />
+        </FormField>
 
-        <label className={styles.label} htmlFor="product-tags">
-          태그
-        </label>
-        <input
-          className={styles.input}
-          id="product-tags"
-          value={tagValue}
+        <TagInput
+          tagValue={tagValue}
+          tagList={tagList}
+          error={errors.productTags}
           onChange={(e) => setTagValue(e.target.value)}
           onKeyDown={handleTagKeyDown}
-          placeholder="태그를 입력하세요"
+          onDelete={handleTagDelete}
         />
-
-        {tagList.length > 0 && (
-          <ul className={styles.tagList}>
-            {tagList.map((t) => (
-              <li key={t.id} className={styles.tagItem}>
-                <p className={styles.tagValue}>{t.value}</p>
-                <button
-                  type="button"
-                  className={styles.deleteBtn}
-                  onClick={() => handleTagDelete(t.id)}
-                >
-                  <img src="/images/icons/ic_X.svg" alt="태그 삭제" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
       </form>
     </div>
   );

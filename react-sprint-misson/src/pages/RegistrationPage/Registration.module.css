@@ -21,33 +21,18 @@
 
 .submitButton {
   border-radius: 0.8rem;
-  background-color: var(--gray-400);
   padding: 0.8rem 2.3rem;
+  background-color: var(--primary-100);
   color: var(--gray-100);
   font-size: 1.6rem;
+  cursor: pointer;
   border-color: transparent;
 }
 
-.label {
-  color: var(--gray-800);
-  font-weight: 700;
-  font-size: 1.8rem;
-  font-family: var(--font-pretendard);
-}
-
-.textarea {
-  height: 28.2rem;
-  border-radius: 1.2rem;
-  background-color: var(--gray-100);
-  padding-left: 2.4rem;
-  padding-top: 1.8rem;
-  border-color: transparent;
-}
-.textarea::placeholder {
-  font-size: 1.6rem;
-  color: var(--gray-400);
-  font-weight: 400;
-  font-family: var(--font-pretendard);
+.submitButton:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .fieldContainer {
@@ -55,51 +40,4 @@
   grid-template-columns: 1fr;
   gap: 1.6rem;
   margin-top: 2.4rem;
-}
-
-.input {
-  border-radius: 1.2rem;
-  border-color: transparent;
-  background-color: var(--gray-100);
-  padding: 1.6rem 2.4rem;
-}
-
-.input::placeholder {
-  font-size: 1.6rem;
-  color: var(--gray-400);
-  font-weight: 400;
-}
-
-/* tag */
-
-.tagList {
-  margin-top: 2rem;
-  gap: 1rem;
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  padding: 0;
-}
-
-.tagItem {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 2.6rem;
-  background-color: var(--gray-100);
-  gap: 0.6rem;
-  padding: 0.6rem 1rem;
-}
-
-.tagValue {
-  color: var(--gray-800);
-  font-weight: 400;
-  font-size: 1.6rem;
-  margin-left: 1.6rem;
-  white-space: nowrap;
-}
-
-.deleteBtn {
-  cursor: pointer;
-  border-color: transparent;
 }

@@ -6,6 +6,10 @@ import { icBtnVisibilityOff, icBtnVisibilityOn } from "@/assets/icons";
 import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
+  const [data, setData] = useState({
+    email: "",
+    pw: "",
+  });
   const [pwOpen, setPwOpen] = useState(false);
   return (
     <div className={styles.loginPage}>
@@ -22,6 +26,10 @@ export default function LoginPage() {
             title="이메일"
             errorMsg="잘못된 이메일 형식입니다."
             placeholder="이메일을 입력해주세요"
+            value={data.email}
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, email: e.target.value }))
+            }
             className={styles.input}
           />
           <InputBlock
@@ -29,6 +37,10 @@ export default function LoginPage() {
             errorMsg="비밀번호를 8자 이상 입력해주세요."
             type={pwOpen ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요"
+            value={data.pw}
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, pw: e.target.value }))
+            }
             className={styles.input}
             suffix={
               <img

@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000/products
+
+GET {{baseUrl}}
+
+GET {{baseUrl}}/69fc2325f92e75a1aaa9d8ab
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "title": "아나의 수면총",
+  "description": "게임 판도를 뒤집는 강력한 CC기이다. 대상이 3초동안 잔다",
+  "tags": ["힐러", "판도를뒤집", "CC기"],
+  "price": 12000
+}
+
+PATCH {{baseUrl}}/69fc2325f92e75a1aaa9d8ab
+Content-Type: application/json
+
+{
+  "title": "아나의 생체 슈류탄",
+  "description": "아군에게 사용시 힐증폭, 적군에게 사용지 힐밴",
+  "tags": ["힐러", "판도를뒤집", "개사기", "정커퀸궁"],
+  "price": 62000
+}
+
+DELETE {{baseUrl}}/69fc2325f92e75a1aaa9d8ab

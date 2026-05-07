@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./models/index.js";
+import { productRouter } from "./routes/index.js";
 import { setServers } from "node:dns/promises";
 
 setServers(["1.1.1.1", "8.8.8.8"]);
@@ -15,6 +16,7 @@ connectDB(); //DB연결
 app.get("/", (req, res) => {
   res.send("서버 잘 작동중!");
 });
+app.use("/products", productRouter);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("서버 실행 중");

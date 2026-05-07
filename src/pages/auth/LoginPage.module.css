@@ -1,0 +1,74 @@
+.loginPage {
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginContainer {
+  width: 64rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.3rem;
+  margin-bottom: 4rem;
+}
+.logoText {
+  font-size: 6.7rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.input {
+  height: 5.6rem;
+}
+.pwIcon {
+  cursor: pointer;
+}
+.inputs .btn {
+  height: 5rem;
+  border-radius: 4rem;
+  font-size: 2rem;
+}
+.socialContainer {
+  height: 7.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e6f2ff;
+  border-radius: 0.8rem;
+  padding: 0 2.3rem;
+  margin: 2.4rem 0;
+}
+.socialText {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--secondary-800);
+}
+.socials {
+  display: flex;
+  gap: 1.6rem;
+}
+.social {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.signup {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--secondary-800);
+}
+.link {
+  color: var(--brand-blue);
+  text-decoration: underline;
+}
+.link:focus {
+  color: var(--brand-blue);
+  text-decoration: underline;
+}

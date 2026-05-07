@@ -194,6 +194,11 @@ section {
 
 /* 모바일 (375px 이하) */
 @media (max-width: 375px) {
+  .sellContainer {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    padding: 0;
+  }
   .sellList {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;

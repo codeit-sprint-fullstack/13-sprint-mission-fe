@@ -1,6 +1,7 @@
 import Product from "../models/Product.js";
+import { asyncHandler } from "./asyncHandler.js";
 
-export async function getProduct(req, res) {
+export const getProduct = asyncHandler(async (req, res) => {
   const { page = 1, pageSize = 10, orderBy = "recent", keyword } = req.query;
   //pagination 계산
   const skip = (Number(page) - 1) * Number(pageSize);
@@ -39,23 +40,46 @@ export async function getProduct(req, res) {
   result = await result.skip(skip).limit(Number(pageSize));
 
   res.status(200).json(result);
-}
-export async function postProduct(req, res) {
+});
+
+export const postProduct = asyncHandler(async (req, res) => {
   const result = await Product.create(req.body);
   res.status(201).json(result);
-}
-export async function patchProduct(req, res) {
+});
+/*export async function postProduct(req, res) {
+  const result = await Product.create(req.body);
+  res.status(201).json(result);
+}*/
+
+export const patchProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findByIdAndUpdate(productId, req.body);
   res.status(200).json(result);
-}
-export async function deleteProduct(req, res) {
+});
+/*export async function patchProduct(req, res) {
+  const { productId } = req.params;
+  const result = await Product.findByIdAndUpdate(productId, req.body);
+  res.status(200).json(result);
+}*/
+
+export const deleteProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findByIdAndDelete(productId);
   res.status(200).json(result);
-}
-export async function getProductDetail(req, res) {
+});
+/*export async function deleteProduct(req, res) {
+  const { productId } = req.params;
+  const result = await Product.findByIdAndDelete(productId);
+  res.status(200).json(result);
+}*/
+
+export const getProductDetail = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const result = await Product.findById(productId);
   res.status(200).json(result);
-}
+});
+/*export async function getProductDetail(req, res) {
+  const { productId } = req.params;
+  const result = await Product.findById(productId);
+  res.status(200).json(result);
+}*/

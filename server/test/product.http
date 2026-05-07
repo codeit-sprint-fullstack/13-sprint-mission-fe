@@ -45,10 +45,10 @@ Content-Type: application/json
 
 {
   "name": "아나의 생체 슈류탄",
-  "description": "아군에게 사용시 힐증폭, 적군에게 사용지 힐밴",
-  "tags": ["힐러", "판도를뒤집", "개사기", "정커퀸궁"],
-  "price": 62000
+  "description": "아군에게 사용시 힐증폭, 적군에게 사용지 힐밴 적용",
+  "tags": ["힐러", "싸가지", "개사기", "정커퀸궁"],
+  "price": 62950
 }
 
 ### DELETE Product 테스트
-DELETE {{baseUrl}}/69fc51982a7b8bebc50bfb4f
+DELETE {{baseUrl}}/69fc5abef73bf22524c7d79b

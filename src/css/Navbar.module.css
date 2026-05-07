@@ -1,4 +1,4 @@
-.gnb {
+.wrapper {
   position: fixed;
   width: 100%;
   top: 0;
@@ -8,16 +8,16 @@
   border-bottom: 1px solid #dfdfdf;
   background-color: white;
 }
-.gnb-inner {
+.container {
   display: flex;
   justify-content: space-between;
 }
-.gnb-logo {
+.logo {
   width: 153px;
   height: 51px;
   cursor: pointer;
 }
-.gnb-login {
+.loginButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,4 +29,17 @@
   background: var(--color-primary-100);
   color: var(--color-secondary-100);
   cursor: pointer;
+}
+.menu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-left: 39px;
+  gap: 30px;
+  color: var(--color-secondary-800);
+  cursor: pointer;
+}
+.active {
+  color: var(--color-primary-100);
 }

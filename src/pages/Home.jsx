@@ -5,12 +5,8 @@ import LinkButton from "../components/LinkButton";
 
 const Home = () => {
   return (
-    <div className="page-wrapper">
-      <Navbar />
-      <div className="container">
-        <LinkButton href="/itemlist">상품리스트 스프린트4</LinkButton>
-      </div>
-      <Footer />
+    <div className="container">
+      <LinkButton href="/items">상품리스트 스프린트4</LinkButton>
     </div>
   );
 };

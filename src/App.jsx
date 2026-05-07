@@ -1,17 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
+import MainLayout from "./layouts/MainLayout.jsx";
+import SubLayout from "./layouts/SubLayout.jsx";
 import Home from "./pages/Home";
-import Faq from "./pages/Faq";
 import Items from "./pages/Items";
-import Login from "./pages/Login";
-import Privacy from "./pages/Privacy";
-import SignUp from "./pages/SignUp";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/itemlist" element={<Items />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+        <Route element={<SubLayout />}>
+          <Route path="/items" element={<Items />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

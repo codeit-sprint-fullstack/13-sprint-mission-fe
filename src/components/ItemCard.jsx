@@ -18,6 +18,7 @@ export default function ItemCard({ id, image, name, price, favoriteCount }) {
   };
 
   return (
+    //리액트로웹사이트만들기 05~NotFound 24분 -> 카드링크붙이기 시연
     <div className={styles.wrapper}>
       <img className={styles.image} src={thumbnail(image)} />
       <div>

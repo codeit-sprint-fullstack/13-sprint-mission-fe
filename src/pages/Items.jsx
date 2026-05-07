@@ -8,17 +8,13 @@ import ItemListBest from "../components/ItemListBest";
 
 const Items = () => {
   return (
-    <div className="page-wrapper">
-      <Navbar />
-      <div className="container">
-        <section>
-          <ItemListBest />
-        </section>
-        <section>
-          <ItemListGeneral />
-        </section>
-      </div>
-      <Footer />
+    <div className="container">
+      <section>
+        <ItemListBest />
+      </section>
+      <section>
+        <ItemListGeneral />
+      </section>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
   HomePage,
   RegisterationPage,
   CommunityPage,
+  NotFoundPage,
 } from "@/pages";
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="community" element={<CommunityPage />} />
         <Route path="items" element={<MarketPage />} />
         <Route path="registeration" element={<RegisterationPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />

@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../css/Navbar.module.css";
-import logo from "../assets/logo/logo-panda-market.svg";
+import styles from "../../css/Navbar.module.css";
+import logo from "../../assets/logo/logo-panda-market.svg";
 import { NavLink } from "react-router";
-import Items from "../pages/Items";
-import Home from "../pages/Home";
+import Items from "../../pages/Items";
+import Home from "../../pages/Home";
 
 export default function NavbarWith() {
   return (

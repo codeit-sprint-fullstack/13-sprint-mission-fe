@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import ItemCard from "./ItemCard";
-import styles from "../css/ItemListGeneral.module.css";
-import SectionTitle from "./SectionTitle";
-import ListSearch from "./ListSearch";
-import Button from "./Button";
-import Dropdown from "./Dropdown";
-import arrowLeft from "../assets/icon/arrow-left.svg";
-import arrowRight from "../assets/icon/arrow-right.svg";
+import ItemCard from "./Card";
+import styles from "../../css/ItemListGeneral.module.css";
+import SectionTitle from "../SectionTitle";
+import ListSearch from "./Search";
+import Button from "../Button/Default";
+import Dropdown from "../Dropdown";
+import arrowLeft from "../../assets/icon/arrow-left.svg";
+import arrowRight from "../../assets/icon/arrow-right.svg";
 
 export default function ItemListGeneral() {
   const [products, setProducts] = useState([]);
@@ -27,7 +27,7 @@ export default function ItemListGeneral() {
         );
         const data = await response.json();
         setProducts(data.list);
-        setTotalPages(Math.floor(data.totalCount / 10));
+        setTotalPages(Math.ceil(data.totalCount / 10));
       } catch (error) {
         console.error("error:", error);
       }

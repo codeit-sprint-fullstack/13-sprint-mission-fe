@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from "../css/ListSearch.module.css";
-import searchIcon from "../assets/icon/search.svg";
+import styles from "../../css/ListSearch.module.css";
+import searchIcon from "../../assets/icon/search.svg";
 
 const ListSearch = ({ onSearch }) => {
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   // 누르면 검색을 진행할 함수
   const handleSubmit = (e) => {
     e.preventDefault();

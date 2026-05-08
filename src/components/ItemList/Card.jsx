@@ -1,15 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import heart from "../assets/icon/heart.svg";
-import heartFill from "../assets/icon/heart-fill.svg";
-import styles from "../css/ItemCard.module.css";
-import imgPlaceholder from "../assets/img/img-placeholder.svg";
+import heart from "../../assets/icon/heart.svg";
+import heartFill from "../../assets/icon/heart-fill.svg";
+import styles from "../../css/ItemCard.module.css";
+import imgPlaceholder from "../../assets/img/img-placeholder.svg";
 
 export default function ItemCard({ id, image, name, price, favoriteCount }) {
   const [like, setLike] = useState(false);
   const isLiked = like ? heartFill : heart;
 
-  // 배열 형태의 이미지 데이터가 props로 들어왔다.
   const thumbnail = (image) => {
     if (!image || image.length === 0) {
       return imgPlaceholder;

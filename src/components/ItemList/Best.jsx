@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ItemCard from "./ItemCard";
-import styles from "../css/ItemListBest.module.css";
-import SectionTitle from "./SectionTitle";
+import ItemCard from "./Card";
+import styles from "../../css/ItemListBest.module.css";
+import SectionTitle from "../SectionTitle";
 
 export default function ItemListBest() {
   const [products, setProducts] = useState([]);

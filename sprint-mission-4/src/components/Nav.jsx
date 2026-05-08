@@ -19,7 +19,14 @@ export default function Nav() {
 
           <div className="menu">
             <NavLink to="/community">자유게시판</NavLink>
-            <NavLink to="/items">중고마켓</NavLink>
+            <NavLink
+              to="/items"
+              style={({ isActive }) => ({
+                color: isActive ? "#3692FF" : "#4b5563",
+              })}
+            >
+              중고마켓
+            </NavLink>
           </div>
           <button
             type="button"

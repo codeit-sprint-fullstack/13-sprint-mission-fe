@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_MY_BASE_URL;
 
 export default class ProductApi {
   async getProductList(params) {
@@ -10,7 +10,7 @@ export default class ProductApi {
   }
 
   async createProduct(data) {
-    return api.post("/products", data);
+    return api.post("/product", data);
   }
 
   async patchProduct(id, data) {

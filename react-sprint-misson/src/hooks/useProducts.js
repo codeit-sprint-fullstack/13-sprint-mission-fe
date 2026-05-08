@@ -30,3 +30,18 @@ export function useGetProduct(options = {}) {
 
   return { productList, totalCount };
 }
+
+export function useCreateProduct() {
+  async function createProduct(data) {
+    try {
+      const result = await products.createProduct(data);
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error.message);
+      throw error;
+    }
+  }
+
+  return { createProduct };
+}

@@ -5,59 +5,23 @@ import { useValidation } from "@/hooks/useValidation";
 import FormField from "@/components/SellItems/FormField";
 import TagInput from "@/components/SellItems/TagInput";
 import formStyles from "@/components/SellItems/FormField.module.css";
+import { useCreateProduct } from "../../hooks/useProducts";
+import { useRegistrationForm } from "../../hooks/useRegistrationForm";
 
 export default function RegistrationPage() {
-  const [tagValue, setTagValue] = useState("");
-  const [tagList, setTagList] = useState([]);
-  const [formValues, setFormValues] = useState({
-    productName: "",
-    productDescription: "",
-    productPrice: "",
-  });
-
-  const { errors, handleCheckValid } = useValidation({
-    productName: { min: 1, max: 10 },
-    productDescription: { min: 10, max: 100 },
-    productPrice: {
-      required: true,
-      validate: (value) =>
-        /^[0-9]+$/.test(value) ? "" : "숫자만 입력해주세요.",
-    },
-    productTags: { min: 1, max: 5 },
-  });
-
-  const isFormValid =
-    formValues.productName.trim() !== "" &&
-    formValues.productDescription.trim() !== "" &&
-    formValues.productPrice.trim() !== "";
-
-  function handleFormChange(e) {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function handleTagKeyDown(e) {
-    if (e.key !== "Enter") return;
-    e.preventDefault();
-    if (tagValue.trim() === "" || tagValue.length > 5)
-      return handleCheckValid(e);
-    setTagList((prev) => [
-      ...prev,
-      {
-        id: nanoid(),
-        value: tagValue.includes("#") ? tagValue : "#" + tagValue,
-      },
-    ]);
-    setTagValue("");
-  }
-
-  function handleTagDelete(id) {
-    setTagList((prev) => prev.filter((t) => t.id !== id));
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+  const {
+    formValues,
+    tagValue,
+    tagList,
+    errors,
+    isFormValid,
+    handleFormChange,
+    handleCheckValid,
+    handleTagKeyDown,
+    handleTagDelete,
+    setTagValue,
+    handleSubmit,
+  } = useRegistrationForm();
 
   return (
     <div className={styles.pageContainer}>

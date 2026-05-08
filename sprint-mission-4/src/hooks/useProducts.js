@@ -20,20 +20,9 @@ async function getProducts(
   sort = "recent",
 ) {
   try {
-    // const res = await fetch(
-    //   `https://panda-market-api.vercel.app/products?page=${page}&pageSize=${pageSize}&keyword=${keyword}&orderBy=${orderBy}`,
-    // );
-    // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-    // const params = new URLSearchParams();
-    // if (keyword) params.append("keyword", keyword);
-    // params.append("offset", offset);
-    // params.append("limit", limit);
-    // params.append("sort", sort);
-
-    // const res = await fetch(`${API_URL}/product?${params}`);
+    const API_URL = import.meta.env.VITE_API_URL;
     const res = await fetch(
-      `http://localhost:3000/product?keyword=${keyword}&offset=${offset}&limit=${limit}&sort=${sort}`,
+      `${API_URL}/product?keyword=${keyword}&offset=${offset}&limit=${limit}&sort=${sort}`,
     );
 
     if (!res.ok) throw new Error(`에러 발생: ${res.status}`);

@@ -62,9 +62,8 @@ export default function Registration() {
       };
 
       // API 호출
-      // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      // const response = await fetch(`${API_URL}/product`, {
-      const res = await fetch(`http://localhost:3000/product`, {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${API_URL}/product`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

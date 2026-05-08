@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const PRODUCT_API_URL = "https://panda-market-api.vercel.app/products";
+const PRODUCT_API_URL = "https://backend-deploy-d1um.onrender.com/";
 
 export function useProducts({
   page,
@@ -40,8 +40,12 @@ export function useProducts({
         }
 
         const data = await response.json();
-        setProducts(data.list ?? []);
-        setTotalCount(data.totalCount ?? 0);
+        const filteredProducts = filterProducts(data.list ?? [], trimmedKeyword);
+        const sortedProducts = sortProducts(filteredProducts, orderBy);
+        const pagedProducts = paginateProducts(sortedProducts, page, pageSize);
+
+        setProducts(pagedProducts);
+        setTotalCount(sortedProducts.length);
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err);
@@ -90,4 +94,43 @@ function getPageSize() {
   }
 
   return { best: 4, list: 10 };
+}
+
+function filterProducts(products, keyword) {
+  if (!keyword) {
+    return products;
+  }
+
+  const lowerKeyword = keyword.toLowerCase();
+
+  return products.filter((product) => {
+    const tags = product.tags ?? [];
+
+    return (
+      product.name?.toLowerCase().includes(lowerKeyword) ||
+      product.description?.toLowerCase().includes(lowerKeyword) ||
+      tags.some((tag) => tag.toLowerCase().includes(lowerKeyword))
+    );
+  });
+}
+
+function sortProducts(products, orderBy) {
+  const sortedProducts = [...products];
+
+  if (orderBy === "favorite") {
+    return sortedProducts.sort(
+      (a, b) => (b.favoriteCount ?? 0) - (a.favoriteCount ?? 0),
+    );
+  }
+
+  return sortedProducts.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  );
+}
+
+function paginateProducts(products, page, pageSize) {
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+
+  return products.slice(start, end);
 }

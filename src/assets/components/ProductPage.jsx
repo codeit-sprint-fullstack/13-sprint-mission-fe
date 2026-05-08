@@ -64,7 +64,7 @@ export default function ProductPage() {
           {bestProductError && (
             <li className="empty-message">상품을 불러오지 못했습니다.</li>
           )}
-          {bestProducts.map((bestproduct) => (
+          {bestProducts.slice(0, pageSize.best).map((bestproduct) => (
             <li className="best-feed" key={bestproduct.id}>
               <img
                 src={

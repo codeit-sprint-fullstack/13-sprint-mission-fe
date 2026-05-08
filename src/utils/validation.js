@@ -10,6 +10,11 @@ export const validatePassword = (password) => {
   );
 };
 
+//패스워드 확인 validate
+export const validateCheckedPassword = (password, checkedPassword) => {
+  return password === checkedPassword;
+};
+
 //상품명 validate
 export const validateName = (data) => {
   return data.length <= 10;

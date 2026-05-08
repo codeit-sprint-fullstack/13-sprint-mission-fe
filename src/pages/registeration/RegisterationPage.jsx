@@ -1,16 +1,26 @@
 import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { InputBlock, Button, TagChip } from "@/components";
+import { postProduct } from "@/apis";
 import styles from "./Registeration.module.css";
 
 export default function RegisterationPage() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     name: "",
     description: "",
     price: "",
     tags: [],
+    images: [],
   });
   const [tagInput, setTagInput] = useState("");
+
+  const registerMutation = useMutation({
+    mutationFn: postProduct,
+  });
 
   return (
     <form
@@ -27,7 +37,18 @@ export default function RegisterationPage() {
     >
       <div className={styles.titleContainer}>
         <h2 className={styles.title}>상품 등록하기</h2>
-        <Button variant="rectangle" disabled={true}>
+        <Button
+          variant="rectangle"
+          disabled={false}
+          onClick={() => {
+            registerMutation.mutate({
+              ...data,
+              price: +data.price,
+              tags: data.tags.map((t) => t.value),
+            });
+            navigate("/items");
+          }}
+        >
           등록
         </Button>
       </div>

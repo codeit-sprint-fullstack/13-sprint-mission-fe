@@ -43,6 +43,7 @@ export default function ItemListGeneral() {
         {products.map((product) => (
           <ItemCard
             key={product._id}
+            id={product._id}
             image={product.images}
             name={product.name}
             price={product.price}

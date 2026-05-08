@@ -54,7 +54,7 @@ export default function ItemCard({
           className={styles.container}
           onClick={() => {
             setLike((prev) => !prev);
-            setLikeCount(likeCount + 1); // 하트 토글 기능과는 모순되나 좋아요수 구현을 위해 붙여본 부분으로 UX측면이 아닌 기능 구현으로 봐주세요
+            setLikeCount(likeCount + 1);
           }}
         >
           <img className={styles.likeIcon} src={isLiked} />

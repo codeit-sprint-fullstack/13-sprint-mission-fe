@@ -48,6 +48,7 @@ export default function MarketPage() {
         page,
         orderBy: "favorite",
       });
+      console.log(res);
       return res?.list;
     },
   });
@@ -63,12 +64,12 @@ export default function MarketPage() {
   /*5. Effects */
   //로그인 페이지 생성 전까지 사용할 임시 로그인 로직
   useEffect(() => {
-    const signInPost = async () => {
+    /*const signInPost = async () => {
       const user = await signIn("example@email.com", "password");
       localStorage.setItem("accessToken", user.accessToken);
       setToken(user.accessToken);
     };
-    signInPost();
+    signInPost();*/
   }, []);
 
   /*6. Render */

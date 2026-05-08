@@ -6,12 +6,13 @@ export const getProduct = asyncHandler(async (req, res) => {
   //pagination 계산
   const skip = (Number(page) - 1) * Number(pageSize);
 
-  //일단 find하기
-  let result = Product.find();
+  //일단 find하고 totalCount 찾기
+  let list = Product.find();
+  const totalCount = await Product.countDocuments();
 
   //keyword가 있으면 해당 keyword 포함하는 데이터 리턴
   if (keyword) {
-    result = result.find({
+    list = list.find({
       $or: [
         {
           name: {
@@ -31,15 +32,15 @@ export const getProduct = asyncHandler(async (req, res) => {
 
   //orderBy 있으면 orderBy에 따라 DESC 정렬
   if (orderBy === "favorite") {
-    result = result.sort({ favoriteCount: -1 });
+    list = list.sort({ favoriteCount: -1 });
   } else {
-    result = result.sort({ createdAt: -1 });
+    list = list.sort({ createdAt: -1 });
   }
 
   //pagination 적용
-  result = await result.skip(skip).limit(Number(pageSize));
+  list = await list.skip(skip).limit(Number(pageSize));
 
-  res.status(200).json(result);
+  res.status(200).json({ totalCount, list });
 });
 
 export const postProduct = asyncHandler(async (req, res) => {

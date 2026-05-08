@@ -8,6 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* useLocation 활용해서 레이아웃 하나로 가는게 현 상황에는 낫다 */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
         </Route>

@@ -7,33 +7,30 @@ import Button from "../Button/Default";
 import Dropdown from "../Dropdown";
 import arrowLeft from "../../assets/icon/arrow-left.svg";
 import arrowRight from "../../assets/icon/arrow-right.svg";
+import useProducts from "../../hooks/useProducts.js";
 
 export default function ItemListGeneral() {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [orderBy, setOrderBy] = useState("recent");
+  const [searchText, setSearchText] = useState("");
   const size = 10;
   const paginationLimit = 5;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const start = Math.max(1, currentPage - 2) - 1;
-  const [orderBy, setOrderBy] = useState("recent");
-  const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
-    async function getProducts() {
-      try {
-        const response = await fetch(
-          `https://panda-market-api.vercel.app/products?page=${currentPage}&pageSize=${size}&orderBy=${orderBy}&keyword=${searchText}`,
-        );
-        const data = await response.json();
-        setProducts(data.list);
-        setTotalPages(Math.ceil(data.totalCount / 10));
-      } catch (error) {
-        console.error("error:", error);
-      }
-    }
-    getProducts();
-  }, [currentPage, searchText, orderBy]);
+  const { products, loading, error } = useProducts(
+    currentPage,
+    totalPages,
+    size,
+    orderBy,
+    searchText,
+  );
+
+  if (loading) return <div>로딩중</div>;
+  if (error) console.log("error::", error.message);
+  if (products.length === 0) return <div>데이터없음</div>;
 
   return (
     <div className={styles.wrapper}>
@@ -45,7 +42,7 @@ export default function ItemListGeneral() {
       <div className={styles.list}>
         {products.map((product) => (
           <ItemCard
-            key={product.id}
+            key={product._id}
             image={product.images}
             name={product.name}
             price={product.price}
@@ -64,8 +61,8 @@ export default function ItemListGeneral() {
         <span className={styles.pagination}>
           {pages.slice(start, start + paginationLimit).map((page) => (
             <button
-              className={`${styles.button} ${currentPage === page ? styles.current : ""}`}
               key={page}
+              className={`${styles.button} ${currentPage === page ? styles.current : ""}`}
               onClick={() => setCurrentPage(page)}
             >
               {page}

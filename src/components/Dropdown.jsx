@@ -26,7 +26,6 @@ const Dropdown = ({ onList }) => {
     <div>
       {/* 키보드 조작을 고려해서 div보다는 btn사용 */}
       <button
-        className={styles.button}
         onClick={handleToggle}
         className={`${styles.wrapper} text-lg-regular`}
       >

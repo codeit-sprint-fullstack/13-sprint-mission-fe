@@ -91,7 +91,29 @@ h2 {
 }
 .tags-preview {
   display: flex;
-  gap: 16px;
+  /* flex-wrap: wrap; */
+  height: 36px;
+  /* padding: 6px 12px 6px 16px; */
+  /* justify-content: center; */
+  align-items: center;
+  gap: 8px;
+  border-radius: 26px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+}
+.x-btn {
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center; */
+  width: 22px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.x-btn img {
+  width: 22px;
+  height: 24px;
 }
 .tag-chip {
   display: flex;
@@ -103,7 +125,8 @@ h2 {
   gap: 10px;
   border-radius: 26px;
   background: var(--Cool-Gray-100, #f3f4f6);
-
+}
+.tag-chip-text {
   color: var(--Secondary-800, #1f2937);
 
   /* pretendard/lg-16px-regular */

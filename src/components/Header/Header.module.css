@@ -35,6 +35,9 @@
   font-weight: 700;
   font-size: 1.8rem;
 }
+.active {
+  color: var(--brand-blue) !important;
+}
 /* Desktop (1280px 이하) */
 @media (max-width: 1280px) {
   .container {

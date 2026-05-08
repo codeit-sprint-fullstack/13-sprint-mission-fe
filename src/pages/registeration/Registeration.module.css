@@ -1,4 +1,10 @@
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 .form {
+  width: 120rem;
   padding: 1.8rem 2.4rem 7.6rem 2.4rem;
 }
 .titleContainer {

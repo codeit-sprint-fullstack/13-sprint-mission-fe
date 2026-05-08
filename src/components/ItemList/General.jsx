@@ -5,6 +5,7 @@ import SectionTitle from "../SectionTitle";
 import ListSearch from "./Search";
 import Button from "../Button/Default";
 import Dropdown from "../Dropdown";
+import LinkButton from "../Button/Link.jsx";
 import arrowLeft from "../../assets/icon/arrow-left.svg";
 import arrowRight from "../../assets/icon/arrow-right.svg";
 import useProducts from "../../hooks/useProducts.js";
@@ -36,7 +37,9 @@ export default function ItemListGeneral() {
     <div className={styles.wrapper}>
       <SectionTitle title="판매 중인 상품">
         <ListSearch onSearch={(value) => setSearchText(value)} />
-        <Button size={"small-40"}>상품 등록하기</Button>
+        <LinkButton href="/registration" size={"small-40"}>
+          상품 등록하기
+        </LinkButton>
         <Dropdown onList={(value) => setOrderBy(value)} />
       </SectionTitle>
       <div className={styles.list}>

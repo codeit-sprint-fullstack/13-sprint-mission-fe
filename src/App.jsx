@@ -3,6 +3,7 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import SubLayout from "./layouts/SubLayout.jsx";
 import Home from "./pages/Home";
 import Items from "./pages/Items";
+import Registration from "./pages/Registration.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </Route>
         <Route element={<SubLayout />}>
           <Route path="/items" element={<Items />} />
+          <Route path="/registration" element={<Registration />} />
         </Route>
       </Routes>
     </BrowserRouter>

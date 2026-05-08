@@ -1,7 +1,5 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import LinkButton from "../components/LinkButton";
+import LinkButton from "../components/Button/Link";
 
 const Home = () => {
   return (

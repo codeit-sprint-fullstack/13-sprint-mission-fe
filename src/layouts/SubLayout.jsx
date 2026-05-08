@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
-import NavbarWithMenu from "../components/NavbarWithMenu.jsx";
+import Navbar from "../components/Navbar/Menu.jsx";
 import Footer from "../components/Footer.jsx";
 
 function MainLayout() {
   return (
     <div>
-      <NavbarWithMenu />
+      <Navbar />
       <Outlet />
       <Footer />
     </div>

@@ -1,10 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Button from "../components/Button";
+import Button from "../components/Button/Default";
 import SectionTitle from "../components/SectionTitle";
-import ItemListGeneral from "../components/ItemListGeneral";
-import ItemListBest from "../components/ItemListBest";
+import ItemListGeneral from "../components/ItemList/General";
+import ItemListBest from "../components/ItemList/Best";
 
 const Items = () => {
   return (

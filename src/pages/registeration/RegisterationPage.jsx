@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
+
 import { InputBlock, Button, TagChip } from "@/components";
+import { useForm } from "@/hooks";
+import {
+  validateName,
+  validateDescription,
+  validateNumber,
+  validateTag,
+  isEmpty,
+} from "@/utils";
 import { postProduct } from "@/apis";
 import styles from "./Registeration.module.css";
 
@@ -18,6 +27,10 @@ export default function RegisterationPage() {
   });
   const [tagInput, setTagInput] = useState("");
 
+  const { validationResults, isValidated } = useForm({
+    data,
+    validationFns: [validateName, validateDescription, validateNumber],
+  });
   const registerMutation = useMutation({
     mutationFn: postProduct,
   });
@@ -30,7 +43,7 @@ export default function RegisterationPage() {
           e.preventDefault();
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && !(e.target instanceof HTMLTextAreaElement)) {
             e.preventDefault();
             e.stopPropagation();
           }
@@ -40,7 +53,12 @@ export default function RegisterationPage() {
           <h2 className={styles.title}>상품 등록하기</h2>
           <Button
             variant="rectangle"
-            disabled={false}
+            disabled={
+              !isValidated ||
+              isEmpty(data.name) ||
+              isEmpty(data.description) ||
+              isEmpty(data.price)
+            }
             onClick={() => {
               registerMutation.mutate({
                 ...data,
@@ -57,7 +75,9 @@ export default function RegisterationPage() {
           <InputBlock
             title="상품명"
             errorMsg={
-              data.name.trim().length > 10 ? "10자 이내로 입력해주세요" : ""
+              data.name && !validationResults.name
+                ? "10자 이내로 입력해주세요"
+                : ""
             }
             placeholder="상품명을 입력해주세요"
             value={data.name}
@@ -69,7 +89,7 @@ export default function RegisterationPage() {
           <InputBlock
             title="상품 소개"
             errorMsg={
-              data.description.trim().length < 10
+              data.description && !validationResults.description
                 ? "10자 이상 입력해주세요"
                 : ""
             }
@@ -83,7 +103,11 @@ export default function RegisterationPage() {
           />
           <InputBlock
             title="판매가격"
-            errorMsg={isNaN(+data.price) ? "숫자로 입력해주세요" : ""}
+            errorMsg={
+              data.price && !validationResults.price
+                ? "숫자로 입력해주세요"
+                : ""
+            }
             placeholder="판매 가격을 입력해주세요"
             value={data.price}
             onChange={(e) => {
@@ -94,7 +118,11 @@ export default function RegisterationPage() {
           <InputBlock
             title="태그"
             errorMsg="5글자 이내로 입력해주세요"
-            errorMsg={tagInput.length > 5 ? "5글자 이내로 입력해주세요" : ""}
+            errorMsg={
+              data.tagInput && !validateTag(data.tagInput)
+                ? "5글자 이내로 입력해주세요"
+                : ""
+            }
             placeholder="태그를 입력해주세요"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}

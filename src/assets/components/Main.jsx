@@ -18,7 +18,7 @@ export default function Main() {
               거래해 보세요
             </h1>
             <Link to="/items">
-              <buttton className="top-desc">구경하러 가기</buttton>
+              <button className="top-desc">구경하러 가기</button>
             </Link>
           </div>
           <img className="top-img" src={top} alt="판다 이미지" />
@@ -45,7 +45,7 @@ export default function Main() {
       <section className="search">
         <div className="search-container">
           <div className="search-text-container">
-            <badge class="search-badge">Search item</badge>
+            <badge className="search-badge">Search item</badge>
             <h3 className="search-article">
               구매를 원하는 <br />
               상품을 검색하세요

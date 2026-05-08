@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useProductPageSize, useProducts } from "../../hooks/useProducts";
 import "../css/ProductPage.css";
+import { Link } from "react-router-dom";
 
 const PAGE_GROUP_SIZE = 5;
 
@@ -33,7 +34,8 @@ export default function ProductPage() {
   const totalPages = Math.ceil(totalCount / pageSize.list);
 
   const getPageGroup = () => {
-    const start = Math.floor((page - 1) / PAGE_GROUP_SIZE) * PAGE_GROUP_SIZE + 1;
+    const start =
+      Math.floor((page - 1) / PAGE_GROUP_SIZE) * PAGE_GROUP_SIZE + 1;
     const end = Math.min(start + PAGE_GROUP_SIZE - 1, totalPages);
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
@@ -101,7 +103,9 @@ export default function ProductPage() {
                 onChange={handleKeywordChange}
               />
             </label>
-            <button className="product-register">상품 등록하기</button>
+            <Link to="/registration">
+              <button className="product-register">상품 등록하기</button>
+            </Link>
             <select
               className="product-sort"
               value={orderBy}
@@ -150,10 +154,7 @@ export default function ProductPage() {
 
         {totalPages > 0 && (
           <div className="pagination">
-            <button
-              disabled={page <= 1}
-              onClick={() => setPage(page - 1)}
-            >
+            <button disabled={page <= 1} onClick={() => setPage(page - 1)}>
               &lt;
             </button>
             {getPageGroup().map((p) => (

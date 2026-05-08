@@ -1,0 +1,127 @@
+.regi-container {
+  width: min(100% - 48px, 1200px);
+  margin: 94px auto 0;
+  padding-bottom: 120px;
+}
+
+.regi-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.regi-container input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding: 16px 24px;
+  font-size: 14px;
+  background-color: #f3f4f6;
+  border: 1px solid #f74747;
+}
+
+.item-desc-input {
+  width: 1200px;
+  height: 282px;
+  gap: 10px;
+  resize: none;
+  border-radius: 12px;
+  padding: 16px 24px;
+  background-color: #f3f4f6;
+  border: 1px solid #f74747;
+}
+
+.regi-title {
+  font-family: Pretendard;
+  font-weight: 700;
+
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.regi-btn {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  border-radius: 8px;
+  border: none;
+  background-color: #9ca3af;
+  cursor: pointer;
+}
+
+.item-name {
+  font-family: Pretendard;
+  font-weight: 700;
+
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.item-desc,
+.item-desc-input {
+  font-family: Pretendard;
+  font-weight: 700px;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.item-price {
+  font-family: Pretendard;
+  font-weight: 700;
+
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.item-tag-title {
+  font-family: Pretendard;
+  font-weight: 700;
+
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.tag-container {
+  display: flex;
+  margin-top: 14px;
+  gap: 12px;
+}
+
+.item-tag {
+  font-family: Pretendard;
+  font-weight: 400;
+
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  background-color: #f3f4f6;
+  border: none;
+  width: 96px;
+  height: 36px;
+  gap: 10px;
+  border-radius: 26px;
+  padding-top: 6px;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+}

@@ -8,7 +8,12 @@ textarea {
   outline: none; /* 클릭했을 때 나오는 선도 같이 없애는 게 세트입니다! */
 }
 .registration-container {
-  padding: 10px 200px;
+  padding: 26px 200px 162px 200px;
+}
+@media (max-width: 767px) {
+  .registration-container {
+    padding: 18px 24px 186px 24px;
+  }
 }
 .registration-wrapper {
   display: flex;

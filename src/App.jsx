@@ -6,6 +6,7 @@ import {
   SignUpPage,
   HomePage,
   RegisterationPage,
+  CommunityPage,
 } from "@/pages";
 import "./App.css";
 
@@ -14,6 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="community" element={<CommunityPage />} />
         <Route path="items" element={<MarketPage />} />
         <Route path="registeration" element={<RegisterationPage />} />
       </Route>

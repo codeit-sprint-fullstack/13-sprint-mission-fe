@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:3000/products
+@baseUrl = https://one3-sprint-mission-fe.onrender.com/products
 
 ### GET Product 테스트
 GET {{baseUrl}}
@@ -37,6 +37,16 @@ Content-Type: application/json
   "description": "솔저는 힐러일까 딜러일까. 그의 도시락은 자리 유지 및 생존에 도움을 준다",
   "tags": ["딜러", "힐러같은", "생존기", "도시락"],
   "price": 95000
+}
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "에코의 관",
+  "description": "에코가 갇혀있던 관이다. 캐서디가 열었다.",
+  "tags": ["상자"],
+  "price": 45000
 }
 
 ### PATCH Product 테스트

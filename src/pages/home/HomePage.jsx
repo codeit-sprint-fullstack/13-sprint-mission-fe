@@ -6,7 +6,7 @@ import styles from "./HomePage.module.css";
 
 export default function HomePage() {
   return (
-    <div>
+    <div className={styles.container}>
       <Hero
         text="일상의 모든 물건을
       거래해 보세요"

@@ -1,0 +1,110 @@
+body {
+  font-family: Pretendard;
+}
+button,
+input,
+textarea {
+  border: none;
+  outline: none; /* 클릭했을 때 나오는 선도 같이 없애는 게 세트입니다! */
+}
+.registration-container {
+  padding: 10px 200px;
+}
+.registration-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+h2 {
+  color: var(--Secondary-800, #1f2937);
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 160% */
+}
+.regist-btn {
+  /* display: flex; */
+  height: 42px;
+  width: 74px;
+  /* padding: 12px 23px; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* gap: 10px; */
+
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 162.5% */
+}
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-label {
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+}
+.form-input {
+  display: flex;
+  height: 56px;
+  width: 100%;
+  padding: 16px 24px;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 12px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+}
+.form-input-description {
+  display: flex;
+  width: 100%;
+  height: 282px;
+  padding: 16px 24px;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 12px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+}
+.tags-preview {
+  display: flex;
+  gap: 16px;
+}
+.tag-chip {
+  display: flex;
+  height: 36px;
+  padding: 6px 12px 6px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 26px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}

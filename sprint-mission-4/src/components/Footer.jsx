@@ -1,22 +1,21 @@
 import React from "react";
 import "./Footer.css";
-import facebook from "../assets/ic_facebook.svg";
-import twitter from "../assets/ic_twitter.svg";
-import instagram from "../assets/ic_instagram.svg";
-import youtube from "../assets/ic_youtube.svg";
-// 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요
+import facebook from "../assets/icons/ic_facebook.svg";
+import twitter from "../assets/icons/ic_twitter.svg";
+import instagram from "../assets/icons/ic_instagram.svg";
+import youtube from "../assets/icons/ic_youtube.svg";
 
 export default function Footer() {
   return (
     <>
       <footer>
-        <div class="footer-inner">
-          <span class="footer-copy">©codeit - 2024</span>
-          <div class="footer-links">
+        <div className="footer-inner">
+          <span className="footer-copy">©codeit - 2024</span>
+          <div className="footer-links">
             <a href="privacy.html">Privacy Policy</a>
             <a href="faq.html">FAQ</a>
           </div>
-          <div class="footer-sns">
+          <div className="footer-sns">
             <a href="https://www.facebook.com" target="_blank">
               <img src={facebook} alt="facebook" />
             </a>

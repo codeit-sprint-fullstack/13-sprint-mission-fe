@@ -1,8 +1,8 @@
 // Nav.jsx
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Nav.css";
-import pandaLogo from "../assets/판다 얼굴.svg";
-// 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요
+import pandaLogo from "../assets/logo/판다 얼굴.svg";
 
 export default function Nav() {
   const handleLoginClick = () => {
@@ -18,8 +18,8 @@ export default function Nav() {
           </a>
 
           <div className="menu">
-            <a href="/community">자유게시판</a>
-            <a href="/items">중고마켓</a>
+            <NavLink to="/community">자유게시판</NavLink>
+            <NavLink to="/items">중고마켓</NavLink>
           </div>
           <button
             type="button"

@@ -10,8 +10,8 @@
     "test": "test"
   },
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js",
-    "server": "nodemon index.js",
     "seed": "node models/Seed.js"
   },
   "dependencies": {

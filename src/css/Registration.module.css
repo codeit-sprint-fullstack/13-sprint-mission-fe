@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 29px;
+  padding-top: 26px;
+  padding-bottom: 162px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 32px;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 16px;
+}
+.input {
+  width: 100%;
+  height: 42px;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-secondary-100);
+  border-color: var(--color-secondary-400);
+}
+.alert {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+.textarea {
+  width: 100%;
+  height: 252px;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-secondary-100);
+  border-color: var(--color-secondary-400);
+}

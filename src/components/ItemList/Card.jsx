@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import heart from "../../assets/icon/heart.svg";
 import heartFill from "../../assets/icon/heart-fill.svg";
-import styles from "../../css/ItemCard.module.css";
+import styles from "../../css/ItemListCard.module.css";
 import imgPlaceholder from "../../assets/img/img-placeholder.svg";
 
 export default function ItemCard({

@@ -48,7 +48,6 @@ export default function MarketPage() {
         page,
         orderBy: "favorite",
       });
-      console.log(res);
       return res?.list;
     },
   });

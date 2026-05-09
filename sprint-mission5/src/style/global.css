@@ -1,0 +1,33 @@
+:root {
+  /* 색상 이름표  */
+  --primary-100: #3692ff;
+  --primary-200: #1967d6;
+  --primary-300: #1251aa;
+  --gray900: #111827;
+  --gray800: #1f2937;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Pretendard Std Variable", sans-serif; /* 폰트 설정 */
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background-color: #fff; /* 기본 배경색 */
+  color: var(--gray900);  /* 기본 글자색 */
+}
+
+a {
+  text-decoration: none;  /* 링크 밑줄 제거 */
+  color: inherit;         /* 부모 글자색 따라가기 */
+}

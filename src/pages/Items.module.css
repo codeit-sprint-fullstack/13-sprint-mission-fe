@@ -1,0 +1,22 @@
+/* ---------- Items Styles ---------- */
+.items {
+  padding: 26px 26px 140px;
+}
+.itemsInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 태블릿: 화면 너비 1023px 이하 */
+@media (max-width: 1023px) {
+  .items {
+    padding: 26px 26px 165px;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하 */
+@media (max-width: 767px) {
+  .items {
+    padding: 17px 16px 135px;
+  }
+}

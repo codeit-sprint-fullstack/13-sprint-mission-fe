@@ -37,7 +37,7 @@
   width: 16px;
   height: 16px;
   transform: translate(-50%, -50%);
-  background: url("../assets/ic_arrow_right.svg") no-repeat center / cover;
+  background: url("../../../assets/images/icons/ic_arrow_right.svg") no-repeat center / cover;
 }
 .arrowBtn.rightArrow::after {
   transform: translate(-50%, -50%) scaleX(-1);

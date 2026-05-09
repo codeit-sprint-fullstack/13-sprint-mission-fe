@@ -1,7 +1,7 @@
 import React from "react";
 
-import styles from "@/components/Pagination.module.css";
-import usePagination from "@/hooks/usePagination";
+import styles from "@/components/common/Pagination/Pagination.module.css";
+import getPaginationInfo from "@/utils/getPaginationInfo";
 
 export default function Pagination({
   products,
@@ -16,7 +16,7 @@ export default function Pagination({
     prevGroup,
     prevStartPage,
     nextStartPage,
-  } = usePagination(currentPage, products.totalCount, pageSize); // 페이지네이션 데이터
+  } = getPaginationInfo(currentPage, products.totalCount, pageSize); // 페이지네이션 데이터
   const pages =
     Array.from({ length: Math.max(0, groupRange) }, (_, i) => startPage + i) ??
     0; // 페이지네이션 넘버링
@@ -46,26 +46,31 @@ export default function Pagination({
           <button
             type='button'
             aria-label='이전 상품페이지로 가기 버튼'
+            aria-current='page'
             className={`${styles.arrowBtn} ${prevGroup < 1 ? styles.disabled : ""}`}
-            onClick={() => handlePrevGroup()}
+            onClick={handlePrevGroup}
           ></button>
         </li>
         {pages.map((id) => (
-          <li key={id} onClick={() => onChangePage(id)}>
+          <li key={id}>
             <button
               type='button'
               aria-label={`${id} 페이지 버튼`}
+              aria-current='page'
               className={`${styles.numberBtn} ${id === currentPage ? styles.active : ""}`}
+              onClick={() => onChangePage(id)}
             >
               {id}
             </button>
           </li>
         ))}
-        <li className={styles.controls} onClick={() => handleNextGroup("next")}>
+        <li className={styles.controls}>
           <button
             type='button'
             aria-label='다음 상품페이지로 가기 버튼'
+            aria-current='page'
             className={`${styles.arrowBtn} ${styles.rightArrow} ${nextStartPage > totalPages ? styles.disabled : ""}`}
+            onClick={handleNextGroup}
           ></button>
         </li>
       </ul>

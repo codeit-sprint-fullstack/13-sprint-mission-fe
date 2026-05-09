@@ -1,0 +1,22 @@
+.sectionBanner {
+  display: flex;
+  flex-direction: column;
+  gap: 276px;
+  padding: 138px 24px;
+}
+
+/* 태블릿: 화면 너비 1023px 이하일 때 */
+@media (max-width: 1023px) {
+  .sectionBanner {
+    gap: 52px;
+    padding: 24px 24px 56px;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 */
+@media (max-width: 767px) {
+  .sectionBanner {
+    gap: 40px;
+    padding: 52px 15px 83px;
+  }
+}

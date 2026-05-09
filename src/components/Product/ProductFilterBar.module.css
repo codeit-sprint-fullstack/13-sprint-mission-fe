@@ -1,7 +1,7 @@
 /* ---------- Product Filter Bar Styles ---------- */
 .productFilterBar {
   display: flex;
-  align-content: center;
+  align-items: center;
   gap: 12px;
   width: 100%;
 }
@@ -27,7 +27,8 @@
   width: 24px;
   height: 24px;
   transform: translate(0, -50%);
-  background: url("../../assets/ic_search.svg") no-repeat center / cover;
+  background: url("../../assets/images/icons/ic_search.svg") no-repeat center /
+    cover;
 }
 .searchInput {
   display: flex;
@@ -44,22 +45,6 @@
 }
 .searchInput::placeholder {
   color: var(--Secondary-400);
-}
-
-/* Search Button */
-.searchBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  height: 42px;
-  padding: 12px 23px;
-  border-radius: 8px;
-  font-weight: 600;
-  line-height: calc(26 / 16);
-  color: var(--Cool-Gray-100);
-  background: var(--Primary-100);
-  cursor: pointer;
 }
 
 /* Sort Group */
@@ -89,7 +74,8 @@
   display: block;
   width: 24px;
   height: 24px;
-  background: url("../../assets/ic_arrow_down.svg") no-repeat center / cover;
+  background: url("../../assets/images/icons/ic_arrow_down.svg") no-repeat
+    center / cover;
 }
 .sortBtn {
   display: none;
@@ -137,6 +123,9 @@
   /* Search Input Style */
   .searchInput {
     width: 242px;
+  }
+  .title {
+    line-height: calc(32 / 20);
   }
 }
 
@@ -190,6 +179,7 @@
     display: block;
     width: 42px;
     height: 42px;
-    background: url("../../assets/ic_sort.svg") no-repeat center / 24px 24px;
+    background: url("../../assets/images/icons/ic_sort.svg") no-repeat center /
+      24px 24px;
   }
 }

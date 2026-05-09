@@ -1,0 +1,27 @@
+.textarea {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 282px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  border: none;
+  background: var(--Cool-Gray-100);
+}
+.textarea::placeholder {
+  line-height: calc(26 / 16); /* 162.5% */
+  color: var(--Secondary-400);
+}
+
+/* Error Style */
+.error .textarea {
+  border: 1px solid var(--error-red);
+}
+.message {
+  display: inline-block;
+  margin-left: 16px;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: calc(24 / 14);
+  color: var(--error-red);
+}

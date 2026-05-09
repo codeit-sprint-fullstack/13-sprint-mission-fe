@@ -1,0 +1,49 @@
+.button {
+  border: none;
+  cursor: pointer;
+}
+
+/* Primary 버튼 */
+.primary {
+  display: flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: calc(26 / 16);
+  color: var(--Cool-Gray-100);
+  background: var(--Primary-100);
+}
+.primary:disabled {
+  color: var(--Cool-Gray-100);
+  background: var(--Cool-Gray-400);
+  cursor: default;
+}
+
+/* Secondary 버튼 */
+.secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 357px;
+  padding: 12px;
+  border-radius: 2.5rem;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: calc(32 / 20);
+  color: var(--Secondary-50);
+  background: var(--Primary-100);
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 */
+@media (max-width: 767px) {
+  .secondary {
+    width: 240px;
+    padding: 11px;
+    font-size: 18px;
+    line-height: calc(26 / 18);
+  }
+}

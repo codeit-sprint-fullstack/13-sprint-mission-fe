@@ -1,0 +1,49 @@
+.registration {
+  padding: 26px 24px 160px;
+  max-width: 1248px;
+  margin: 0 auto;
+}
+
+/* Form */
+.form {
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: calc(32 / 20);
+  color: var(--Secondary-900);
+}
+
+/* Data Field */
+.dataField {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* 태블릿: 화면 너비 1023px 이하 */
+@media (max-width: 1023px) {
+  .registration {
+    padding: 18px 24px 194px;
+  }
+
+  /* Data Field */
+  .dataField {
+    gap: 24px;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하 */
+@media (max-width: 767px) {
+  .registration {
+    padding: 24px 16px 186px;
+  }
+}

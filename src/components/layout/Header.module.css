@@ -2,22 +2,24 @@
 .gnb {
   height: var(--gnb-height);
 }
-.inner {
+.wrapper {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: var(--z-index-header);
+  background: #fff;
+  border-bottom: 1px solid #dfdfdf;
+}
+.inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1920px;
+  max-width: 1568px;
   height: var(--gnb-height);
-  padding: 0 200px;
+  padding: 0 24px;
   margin: 0 auto;
-  background: #fff;
-  border-bottom: 1px solid #dfdfdf;
 }
 .logoImg {
   display: block;
@@ -27,7 +29,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
-  background-image: url("../assets/logo_img.svg");
+  background-image: url("../../assets/images/common/logo_img.svg");
 }
 
 /* Gnb Nav */
@@ -62,30 +64,14 @@
   color: var(--Primary-100);
 }
 
-/* Login Button */
-.loginBtn {
-  display: flex;
-  height: 42px;
-  padding: 12px 23px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: calc(26 / 16);
-  color: var(--Cool-Gray-100);
-  background: var(--Primary-100);
-}
-
 /* 태블릿: 화면 너비 1023px 이하일 때 */
 @media (max-width: 1023px) {
+  .gnb {
+    height: var(--gnb-height-m);
+  }
   .inner {
     padding: 0 24px;
-  }
-
-  /* Gnb Nav */
-  .nav {
-    padding: 0 20px;
+    height: var(--gnb-height-m);
   }
 }
 
@@ -103,7 +89,7 @@
     width: 81px;
     height: 27px;
     flex: 0 0 81px;
-    background-image: url("../assets/logo_img_m.svg");
+    background-image: url("../../assets/images/common/logo_img_m.svg");
   }
 
   /* Gnb Nav */
@@ -114,5 +100,6 @@
   /* Menu */
   .menuLink {
     padding: 0 4px;
+    font-size: 16px;
   }
 }

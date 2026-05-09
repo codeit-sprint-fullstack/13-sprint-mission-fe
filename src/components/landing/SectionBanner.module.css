@@ -1,0 +1,120 @@
+/* 랜딩 페이지 배너 섹션 스타일 */
+.banner {
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+}
+.bannerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+  max-width: 988px;
+  border-radius: 12px;
+  background: #fcfcfc;
+}
+.bannerImage {
+  width: 59.51%;
+  height: 100%;
+  object-fit: cover;
+}
+.bannerContent {
+  max-width: 18.375rem;
+  margin-right: 2rem;
+}
+.bannerCaption {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: calc(26 / 18); /* 144.444% */
+  color: var(--Primary-100);
+}
+.bannerTitle {
+  margin-bottom: 24px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 140%; /* 56px */
+  letter-spacing: 0.8px;
+  white-space: pre-wrap;
+  color: var(--Secondary-700);
+}
+.bannerDesc {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 2rem; /* 133.333% */
+  white-space: pre-wrap;
+  color: var(--Secondary-700);
+}
+
+/* 짝수 번째 배너 섹션 스타일 예외 처리 */
+.banner.secondary .bannerInner {
+  text-align: right;
+}
+@media (min-width: 1024px) {
+  .banner.secondary .bannerInner {
+    flex-direction: row-reverse;
+  }
+  .banner.secondary .bannerContent {
+    margin-right: 0;
+    margin-left: 2rem;
+  }
+}
+
+/* 태블릿: 화면 너비 1023px 이하일 때 */
+@media (max-width: 1023px) {
+  .bannerInner {
+    flex-direction: column;
+    gap: 52px;
+    background: #fff;
+  }
+  .bannerCaption {
+    margin-bottom: 16px;
+  }
+  .bannerContent {
+    width: 100%;
+    max-width: 100%;
+  }
+  .bannerTitle {
+    font-size: 32px;
+    line-height: calc(42 / 32);
+    white-space: unset;
+  }
+  .bannerDesc {
+    font-size: 18px;
+    line-height: calc(26 / 18);
+  }
+  .bannerImage {
+    width: 100%;
+  }
+  .bannerContent {
+    margin-right: 0;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 */
+@media (max-width: 767px) {
+  .bannerInner {
+    gap: 40px;
+  }
+  .bannerCaption {
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  .bannerTitle {
+    margin-bottom: 16px;
+    font-size: 24px;
+    line-height: calc(32 / 24);
+  }
+  .bannerDesc {
+    font-size: 16px;
+    line-height: calc(26 / 16);
+  }
+  .bannerImage {
+    width: 100%;
+  }
+  .bannerContent {
+    margin-right: 0;
+  }
+}

@@ -14,7 +14,7 @@ import { GROUP_SIZE } from "@/constants/constants";
  * @returns {number} .prevStartPage - 이전 그룹으로 이동 시 보게 될 첫 번째 페이지 번호
  * @returns {number} .nextStartPage - 다음 그룹으로 이동 시 보게 될 첫 번째 페이지 번호
  */
-export default function usePagination(currentPage, totalCount, pageSize) {
+export default function getPaginationInfo(currentPage, totalCount, pageSize) {
   // 현재 페이지가 속한 그룹 (예: 1~5페이지는 1그룹, 6~10페이지는 2그룹)
   const currentGroup = Math.ceil(currentPage / GROUP_SIZE) || 1;
 

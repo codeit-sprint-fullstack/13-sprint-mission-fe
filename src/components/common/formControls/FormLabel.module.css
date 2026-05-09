@@ -1,0 +1,7 @@
+.label {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: calc(26 / 18);
+  color: var(--Secondary-800);
+}

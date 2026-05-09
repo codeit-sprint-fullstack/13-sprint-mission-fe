@@ -1,7 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router";
 import styles from "../../css/Navbar.module.css";
 import logo from "../../assets/logo/logo-panda-market.svg";
-import { NavLink } from "react-router";
 import Items from "../../pages/Items";
 import Home from "../../pages/Home";
 
@@ -13,10 +13,10 @@ export default function NavbarWith() {
           <img className={styles.logo} src={logo} alt="판다마켓" />
         </a>
         <div className={styles.menu}>
-          <NavLink to="/" className={styles.navLink}>
+          <NavLink to="/" className={`${styles.navLink} text-2lg-bold`}>
             자유게시판
           </NavLink>
-          <NavLink to={Items} className={styles.navLink}>
+          <NavLink to={Items} className={`${styles.navLink} text-2lg-bold`}>
             중고마켓
           </NavLink>
         </div>

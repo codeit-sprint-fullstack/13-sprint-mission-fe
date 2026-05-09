@@ -37,9 +37,11 @@
   width: 100%;
   padding-left: 39px;
   gap: 30px;
-  color: var(--color-secondary-800);
+}
+.navLink {
+  color: var(--color-secondary-600);
   cursor: pointer;
 }
-.active {
+a.active {
   color: var(--color-primary-100);
 }

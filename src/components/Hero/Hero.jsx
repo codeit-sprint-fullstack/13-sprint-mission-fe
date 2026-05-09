@@ -5,13 +5,13 @@ import styles from "./Hero.module.css";
 
 export default function Hero({ text, img, children }) {
   return (
-    <section className={styles.banner}>
-      <div className={styles.bannerWrapper}>
-        <div className={styles.bannerContent}>
-          <h2 className={styles.bannerText}>{text}</h2>
+    <section className={styles.hero}>
+      <div className={styles.heroWrapper}>
+        <div className={styles.heroContent}>
+          <h2 className={styles.heroText}>{text}</h2>
           {children}
         </div>
-        <img src={img} alt="banner image" className={styles.bannerImg} />
+        <img src={img} alt="hero image" className={styles.heroImg} />
       </div>
     </section>
   );

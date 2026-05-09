@@ -34,6 +34,7 @@ export default function HomePage() {
 상품을 검색하세요"
             text="구매하고 싶은 물품은 검색해서
 쉽게 찾아보세요"
+            flip={true}
             src={card2}
           />
         </Link>

@@ -66,3 +66,34 @@
   color: var(--secondary-700);
   line-height: 3.2rem;
 }
+@media (max-width: 1280px) {
+  .cardContainer {
+    padding: 0;
+  }
+  .card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 4rem;
+    gap: 2.4rem;
+  }
+  .flip {
+    align-items: flex-end;
+    text-align: end;
+  }
+  .cardContent {
+    padding: 0;
+  }
+  .cardImg {
+    width: 100%;
+  }
+}
+@media (max-width: 720px) {
+  .cardTitle {
+    font-size: 3.5rem;
+  }
+  .cardText {
+    font-size: 2rem;
+  }
+}

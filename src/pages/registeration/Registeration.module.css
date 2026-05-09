@@ -40,3 +40,10 @@
 .tagsContainer img:hover {
   cursor: pointer;
 }
+@media (max-width: 1280px) {
+  .form {
+    width: 100%;
+  }
+}
+@media (max-width: 720px) {
+}

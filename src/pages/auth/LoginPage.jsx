@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { InputBlock, Button, Social } from "@/components";
+import { InputBlock, Button, Social, Popup } from "@/components";
 import { useForm } from "@/hooks";
 import { validateEmail, validatePassword } from "@/utils";
 import { lgLogo } from "@/assets/img";
@@ -82,6 +82,7 @@ export default function LoginPage() {
           </Link>
         </p>
       </div>
+      <Popup text="비밀번호가 일치하지 않습니다." disabled={true} />
     </div>
   );
 }

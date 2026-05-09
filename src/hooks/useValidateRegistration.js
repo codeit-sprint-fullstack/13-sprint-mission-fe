@@ -17,19 +17,19 @@ const useValidateRegistration = () => {
     value.length > 10 ? setIsTooShort(true) : setIsTooShort(false);
   };
 
-  const handleChangedesc = (e) => {
+  const handleChangeDesc = (e) => {
     const value = e.target.value;
     setDescription(value);
     value.length < 10 ? setIsTooLong(true) : setIsTooLong(false);
   };
 
-  const handleChangeprice = (e) => {
+  const handleChangePrice = (e) => {
     const value = e.target.value;
     setPrice(value);
     isNaN(value) ? setIsNumber(true) : setIsNumber(false);
   };
 
-  const handleChangetag = (e) => {
+  const handleChangeTag = (e) => {
     const value = e.target.value;
     setTag(value);
     value.length > 5 ? setIsVeryShort(true) : setIsVeryShort(false);
@@ -44,10 +44,10 @@ const useValidateRegistration = () => {
     isTooLong,
     isNumber,
     isVeryShort,
-    handleChangedesc,
     handleChangeName,
-    handleChangeprice,
-    handleChangetag,
+    handleChangeDesc,
+    handleChangePrice,
+    handleChangeTag,
   };
 };
 

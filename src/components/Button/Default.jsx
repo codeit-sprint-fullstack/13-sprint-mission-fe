@@ -3,14 +3,14 @@ import styles from "../../css/Button.module.css";
 
 const Button = ({
   size,
-  type = "filled",
+  variant = "filled",
   disabled = false,
   children,
   onClick,
 }) => {
   return (
     <button
-      className={`${styles.btn} ${styles[size]} ${styles[type]}`}
+      className={`${styles.btn} ${styles[size]} ${styles[variant]}`}
       disabled={disabled}
       onClick={onClick}
     >

@@ -14,7 +14,7 @@
   height: 48px;
 }
 
-/* type */
+/* variant */
 .filled {
   background: var(--color-primary-100);
   border: none;

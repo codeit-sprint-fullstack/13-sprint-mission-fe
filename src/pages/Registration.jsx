@@ -15,18 +15,50 @@ const registration = () => {
     isNumber,
     isVeryShort,
     handleChangeName,
-    handleChangedesc,
-    handleChangeprice,
-    handleChangetag,
+    handleChangeDesc,
+    handleChangePrice,
+    handleChangeTag,
   } = useValidateRegistration();
+  const [error, setError] = useState("");
+  const [tags, setTags] = useState([]);
+
+  // 폼 제출
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !description || !price) {
+      alert("입력을 완료해주세요");
+      return;
+    }
+    if (isTooShort) {
+      alert("상품명은 10글자 이내로 입력해주세요");
+      return;
+    }
+    if (isTooLong) {
+      alert("상품 소개는 10글자 이상 입력해주세요");
+      return;
+    }
+    if (isNumber) {
+      alert("상품 가격은 숫자로 입력해주세요");
+      return;
+    }
+    console.log("제출");
+  };
+
+  // 태그 추가
+  const handleKeyDownTag = (e) => {
+    // Enter누를 때마다 tags배열에 tag가 추가
+    if (!isVeryShort && e.key === "Enter") setTags([...tags, tag]);
+  };
 
   return (
     <div className="container">
-      <div className={styles.wrapper}>
+      <form className={styles.wrapper} onSubmit={handleSubmit} method="POST">
         <SectionTitle title="상품 등록하기">
-          <Button>등록</Button>
+          <Button size="small-40" type="submit">
+            등록
+          </Button>
         </SectionTitle>
-        <form className={styles.form} action="/submit" method="POST">
+        <div className={styles.form}>
           <section className={styles.section}>
             <label htmlFor="name">상품명</label>
             <input
@@ -37,7 +69,6 @@ const registration = () => {
               value={name}
               onChange={handleChangeName}
               className={`${styles.input} ${isTooShort && styles.alert}`}
-              required
             ></input>
             {isTooShort && (
               <p className={`${styles.alert} text-md-semibold`}>
@@ -52,7 +83,7 @@ const registration = () => {
               name="description"
               placeholder="상품 소개를 입력해주세요"
               value={description}
-              onChange={handleChangedesc}
+              onChange={handleChangeDesc}
               className={styles.textarea}
             ></textarea>
             {isTooLong && (
@@ -69,9 +100,8 @@ const registration = () => {
               name="price"
               placeholder="판매 가격을 입력해주세요"
               value={price}
-              onChange={handleChangeprice}
+              onChange={handleChangePrice}
               className={styles.input}
-              required
             ></input>
             {isNumber && (
               <p className={`${styles.alert} text-md-semibold`}>
@@ -87,7 +117,8 @@ const registration = () => {
               name="tag"
               placeholder="태그를 입력해주세요"
               value={tag}
-              onChange={handleChangetag}
+              onChange={handleChangeTag}
+              onKeyDown={handleKeyDownTag}
               className={styles.input}
             ></input>
             {isVeryShort && (
@@ -95,9 +126,14 @@ const registration = () => {
                 5글자 이내로 입력해주세요
               </p>
             )}
+            {tags.map((tag, i) => (
+              <p key={i} className={`${styles.tag} text-lg-regular`}>
+                {tag}
+              </p>
+            ))}
           </section>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

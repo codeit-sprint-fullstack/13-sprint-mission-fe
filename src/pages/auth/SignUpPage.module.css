@@ -49,3 +49,15 @@
   color: var(--brand-blue);
   text-decoration: underline;
 }
+@media (max-width: 720px) {
+  .signUpContainer {
+    width: 100%;
+    padding: 0 2rem;
+  }
+  .logoText {
+    font-size: 6rem;
+  }
+  .logoImg {
+    width: 8rem;
+  }
+}

@@ -24,7 +24,7 @@ export default function LoginPage() {
       <div className={styles.loginContainer}>
         <Link to="/">
           <div className={styles.logo}>
-            <img src={lgLogo} />
+            <img src={lgLogo} className={styles.logoImg} />
             <h1 className={styles.logoText}>판다마켓</h1>
           </div>
         </Link>

@@ -1,18 +1,18 @@
-.banner {
+.hero {
   height: 54rem;
   background-color: var(--secondary-bg-color);
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
-.bannerWrapper {
+.heroWrapper {
   width: fit-content;
   height: 40rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.bannerText {
+.heroText {
   font-size: 4rem;
   font-weight: 700;
   color: var(--secondary-700);
@@ -20,7 +20,34 @@
   margin-bottom: 3.2rem;
   white-space: pre-line;
 }
-.bannerImg {
+.heroImg {
   width: 75.2rem;
   height: auto;
+}
+@media (max-width: 1280px) {
+  .hero {
+    height: fit-content;
+  }
+  .heroWrapper {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding-top: 8rem;
+  }
+  .heroImg {
+    width: 100%;
+  }
+  .heroText {
+    text-align: center;
+  }
+}
+@media (max-width: 720px) {
+  .heroWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .heroImg {
+    width: 100%;
+  }
 }

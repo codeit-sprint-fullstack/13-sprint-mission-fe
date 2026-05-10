@@ -1,0 +1,118 @@
+/* ---------- Header Styles ---------- */
+.gnb {
+  height: var(--gnb-height);
+}
+.inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-index-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  height: var(--gnb-height);
+  padding: 0 200px;
+  margin: 0 auto;
+  background: #fff;
+  border-bottom: 1px solid #dfdfdf;
+}
+.logoImg {
+  display: block;
+  width: 153px;
+  height: 40px;
+  flex: 0 0 153px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  background-image: url("../assets/logo_img.svg");
+}
+
+/* Gnb Nav */
+.nav {
+  flex: 1;
+  padding: 0 24px;
+  height: 100%;
+}
+
+/* Menu */
+.menuContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.menu {
+  height: 100%;
+}
+.menuLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: calc(26 / 16);
+  text-align: center;
+  color: var(--Secondary-600);
+}
+/* active 클래스는 module로 변환되지 않도록 :global()로 맵핑 */
+.menuLink:global(.active) {
+  color: var(--Primary-100);
+}
+
+/* Login Button */
+.loginBtn {
+  display: flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: calc(26 / 16);
+  color: var(--Cool-Gray-100);
+  background: var(--Primary-100);
+}
+
+/* 태블릿: 화면 너비 1023px 이하일 때 */
+@media (max-width: 1023px) {
+  .inner {
+    padding: 0 24px;
+  }
+
+  /* Gnb Nav */
+  .nav {
+    padding: 0 20px;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 */
+@media (max-width: 767px) {
+  .gnb {
+    height: var(--gnb-height-m);
+  }
+  .inner {
+    padding: 0 16px;
+  }
+
+  /* Logo */
+  .logoImg {
+    width: 81px;
+    height: 27px;
+    flex: 0 0 81px;
+    background-image: url("../assets/logo_img_m.svg");
+  }
+
+  /* Gnb Nav */
+  .nav {
+    padding: 0 4px;
+  }
+
+  /* Menu */
+  .menuLink {
+    padding: 0 4px;
+  }
+}

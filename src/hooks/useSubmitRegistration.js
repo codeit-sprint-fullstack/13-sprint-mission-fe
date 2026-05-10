@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const useSubmitRegistration = ({
   name,
@@ -11,6 +12,7 @@ const useSubmitRegistration = ({
   isVeryShort,
 }) => {
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +53,8 @@ const useSubmitRegistration = ({
         );
         console.log("제출 완료");
         if (!res.ok) throw new Error("등록 실패");
+
+        navigate("/products/:id"); // 유효하지 않은 페이지
       } catch (err) {
         setError(err.message);
       }

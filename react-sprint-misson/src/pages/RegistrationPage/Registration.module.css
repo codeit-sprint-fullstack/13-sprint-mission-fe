@@ -1,9 +1,9 @@
 .pageContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 6.8rem;
   max-width: 120rem;
-  width: 100vw;
+  width: 100%; /* 100vw → 100%로 변경 */
+  box-sizing: border-box;
 }
 
 .header {

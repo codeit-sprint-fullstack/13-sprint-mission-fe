@@ -16,7 +16,7 @@ export function useRegistrationForm() {
   const [tagList, setTagList] = useState([]);
   const { createProduct } = useCreateProduct();
 
-  const { errors, handleCheckValid, validateAll } = useValidation({
+  const { errors, handleCheckValid, validateAll, clearError } = useValidation({
     productName: { min: 1, max: 10 },
     productDescription: { min: 10, max: 100 },
     productPrice: {
@@ -24,7 +24,7 @@ export function useRegistrationForm() {
       validate: (value) =>
         /^[0-9]+$/.test(value) ? "" : "숫자만 입력해주세요.",
     },
-    productTags: { min: 1, max: 5 },
+    productTags: { max: 5 },
   });
 
   const isFormValid =
@@ -50,6 +50,7 @@ export function useRegistrationForm() {
       },
     ]);
     setTagValue("");
+    clearError(e.target.name);
   }
 
   function handleTagDelete(id) {

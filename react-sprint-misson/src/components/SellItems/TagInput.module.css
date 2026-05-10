@@ -29,3 +29,10 @@
   cursor: pointer;
   border-color: transparent;
 }
+
+@media (max-width: 375px) {
+  .tagList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -48,5 +48,5 @@ export function useValidation(rules) {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
-  return { errors, handleCheckValid, setErrors, validateAll };
+  return { errors, handleCheckValid, setErrors, validateAll, clearError };
 }

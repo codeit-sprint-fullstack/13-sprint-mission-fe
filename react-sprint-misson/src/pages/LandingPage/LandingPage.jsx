@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
-    <main>
+    <>
       <section className={style.bannerSection}>
         <div className={style.bannerInner}>
           <div className={style.bannerText}>
@@ -109,6 +109,6 @@ export default function LandingPage() {
           />
         </div>
       </section>
-    </main>
+    </>
   );
 }

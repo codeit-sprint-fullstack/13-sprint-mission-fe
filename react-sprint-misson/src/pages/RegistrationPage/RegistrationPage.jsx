@@ -24,7 +24,7 @@ export default function RegistrationPage() {
   } = useRegistrationForm();
 
   return (
-    <div className={styles.pageContainer}>
+    <section className={styles.pageContainer}>
       <div className={styles.header}>
         <h2 className={styles.title}>상품 등록하기</h2>
         <button
@@ -100,6 +100,6 @@ export default function RegistrationPage() {
           onDelete={handleTagDelete}
         />
       </form>
-    </div>
+    </section>
   );
 }

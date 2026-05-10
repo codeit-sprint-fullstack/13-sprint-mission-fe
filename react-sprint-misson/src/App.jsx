@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import MarketPage from "./pages/MarketPage/MarketPage.jsx";
 import { Routes, Route } from "react-router-dom";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage.jsx";
+import ItemDetailPage from "./pages/ItemDetailPage/ItemDetailPage.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/items" element={<MarketPage />} />
+          <Route path="/items/:id" element={<ItemDetailPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
         </Routes>
       </main>

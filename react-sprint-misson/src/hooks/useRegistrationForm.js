@@ -2,6 +2,7 @@ import { useState } from "react";
 import { nanoid } from "nanoid/non-secure";
 import { useValidation } from "@/hooks/useValidation";
 import { useCreateProduct } from "@/hooks/useProducts";
+import { useNavigate } from "react-router-dom";
 
 const INITIAL_FORM = {
   productName: "",
@@ -15,6 +16,7 @@ export function useRegistrationForm() {
   const [tagValue, setTagValue] = useState("");
   const [tagList, setTagList] = useState([]);
   const { createProduct } = useCreateProduct();
+  const navigate = useNavigate();
 
   const { errors, handleCheckValid, validateAll, clearError } = useValidation({
     productName: { min: 1, max: 10 },
@@ -69,7 +71,7 @@ export function useRegistrationForm() {
     if (!isValid) return;
 
     try {
-      await createProduct({
+      const result = await createProduct({
         name: formValues.productName,
         description: formValues.productDescription,
         price: Number(formValues.productPrice),
@@ -79,6 +81,7 @@ export function useRegistrationForm() {
       setFormValues(INITIAL_FORM);
       setTagList([]);
       setTagValue("");
+      navigate(`/items/${result._id}`);
     } catch {
       alert("등록에 실패했습니다.");
     }

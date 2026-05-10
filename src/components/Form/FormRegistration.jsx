@@ -39,9 +39,12 @@ const FormRegistration = () => {
   });
 
   // 태그 추가
-  const handleKeyDownTag = (e) => {
+  const handleKeyPressTag = (e) => {
     // Enter누를 때마다 tags배열에 tag가 추가
-    if (!isVeryShort && e.key === "Enter") setTags([...tags, tag]);
+    if (!isVeryShort && e.key === "Enter") {
+      e.preventDefault();
+      setTags([...tags, tag]);
+    }
   };
 
   return (
@@ -101,7 +104,7 @@ const FormRegistration = () => {
             placeholder="태그를 입력해주세요"
             value={tag}
             onChange={handleChangeTag}
-            onKeyDown={handleKeyDownTag}
+            onKeyPress={handleKeyPressTag}
             className={`${styles.input} ${isVeryShort && styles.alert}`}
           ></input>
           {isVeryShort && (

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import ItemCard from "./Card";
+import ItemListCard from "./ItemListCard.jsx";
 import styles from "../../css/ItemListGeneral.module.css";
-import SectionTitle from "../SectionTitle";
-import ListSearch from "./Search";
-import Button from "../Button/Default";
-import Dropdown from "../Dropdown";
-import LinkButton from "../Button/Link.jsx";
+import SectionTitle from "../SectionTitle.jsx";
+import ListSearch from "./ItemListSearch.jsx";
+import Button from "../Button/Button.jsx";
+import Dropdown from "../Dropdown.jsx";
+import LinkButton from "../Button/ButtonLink.jsx";
 import arrowLeft from "../../assets/icon/arrow-left.svg";
 import arrowRight from "../../assets/icon/arrow-right.svg";
 import useProducts from "../../hooks/useProducts.js";
@@ -44,7 +44,7 @@ export default function ItemListGeneral() {
       </SectionTitle>
       <div className={styles.list}>
         {products.map((product) => (
-          <ItemCard
+          <ItemListCard
             key={product._id}
             id={product._id}
             image={product.images}

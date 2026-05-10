@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../components/Button/Default";
+import Button from "../components/Button/Button";
 import SectionTitle from "../components/SectionTitle";
-import ItemListGeneral from "../components/ItemList/General";
-import ItemListBest from "../components/ItemList/Best";
+import ItemListGeneral from "../components/ItemList/ItemListGeneral";
+import ItemListBest from "../components/ItemList/ItemListBest";
 
 const Items = () => {
   return (

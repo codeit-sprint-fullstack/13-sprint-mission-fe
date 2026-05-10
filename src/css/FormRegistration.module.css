@@ -28,15 +28,6 @@
   border-radius: 12px;
   background: var(--color-secondary-100);
 }
-.alert {
-  border: 2px solid var(--color-error);
-}
-.alert:focus {
-  outline: none;
-}
-.alertText {
-  color: var(--color-error);
-}
 .textarea {
   width: 100%;
   height: 252px;
@@ -44,7 +35,6 @@
   border: none;
   border-radius: 12px;
   background: var(--color-secondary-100);
-  border-color: var(--color-secondary-400);
 }
 .tag {
   display: flex;
@@ -56,4 +46,13 @@
   border-radius: 26px;
   color: var(--color-secondary-800);
   background: var(--color-secondary-100);
+}
+.alert:focus {
+  outline: none;
+}
+.alertText {
+  color: var(--color-error);
+}
+.alert {
+  border: 2px solid var(--color-error);
 }

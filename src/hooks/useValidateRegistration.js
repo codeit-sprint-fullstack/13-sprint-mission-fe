@@ -9,7 +9,9 @@ const useValidateRegistration = () => {
   const [isTooLong, setIsTooLong] = useState(false);
   const [isNumber, setIsNumber] = useState(false);
   const [isVeryShort, setIsVeryShort] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmptyName, setIsEmptyName] = useState(true);
+  const [isEmptyDesc, setIsEmptyDesc] = useState(true);
+  const [isEmptyPirce, setIsEmptyPirce] = useState(true);
 
   const handleChangeName = (e) => {
     const value = e.target.value;
@@ -44,6 +46,9 @@ const useValidateRegistration = () => {
     isTooLong,
     isNumber,
     isVeryShort,
+    isEmptyName,
+    isEmptyDesc,
+    isEmptyPirce,
     handleChangeName,
     handleChangeDesc,
     handleChangePrice,

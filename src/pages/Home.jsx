@@ -1,5 +1,5 @@
 import React from "react";
-import LinkButton from "../components/Button/Link";
+import LinkButton from "../components/Button/ButtonLink";
 
 const Home = () => {
   return (

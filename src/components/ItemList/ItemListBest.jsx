@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ItemCard from "./Card";
+import ItemListCard from "./ItemListCard";
 import styles from "../../css/ItemListBest.module.css";
 import SectionTitle from "../SectionTitle";
 
@@ -26,8 +26,9 @@ export default function ItemListBest() {
       <SectionTitle title="베스트 상품"></SectionTitle>
       <div className={styles.list}>
         {products.slice(0, 4).map((product) => (
-          <ItemCard
-            key={product.id}
+          <ItemListCard
+            key={product._id}
+            id={product._id}
             image={product.images}
             name={product.name}
             price={product.price}

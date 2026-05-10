@@ -1,0 +1,83 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productPage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 26px auto 140px;
+  width: 1200px;
+  height: 744px;
+}
+
+.topArea {
+  display: flex;
+  justify-content: space-between;
+  height: 42px;
+}
+.topTest {
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/xl-20px-bold */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 160% */
+}
+
+.uiArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search {
+  width: 325px;
+  height: 42px;
+  padding: 9px 20px 9px 44px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--Secondary-100, #f3f4f6);
+  border: 0;
+  color: var(--Secondary-400, #9ca3af);
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}
+
+.searchIc {
+  position: absolute;
+  left: 16px;
+}
+.regBtn {
+  display: flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--Primary-100, #3692ff);
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 162.5% */
+}
+.dropdown {
+  position: absolute;
+}

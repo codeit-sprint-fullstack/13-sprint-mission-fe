@@ -38,14 +38,16 @@
 }
 .tag {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 36px;
   padding: 6px 12px 6px 16px;
   gap: 8px;
   border-radius: 26px;
   color: var(--color-secondary-800);
   background: var(--color-secondary-100);
+}
+.container {
+  display: flex;
+  gap: 12px;
 }
 .alert:focus {
   outline: none;

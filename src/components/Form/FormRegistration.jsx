@@ -5,6 +5,7 @@ import styles from "../../css/FormRegistration.module.css";
 import useValidate from "../../hooks/useValidateRegistration.js";
 import useSubmit from "../../hooks/useSubmitRegistration.js";
 import FormAlertText from "./FormAlertText.jsx";
+import closeIcon from "../../assets/icon/close.svg";
 
 const FormRegistration = () => {
   const {
@@ -110,11 +111,14 @@ const FormRegistration = () => {
           {isVeryShort && (
             <FormAlertText>5글자 이내로 입력해주세요</FormAlertText>
           )}
-          {tags.map((tag, i) => (
-            <p key={i} className={`${styles.tag} text-lg-regular`}>
-              {tag}
-            </p>
-          ))}
+          <div className={styles.container}>
+            {tags.map((tag, i) => (
+              <p key={i} className={`${styles.tag} text-lg-regular`}>
+                # {tag}
+                <img src={closeIcon} />
+              </p>
+            ))}
+          </div>
         </section>
       </div>
     </form>

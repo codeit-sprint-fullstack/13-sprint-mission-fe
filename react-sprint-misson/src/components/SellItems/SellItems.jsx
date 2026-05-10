@@ -6,7 +6,7 @@ import icHeart from "@/assets/icons/ic_heart.png";
 import Dropdown from "@/components/DropDowns.jsx";
 import PageNation from "@/components/PageNation.jsx";
 import { useWindowSize } from "@/hooks/useWindowSize.js";
-import { useGetProduct } from "@/hooks/useGetProducts.js";
+import { useGetProduct } from "@/hooks/useProducts.js";
 import { replace, useNavigate } from "react-router-dom";
 
 const BREAKPOINTS = {
@@ -120,10 +120,10 @@ export default function SellItems() {
 
       <ul className={styles.sellList}>
         {productList.map((product) => (
-          <li className={styles.productItmes} key={product.id}>
+          <li className={styles.productItmes} key={product._id}>
             <img
               className={`${styles.cardView} ${styles.sellCardView}`}
-              src={product.images}
+              src={defaulImg}
               alt={product.name}
               onError={(e) => {
                 e.target.onError = null;
@@ -140,7 +140,9 @@ export default function SellItems() {
                 src={icHeart}
                 alt="하트 이미지"
               />
-              <p className={styles.favoriteCount}>{product.favoriteCount}</p>
+              <p className={styles.favoriteCount}>
+                {product.favoriteCount || 0}
+              </p>
             </div>
           </li>
         ))}

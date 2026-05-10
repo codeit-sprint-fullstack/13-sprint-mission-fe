@@ -7,6 +7,7 @@ const INITIAL_FORM = {
   productName: "",
   productDescription: "",
   productPrice: "",
+  productTags: "",
 };
 
 export function useRegistrationForm() {
@@ -15,7 +16,7 @@ export function useRegistrationForm() {
   const [tagList, setTagList] = useState([]);
   const { createProduct } = useCreateProduct();
 
-  const { errors, handleCheckValid } = useValidation({
+  const { errors, handleCheckValid, validateAll } = useValidation({
     productName: { min: 1, max: 10 },
     productDescription: { min: 10, max: 100 },
     productPrice: {
@@ -57,6 +58,15 @@ export function useRegistrationForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const isValid = validateAll({
+      productName: formValues.productName,
+      productDescription: formValues.productDescription,
+      productPrice: formValues.productPrice,
+    });
+
+    if (!isValid) return;
+
     try {
       await createProduct({
         name: formValues.productName,

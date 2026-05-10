@@ -82,8 +82,8 @@ main {
 .hotpageImage,
 .searchImage,
 .sellPageImage {
-  max-width: 100%;
   height: auto;
+  display: block;
 }
 
 .hotpageText {
@@ -134,6 +134,7 @@ main {
 }
 
 .introDescription {
+  white-space: nowrap;
   color: var(--secondary-700);
   font-size: 2.5rem;
   font-weight: 700;
@@ -141,6 +142,8 @@ main {
 }
 
 .introDetail {
+  white-space: nowrap;
+
   color: var(--secondary-700);
   font-size: 1.5rem;
   font-weight: 500;

@@ -2,11 +2,11 @@ const BASE_URL = import.meta.env.VITE_MY_BASE_URL;
 
 export default class ProductApi {
   async getProductList(params) {
-    return api.get(`/products?${params}`);
+    return api.get(`/product?${params}`);
   }
 
   async getProduct(id) {
-    return api.get(`/products/${id}`);
+    return api.get(`/product/${id}`);
   }
 
   async createProduct(data) {
@@ -14,11 +14,11 @@ export default class ProductApi {
   }
 
   async patchProduct(id, data) {
-    return api.patch(`/products/${id}`, data);
+    return api.patch(`/product/${id}`, data);
   }
 
   async deleteProduct(id) {
-    return api.delete(`/products/${id}`);
+    return api.delete(`/product/${id}`);
   }
 }
 

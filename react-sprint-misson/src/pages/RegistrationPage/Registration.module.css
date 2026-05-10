@@ -1,11 +1,12 @@
 .pageContainer {
   display: flex;
   flex-direction: column;
+  padding: 0 1.5rem;
+  margin: 0 auto; /* auto로 중앙 정렬 */
   max-width: 120rem;
-  width: 100%; /* 100vw → 100%로 변경 */
+  width: 100%;
   box-sizing: border-box;
 }
-
 .header {
   display: flex;
   flex-direction: row;

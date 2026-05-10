@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓 - 상품 등록</title>
+    <link rel="stylesheet" href="./navbar.css" />
+    <link rel="stylesheet" href="./footer.css" />
+    <link rel="stylesheet" href="./addproduct.css" />
+  </head>
+  <body>
+    <header class="navbar"></header>
+
+    <main class="container">
+      <form id="productForm">
+        <div class="form-header">
+          <h1 class="page-title">상품 등록하기</h1>
+          <button type="submit" id="submitBtn" class="submit-button" disabled>
+            등록
+          </button>
+        </div>
+
+        <div class="input-group">
+          <label>상품명</label>
+          <input type="text" id="name" placeholder="상품명을 입력해주세요" />
+          <p class="error-message" id="nameError"></p>
+        </div>
+
+        <div class="input-group">
+          <label>상품 소개</label>
+          <textarea
+            id="description"
+            placeholder="상품 소개를 입력해주세요"
+          ></textarea>
+          <p class="error-message" id="descriptionError"></p>
+        </div>
+
+        <div class="input-group">
+          <label>판매 가격</label>
+          <input
+            type="text"
+            id="price"
+            placeholder="판매 가격을 입력해주세요"
+          />
+          <p class="error-message" id="priceError"></p>
+        </div>
+
+        <div class="input-group">
+          <label>태그</label>
+          <input
+            type="text"
+            id="tagInput"
+            placeholder="태그를 입력하고 엔터를 눌러주세요"
+          />
+          <div id="tagContainer" class="tag-container"></div>
+          <p class="error-message" id="tagError"></p>
+        </div>
+      </form>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="./addproduct.js"></script>
+    <script type="module">
+      import { renderNavBar } from "./navbar.js";
+      import { renderFooter } from "./footer.js";
+      renderNavBar();
+      renderFooter();
+    </script>
+  </body>
+</html>

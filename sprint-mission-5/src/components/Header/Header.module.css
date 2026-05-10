@@ -9,6 +9,7 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   /* border: 1px solid black; */
 }
 .nav {
@@ -47,4 +48,17 @@
 
   /* pretendard/lg-16px-semibold */
   /* 162.5% */
+}
+
+@media (max-width: 744px) {
+  .nav-wrap {
+    max-width: 744px;
+    padding: 9px 24px;
+  }
+}
+@media (max-width: 374px) {
+  .nav-wrap {
+    max-width: 374px;
+    padding: 9px 16px;
+  }
 }

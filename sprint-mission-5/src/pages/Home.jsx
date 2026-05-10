@@ -34,7 +34,7 @@ export default function Home() {
               Hot item
             </span>
             <p
-              className={`${styles["section-title"]} ${font["text-4xl-bold"]}`}
+              className={`${font["text-4xl-bold"]} ${styles["section-title"]} `}
             >
               인기 상품을 확인해 보세요
             </p>
@@ -75,8 +75,8 @@ export default function Home() {
 
       <section className={styles["main-section"]}>
         <div className={styles["main-section-wrap"]}>
-          <img src={sec3} className={styles["section-img"]} />
-          <div className={styles["section-content"]}>
+          <img src={sec3} className={`${styles["section-img"]}`} />
+          <div className={`${styles["section-content"]}`}>
             <span
               className={`${styles["section-tag"]} ${font["text-2lg-bold"]}`}
             >

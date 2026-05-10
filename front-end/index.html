@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="./footer.css" />
+    <link rel="stylesheet" href="./home.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="/" class="logo-wrap">
+          <img src="./images/pandalogo.svg" alt="판다마켓 로고" />
+          <a href="/" class="logo">판다마켓</a>
+        </a>
+      </div>
+
+      <div class="nav-right">
+        <a href="./login.html" class="login-button">로그인</a>
+      </div>
+    </nav>
+
+    <div class="sky-bg">
+      <div class="container">
+        <section class="box1">
+          <div class="text">
+            <h1 class="text1">
+              일상의 모든 물건을 <br />
+              거래해 보세요
+            </h1>
+            <a href="/product.html" class="text2">구경하러 가기</a>
+          </div>
+          <img src="./images/mainpanda.png" alt="판다" />
+        </section>
+      </div>
+    </div>
+    <div class="box2">
+      <img src="./images/bestproduct.png" alt="인기상품" />
+    </div>
+    <div class="box3">
+      <img src="./images/magnifier.png" alt="돋보기" />
+    </div>
+    <div class="box4">
+      <img src="./images/addproduct.png" alt="상품등록" />
+    </div>
+    <div class="box5">
+      <h1 class="text3">
+        믿을 수 있는 <br />
+        판다마켓 중고 거래
+      </h1>
+      <img src="./images/underpanda.png" alt="하단판다" />
+    </div>
+    <script type="module">
+      import { renderFooter } from "./footer.js";
+      renderFooter();
+    </script>
+  </body>
+</html>

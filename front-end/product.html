@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓</title>
+    <link rel="stylesheet" href="./footer.css" />
+    <link rel="stylesheet" href="./product.css" />
+  </head>
+  <body>
+    <header class="navbar"></header>
+
+    <main class="container">
+      <section class="best-section">
+        <h2 class="section-title">베스트 상품</h2>
+        <div id="bestProductList" class="best-product-list"></div>
+      </section>
+
+      <section class="product-section">
+        <div class="section-header">
+          <h2 class="section-title">판매 중인 상품</h2>
+          <div class="section-controls">
+            <div class="search-bar">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="검색할 상품을 입력해주세요"
+              />
+            </div>
+            <button class="add-button">검색하기</button>
+            <select id="sortOrder" class="sort-dropdown">
+              <option value="recent">최신순</option>
+              <option value="favorite">좋아요순</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="productList" class="product-list"></div>
+
+        <div id="pagination" class="pagination-container"></div>
+      </section>
+    </main>
+
+    <footer class="footer-container"></footer>
+
+    <script type="module" src="./main.js"></script>
+
+    <script type="module">
+      import { renderNavBar } from "./navbar.js";
+      import { renderFooter } from "./footer.js";
+
+      renderNavBar();
+      renderFooter();
+    </script>
+  </body>
+</html>

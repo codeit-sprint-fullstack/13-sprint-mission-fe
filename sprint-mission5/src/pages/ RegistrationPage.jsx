@@ -12,7 +12,6 @@ function RegistrationPage() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState([]);
 
-  const [isSaved, setIsSaved] = useState(false);
 
   const isFormValid = 
   name.trim() !== "" &&
@@ -20,14 +19,41 @@ function RegistrationPage() {
   price.trim() !== "" &&
   tags.length > 0;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+ const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (!isFormValid) return;
+  if (!isFormValid) return;
 
-    console.log("상품 등록 완료");
-    navigate("/items/1")
-  };
+  try {
+    const response = await fetch("http://localhost:3000/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        price: Number(price),
+        tags,
+      }),
+    });
+
+    console.log("POST 응답 상태:", response.status);
+
+    const createdProduct = await response.json();
+
+    console.log("등록된 상품:", createdProduct);
+    
+
+    if (!response.ok) {
+      throw new Error("상품 등록 실패");
+    }
+
+    navigate(`/items/${createdProduct._id}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleTagKeyDown = (event) => {
     if (event.key !== "Enter") return;

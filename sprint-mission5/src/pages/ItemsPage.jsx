@@ -1,17 +1,32 @@
+import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
 import styles from "./ ItemsPage.module.css";
 
-const products = Array.from({ length: 10 }, (_, index) => ({
-  id: index + 1,
-  name: "로봇 청소기",
-  price: 1500000,
-  favoriteCount: 240,
-}));
-
 const pages = [1, 2, 3, 4, 5];
 
 function ItemsPage() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch("http://localhost:3000/products");
+
+        if(!response.ok) {
+          throw new Error("상품 목록을 불러오지 못했습니다.");
+        }
+
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   return (
     <section className={styles.page}>
       <div className={styles.container}>
@@ -47,7 +62,7 @@ function ItemsPage() {
 
         <div className={styles.productList}>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
 

@@ -71,7 +71,7 @@ const registration = () => {
               className={`${styles.input} ${isTooShort && styles.alert}`}
             ></input>
             {isTooShort && (
-              <p className={`${styles.alert} text-md-semibold`}>
+              <p className={`${styles.alertText} text-md-semibold`}>
                 10글자 이내로 입력해주세요
               </p>
             )}
@@ -84,10 +84,10 @@ const registration = () => {
               placeholder="상품 소개를 입력해주세요"
               value={description}
               onChange={handleChangeDesc}
-              className={styles.textarea}
+              className={`${styles.textarea} ${isTooLong && styles.alert}`}
             ></textarea>
             {isTooLong && (
-              <p className={`${styles.alert} text-md-semibold`}>
+              <p className={`${styles.alertText} text-md-semibold`}>
                 10글자 이상 입력해주세요
               </p>
             )}
@@ -101,10 +101,10 @@ const registration = () => {
               placeholder="판매 가격을 입력해주세요"
               value={price}
               onChange={handleChangePrice}
-              className={styles.input}
+              className={`${styles.input} ${isNumber && styles.alert}`}
             ></input>
             {isNumber && (
-              <p className={`${styles.alert} text-md-semibold`}>
+              <p className={`${styles.alertText} text-md-semibold`}>
                 숫자로 입력해주세요
               </p>
             )}
@@ -119,10 +119,10 @@ const registration = () => {
               value={tag}
               onChange={handleChangeTag}
               onKeyDown={handleKeyDownTag}
-              className={styles.input}
+              className={`${styles.input} ${isVeryShort && styles.alert}`}
             ></input>
             {isVeryShort && (
-              <p className={`${styles.alert} text-md-semibold`}>
+              <p className={`${styles.alertText} text-md-semibold`}>
                 5글자 이내로 입력해주세요
               </p>
             )}

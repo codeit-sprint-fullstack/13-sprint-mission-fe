@@ -27,11 +27,15 @@
   border: none;
   border-radius: 12px;
   background: var(--color-secondary-100);
-  border-color: var(--color-secondary-400);
 }
 .alert {
+  border: 2px solid var(--color-error);
+}
+.alert:focus {
+  outline: none;
+}
+.alertText {
   color: var(--color-error);
-  border-color: var(--color-error);
 }
 .textarea {
   width: 100%;

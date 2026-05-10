@@ -8,6 +8,8 @@ function useProducts({ page, pageSize, orderBy, keyword = "" }) {
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchProducts() {
       setIsLoading(true);
       setError(null);
@@ -23,7 +25,9 @@ function useProducts({ page, pageSize, orderBy, keyword = "" }) {
           params.set("keyword", keyword.trim());
         }
 
-        const response = await fetch(`${BASE_URL}/products?${params}`);
+        const response = await fetch(`${BASE_URL}/products?${params}`, {
+          signal: controller.signal,
+        });
 
         if (!response.ok) {
           throw new Error(`error! status ${response.status}`);
@@ -33,13 +37,16 @@ function useProducts({ page, pageSize, orderBy, keyword = "" }) {
 
         setProducts(data.list);
         setTotalCount(data.totalCount);
-      } catch (error) {
-        setError(error.message);
+      } catch (err) {
+        if (err.name === "AbortError") return;
+        setError(err);
       } finally {
         setIsLoading(false);
       }
     }
     fetchProducts();
+
+    return () => controller.abort();
   }, [page, pageSize, orderBy, keyword]);
   return { products, totalCount, isLoading, error };
 }

@@ -51,7 +51,11 @@ const FormRegistration = () => {
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
       <SectionTitle title="상품 등록하기">
-        <Button size="small-40" type="submit">
+        <Button
+          size="small-40"
+          type="submit"
+          disabled={!name || !description || !price}
+        >
           등록
         </Button>
       </SectionTitle>

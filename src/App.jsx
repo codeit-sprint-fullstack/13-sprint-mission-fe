@@ -1,14 +1,28 @@
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import MarketPage from "./features/market/MarketPage";
-import "./styles/reset.css";
-import "./styles/layout.css";
-import "./styles/grid.css";
+import { Routes, Route } from "react-router-dom";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import LandingPage from "./pages/LandingPage";
+import ItemsPage from "./pages/ItemsPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+
 function App() {
   return (
     <>
       <Header />
-      <MarketPage />
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+
+        <Route path="/items" element={<ItemsPage />} />
+
+        <Route path="/registration" element={<RegistrationPage />} />
+
+        <Route path="/items/:id" element={<ProductDetailPage />} />
+      </Routes>
+
       <Footer />
     </>
   );

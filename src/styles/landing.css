@@ -1,0 +1,88 @@
+.landing-page {
+  width: 100%;
+}
+
+.hero-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-image {
+  width: 100%;
+  display: block;
+}
+
+.landing-section {
+  width: 100%;
+  /*margin: 120px 0;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-image {
+  width: 100%;
+  display: block;
+}
+
+.bottom-section {
+  width: 100%;
+
+  margin-top: 200px;
+
+  background-color: #cfe5ff;
+
+  display: flex;
+  justify-content: center;
+}
+
+/*.hero-left h1 {
+  font-size: 40px;
+  line-height: 56px;
+}
+
+.hero-left button {
+  margin-top: 30px;
+
+  width: 360px;
+  height: 56px;
+
+  border: none;
+  border-radius: 40px;
+
+  background-color: #3692ff;
+  color: white;
+}
+
+.landing-card {
+  width: 988px;
+
+  margin: 120px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.bottom-banner {
+  background-color: #cfe5ff;
+
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-inner {
+  width: 1200px;
+  height: 540px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+*/

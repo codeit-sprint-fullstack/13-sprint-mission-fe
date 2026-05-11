@@ -19,7 +19,7 @@ export default function ItemListGeneral() {
   const [currentPage, setCurrentPage] = useState(1);
   const [orderBy, setOrderBy] = useState("recent");
   const [searchText, setSearchText] = useState("");
-  const size = isTablet ? 6 : isMobile ? 4 : 10;
+  const size = isMobile ? 6 : isTablet ? 4 : 10;
   const paginationLimit = 5;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const start = Math.max(1, currentPage - 2) - 1;

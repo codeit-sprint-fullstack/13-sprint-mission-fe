@@ -10,8 +10,7 @@ export default function ItemListBest() {
 
   const [products, setProducts] = useState([]);
 
-  const itemCount = isTablet ? 3 : isMobile ? 2 : 4;
-
+  const itemCount = isMobile ? 2 : isTablet ? 3 : 4;
   useEffect(() => {
     async function getProducts() {
       try {

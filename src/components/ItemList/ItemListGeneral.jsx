@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import ItemListCard from "./ItemListCard.jsx";
 import styles from "../../css/ItemListGeneral.module.css";
 import SectionTitle from "../SectionTitle.jsx";
@@ -11,12 +12,14 @@ import arrowRight from "../../assets/icon/arrow-right.svg";
 import useProducts from "../../hooks/useProducts.js";
 
 export default function ItemListGeneral() {
-  // const [products, setProducts] = useState([]);
+  const isTablet = useMediaQuery({ maxWidth: 744 });
+  const isMobile = useMediaQuery({ maxWidth: 375 });
+
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [orderBy, setOrderBy] = useState("recent");
   const [searchText, setSearchText] = useState("");
-  const size = 10;
+  const size = isTablet ? 6 : isMobile ? 4 : 10;
   const paginationLimit = 5;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const start = Math.max(1, currentPage - 2) - 1;

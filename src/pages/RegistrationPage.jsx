@@ -45,18 +45,24 @@ function RegistrationPage() {
     setTags(tags.filter((item) => item !== tag));
   };*/
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const product = await createProduct({
+      await createProduct({
         name,
         description,
         price,
         tags,
       });
 
-      navigate(`/items/${product._id}`);
+      alert("상품 등록 완료!");
+
+      navigate("/items");
     } catch (error) {
       console.log(error);
+
+      alert("등록 실패!");
     }
   };
 
@@ -66,7 +72,7 @@ function RegistrationPage() {
         <h1>상품 등록하기</h1>
 
         <button
-          className="submit-btn"
+          className={`submit-btn ${!isDisabled ? "active" : ""}`}
           disabled={isDisabled}
           onClick={handleSubmit}
         >

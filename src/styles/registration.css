@@ -84,8 +84,23 @@
   background: none;
 }
 
-.submit-btn:disabled {
+.submit-btn {
+  width: 120px;
+  height: 48px;
+
+  border: none;
+  border-radius: 8px;
+
   background-color: #9ca3af;
 
+  color: white;
+
   cursor: not-allowed;
+
+  transition: 0.2s;
+}
+
+.submit-btn.active {
+  background-color: #3692ff;
+  cursor: pointer;
 }

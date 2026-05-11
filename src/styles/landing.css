@@ -38,6 +38,35 @@
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+
+    text-align: center;
+
+    gap: 40px;
+  }
+
+  .top-text {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-text {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .items img {
+    width: 100%;
+  }
+}
+
 /*.hero-left h1 {
   font-size: 40px;
   line-height: 56px;

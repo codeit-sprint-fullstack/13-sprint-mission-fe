@@ -1,4 +1,5 @@
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -8,12 +9,12 @@ function Footer() {
           <small className={styles.footerCopyright}>© codeit-2024</small>
           <nav aria-label="푸터 메뉴">
             <div className={styles.footerNavList}>
-              <a href="/privacy" className={styles.footerNavLink}>
+              <Link to="/privacy" className={styles.footerNavLink}>
                 Privacy Policy
-              </a>
-              <a href="/faq" className={styles.footerNavLink}>
+              </Link>
+              <Link to="/faq" className={styles.footerNavLink}>
                 FAQ
-              </a>
+              </Link>
             </div>
           </nav>
           <div className={styles.footerSocial}>

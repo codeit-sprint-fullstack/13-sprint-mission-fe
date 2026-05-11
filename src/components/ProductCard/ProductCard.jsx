@@ -2,8 +2,6 @@ import styles from "./ProductCard.module.css";
 import productImg from "../../assets/product_1775830977688.png";
 
 function ProductCard({ product }) {
-  console.log(typeof product.images[0], product.images[0]);
-
   return (
     <article className={styles.card}>
       <div className={styles.imageBox}>
@@ -18,11 +16,7 @@ function ProductCard({ product }) {
         <p className={styles.price}>{product.price.toLocaleString()}원</p>
         <div className={styles.favorite}>
           {/* 좋아요 토글 기능 추가 시 button useState로 변경 */}
-          <span
-            type="button"
-            aria-label="좋아요"
-            className={styles.favoriteButton}
-          >
+          <span className={styles.favoriteButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -37,7 +31,9 @@ function ProductCard({ product }) {
               />
             </svg>
           </span>
-          <span className={styles.favoriteCount}>{product.favoriteCount}</span>
+          <span className={styles.favoriteCount}>
+            {product.favoriteCount ?? 0}
+          </span>
         </div>
       </div>
     </article>

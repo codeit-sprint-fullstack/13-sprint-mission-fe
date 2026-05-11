@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import styles from "./Navbar.module.css";
 
@@ -7,30 +8,39 @@ function Navbar() {
       <div className="container">
         <div className={styles.headerInner}>
           <div className={styles.headerLeft}>
-            <a
-              href="/"
+            <Link
+              to="/"
               className={styles.headerLogo}
               aria-label="판다마켓 홈으로 이동"
             >
               <img src={logo} alt="판다마켓 로고" width="40" height="41" />
-
               <span className={styles.headerLogoText}>판다마켓</span>
-            </a>
+            </Link>
 
             <nav className={styles.headerMenu} aria-label="메인 메뉴">
-              <a href="/" className={styles.headerMenuLink}>
+              <NavLink
+                to="/board"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.headerMenuLink
+                }
+              >
                 자유게시판
-              </a>
+              </NavLink>
 
-              <a href="/" className={styles.headerMenuLink}>
+              <NavLink
+                to="/items"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.headerMenuLink
+                }
+              >
                 중고마켓
-              </a>
+              </NavLink>
             </nav>
           </div>
 
-          <a href="/login" className={styles.headerLogin}>
+          <Link to="/login" className={styles.headerLogin}>
             로그인
-          </a>
+          </Link>
         </div>
       </div>
     </header>

@@ -1,9 +1,8 @@
-import Navbar from "../components/Navbar/Navbar.jsx";
-import Footer from "../components/Footer/Footer.jsx";
 import styles from "./MarketPage.module.css";
 import ProductCard from "../components/ProductCard/ProductCard.jsx";
 import { useState } from "react";
 import useProducts from "../hooks/useProducts.js";
+import { Link } from "react-router-dom";
 
 function MarketPage() {
   const [page, setPage] = useState(1);
@@ -53,7 +52,6 @@ function MarketPage() {
 
   return (
     <div className={styles.page}>
-      <Navbar />
       <main>
         <section className={styles.bestSection}>
           <div className="container">
@@ -64,7 +62,7 @@ function MarketPage() {
               {!isBestLoading && !bestError && (
                 <div className={styles.bestProductGrid}>
                   {bestProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               )}
@@ -109,9 +107,9 @@ function MarketPage() {
                       />
                     </div>
                   </div>
-                  <button type="button" className={styles.addButton}>
+                  <Link to="/registration" className={styles.addButton}>
                     상품 등록하기
-                  </button>
+                  </Link>
                   <div className={styles.sortDropdown}>
                     <button
                       type="button"
@@ -215,7 +213,7 @@ function MarketPage() {
               {!isProductsLoading && !productsError && (
                 <div className={styles.productGrid}>
                   {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               )}
@@ -301,7 +299,6 @@ function MarketPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }

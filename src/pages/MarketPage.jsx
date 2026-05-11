@@ -210,9 +210,9 @@ function MarketPage() {
                   </div>
                 </div>
               </div>
-              {isBestLoading && <p>로딩 중 ..</p>}
-              {bestError && <p>에러가 발생했습니다.</p>}
-              {!isBestLoading && !bestError && (
+              {isProductsLoading && <p>로딩 중 ..</p>}
+              {productsError && <p>에러가 발생했습니다.</p>}
+              {!isProductsLoading && !productsError && (
                 <div className={styles.productGrid}>
                   {products.map((product) => (
                     <ProductCard key={product.id} product={product} />

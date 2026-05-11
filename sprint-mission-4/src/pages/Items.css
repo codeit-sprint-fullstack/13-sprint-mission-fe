@@ -1,3 +1,8 @@
+/* navlink 떄문에 어쩌구 ,,,  */
+a {
+  text-decoration: none;
+  color: inherit;
+}
 h2 {
   color: var(--Secondary-900, #111827);
 
@@ -177,7 +182,7 @@ h2 {
 @media (max-width: 375px) {
   .sort-dropdown {
     width: 42px;
-    background-image: url("../assets/ic_sort.svg");
+    background-image: url("../assets/icons/ic_sort.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;

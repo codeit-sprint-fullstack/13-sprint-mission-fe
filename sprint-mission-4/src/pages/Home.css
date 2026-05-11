@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Pretendard", sans-serif;
+  margin-top: 70px;
+}
+.section-inner-blue {
+  display: flex;
+  background-color: #cfe5ff;
+}
+.frame-large-top {
+  margin: 200px auto 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+.text-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+.text-wrap-middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.section-title {
+  display: inline;
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 140%;
+  font-style: normal;
+  margin-top: 12px;
+}
+.section-title-middle {
+  display: inline;
+  text-align: right;
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 140%;
+  font-style: normal;
+  margin-top: 12px;
+}
+.cta-btn {
+  display: inline-flex;
+  height: 56px;
+  padding: 16px 124px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50px;
+  background: #3692ff;
+  color: white;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 160%;
+  margin-top: 32px;
+  margin-bottom: 60px;
+}
+.section-inner-blue .img-top {
+  width: 746px;
+  height: 340px;
+  align-self: flex-end;
+}
+.section-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section-inner img {
+  width: 588px;
+  height: 444px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.section-container {
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: row;
+  gap: 64px;
+  width: 988px;
+  height: 444px;
+  margin-top: 138px;
+  margin-bottom: 138px;
+}
+.tag {
+  display: inline;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.section-desc {
+  display: inline;
+  color: var(--text);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  margin-top: 24px;
+}
+.section-desc-middle {
+  display: inline;
+  text-align: right;
+  color: var(--text);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  margin-top: 24px;
+}
+.section-inner-blue-bottom {
+  max-width: 1520px; /* 1920 - 200*2 */
+  width: 100%;
+  padding: 0 200px;
+  margin-top: 138px;
+  background-color: #cfe5ff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.section-container-bottom {
+  display: flex;
+  margin-top: 143px;
+}
+.img-bottom {
+  width: 746px;
+  height: 397px;
+  align-self: flex-end;
+}

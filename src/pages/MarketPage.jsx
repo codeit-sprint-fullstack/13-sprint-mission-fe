@@ -163,19 +163,6 @@ function MarketPage() {
                             최신순
                           </button>
                         </li>
-                        <li className={styles.sortItem}>
-                          <button
-                            type="button"
-                            className={styles.sortOption}
-                            onClick={() => {
-                              setOrderBy("favorite");
-                              setPage(1);
-                              setIsSortOpen(false);
-                            }}
-                          >
-                            좋아요순
-                          </button>
-                        </li>
                       </ul>
                     )}
                   </div>

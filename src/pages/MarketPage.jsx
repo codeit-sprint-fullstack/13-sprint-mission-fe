@@ -12,17 +12,6 @@ function MarketPage() {
   const pageSize = 10;
 
   const {
-    products: bestProducts,
-    isLoading: isBestLoading,
-    error: bestError,
-  } = useProducts({
-    page: 1,
-    pageSize: 4,
-    orderBy: "favorite",
-    keyword: "",
-  });
-
-  const {
     products,
     totalCount,
     isLoading: isProductsLoading,
@@ -53,22 +42,6 @@ function MarketPage() {
   return (
     <div className={styles.page}>
       <main>
-        <section className={styles.bestSection}>
-          <div className="container">
-            <div className={styles.bestInner}>
-              <h2 className={styles.sectionTitle}>베스트 상품</h2>
-              {isBestLoading && <p>로딩 중 ..</p>}
-              {bestError && <p>에러가 발생했습니다.</p>}
-              {!isBestLoading && !bestError && (
-                <div className={styles.bestProductGrid}>
-                  {bestProducts.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
         <section className={styles.productSection}>
           <div className="container">
             <div className={styles.productInner}>

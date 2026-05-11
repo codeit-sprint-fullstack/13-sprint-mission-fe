@@ -59,11 +59,15 @@ function MarketPage() {
           <div className="container">
             <div className={styles.bestInner}>
               <h2 className={styles.sectionTitle}>베스트 상품</h2>
-              <div className={styles.bestProductGrid}>
-                {bestProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {isBestLoading && <p>로딩 중 ..</p>}
+              {bestError && <p>에러가 발생했습니다.</p>}
+              {!isBestLoading && !bestError && (
+                <div className={styles.bestProductGrid}>
+                  {bestProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -206,11 +210,15 @@ function MarketPage() {
                   </div>
                 </div>
               </div>
-              <div className={styles.productGrid}>
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {isBestLoading && <p>로딩 중 ..</p>}
+              {bestError && <p>에러가 발생했습니다.</p>}
+              {!isBestLoading && !bestError && (
+                <div className={styles.productGrid}>
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
               <nav className={styles.pagination} aria-label="페이지네이션">
                 <button
                   type="button"

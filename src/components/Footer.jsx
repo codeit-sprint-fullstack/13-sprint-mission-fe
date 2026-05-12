@@ -1,9 +1,10 @@
 
 import "./Footer.css";
-import facebook from "../assets/Image/ic_facebook.png";
-import twitter from "../assets/Image/ic_twitter.png";
-import instagram from "../assets/Image/ic_instagram.png";
-import youtube from "../assets/Image/ic_youtube.png";
+import { Link } from "react-router";
+import facebook from "../assets/image/ic_facebook.png";
+import twitter from "../assets/image/ic_twitter.png";
+import instagram from "../assets/image/ic_instagram.png";
+import youtube from "../assets/image/ic_youtube.png";
 
 export default function Footer() {
   return (
@@ -12,10 +13,10 @@ export default function Footer() {
     <p>&copy;codeit - 2024</p>
     <ul className="footer-links">
       <li>
-        <a href="/pages/privacy.html">Privacy Policy</a>
+        <Link to="/privacy">Privacy Policy</Link>
       </li>
       <li>
-        <a href="/pages/faq.html">FAQ</a>
+        <Link to="/faq">FAQ</Link>
       </li>
     </ul>
     <ul className="footer-sns">

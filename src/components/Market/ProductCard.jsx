@@ -17,11 +17,11 @@ function ProductCard({ item }) {
 
       <div className="card-info">
         <h3 className="card-title">{item.name}</h3>
-        <p className="card-price">{item.price.toLocaleString()}원</p>
+        <p className="card-price">{item.price.toLocaleString('ko-KR')}원</p>
         <div className="card-footer">
           <div className="card-likes">
             <span className="heart-icon">♡</span> 
-            <span className="like-count">{favoriteCount.toLocaleString()}</span>
+            <span className="like-count">{favoriteCount.toLocaleString('ko-KR')}</span>
           </div>
         </div>
       </div>

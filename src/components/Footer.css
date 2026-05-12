@@ -14,6 +14,34 @@ footer {
   align-items: flex-start;
 }
 
+@media (max-width: 744px) {
+  .footer-inner {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 375px) {
+  footer {
+    height: auto;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  .footer-sns {
+    justify-content: center;
+  }
+}
+
 .footer-links {
   display: flex;
   gap: 1.875rem;

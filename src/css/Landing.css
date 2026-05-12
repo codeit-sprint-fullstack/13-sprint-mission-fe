@@ -13,6 +13,9 @@
 
 .hero-inner {
   display: flex;
+  width: 100%;
+  max-width: 75rem;
+  padding: 0 2rem;
   justify-content: space-between;
   align-items: center;
   gap: 0.4375rem;
@@ -128,4 +131,161 @@
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 3.5rem;
+}
+
+/* 태블릿 (744px 이하) */
+@media (max-width: 744px) {
+  .hero {
+    height: auto;
+    align-items: center;
+    padding: 3rem 0 0;
+  }
+
+  .hero-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    align-items: center;
+    font-size: 2rem;
+    line-height: 2.75rem;
+    padding-bottom: 0;
+  }
+
+  .hero-inner img {
+    width: 60%;
+  }
+
+  .item-inner {
+    width: 100%;
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .item-inner img {
+    width: 45%;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .feature-item {
+    padding: 5rem 0;
+  }
+
+  .feature-tit {
+    font-size: 2rem;
+    line-height: 2.75rem;
+  }
+
+  .feature-dec {
+    font-size: 1.25rem;
+  }
+
+  .banner {
+    height: auto;
+    align-items: center;
+    padding: 3rem 0;
+  }
+
+  .banner-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .banner-text {
+    padding-bottom: 0;
+    font-size: 2rem;
+    line-height: 2.75rem;
+  }
+
+  .banner-inner img {
+    width: 70%;
+  }
+}
+
+/* 모바일 (375px 이하) */
+@media (max-width: 375px) {
+  .hero {
+    height: auto;
+    padding-top: 2rem;
+    align-items: center;
+  }
+
+  .hero-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .hero-text {
+    align-items: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .go-btn {
+    padding: 0 3rem;
+    font-size: 1rem;
+  }
+
+  .feature-item {
+    padding: 3rem 0;
+  }
+
+  .item-inner {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .feature-item.reverse .item-inner {
+    flex-direction: column;
+  }
+
+  .feature-item.reverse .feature-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .feature-tit {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .feature-dec {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .banner {
+    height: auto;
+    padding: 3rem 0;
+  }
+
+  .banner-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .banner-text {
+    padding-bottom: 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }

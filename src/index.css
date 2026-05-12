@@ -1,3 +1,16 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
 :root {
   --primary-100: #3692ff;
   --primary-200: #1967d6;

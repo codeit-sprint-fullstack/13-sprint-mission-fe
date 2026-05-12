@@ -4,11 +4,12 @@ import ProductListSection from '../components/Market/ProductListSection';
 import '../css/Market.css';
 
 function Market() {
-  const [bestProducts, setBestProducts] = useState([]);
+  // const [bestProducts, setBestProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  // const [bestPageSize, setBestPageSize] = useState(4);
   const [orderBy, setOrderBy] = useState('recent');
   const [keyword, setKeyword] = useState('');
 
@@ -18,30 +19,46 @@ function Market() {
       if (width >= 1200) setPageSize(10);
       else if (width >= 768) setPageSize(6);
       else setPageSize(4);
+
+      // if (width >= 1200) setBestPageSize(4);
+      // else if (width >= 768) setBestPageSize(2);
+      // else setBestPageSize(1);
     };
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    fetch(`https://panda-market-api.vercel.app/products?page=1&pageSize=4&orderBy=favorite`)
-      .then(res => res.json())
-      .then(data => setBestProducts(data.list));
-  }, []);
+// useEffect(() => {
+//     fetch(`https://one3-sprint-mission-be-9guw.onrender.com/products?page=1&pageSize=${bestPageSize}&orderBy=favorite`)
+//       .then(res => res.json())
+//       .then(data => setBestProducts(data.list))
+//       .catch(err => console.error('베스트 상품 로드 실패:', err));
+//   }, [bestPageSize]);
 
   useEffect(() => {
-    fetch(`https://panda-market-api.vercel.app/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`)
+    const params = new URLSearchParams({
+      page: page.toString(),
+      pageSize: pageSize.toString(),
+      orderBy: orderBy
+    });
+
+    if (keyword) {params.append('keyword', keyword);
+    }
+
+    fetch(`https://one3-sprint-mission-be-9guw.onrender.com/products?${params.toString()}`)
       .then(res => res.json())
       .then(data => {
-        setProducts(data.list);
-        setTotalCount(data.totalCount);
-      });
+        setProducts(data.list || []);
+        setTotalCount(data.totalCount || 0);
+      })
+      .catch(err => console.error('상품 목록 로드 실패:', err));
   }, [page, pageSize, orderBy, keyword]);
 
   return (
     <main className="market-container">
-      <BestSection products={bestProducts} />
+      {/* <BestSection products={bestProducts} /> */}
       
       <ProductListSection 
         products={products}

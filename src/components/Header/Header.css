@@ -1,0 +1,70 @@
+#header {
+  border-bottom: 1px solid #dfdfdf;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1520px;
+  padding: 9px 200px;
+  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.innerLaft {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* 로고랑 메뉴 간격 */
+}
+
+.navTextBox {
+  display: flex;
+}
+.navText {
+  color: var(--Secondary-600, #4b5563);
+  text-align: center;
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+  display: flex;
+  padding: 21px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.navText.active {
+  color: #3692ff;
+}
+.logo {
+  display: flex;
+  width: 153px;
+  height: 51px;
+}
+
+.login {
+  width: 8rem; /* 128px */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1.4375rem; /* 12px 23px */
+  border-radius: 0.5rem; /* 8px */
+  background: var(--Primary-100, #3692ff);
+  border: 0;
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 1rem; /* 16px */
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.625rem; /* 26px */
+}

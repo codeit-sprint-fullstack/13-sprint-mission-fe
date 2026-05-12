@@ -1,0 +1,138 @@
+.registerPage {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 94px;
+}
+.registerPageBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 360px;
+  gap: 24px;
+}
+.topArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.topText {
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/xl-20px-bold */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 160% */
+}
+
+.registerBtn {
+  display: flex;
+  height: 42px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--Primary-100, #3692ff);
+  border: 0;
+
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 162.5% */
+}
+
+.inputArea {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.inputArea p {
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+}
+
+.inputArea input {
+  border-radius: 12px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+  border: 0;
+  width: 100%;
+  padding: 16px 24px;
+  display: flex;
+  height: 56px;
+
+  align-items: flex-start;
+
+  align-self: stretch;
+  color: var(--Secondary-400, #9ca3af);
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}
+
+.descriptionInput textarea {
+  resize: none;
+  border-radius: 12px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+  border: 0;
+  width: 100%;
+  padding: 16px 24px;
+  height: 282px;
+  color: var(--Secondary-400, #9ca3af);
+  text-align: start;
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}
+
+.tagList {
+  display: flex;
+  gap: 12px;
+}
+
+.chip {
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  display: flex;
+  height: 36px;
+  width: fit-content;
+  padding: 6px 12px 6px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 26px;
+  background: var(--Cool-Gray-100, #f3f4f6);
+  color: var(--Secondary-800, #1f2937);
+
+  /* pretendard/lg-16px-regular */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}

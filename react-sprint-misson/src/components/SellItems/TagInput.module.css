@@ -1,0 +1,38 @@
+.tagList {
+  margin-top: 2rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+}
+
+.tagItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 2.6rem;
+  background-color: var(--gray-100);
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+}
+
+.tagValue {
+  color: var(--gray-800);
+  font-weight: 400;
+  font-size: 1.6rem;
+  margin-left: 1.6rem;
+  white-space: nowrap;
+}
+
+.deleteBtn {
+  cursor: pointer;
+  border-color: transparent;
+}
+
+@media (max-width: 375px) {
+  .tagList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

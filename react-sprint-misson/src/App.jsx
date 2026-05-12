@@ -1,17 +1,26 @@
 import "./App.css";
-import Footer from "./layouts/Footer";
-import Header from "./layouts/Header";
-import Products from "./pages/Products";
+import Footer from "./layouts/Footer/Footer.jsx";
+import Header from "./layouts/Header/Header.jsx";
+import LandingPage from "./pages/LandingPage/LandingPage.jsx";
+import MarketPage from "./pages/MarketPage/MarketPage.jsx";
+import { Routes, Route } from "react-router-dom";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage.jsx";
+import ItemDetailPage from "./pages/ItemDetailPage/ItemDetailPage.jsx";
 
 function App() {
   return (
-    <>
+    <div className="wrapper">
       <Header />
       <main>
-        <Products />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/items" element={<MarketPage />} />
+          <Route path="/items/:id" element={<ItemDetailPage />} />
+          <Route path="/registration" element={<RegistrationPage />} />
+        </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

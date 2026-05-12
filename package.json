@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "ag-grid-react": "^35.2.1",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "nanoid": "^5.1.11"
   }
 }

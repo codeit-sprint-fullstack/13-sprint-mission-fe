@@ -1,6 +1,6 @@
-import styles from "../styles/PageNation.module.css";
-import leftArrow from "../assets/icons/btn_left .png";
-import rightArrow from "../assets/icons/btn_right.png";
+import styles from "@/styles/PageNation.module.css";
+import leftArrow from "@/assets/icons/btn_left .png";
+import rightArrow from "@/assets/icons/btn_right.png";
 
 export default function PageNation({
   totalCount,

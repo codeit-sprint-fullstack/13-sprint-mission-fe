@@ -1,0 +1,104 @@
+.items-page {
+  width: 1200px;
+
+  margin: 40px auto 120px;
+}
+
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.items-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.items-actions input {
+  width: 325px;
+  height: 42px;
+
+  border: none;
+  border-radius: 12px;
+
+  background-color: #f3f4f6;
+
+  padding: 0 16px;
+}
+
+.register-btn {
+  width: 140px;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+
+  background-color: #3692ff;
+  color: white;
+  font-weight: 600;
+}
+
+.product-grid {
+  margin-top: 40px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.product-card {
+  width: 221px;
+}
+
+.product-card img {
+  width: 221px;
+  height: 221px;
+
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.product-info {
+  margin-top: 16px;
+}
+
+.product-info h3 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  margin-top: 6px;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.favorite {
+  display: inline-block;
+
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+.pagination {
+  margin-top: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.pagination button {
+  width: 80px;
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #3692ff;
+
+  color: white;
+}

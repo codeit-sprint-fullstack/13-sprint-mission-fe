@@ -1,0 +1,106 @@
+.registration-page {
+  width: 1200px;
+
+  margin: 40px auto 120px;
+}
+
+.registration-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.registration-top button {
+  width: 74px;
+  height: 42px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #9ca3af;
+  color: white;
+}
+
+.form-group {
+  margin-top: 32px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 16px;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  border: none;
+  border-radius: 12px;
+
+  background-color: #f3f4f6;
+
+  padding: 16px;
+}
+
+.form-group textarea {
+  height: 280px;
+
+  resize: none;
+}
+
+.error-input {
+  border: 1px solid red !important;
+}
+
+.error-text {
+  color: red;
+  margin-top: 8px;
+}
+
+.tag-list {
+  margin-top: 12px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  padding: 8px 12px;
+
+  border-radius: 999px;
+
+  background-color: #f3f4f6;
+
+  font-size: 14px;
+}
+
+.tag-chip button {
+  border: none;
+  background: none;
+}
+
+.submit-btn {
+  width: 120px;
+  height: 48px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #9ca3af;
+
+  color: white;
+
+  cursor: not-allowed;
+
+  transition: 0.2s;
+}
+
+.submit-btn.active {
+  background-color: #3692ff;
+  cursor: pointer;
+}

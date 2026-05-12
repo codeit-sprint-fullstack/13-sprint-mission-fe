@@ -1,13 +1,9 @@
-import BestProductList from "./BestProductList.jsx";
 import ForSaleProductList from "./ForSaleProductList.jsx";
-import "../styles/components/productList.css";
+import "../styles/productList.css";
 
-function ProductListCard() {
+function ProductList() {
   return (
     <div className="product-list-container">
-      <div className="best-product-list-containter">
-        <BestProductList />
-      </div>
       <div className="forSale-product-list-containter">
         <ForSaleProductList />
       </div>
@@ -15,4 +11,4 @@ function ProductListCard() {
   );
 }
 
-export default ProductListCard;
+export default ProductList;

@@ -1,22 +1,35 @@
-import "../styles/components/pagination.css";
+import { PAGE_LIMIT } from "../constants/common";
+import "../styles/pagination.css";
 function Pagination({ totalCount, pageSize, currentPage, onPageChange }) {
   const totalPages = Math.ceil(totalCount / pageSize);
-  const pageLimit = 5;
-  const startPage = Math.floor((currentPage - 1) / pageLimit) * pageLimit + 1;
-  const endPage = Math.min(startPage + pageLimit - 1, totalPages);
-  const pageNumbers = [];
-  for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
-  }
 
   if (totalPages <= 1) return null;
+
+  const startPage = Math.floor((currentPage - 1) / PAGE_LIMIT) * PAGE_LIMIT + 1;
+  const endPage = Math.min(startPage + PAGE_LIMIT - 1, totalPages);
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i,
+  );
+
+  const handlePagePrevClick = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  const handlePageNextClick = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const handlePageClick = (num) => {
+    onPageChange(num);
+  };
 
   return (
     <div className="pagination">
       <button
         className="forth-back-button"
         disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={handlePagePrevClick}
       >
         &lt;
       </button>
@@ -25,7 +38,7 @@ function Pagination({ totalCount, pageSize, currentPage, onPageChange }) {
         <button
           className={`page-button ${num === currentPage ? "active" : ""}`}
           key={num}
-          onClick={() => onPageChange(num)}
+          onClick={() => handlePageClick(num)}
         >
           {num}
         </button>
@@ -34,7 +47,7 @@ function Pagination({ totalCount, pageSize, currentPage, onPageChange }) {
       <button
         className="forth-back-button"
         disabled={currentPage === totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={handlePageNextClick}
       >
         &gt;
       </button>

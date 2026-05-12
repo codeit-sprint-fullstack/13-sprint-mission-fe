@@ -1,6 +1,8 @@
 .for-sale-product-section {
+  min-height: calc(100vh - 10rem);
   max-width: 75rem;
   margin: 0 auto;
+  margin-top: 1.62rem;
 }
 
 .for-sale-header {
@@ -124,6 +126,15 @@
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(5, 1fr);
+}
+
+.for-sale-product-notfound {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  font-size: 2rem;
+  color: var(--cool-gray-500);
+  line-height: 2.5rem;
 }
 
 @media (max-width: 1023px) {

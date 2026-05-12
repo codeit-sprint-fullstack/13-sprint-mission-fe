@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { CardBox } from "./CardBox";
 import { productApi } from "../api/productApi";
-import "../styles/components/bestProductList.css";
+import "../styles/bestProductList.css";
 import usePageSize from "../hooks/usePageSize";
+import { ORDER_BY } from "../constants/product";
 
 function BestProductList() {
   const [bestProducts, setBestProducts] = useState([]);
@@ -11,7 +12,11 @@ function BestProductList() {
   useEffect(() => {
     const fetchBestProducts = async () => {
       try {
-        const data = await productApi.getProductList(1, 4, "favorite");
+        const data = await productApi.getProductList({
+          page: 1,
+          pageSize: 4,
+          orderBy: ORDER_BY.FAVORITE,
+        });
         setBestProducts(data.list);
       } catch (error) {
         console.error(`베스트 상품 목록 조회 실패 ${error.message}`);

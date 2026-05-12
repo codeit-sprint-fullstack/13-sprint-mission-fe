@@ -1,20 +1,16 @@
 import { useMediaQuery } from "react-responsive";
+import { PAGE_SIZE } from "../constants/product";
+import { BREAKPOINTS } from "../constants/common";
 
 function usePageSize(type = "best") {
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-  const isTablet = useMediaQuery({ minWidth: 768 });
+  const isDesktop = useMediaQuery({ minWidth: BREAKPOINTS.DESKTOP_MIN });
+  const isTablet = useMediaQuery({ minWidth: BREAKPOINTS.TABLET_MIN });
+  const sizes = PAGE_SIZE[type];
 
-  if (type === "best") {
-    if (isDesktop) return 4;
-    if (isTablet) return 2;
-    return 1;
-  }
+  if (isDesktop) return sizes.desktop;
+  if (isTablet) return sizes.tablet;
 
-  if (type === "forSale") {
-    if (isDesktop) return 10;
-    if (isTablet) return 6;
-    return 4;
-  }
+  return sizes.mobile;
 }
 
 export default usePageSize;

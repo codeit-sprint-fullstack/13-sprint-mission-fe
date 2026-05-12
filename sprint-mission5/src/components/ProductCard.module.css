@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background-color: var(--gray100);
+  object-fit: contain;
+}
+
+.name {
+  color: var(--gray800);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  color: var(--gray900);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.favorite {
+  color: var(--gray600);
+  font-size: 13px;
+}

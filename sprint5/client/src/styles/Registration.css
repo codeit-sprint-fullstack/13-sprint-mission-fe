@@ -1,0 +1,100 @@
+.registration-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Pretendard", sans-serif;
+}
+
+.reg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.submit-btn {
+  padding: 10px 24px;
+  background-color: #a3c9f9; /* 비활성 색상 */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: not-allowed;
+  font-weight: bold;
+}
+
+.submit-btn.active {
+  background-color: #3692ff; /* 활성 색상 */
+  cursor: pointer;
+}
+
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 16px;
+  background-color: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-group textarea {
+  height: 200px;
+  resize: none;
+}
+
+/* 유효성 검사 실패 시  */
+.error-border {
+  border: 1px solid #ff5a5a !important;
+}
+
+.error-text {
+  color: #ff5a5a;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.remove-icon {
+  margin-left: 8px;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .registration-container {
+    margin: 20px auto;
+  }
+  .input-group input,
+  .input-group textarea {
+    padding: 12px;
+  }
+}

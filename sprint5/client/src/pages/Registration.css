@@ -1,0 +1,81 @@
+.registration-container {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.reg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.reg-header h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.submit-btn {
+  padding: 1.2rem 3.2rem;
+  background-color: var(--gray-400);
+  color: white;
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.submit-btn.active {
+  background-color: var(--blue);
+  cursor: pointer;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2.4rem;
+}
+
+.input-group label {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.input-group input,
+.input-group textarea {
+  padding: 1.6rem;
+  background-color: var(--gray-100);
+  border: 0.1rem solid transparent;
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.input-group textarea {
+  height: 20rem;
+  resize: none;
+}
+
+.error-border {
+  border-color: #ff4d4f !important;
+}
+
+.error-text {
+  color: #ff4d4f;
+  font-size: 1.4rem;
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.chip {
+  background-color: var(--gray-100);
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+  font-size: 1.4rem;
+}

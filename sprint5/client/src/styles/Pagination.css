@@ -1,0 +1,26 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+.page-btn,
+.arrow-btn {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.page-btn.active {
+  background-color: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}

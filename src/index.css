@@ -4,11 +4,12 @@
   --primary-100: #3692ff;
   --secondary-bg-color: #cfe5ff;
   --secondary-900: #111827;
+  --secondary-800: #1f2937;
   --secondary-700: #4b5563;
   --secondary-400: #9ca3af;
   --secondary-200: #e5e7eb;
   --secondary-100: #f3f4f6;
-  --cool-gray-200: #e5e7eb;
+  --error-red: #f74747;
 
   /*z-index variables*/
   --z-overlay: 10;

@@ -1,0 +1,64 @@
+@baseUrl = https://one3-sprint-mission-fe.onrender.com/products
+
+### GET Product 테스트
+GET {{baseUrl}}
+
+GET {{baseUrl}}?orderBy=favorite
+
+GET {{baseUrl}}?orderBy=favorite&pageSize=2&page=1
+
+GET {{baseUrl}}?orderBy=favorite&pageSize=2&page=2
+
+GET {{baseUrl}}?orderBy=favorite&pageSize=2&page=1&keyword=힐
+
+GET {{baseUrl}}?orderBy=favorite&pageSize=2&page=1&keyword=리
+
+### GET Product Detail 테스트
+GET {{baseUrl}}/69fc461cba7d16af3b130c3f
+
+GET {{baseUrl}}/69fc461cba7d16af3b130c40
+
+### POST Product 테스트
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "아나의 수면총",
+  "description": "게임 판도를 뒤집는 강력한 CC기이다. 대상이 3초동안 잔다",
+  "tags": ["힐러", "판도를뒤집", "CC기"],
+  "price": 12000
+}
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "솔저의 생체장",
+  "description": "솔저는 힐러일까 딜러일까. 그의 도시락은 자리 유지 및 생존에 도움을 준다",
+  "tags": ["딜러", "힐러같은", "생존기", "도시락"],
+  "price": 95000
+}
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "에코의 관",
+  "description": "에코가 갇혀있던 관이다. 캐서디가 열었다.",
+  "tags": ["상자"],
+  "price": 45000
+}
+
+### PATCH Product 테스트
+PATCH {{baseUrl}}/69fc461cba7d16af3b130c3f
+Content-Type: application/json
+
+{
+  "name": "아나의 생체 슈류탄",
+  "description": "아군에게 사용시 힐증폭, 적군에게 사용지 힐밴 적용",
+  "tags": ["힐러", "싸가지", "개사기", "정커퀸궁"],
+  "price": 62950
+}
+
+### DELETE Product 테스트
+DELETE {{baseUrl}}/69fc5abef73bf22524c7d79b

@@ -1,5 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "https://panda-market-api.vercel.app";
+export const BASE_URL = "https://one3-sprint-mission-fe.onrender.com";
 
 const defaultAxios = axios.create({
   baseURL: BASE_URL,

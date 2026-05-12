@@ -6,3 +6,8 @@ export { default as icHeartEmpty } from "./ic_heart_empty.png";
 export { default as icSearch } from "./ic_search.png";
 export { default as icArrowDown } from "./ic_arrow_down.png";
 export { default as icSort } from "./ic_sort.png";
+export { default as icX } from "./ic_X.png";
+export { default as icGoogle } from "./ic_google.png";
+export { default as icKakao } from "./ic_kakao.png";
+export { default as icBtnVisibilityOff } from "./ic_btn_visibility_off.png";
+export { default as icBtnVisibilityOn } from "./ic_btn_visibility_on.png";

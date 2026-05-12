@@ -15,7 +15,7 @@
 }
 .btn-circle {
   border-radius: 50%;
-  border: 1px solid var(--cool-gray-200);
+  border: 1px solid var(--secondary-200);
   padding: 1.2rem 1.2rem;
 }
 .btn-circle-selected {
@@ -23,4 +23,8 @@
   padding: 1.2rem 1.2rem;
   color: var(--secondary-100);
   background-color: var(--primary-100);
+}
+.btn.disabled {
+  color: var(--secondary-100);
+  background-color: var(--secondary-400);
 }

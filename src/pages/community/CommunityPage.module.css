@@ -1,0 +1,9 @@
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--brand-blue);
+  font-size: 3rem;
+  font-weight: 700;
+}

@@ -1,22 +1,17 @@
-import { icSearch } from "../../assets/icons";
 import styles from "./Input.module.css";
 
 export default function Input({
-  placeholder,
-  value,
-  onChange,
-  onKeyDown,
+  prefix,
+  suffix,
+  multiline = false,
   className,
+  ...props
 }) {
   return (
     <div className={`${styles.container} ${className}`}>
-      <img src={icSearch} />
-      <input
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      {prefix}
+      {multiline ? <textarea {...props} /> : <input {...props} />}
+      {suffix}
     </div>
   );
 }

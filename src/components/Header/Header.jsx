@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import { Button } from "@/components";
 import { smLogo } from "@/assets/img";
@@ -15,12 +15,22 @@ export default function Header() {
           </div>
         </Link>
         <nav className={styles.nav}>
-          <a>
-            <div className={styles.navBtn}>자유게시판</div>
-          </a>
-          <a>
-            <div className={styles.navBtn}>중고마켓</div>
-          </a>
+          <NavLink
+            to="/community"
+            className={({ isActive }) =>
+              `${styles.navBtn} ${isActive ? styles.active : ""}`
+            }
+          >
+            자유게시판
+          </NavLink>
+          <NavLink
+            to="/items"
+            className={({ isActive }) =>
+              `${styles.navBtn} ${isActive ? styles.active : ""}`
+            }
+          >
+            중고마켓
+          </NavLink>
         </nav>
       </div>
       <Link to="/login">

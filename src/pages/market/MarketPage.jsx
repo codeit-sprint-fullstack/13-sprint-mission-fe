@@ -10,6 +10,7 @@ import {
 } from "@/components";
 import { useResponsiveWidth } from "@/hooks";
 import { signIn, getProduct } from "@/apis";
+import { icSearch } from "../../assets/icons";
 import constant from "../../components/Dropdown/constant";
 import styles from "./MarketPage.module.css";
 
@@ -62,12 +63,12 @@ export default function MarketPage() {
   /*5. Effects */
   //로그인 페이지 생성 전까지 사용할 임시 로그인 로직
   useEffect(() => {
-    const signInPost = async () => {
+    /*const signInPost = async () => {
       const user = await signIn("example@email.com", "password");
       localStorage.setItem("accessToken", user.accessToken);
       setToken(user.accessToken);
     };
-    signInPost();
+    signInPost();*/
   }, []);
 
   /*6. Render */
@@ -96,6 +97,7 @@ export default function MarketPage() {
         {size !== "mobile" ? (
           <>
             <Input
+              prefix={<img src={icSearch} />}
               placeholder="검색할 상품을 입력해주세요"
               value={input}
               onChange={(e) => {

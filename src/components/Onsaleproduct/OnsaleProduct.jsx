@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./OnsaleProduct.css";
 import favoriteIcon from "../../assets/ic_heart.svg";
 import defaultImg from "../../assets/default_img.jpg";
+import { Link } from "react-router-dom";
 
 export default function OnsaleProduct() {
   const [sortproducts, setSortProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [isdropdown, setIsdropdown] = useState(false);
   const [sort, setSort] = useState("recent");
   const [totalproduct, setTotalproduct] = useState(0);
@@ -21,11 +23,13 @@ export default function OnsaleProduct() {
     async function GetSortProduct() {
       try {
         const response = await fetch(
-          `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&orderBy=${sort}&keyword=${keyword}`,
+          // `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&sort=${sort}&keyword=${keyword}`
+          `https://sprint5-api.onrender.com/products?offset=${currentpage * 10 - 10}&limit=10&sort=${sort}&keyword=${keyword}`,
         );
         if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
         const data = await response.json();
         setSortProducts(data.list);
+        setTotalproduct(data.totalCount);
       } catch (err) {
         console.log("에러 ", err);
       } //제발 await 붙이는거 잊지말자
@@ -33,23 +37,6 @@ export default function OnsaleProduct() {
     }
     GetSortProduct();
   }, [sort, currentpage, keyword]);
-
-  useEffect(() => {
-    async function GetAllProduct() {
-      try {
-        const response = await fetch(
-          "https://panda-market-api.vercel.app/products",
-        );
-        if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
-        const data = await response.json();
-        setTotalproduct(data.totalCount);
-        console.log(data.totalCount);
-      } catch (err) {
-        console.log("에러 ", err);
-      }
-    }
-    GetAllProduct();
-  }, []);
 
   return (
     <section className="onsale-section">
@@ -59,10 +46,15 @@ export default function OnsaleProduct() {
           <input
             type="search"
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            onChange={(e) => {
+              setKeyword(e.target.value);
+              setCurrentpage(1);
+            }}
             placeholder="🍳검색할 상품을 입력해주세요"
           ></input>
-          <button className="toolbar-btn">상품 등록하기</button>
+          <Link to="/registration" className="link-register">
+            <button className="toolbar-btn">상품 등록하기</button>
+          </Link>
           <div className="dropdown-box">
             <button className="toolbar-dropdown">
               {sort === "recent" ? <p>최신순</p> : <p>좋아요순</p>}
@@ -70,8 +62,23 @@ export default function OnsaleProduct() {
             </button>
             {isdropdown ? (
               <div className="dropdown-menu">
-                <button onClick={() => setSort("recent")}>최신순</button>
-                <button onClick={() => setSort("favorite")}>좋아요순</button>
+                <button
+                  onClick={() => {
+                    setSort("recent");
+                    setCurrentpage(1);
+                  }}
+                >
+                  최신순
+                </button>
+                {/* 좋아요 아직 미구현 */}
+                <button
+                  onClick={() => {
+                    setSort(null);
+                    setCurrentpage(1);
+                  }}
+                >
+                  좋아요순
+                </button>
               </div>
             ) : null}
           </div>
@@ -81,7 +88,7 @@ export default function OnsaleProduct() {
         {sortproducts.map((sortproduct) => (
           <div className="onsale-card" key={sortproduct.id}>
             <img
-              src={sortproduct.images || defaultImg} //이미지 없을 때 처리 디폴트 이미지로 근데 이래도 안되는게 있네 이미지가 링크는 올렸는데 없는 링크 일 때는 어케해야하는건지 모르겠음
+              src={sortproduct.images || defaultImg}
               className="onsale-card-img"
             />
             <span className="onsale-card-name">{sortproduct.name}</span>

@@ -46,6 +46,7 @@
   background: var(--Primary-100, #3692ff);
   border-style: none;
   color: var(--Cool-Gray-100, #f3f4f6);
+  cursor: pointer;
 
   /* pretendard/lg-16px-semibold */
   font-family: Pretendard;
@@ -165,4 +166,8 @@
 .pagination-box button.active {
   background-color: black;
   color: white;
+}
+
+.link-register {
+  text-decoration: none;
 }

@@ -82,3 +82,8 @@
   font-weight: 700;
   line-height: 26px; /* 144.444% */
 }
+
+.usedmarket.active {
+  font-weight: bold;
+  color: #3692ff;
+}

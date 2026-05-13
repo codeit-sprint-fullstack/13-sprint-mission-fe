@@ -1,0 +1,203 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.text-4xl-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
+}
+
+/* -------------------------
+   Text-3xl  |  32px / 42px
+------------------------- */
+.text-3xl-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 42px;
+}
+.text-3xl-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+}
+
+/* -------------------------
+   Text-2xl  |  24px / 32px
+------------------------- */
+.text-2xl-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.text-2xl-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+.text-2xl-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+}
+.text-2xl-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+/* -------------------------
+   Text-xl   |  20px / 32px
+------------------------- */
+.text-xl-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.text-xl-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+}
+.text-xl-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+}
+.text-xl-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+/* -------------------------
+   Text-2lg  |  18px / 26px
+------------------------- */
+.text-2lg-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.text-2lg-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.text-2lg-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+}
+.text-2lg-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+/* -------------------------
+   Text-lg   |  16px / 26px
+------------------------- */
+.text-lg-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.text-lg-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.text-lg-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+}
+.text-lg-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+/* -------------------------
+   Text-md   |  14px / 24px
+------------------------- */
+.text-md-bold {
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.text-md-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.text-md-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+.text-md-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* -------------------------
+   Text-sm   |  13px / 22px
+------------------------- */
+.text-sm-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.text-sm-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+/* -------------------------
+   Text-xs   |  12px / 20px, 18px
+------------------------- */
+.text-xs-semibold {
+  font-family: Pretendard, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.text-xs-medium {
+  font-family: Pretendard, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.text-xs-regular {
+  font-family: Pretendard, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}

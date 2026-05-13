@@ -1,0 +1,37 @@
+.pagination-area {
+  min-width: 20rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+.nav-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  color: var(--Cool-Gray-500, #6b7280);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+
+  border-radius: 2.5rem;
+  border: 1px solid var(--Cool-Gray-200, #e5e7eb);
+  background: #fff;
+}
+.nav-btn.active {
+  color: var(--Secondary-100, #f9fafb);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.625rem; /* 162.5% */
+
+  border-radius: 2.5rem;
+  background: #2f80ed;
+}

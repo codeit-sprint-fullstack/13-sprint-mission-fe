@@ -1,0 +1,77 @@
+.header-class {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  padding: 0rem 12.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+
+  border-bottom: 1px solid #dfdfdf;
+  background: #fff;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.header-logo {
+  display: flex;
+  padding: 0.31356rem 0 0.3655rem 0;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.537rem;
+  flex-shrink: 0;
+}
+.logo-name {
+  color: #3692ff;
+  font-family: "ROKAF Sans";
+  font-size: 1.60206rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.nav-text-area {
+  display: flex;
+  padding: 1.3125rem 0.9375rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}
+.nav-text {
+  color: var(--Secondary-600, #4b5563);
+  text-align: center;
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.625rem; /* 144.444% */
+}
+.nav-text.active {
+  color: #3692ff;
+}
+.login-btn {
+  padding: 0.75rem 1.4375rem;
+  background: var(--Primary-100, #3692ff);
+  border-radius: 0.5rem;
+  white-space: nowrap;
+}
+.login-text {
+  color: var(--Cool-Gray-100, #f3f4f6);
+
+  /* pretendard/lg-16px-semibold */
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.625rem; /* 162.5% */
+}

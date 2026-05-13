@@ -1,7 +1,4 @@
 .card {
-}
-
-.link {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -9,8 +6,6 @@
 }
 
 .imageBox {
-  width: 100%;
-  height: 100%;
   aspect-ratio: 1/1;
 }
 

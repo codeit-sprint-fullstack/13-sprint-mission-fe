@@ -1,9 +1,8 @@
-import Navbar from "../components/Navbar/Navbar.jsx";
-import Footer from "../components/Footer/Footer.jsx";
 import styles from "./MarketPage.module.css";
 import ProductCard from "../components/ProductCard/ProductCard.jsx";
 import { useState } from "react";
 import useProducts from "../hooks/useProducts.js";
+import { Link } from "react-router-dom";
 
 function MarketPage() {
   const [page, setPage] = useState(1);
@@ -11,17 +10,6 @@ function MarketPage() {
   const [keyword, setKeyword] = useState("");
 
   const pageSize = 10;
-
-  const {
-    products: bestProducts,
-    isLoading: isBestLoading,
-    error: bestError,
-  } = useProducts({
-    page: 1,
-    pageSize: 4,
-    orderBy: "favorite",
-    keyword: "",
-  });
 
   const {
     products,
@@ -53,20 +41,7 @@ function MarketPage() {
 
   return (
     <div className={styles.page}>
-      <Navbar />
       <main>
-        <section className={styles.bestSection}>
-          <div className="container">
-            <div className={styles.bestInner}>
-              <h2 className={styles.sectionTitle}>베스트 상품</h2>
-              <div className={styles.bestProductGrid}>
-                {bestProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
         <section className={styles.productSection}>
           <div className="container">
             <div className={styles.productInner}>
@@ -105,9 +80,9 @@ function MarketPage() {
                       />
                     </div>
                   </div>
-                  <button type="button" className={styles.addButton}>
+                  <Link to="/registration" className={styles.addButton}>
                     상품 등록하기
-                  </button>
+                  </Link>
                   <div className={styles.sortDropdown}>
                     <button
                       type="button"
@@ -188,29 +163,20 @@ function MarketPage() {
                             최신순
                           </button>
                         </li>
-                        <li className={styles.sortItem}>
-                          <button
-                            type="button"
-                            className={styles.sortOption}
-                            onClick={() => {
-                              setOrderBy("favorite");
-                              setPage(1);
-                              setIsSortOpen(false);
-                            }}
-                          >
-                            좋아요순
-                          </button>
-                        </li>
                       </ul>
                     )}
                   </div>
                 </div>
               </div>
-              <div className={styles.productGrid}>
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {isProductsLoading && <p>로딩 중 ..</p>}
+              {productsError && <p>에러가 발생했습니다.</p>}
+              {!isProductsLoading && !productsError && (
+                <div className={styles.productGrid}>
+                  {products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))}
+                </div>
+              )}
               <nav className={styles.pagination} aria-label="페이지네이션">
                 <button
                   type="button"
@@ -293,7 +259,6 @@ function MarketPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }

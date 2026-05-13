@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  padding-top: 26px;
+}
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 24px;
+}
+
+@media (max-width: 744px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 16px;
+  }
+}
+@media (max-width: 375px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 32px;
+    column-gap: 8px;
+  }
+}

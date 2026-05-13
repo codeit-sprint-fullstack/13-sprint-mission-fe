@@ -1,0 +1,23 @@
+.wrapper {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+}
+.title {
+  flex: 1;
+}
+.container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 375px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr auto);
+    grid-template-rows: 100px 200px;
+  }
+}

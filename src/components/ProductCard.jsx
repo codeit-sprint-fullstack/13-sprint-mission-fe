@@ -1,5 +1,5 @@
-import styles from "./ProductCard.module.css";
-import defaultImage from "./assets/defaultImage.png";
+import styles from "../style/ProductCard.module.css";
+import defaultImage from "../assets/defaultImage.png";
 
 function ProductCard({ item }) {
   return (

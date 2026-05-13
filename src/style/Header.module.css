@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+.header a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .header {
   width: 100%;
 }
@@ -66,12 +71,11 @@
   gap: 10px;
 }
 
+.title.active {
+  color: #3692ff;
+}
+
 .left {
   display: flex;
   align-items: center;
-}
-
-.header a {
-  text-decoration: none;
-  color: inherit;
 }

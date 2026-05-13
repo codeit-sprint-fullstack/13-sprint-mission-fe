@@ -1,15 +1,15 @@
-// import { useState } from "react";
-import "./App.css";
-import headerstyles from "./Header.module.css";
+import "./style/App.css";
+import headerstyles from "./style/Header.module.css";
 import logoIcon from "./assets/logo.png";
-import footerstyles from "./Footer.module.css";
+import footerstyles from "./style/Footer.module.css";
 import { Link } from "react-router-dom";
-import Privacy from "./Privacy";
-import FAQ from "./FAQ";
-import Addproduct from "./Addproduct";
+import Privacy from "./pages/Privacy";
+import FAQ from "./pages/FAQ";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./HomePage";
-import Login from "./Login";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import { NavLink } from "react-router-dom";
+import Registration from "./pages/Registration";
 
 function Header() {
   return (
@@ -22,7 +22,16 @@ function Header() {
             </Link>
           </div>
           <div className={headerstyles.title}>자유게시판</div>
-          <div className={headerstyles.title}>중고마켓</div>
+          <NavLink
+            to="/items"
+            className={({ isActive }) =>
+              isActive
+                ? `${headerstyles.title} ${headerstyles.active}`
+                : headerstyles.title
+            }
+          >
+            중고마켓
+          </NavLink>
         </div>
         <div className={headerstyles.login}>
           <Link to="/Login">로그인</Link>
@@ -79,7 +88,7 @@ function Footer() {
   );
 }
 
-function Home() {
+function Items() {
   return (
     <>
       <Header />
@@ -88,16 +97,38 @@ function Home() {
     </>
   );
 }
+
+function RegistrationPage() {
+  return (
+    <>
+      <Header />
+      <Registration />
+      <Footer />
+    </>
+  );
+}
+
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/items" element={<Items />} />
         <Route path="/Privacy" element={<Privacy />} />
         <Route path="/FAQ" element={<FAQ />} />
-        <Route path="/Addproduct" element={<Addproduct />} />
+        <Route path="/Registration" element={<RegistrationPage />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Main />} />
       </Routes>
+    </>
+  );
+}
+
+function Main() {
+  return (
+    <>
+      <Header />
+      메인페이지
+      <Footer />
     </>
   );
 }

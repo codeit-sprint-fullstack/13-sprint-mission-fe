@@ -1,50 +1,107 @@
-# 🐼 판다마켓 프로젝트
+🐼 Panda Market Fullstack Project
+React와 Express를 활용하여 구축한 판다마켓 풀스택 애플리케이션입니다.
 
-> _이 저장소는 판다마켓 프로젝트의 프론트엔드 코드를 관리하는 곳입니다. 프로젝트를 클론하여 개발 환경을 설정하고, 각 브랜치에서 해당 스프린트 미션을 수행해 주세요!_ 🛠️
+상품 등록부터 목록 조회, 검색, 페이지네이션까지 직접 구현한 API를 통해 관리됩니다.
 
-## 소개
+🔗 배포 주소
+Back-end (Render): https://panda-market-fullstack.onrender.com
 
-안녕하세요! 판다마켓 프로젝트에 오신 것을 환영합니다! 🥳  
-판다마켓은 따뜻한 중고거래를 위한 커뮤니티 플랫폼이에요. 여러분은 이곳에서 상품을 등록하고, 다른 사용자들과 소통하며, 자유롭게 이야기를 나눌 수 있어요. 매주 스프린트 미션을 통해 기능을 하나씩 만들어 가며 성장해 나가는 여정을 함께해요. 🚀
+Front-end (Vercel/Local): [지훈님의 프론트 배포 주소가 있다면 여기에 입력]
 
-![PandaMarket](https://github.com/user-attachments/assets/3784b99f-73c9-4349-a9a9-92b2a7563574)  
-_위 이미지는 판다마켓의 대표 이미지입니다._ 📸
+🛠 사용 기술 스택
+Front-end: React, React Router, CSS (마이그레이션)
 
-## 스프린트 미션이란? 🤔
+Back-end: Node.js, Express.js
 
-스프린트 미션은 **하나의 개인 프로젝트를 길게 진행하면서, 그 과정에서 주기적으로 피드백을 받을 수 있는 시스템**이에요. 각 스프린트마다 배운 이론을 적용해 보고, **멘토님께 코드 리뷰를 받아가며 실력을 쑥쑥 키워갈 수 있는 중요한 개인 과제**랍니다. 💪
+Database: MongoDB Atlas (Mongoose)
 
-## 주요 기능 ✨
+Deployment: Render.com
 
-1. **상품 등록**: 내가 가진 물건을 올리고, 사진과 설명을 추가해 직접 판매할 수 있어요!
-2. **문의 댓글**: 상품에 대한 궁금한 점이나 의견을 자유롭게 남길 수 있답니다. 📝
-3. **자유게시판**: 다양한 주제로 친구들과 이야기를 나누고, 정보를 공유할 수 있는 공간이에요! 🗣️
+📌 주요 구현 사항
 
-## 프로젝트 브랜치 구조 🏗️
+1. 백엔드 (Express & MongoDB)
+   Product Schema: name, description, price, tags, createdAt, updatedAt 필드 구성
 
-프로젝트는 단계별로 나뉘어 있고, 각 스프린트 미션에 맞는 브랜치가 있어요. 각 브랜치를 통해 체계적으로 개발하며 학습할 수 있어요. 🎯
+Restful API 구현:
 
-### 브랜치 설명
+POST /products: 상품 등록 (Validation 처리)
 
-1. **basic (part1): 스프린트 미션 1 ~ 3 FE 요구사항**
+GET /products: 상품 목록 조회 (최신순 정렬, 검색, Offset 페이지네이션)
 
-   - 기본적인 웹 애플리케이션 기능 구현을 위한 초기 브랜치입니다. HTML, CSS, JavaScript 등을 사용해 기본을 다집니다.
-   - **스프린트 미션 1부터 4까지**의 프론트엔드 내용을 포함하고 있어요.
+GET /products/:id: 상품 상세 조회
 
-2. **react (part2): 스프린트 미션 5 ~ 6 FE 요구사항**
+PATCH /products/:id: 상품 정보 수정
 
-   - React 라이브러리를 사용해 프론트엔드 기능을 구현하는 브랜치입니다. 컴포넌트 기반 아키텍처와 상태 관리를 배웁니다.
-   - **스프린트 미션 5부터 6까지, 그 이후**의 프론트엔드 내용을 포함하고 있어요.
-   - 만약 스프린트 미션 9부터 프론트엔드 코드를 Next가 아닌 React로 구현하고 싶다면 react 브랜치를 사용해요.
+DELETE /products/:id: 상품 삭제
 
-3. **next (part3,4): 스프린트 미션 7 FE 요구사항~**
+CORS 설정: 로컬 환경 및 배포 환경 접근 허용
 
-   - Next.js를 사용해 서버 사이드 렌더링(SSR)과 정적 사이트 생성(SSG) 등 고급 기능을 구현합니다.
-   - **스프린트 미션 7부터** 시작하는 프론트엔드 내용을 포함하고 있어요.
-   - 만약 스프린트 미션 8부터 프론트엔드 코드를 React가 아닌 Next로 구현하고 싶다면 next 브랜치를 사용해요.
+환경 변수 관리: .env를 통한 포트 및 MongoDB URI 보안 관리
 
-> _스프린트 미션 내 백엔드 요구사항은 [백엔드 레포지토리](https://github.com/codeit-sprint-fullstack/11-sprint-mission-be)의 브랜치에서 관리해주세요_
+2. 프론트엔드 (React)
+   페이지 마이그레이션: 기존 HTML/CSS 랜딩 페이지를 리액트 컴포넌트로 전환 (/)
 
----
+중고마켓 페이지 (/items):
 
-본 프로젝트는 [코드잇](https://www.codeit.kr)의 소유이며, 교육 목적으로만 사용됩니다. © 2026 Codeit. All rights reserved.
+직접 구현한 GET API 연동 (최신순 목록 조회)
+
+검색 기능을 통한 상품 필터링
+
+내비게이션 바 활성화 스타일링 (#3692FF)
+
+상품 등록 페이지 (/registration):
+
+심화 요구사항 반영: 모든 필드 입력 시에만 등록 버튼 활성화
+
+Custom Hook: 유효성 검사 로직 분리 (상품명 1~10자, 소개 10~100자 등)
+
+태그 시스템: 엔터 키 입력 시 칩(Chip) 형태로 태그 추가 기능
+
+등록 성공 시 상세 페이지(빈 페이지)로 이동
+
+📂 프로젝트 구조
+Plaintext
+sprint-mission-5
+├── frontend/ # React 프로젝트
+│ ├── src/
+│ │ ├── hooks/ # 유효성 검사 Custom Hooks
+│ │ ├── components/ # 공통 컴포넌트
+│ │ └── pages/ # 랜딩, 목록, 등록 페이지
+└── backend/ # Express 프로젝트
+├── models/ # Mongoose Schema (Product.js)
+├── .env # 환경 변수 (Git 제외)
+└── app.js # Express 서버 및 API 로직
+🚀 시작하기
+환경 변수 설정
+backend 폴더 내에 .env 파일을 생성하고 아래 내용을 입력하세요.
+
+코드 스니펫
+PORT=8000
+MONGODB_URI=your_mongodb_connection_string
+설치 및 실행
+Backend:
+
+Bash
+cd backend
+npm install
+npm start
+Frontend:
+
+Bash
+cd frontend
+npm install
+npm run dev
+📝 제출 체크리스트 확인
+[o] React, Express 사용
+
+[o] MongoDB & Mongoose 연동
+
+[o] Render.com 배포 완료
+
+[] 모든 API 적절한 상태 코드 및 에러 처리
+
+[] 심화 요구사항(Custom Hook, 태그 칩, 버튼 비활성화) 반영
+
+작성자: 김지훈 (jihun5914)
+
+과제명: 5차 스프린트 미션 (풀스택 마켓 구현)

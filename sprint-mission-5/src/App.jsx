@@ -1,18 +1,21 @@
-import { useState } from "react";
 import "./App.css";
 import "./styles/reset.css";
 import Home from "./pages/Home";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
+import { Route, Routes } from "react-router";
+import Registration from "./pages/Registration";
+import Items from "./pages/items";
+import Layout from "./components/Layout/Layout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <Header />
-      <Home />
-      <Footer />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/items" element={<Items />}></Route>
+          <Route path="/registration" element={<Registration />}></Route>
+        </Route>
+      </Routes>
     </>
   );
 }

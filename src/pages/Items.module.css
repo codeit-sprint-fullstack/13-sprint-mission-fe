@@ -1,22 +1,22 @@
-/* ---------- Products Styles ---------- */
-.products {
-  padding: 26px 0 140px;
+/* ---------- Items Styles ---------- */
+.items {
+  padding: 26px 26px 140px;
 }
-.productsInner {
+.itemsInner {
   max-width: 1200px;
   margin: 0 auto;
 }
 
 /* 태블릿: 화면 너비 1023px 이하 */
 @media (max-width: 1023px) {
-  .products {
-    padding: 26px 0 165px;
+  .items {
+    padding: 26px 26px 165px;
   }
 }
 
 /* 모바일: 화면 너비 767px 이하 */
 @media (max-width: 767px) {
-  .products {
-    padding: 17px 0 135px;
+  .items {
+    padding: 17px 16px 135px;
   }
 }

@@ -13,16 +13,3 @@
   font-style: normal;
   font-weight: 400;
 }
-
-body {
-  /* Body Padding Style */
-  padding: 0 var(--body-padding);
-}
-
-/* 모바일: 화면 너비 767px 이하 */
-@media (max-width: 767px) {
-  /* Body Padding Style */
-  body {
-    padding: 0 var(--body-padding-m);
-  }
-}

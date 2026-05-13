@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
+import { Link } from "react-router";
+
+import Button from "@/components/common/Button/Button";
 import styles from "@/components/Product/ProductFilterBar.module.css";
+import { SORT_OPTIONS } from "@/constants/constants";
 
 export default function ProductFilterBar({
   title = undefined,
@@ -9,44 +13,32 @@ export default function ProductFilterBar({
   onChangePage,
 }) {
   const [inputValue, setInputValue] = useState(""); // 검색 인풋 텍스트
-  const [sortOrder, setSortOrder] = useState("최신순"); // 필터 옵션 데이터
+  const [order, setOrderLocal] = useState("recent"); // 필터 옵션 데이터
   const [showOptions, setShowOptions] = useState(false); // 필터 옵션 토글
-  const [debouncedText, setDebouncedText] = useState(""); // 검색 인풋 타이핑 멈췄을 때의 값
 
-  // 검색 실행 핸들러
-  function handleSearch() {
-    // 검색어 유효성 검사
-    if (debouncedText.trim() === "") {
-      alert("검색어를 입력해주세요.");
+  const currentLabel = SORT_OPTIONS.find((o) => o.value === order)?.label; // 현재 필터 옵션 텍스트
+
+  // 입력 시 실시간 처리
+  function handleChange(e) {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // 사용자가 검색어를 모두 지우면 즉시 전체 목록을 보여줌
+    if (value.trim() === "") {
+      setSearchKeyword("");
       return;
     }
 
-    // 옵션 창이 열려있을 경우 닫기 처리
-    if (showOptions) setShowOptions(!showOptions);
-
-    // 검색 결과 반영
-    setSearchKeyword(debouncedText);
-    setInputValue("");
+    setSearchKeyword(inputValue.trim());
   }
 
   // 필터 셀렉트 박스 이벤트 핸들러
   function handleSelectSort(option) {
-    if (option === "recent") setSortOrder("최신순");
-    if (option === "favorite") setSortOrder("좋아요순");
-
-    setOrder(option);
-    setShowOptions(!showOptions);
-    onChangePage(1);
+    setOrderLocal(option); // 지역 order 변수 업데이트
+    setOrder(option); // 부모 order 변수 업데이트
+    setShowOptions(!showOptions); // 필터 옵션 토글
+    onChangePage(1); // 현재 페이지를 첫 페이지로
   }
-
-  // 검색 인풋 디바운스 처리
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedText(inputValue);
-    }, 100); // 입력이 0.1초간 멈추면 업데이트
-
-    return () => clearTimeout(timer); // 타이핑 중에는 이전 타이머를 취소
-  }, [inputValue]);
 
   return (
     <article className={styles.productFilterBar}>
@@ -60,27 +52,20 @@ export default function ProductFilterBar({
           placeholder='검색할 상품을 입력해주세요'
           className={styles.searchInput}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSearch();
-          }}
+          onChange={handleChange}
         />
       </div>
 
-      <button
-        type='button'
-        className={styles.searchBtn}
-        onClick={() => handleSearch()}
-      >
-        상품 등록하기
-      </button>
+      <Link to='/registration' className={styles.searchBtn}>
+        <Button type='button'>상품 등록하기</Button>
+      </Link>
 
       <div className={styles.sortGroup}>
         <div
           className={styles.selectedOption}
           onClick={() => setShowOptions(!showOptions)}
         >
-          <div className={styles.selectedValue}>{sortOrder}</div>
+          <div className={styles.selectedValue}>{currentLabel}</div>
           <span className={styles.arrowBtn}></span>
           <span className={`${styles.sortBtn}`}></span>
         </div>

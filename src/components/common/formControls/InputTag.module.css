@@ -1,0 +1,64 @@
+.input {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 56px;
+  padding: 16px 24px;
+  gap: 10px;
+  border-radius: 12px;
+  line-height: calc(26 / 16);
+  color: var(--Secondary-800);
+  background: var(--Cool-Gray-100);
+}
+.input::placeholder {
+  color: var(--Secondary-400);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 6px 42px 6px 16px;
+  border-radius: 26px;
+  line-height: calc(26 / 16);
+  color: var(--Secondary-800);
+  background: var(--Cool-Gray-100);
+  cursor: pointer;
+}
+
+.deleteBtn {
+  position: absolute;
+  width: 22px;
+  height: 24px;
+  top: 50%;
+  right: 12px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+}
+
+.deleteImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Error Style */
+.error .input {
+  border: 1px solid var(--error-red);
+}
+.message {
+  display: inline-block;
+  margin-left: 16px;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: calc(24 / 14);
+  color: var(--error-red);
+}

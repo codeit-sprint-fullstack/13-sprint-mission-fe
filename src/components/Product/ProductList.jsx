@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import { TailSpin } from "react-loader-spinner";
 
-import NoResults from "@/components/NoResults";
-import Pagination from "@/components/Pagination";
+import { getProducts } from "@/api/products";
+import NoResults from "@/components/common/NoResults/NoResults";
+import Pagination from "@/components/common/Pagination/Pagination";
 import ProductFilterBar from "@/components/Product/ProductFilterBar";
 
 import ProductItem from "@/components/Product/ProductItem";
 
 import styles from "@/components/Product/ProductList.module.css";
-
-import fetchProducts from "@/hooks/fetchProducts";
 
 export default function ProductList({
   title,
@@ -27,28 +26,35 @@ export default function ProductList({
 
   // 상품 데이터 조회 및 로딩 스피너
   useEffect(() => {
+    const controller = new AbortController(); // 컨트롤러 생성
+
     const loadProducts = async () => {
       setIsLoading(true); // 시작할 때 로딩 시작
 
       try {
-        const data = await fetchProducts({
+        const data = await getProducts({
           pageSize: pageSize,
           page: currentPage,
           keyword: searchKeyword,
           orderBy: order,
+          signal: controller.signal,
         });
 
-        if (data) {
-          setProducts(data);
-        }
+        setProducts(data);
       } catch (error) {
+        if (error.name === "AbortError") return; // AbortController는 요청 취소 했을 때 무시
         console.error("상품 로딩 실패:", error);
       } finally {
-        setIsLoading(false); // 성공하든 실패하든 로딩 종료
+        // 컨트롤러가 취소되지 않았을 때만 로딩 종료
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     loadProducts();
+
+    return () => controller.abort(); // 실제 네트워크 요청 중단
   }, [currentPage, pageSize, searchKeyword, order]);
 
   return (

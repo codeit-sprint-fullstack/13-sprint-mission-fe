@@ -1,0 +1,76 @@
+/* ---------- Pagination Styles ---------- */
+.pagination {
+  margin-top: 40px;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Controls */
+.controls {
+  position: relative;
+}
+
+/* Arrow Button */
+.arrowBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid var(--Cool-Gray-200);
+  color: var(--Secondary-100);
+  cursor: pointer;
+}
+.arrowBtn.disabled {
+  opacity: 0.3;
+  cursor: none;
+  pointer-events: none;
+}
+/* Arrow Button Image */
+.arrowBtn:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  background: url("../../../assets/images/icons/ic_arrow_right.svg") no-repeat center / cover;
+}
+.arrowBtn.rightArrow::after {
+  transform: translate(-50%, -50%) scaleX(-1);
+}
+
+/* Number Button */
+.numberBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid var(--Cool-Gray-200);
+  color: var(--Cool-Gray-500);
+  background-color: #fff;
+  font-weight: 600;
+  line-height: calc(26 / 16);
+  cursor: pointer;
+}
+.numberBtn.active {
+  border: 1px solid var(--Primary-200);
+  color: var(--Secondary-100);
+  background-color: var(--Primary-200);
+}
+
+/* Arrow, Number Button Hover */
+.arrowBtn,
+.numberBtn {
+  transition: border-color 0.3s;
+}
+.arrowBtn:hover,
+.numberBtn:hover {
+  border-color: var(--Primary-200);
+}

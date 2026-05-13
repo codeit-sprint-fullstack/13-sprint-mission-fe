@@ -1,0 +1,117 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.4375rem;
+  height: 33.75rem;
+  background-color: #cfe5ff;
+  overflow: hidden;
+}
+.heroInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 1110px;
+  padding: 0 20px;
+}
+.heroContent {
+  margin-bottom: 6.25rem;
+  margin-right: 0.44rem;
+}
+.heroTitle {
+  margin-bottom: 32px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 140%; /* 56px */
+  white-space: pre-wrap;
+  color: var(--Secondary-700);
+}
+.heroImage {
+  width: 67.82%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bottom 히어로 스타일 예외 처리 */
+.hero.bottom .heroContent {
+  margin-bottom: 172px;
+}
+.hero.bottom .heroTitle {
+  margin-bottom: 0;
+}
+
+/* 태블릿: 화면 너비 1023px 이하일 때 */
+@media (max-width: 1023px) {
+  .hero {
+    height: auto;
+    padding-top: 84px;
+  }
+  .heroInner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  .heroContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0;
+    margin-bottom: 211px;
+  }
+  .heroTitle {
+    margin-bottom: 24px;
+    font-size: 40px;
+    white-space: unset;
+    text-align: center;
+  }
+  .heroImage {
+    width: 100%;
+  }
+
+  /* Bottom 히어로 스타일 예외 처리 */
+  .hero.bottom {
+    padding-top: 200px;
+  }
+  .hero.bottom .heroContent {
+    margin-bottom: 0;
+  }
+  .hero.bottom .heroTitle {
+    margin-bottom: 217px;
+    white-space: pre-wrap;
+  }
+}
+
+/* 모바일: 화면 너비 767px 이하일 때 */
+@media (max-width: 767px) {
+  .hero {
+    padding-top: 48px;
+  }
+  .heroContent {
+    margin-bottom: 132px;
+  }
+  .heroTitle {
+    margin-bottom: 18px;
+    font-size: 32px;
+    white-space: pre-wrap;
+  }
+  .heroImage {
+    width: 120%;
+    max-width: fit-content;
+  }
+
+  /* Bottom 히어로 스타일 예외 처리 */
+  .hero.bottom {
+    padding-top: 121px;
+  }
+  .hero.bottom .heroImage {
+    width: 100%;
+  }
+  .hero.bottom .heroContent {
+    margin-bottom: 0;
+  }
+  .hero.bottom .heroTitle {
+    margin-bottom: 131px;
+  }
+}

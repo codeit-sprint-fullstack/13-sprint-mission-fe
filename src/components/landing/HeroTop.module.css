@@ -1,0 +1,102 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 33.75rem;
+  background-color: #cfe5ff;
+}
+
+.inner {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4375rem;
+}
+
+.description {
+  display: flex;
+  padding-bottom: 3.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.text {
+  color: var(--secondary-700);
+  font-family: "Pretendard Variable";
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 140%;
+}
+
+.itemBtn {
+  display: flex;
+  height: 3.5rem;
+  padding: 1rem 7.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 2.5rem;
+  background-color: var(--primary-100);
+  color: var(--secondary-100);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.topImg {
+  width: 46.625rem;
+  height: 21.25rem;
+  flex-shrink: 0;
+}
+
+/* ==== Tablet & Mobile 공통 (≤1199px): 세로 레이아웃 ==== */
+@media (max-width: 1199px) {
+  .container {
+    height: auto;
+    padding-top: 5rem;
+  }
+
+  .inner {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: none;
+    padding: 0 1.5rem;
+  }
+
+  topImg {
+    width: 100%;
+    max-width: 46.5rem;
+    height: auto;
+    align-self: center;
+  }
+}
+
+/* ==== Mobile (~743px): 폰트/버튼 다운사이즈 ==== */
+@media (max-width: 743px) {
+  .container {
+    padding-top: 3rem;
+  }
+
+  .inner {
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .text {
+    font-size: 2rem;
+  }
+
+  .itemBtn {
+    height: 3rem;
+    padding: 0.75rem 4.4375rem;
+    font-size: 1.125rem;
+  }
+}

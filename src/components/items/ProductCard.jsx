@@ -39,7 +39,6 @@ export default function ProductCard({ product }) {
         <span className={styles.heart} aria-hidden="true">
           ♡
         </span>
-        {favoriteCount}
       </p>
     </article>
   );

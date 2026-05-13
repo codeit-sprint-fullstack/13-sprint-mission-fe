@@ -26,6 +26,27 @@
   margin: 0;
 }
 
+.registerBtn {
+  display: flex;
+  height: 2.625rem;
+  padding: 0.75rem 1.4375rem;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: var(--primary-100);
+  color: var(--secondary-100);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.statusMessage {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--secondary-500);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
 @media (max-width: 1199px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);

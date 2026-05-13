@@ -1,0 +1,10 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Routes의 결과물이 들어가는 영역 - 빈 공간 다 차지하게 */
+.routesWrapper {
+  flex: 1 0 auto;
+}

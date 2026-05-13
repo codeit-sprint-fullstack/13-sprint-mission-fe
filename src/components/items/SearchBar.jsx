@@ -12,6 +12,8 @@ export default function SearchBar({ onSearch }) {
     // preventDefault 안 하면 브라우저가 페이지 새로고침 시도 → React state 다 날아감.
     // 폼 다룰 때 거의 항상 첫 줄에 적는 패턴.
     e.preventDefault();
+    const trimmed = value.trim(); // 양쪽 공백 제거
+    if (!trimmed) return; // 정말 빈 문자열이면 무시
     // trim(): 양 끝 공백 제거. "  " 같은 의미 없는 검색 방지.
     // 빈 문자열은 getProducts에서 URL에 포함 안 시키니 안전.
     onSearch(value.trim());

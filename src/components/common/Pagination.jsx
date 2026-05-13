@@ -38,18 +38,22 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
       >
         ‹
       </button>
-      {pages.map((p) => (
-        <button
-          key={p}
-          type="button"
-          // 백틱 템플릿으로 두 클래스 합치기.
-          // 현재 페이지면 active 클래스 추가, 아니면 빈 문자열.
-          className={`${styles.button} ${p === currentPage ? styles.active : ""}`}
-          onClick={() => onPageChange(p)}
-        >
-          {p}
-        </button>
-      ))}
+      {pages.map((p) => {
+        const isActive = p === currentPage;
+        return (
+          <button
+            key={p}
+            type="button"
+            // 백틱 템플릿으로 두 클래스 합치기.
+            // 현재 페이지면 active 클래스 추가, 아니면 빈 문자열.
+            className={`${styles.page} ${isActive ? styles.active : ""}`}
+            aria-current={isActive ? "page" : undefined}
+            onClick={() => onPageChange(p)}
+          >
+            {p}
+          </button>
+        );
+      })}
       {/* 다음 버튼: 마지막 페이지면 비활성화 */}
       <button
         type="button"

@@ -1,0 +1,156 @@
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45rem;
+  padding: 8.625rem 2rem;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
+  max-width: 61.75rem;
+}
+
+.container.reverse {
+  flex-direction: row-reverse;
+}
+
+.image {
+  width: 36.75rem;
+  height: 27.75rem;
+  flex-shrink: 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.description.left {
+  align-items: flex-start;
+}
+
+.description.right {
+  align-items: flex-end;
+}
+
+.title {
+  color: var(--primary-100);
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.description.left .content {
+  align-items: flex-start;
+}
+
+.description.right .content {
+  align-items: flex-end;
+}
+
+.heading {
+  color: var(--secondary-700);
+  font-family: "Pretendard Variable";
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: 0.05rem;
+}
+
+.description.right .heading {
+  text-align: right;
+}
+
+.text {
+  color: var(--secondary-700);
+  font-family: "Pretendard Variable";
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  white-space: nowrap;
+}
+
+.description.right .text {
+  text-align: right;
+}
+
+/* ==== Table & Mobile 공통  (≤1199px): 세로 레이아웃 ==== */
+@media (max-width: 1199px) {
+  .section {
+    height: auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .container,
+  .container.reverse {
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 43.5rem;
+  }
+
+  .description,
+  .description.right {
+    width: 100%;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .description.right .content {
+    align-items: flex-start;
+  }
+
+  .heading,
+  .description.right .heading {
+    font-size: 2rem;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .text,
+  .description.right .text {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+    text-align: left;
+  }
+}
+
+/* ==== Mobile (~743px) ==== */
+@media (max-width: 743px) {
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  .container,
+  .container.reverse {
+    gap: 1rem;
+    max-width: 21.5rem;
+  }
+
+  .image {
+    max-width: 21.5rem;
+  }
+
+  .heading,
+  .description.right .heading {
+    font-size: 1.5rem;
+  }
+
+  .text,
+  .description.right .text {
+    font-size: 1rem;
+  }
+}

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://one3-sprint-mission-be-6qqf.onrender.com";
 
 export const productAPI = {
   Get: async (params = { page: 1, pageSize: 4 }) => {

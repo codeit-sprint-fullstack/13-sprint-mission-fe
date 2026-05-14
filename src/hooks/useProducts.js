@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const PRODUCT_API_URL = "https://backend-deploy-d1um.onrender.com/";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function useProducts({
   page,
@@ -31,7 +31,7 @@ export function useProducts({
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch(`${PRODUCT_API_URL}?${params}`, {
+        const response = await fetch(`${API_URL}/products?${params}`, {
           signal: controller.signal,
         });
 
@@ -40,12 +40,9 @@ export function useProducts({
         }
 
         const data = await response.json();
-        const filteredProducts = filterProducts(data.list ?? [], trimmedKeyword);
-        const sortedProducts = sortProducts(filteredProducts, orderBy);
-        const pagedProducts = paginateProducts(sortedProducts, page, pageSize);
 
-        setProducts(pagedProducts);
-        setTotalCount(sortedProducts.length);
+        setProducts(data.list ?? []);
+        setTotalCount(data.totalCount ?? 0);
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err);
@@ -65,16 +62,33 @@ export function useProducts({
   return { products, totalCount, isLoading, error };
 }
 
+const PRODUCT_PAGE_SIZE = {
+  mobile: { best: 1, list: 4 },
+  tablet: { best: 2, list: 6 },
+  desktop: { best: 4, list: 10 },
+};
+
 export function useProductPageSize() {
   const [pageSize, setPageSize] = useState(getPageSize);
 
   useEffect(() => {
-    function handleResize() {
-      setPageSize(getPageSize());
-    }
+    if (typeof window === "undefined") return undefined;
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const mediaQueries = [
+      window.matchMedia("(max-width: 600px)"),
+      window.matchMedia("(max-width: 1024px)"),
+    ];
+    const updatePageSize = () => setPageSize(getPageSize());
+
+    mediaQueries.forEach((mediaQuery) => {
+      mediaQuery.addEventListener("change", updatePageSize);
+    });
+
+    return () => {
+      mediaQueries.forEach((mediaQuery) => {
+        mediaQuery.removeEventListener("change", updatePageSize);
+      });
+    };
   }, []);
 
   return pageSize;
@@ -82,55 +96,16 @@ export function useProductPageSize() {
 
 function getPageSize() {
   if (typeof window === "undefined") {
-    return { best: 4, list: 10 };
+    return PRODUCT_PAGE_SIZE.desktop;
   }
 
-  if (window.innerWidth <= 600) {
-    return { best: 1, list: 4 };
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    return PRODUCT_PAGE_SIZE.mobile;
   }
 
-  if (window.innerWidth <= 1024) {
-    return { best: 2, list: 6 };
+  if (window.matchMedia("(max-width: 1024px)").matches) {
+    return PRODUCT_PAGE_SIZE.tablet;
   }
 
-  return { best: 4, list: 10 };
-}
-
-function filterProducts(products, keyword) {
-  if (!keyword) {
-    return products;
-  }
-
-  const lowerKeyword = keyword.toLowerCase();
-
-  return products.filter((product) => {
-    const tags = product.tags ?? [];
-
-    return (
-      product.name?.toLowerCase().includes(lowerKeyword) ||
-      product.description?.toLowerCase().includes(lowerKeyword) ||
-      tags.some((tag) => tag.toLowerCase().includes(lowerKeyword))
-    );
-  });
-}
-
-function sortProducts(products, orderBy) {
-  const sortedProducts = [...products];
-
-  if (orderBy === "favorite") {
-    return sortedProducts.sort(
-      (a, b) => (b.favoriteCount ?? 0) - (a.favoriteCount ?? 0),
-    );
-  }
-
-  return sortedProducts.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-  );
-}
-
-function paginateProducts(products, page, pageSize) {
-  const start = (page - 1) * pageSize;
-  const end = start + pageSize;
-
-  return products.slice(start, end);
+  return PRODUCT_PAGE_SIZE.desktop;
 }

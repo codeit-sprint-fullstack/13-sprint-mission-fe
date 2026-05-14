@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProductPageSize, useProducts } from "../../hooks/useProducts";
 import "../css/ProductPage.css";
 import { Link } from "react-router-dom";
@@ -7,9 +7,23 @@ const PAGE_GROUP_SIZE = 5;
 
 export default function ProductPage() {
   const [orderBy, setOrderBy] = useState("recent");
+  const [inputKeyword, setInputKeyword] = useState("");
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
   const pageSize = useProductPageSize();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setKeyword(inputKeyword);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [inputKeyword]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize.list]);
+
   const {
     products,
     totalCount,
@@ -41,7 +55,7 @@ export default function ProductPage() {
   };
 
   const handleKeywordChange = (e) => {
-    setKeyword(e.target.value);
+    setInputKeyword(e.target.value);
     setPage(1);
   };
 
@@ -99,7 +113,7 @@ export default function ProductPage() {
                 type="search"
                 className="stock-search"
                 placeholder="🔎검색할 상품을 입력해주세요"
-                value={keyword}
+                value={inputKeyword}
                 onChange={handleKeywordChange}
               />
             </label>

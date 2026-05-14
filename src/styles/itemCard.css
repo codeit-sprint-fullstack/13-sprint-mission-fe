@@ -1,0 +1,83 @@
+.item-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.item-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 1.03675rem; /* 테두리 둥글기를 부모 요소로 이동 */
+  background-color: var(--secondary-100); /* 이미지가 없을 때 띄울 회색 배경 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 1:1 비율에 맞춰 꽉 차게 잘라냄 */
+}
+
+/* 대체 이미지(로고)가 들어갔을 때의 스타일 */
+.item-image.fallback-image {
+  width: 50%;
+  height: 50%;
+  object-fit: contain; /* 로고는 잘리지 않게 비율 유지 */
+  opacity: 0.3; /* 빈 이미지 느낌을 주기 위해 반투명 처리 */
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+}
+
+.item-name {
+  color: var(--secondary-800);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem; /* 171.429% */
+  /* 이름이 길어질 경우 말줄임표(...) 처리 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.item-price {
+  color: var(--secondary-800);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.625rem; /* 162.5% */
+}
+
+.item-favorite-section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.2rem;
+}
+
+/* 하트 아이콘이 찌그러지거나 사라지지 않도록 크기 명시 */
+.heart-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.item-fav-count {
+  color: var(--secondary-600);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.125rem; /* 150% */
+}

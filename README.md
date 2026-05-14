@@ -1,75 +1,107 @@
-# 🐼 판다마켓 (Panda Market) - 중고마켓 웹 서비스
+🐼 Panda Market Fullstack Project
+React와 Express를 활용하여 구축한 판다마켓 풀스택 애플리케이션입니다.
 
-본 프로젝트는 React를 활용하여 개발된 중고마켓 웹 서비스의 상품 목록 페이지입니다. 
-Figma 시안을 바탕으로 PC, Tablet, Mobile 환경에 최적화된 반응형 웹(Responsive Web)으로 구현되었습니다.
+상품 등록부터 목록 조회, 검색, 페이지네이션까지 직접 구현한 API를 통해 관리됩니다.
 
+🔗 배포 주소
+Back-end (Render): https://panda-market-fullstack.onrender.com
 
-## 🛠️ 기술 스택
-- **Framework:** React.js
-- **Styling:** CSS (BEM Naming Convention)
-- **Deployment:** [Vercel 또는 GitHub Pages 입력]
-- **API Server:** Panda Market API `https://panda-market-api.vercel.app/docs/`
+Front-end (Vercel/Local): [지훈님의 프론트 배포 주소가 있다면 여기에 입력]
 
----
+🛠 사용 기술 스택
+Front-end: React, React Router, CSS (마이그레이션)
 
-## ✨ 주요 기능 및 구현 사항
+Back-end: Node.js, Express.js
 
-### 1. 반응형 레이아웃 (Responsive UI)
-- `react-responsive` 및 CSS Media Query를 활용하여 디바이스 크기(Desktop, Tablet, Mobile)에 따른 유연한 레이아웃을 구현했습니다.
-- **베스트 상품 그리드:** Desktop(4열) ➔ Tablet(2열) ➔ Mobile(1열)
-- **전체 상품 그리드:** Desktop(5열) ➔ Tablet(3열) ➔ Mobile(2열)
+Database: MongoDB Atlas (Mongoose)
 
-### 2. API 통신 및 데이터 렌더링
-- 공통 API 엔드포인트(`/products`)를 활용하여 데이터를 비동기적으로 불러옵니다.
-- **베스트 상품:** `orderBy=favorite` 파라미터를 적용하여 좋아요가 가장 많은 상위 상품 노출
-- **판매 중인 상품:** 전체 상품 목록 노출 및 에러/예외 처리 (대체 이미지 적용 등)
+Deployment: Render.com
 
-### 3. 검색 및 정렬 기능
-- **검색 (Search):** 사용자가 입력한 키워드에 따라 상품 목록을 동적으로 필터링합니다. API 과부하를 막기 위해 디바운싱(Debouncing) 처리를 적용했습니다.
-- **정렬 (Sort):** 커스텀 드롭다운 메뉴를 통해 "최신순(recent)"과 "좋아요순(favorite)"으로 목록을 실시간 정렬합니다.
+📌 주요 구현 사항
 
-### 4. 반응형 페이지네이션 (Responsive Pagination)
-- 화면 크기에 따라 변하는 그리드 열(Column) 수에 맞춰 API 요청 시 전달하는 `pageSize`를 동적으로 계산합니다.
-- 이를 위해 화면 너비를 감지하여 적절한 `pageSize`를 반환하는 **커스텀 훅(`usePageSize`)**을 직접 구현하여 적용했습니다.
+1. 백엔드 (Express & MongoDB)
+   Product Schema: name, description, price, tags, createdAt, updatedAt 필드 구성
 
----
+Restful API 구현:
 
-## ✅ 미션 요구사항 달성 체크리스트
+POST /products: 상품 등록 (Validation 처리)
 
-### 기본 요구사항 (공통)
-- [x] Github에 스프린트 미션 PR을 만들어 주세요.
-- [x] React를 사용해 진행합니다.
+GET /products: 상품 목록 조회 (최신순 정렬, 검색, Offset 페이지네이션)
 
-### 기본 요구사항 (중고마켓 페이지)
-- [x] PC, Tablet, Mobile 디자인에 해당하는 중고마켓 페이지를 만들어 주세요.
-- [x] 중고마켓 페이지 url path는 별도로 설정하지 않고, `/`에 보이도록 합니다.
-- [x] 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요.
-- [x] 상품 데이터는 API 문서에 명세된 GET 메소드 `/products`를 활용해주세요.
-- [x] 상품 목록 페이지네이션 기능을 구현합니다.
-- [x] 드롭 다운으로 "최신순" 또는 "좋아요순"을 선택해서 정렬을 구현하세요.
-- [x] 상품 목록 검색 기능을 구현합니다.
-- [x] 베스트 상품 데이터는 API의 정렬 기준 `favorite`을 사용해주세요.
+GET /products/:id: 상품 상세 조회
 
-### 심화 요구사항
-- [x] 커스텀 hook을 만들어 필요한 곳에 활용해 보세요. (`usePageSize` 적용)
-- [x] 중고 마켓의 카드 컴포넌트 반응형 기준에 맞게 열 개수를 조정합니다. (베스트 4/2/1, 전체 5/3/2)
-- [x] 반응형에 따른 페이지 네이션 기능을 구현하고, 보여지는 물품 개수에 따라 서버에 보내는 `pageSize` 값을 적절하게 설정합니다.
+PATCH /products/:id: 상품 정보 수정
 
----
+DELETE /products/:id: 상품 삭제
 
-## 📂 프로젝트 구조 (Directory Structure)
-```text
-src/
-├── api/             # API 호출 로직 (productApi.js 등)
-├── assets/          # 아이콘, 로고 등 정적 리소스 (public 포함)
-├── components/      # 재사용 가능한 UI 컴포넌트
-│   ├── FeaturedItems/
-│   ├── GlobalHeader/
-│   ├── GlobalFooter/
-│   ├── ItemCard/
-│   ├── MarketItems/
-│   ├── Pagination/
-│   └── ProductBoard/
-├── hooks/           # 커스텀 훅 (usePageSize.js 등)
-├── styles/          # CSS 스타일 파일
-└── App.jsx          # 루트 컴포넌트
+CORS 설정: 로컬 환경 및 배포 환경 접근 허용
+
+환경 변수 관리: .env를 통한 포트 및 MongoDB URI 보안 관리
+
+2. 프론트엔드 (React)
+   페이지 마이그레이션: 기존 HTML/CSS 랜딩 페이지를 리액트 컴포넌트로 전환 (/)
+
+중고마켓 페이지 (/items):
+
+직접 구현한 GET API 연동 (최신순 목록 조회)
+
+검색 기능을 통한 상품 필터링
+
+내비게이션 바 활성화 스타일링 (#3692FF)
+
+상품 등록 페이지 (/registration):
+
+심화 요구사항 반영: 모든 필드 입력 시에만 등록 버튼 활성화
+
+Custom Hook: 유효성 검사 로직 분리 (상품명 1~10자, 소개 10~100자 등)
+
+태그 시스템: 엔터 키 입력 시 칩(Chip) 형태로 태그 추가 기능
+
+등록 성공 시 상세 페이지(빈 페이지)로 이동
+
+📂 프로젝트 구조
+Plaintext
+sprint-mission-5
+├── frontend/ # React 프로젝트
+│ ├── src/
+│ │ ├── hooks/ # 유효성 검사 Custom Hooks
+│ │ ├── components/ # 공통 컴포넌트
+│ │ └── pages/ # 랜딩, 목록, 등록 페이지
+└── backend/ # Express 프로젝트
+├── models/ # Mongoose Schema (Product.js)
+├── .env # 환경 변수 (Git 제외)
+└── app.js # Express 서버 및 API 로직
+🚀 시작하기
+환경 변수 설정
+backend 폴더 내에 .env 파일을 생성하고 아래 내용을 입력하세요.
+
+코드 스니펫
+PORT=8000
+MONGODB_URI=your_mongodb_connection_string
+설치 및 실행
+Backend:
+
+Bash
+cd backend
+npm install
+npm start
+Frontend:
+
+Bash
+cd frontend
+npm install
+npm run dev
+📝 제출 체크리스트 확인
+[o] React, Express 사용
+
+[o] MongoDB & Mongoose 연동
+
+[o] Render.com 배포 완료
+
+[] 모든 API 적절한 상태 코드 및 에러 처리
+
+[] 심화 요구사항(Custom Hook, 태그 칩, 버튼 비활성화) 반영
+
+작성자: 김지훈 (jihun5914)
+
+과제명: 5차 스프린트 미션 (풀스택 마켓 구현)

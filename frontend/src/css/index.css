@@ -1,0 +1,18 @@
+@font-face {
+   font-family: "Pretendard";
+   src: url("../font-family/PretendardVariable.ttf") format("truetype");
+}
+
+@font-face {
+   font-family: "ROKAF Sans";
+   src: url("../font-family/ROKAFSansMedium.ttf") format("truetype");
+}
+
+body {
+   font-family: "Pretendard", sans-serif;
+   color: var(--gray300);
+}
+
+a {
+   text-decoration: none;
+}

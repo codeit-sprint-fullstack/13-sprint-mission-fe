@@ -1,5 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "https://one3-sprint-mission-fe.onrender.com";
+export const BASE_URL = "https://panda-market-express-be.onrender.com";
 
 const defaultAxios = axios.create({
   baseURL: BASE_URL,

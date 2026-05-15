@@ -18,16 +18,10 @@ export default function SignupPage() {
     <>
       <section id="singup-section">
         <header className="head-container">
-          <div className="home-logo">
-            <a href="/" className="home-logo">
-              <img src={Logo} alt="판다마켓 로고" />
-              <div className="logo-text">
-                <a href="/" className="logo-text">
-                  판다마켓
-                </a>
-              </div>
-            </a>
-          </div>
+          <Link to="/" className="home-logo">
+            <img src={Logo} alt="판다마켓 로고" />
+            <span className="logo-text">판다마켓</span>
+          </Link>
         </header>
         <main className="login-body">
           <form className="input-group">

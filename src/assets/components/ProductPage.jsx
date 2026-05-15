@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProductPageSize, useProducts } from "../../hooks/useProducts";
 import "../css/ProductPage.css";
+import { Link } from "react-router-dom";
 
 const PAGE_GROUP_SIZE = 5;
 
 export default function ProductPage() {
   const [orderBy, setOrderBy] = useState("recent");
+  const [inputKeyword, setInputKeyword] = useState("");
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
   const pageSize = useProductPageSize();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setKeyword(inputKeyword);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [inputKeyword]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize.list]);
+
   const {
     products,
     totalCount,
@@ -33,13 +48,14 @@ export default function ProductPage() {
   const totalPages = Math.ceil(totalCount / pageSize.list);
 
   const getPageGroup = () => {
-    const start = Math.floor((page - 1) / PAGE_GROUP_SIZE) * PAGE_GROUP_SIZE + 1;
+    const start =
+      Math.floor((page - 1) / PAGE_GROUP_SIZE) * PAGE_GROUP_SIZE + 1;
     const end = Math.min(start + PAGE_GROUP_SIZE - 1, totalPages);
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 
   const handleKeywordChange = (e) => {
-    setKeyword(e.target.value);
+    setInputKeyword(e.target.value);
     setPage(1);
   };
 
@@ -62,7 +78,7 @@ export default function ProductPage() {
           {bestProductError && (
             <li className="empty-message">상품을 불러오지 못했습니다.</li>
           )}
-          {bestProducts.map((bestproduct) => (
+          {bestProducts.slice(0, pageSize.best).map((bestproduct) => (
             <li className="best-feed" key={bestproduct.id}>
               <img
                 src={
@@ -97,11 +113,13 @@ export default function ProductPage() {
                 type="search"
                 className="stock-search"
                 placeholder="🔎검색할 상품을 입력해주세요"
-                value={keyword}
+                value={inputKeyword}
                 onChange={handleKeywordChange}
               />
             </label>
-            <button className="product-register">상품 등록하기</button>
+            <Link to="/registration">
+              <button className="product-register">상품 등록하기</button>
+            </Link>
             <select
               className="product-sort"
               value={orderBy}
@@ -150,10 +168,7 @@ export default function ProductPage() {
 
         {totalPages > 0 && (
           <div className="pagination">
-            <button
-              disabled={page <= 1}
-              onClick={() => setPage(page - 1)}
-            >
+            <button disabled={page <= 1} onClick={() => setPage(page - 1)}>
               &lt;
             </button>
             {getPageGroup().map((p) => (

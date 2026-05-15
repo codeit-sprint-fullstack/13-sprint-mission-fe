@@ -58,8 +58,7 @@
   color: var(--gray300);
 }
 
-.top-desc,
-.bottom-desc {
+.top-desc {
   border-radius: 8px;
   width: 22.3125rem;
   height: 56px;
@@ -79,6 +78,8 @@
   color: var(--gray100);
   opacity: 1;
   border-radius: 40px;
+  border: none;
+  cursor: pointer;
 }
 
 .top-img,

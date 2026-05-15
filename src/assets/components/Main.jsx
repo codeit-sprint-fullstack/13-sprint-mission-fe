@@ -18,7 +18,7 @@ export default function Main() {
               거래해 보세요
             </h1>
             <Link to="/items">
-              <buttton className="top-desc">구경하러 가기</buttton>
+              <button className="top-desc">구경하러 가기</button>
             </Link>
           </div>
           <img className="top-img" src={top} alt="판다 이미지" />
@@ -29,7 +29,7 @@ export default function Main() {
         <div className="hot-item-container">
           <img src={hot} alt="옷 사진" />
           <div className="hot-item-text-container">
-            <badge class="hot-item-badge">Hot item</badge>
+            <span className="hot-item-badge">Hot item</span>
             <h2 className="hot-item-article">
               인기 상품을 <br />
               확인해 보세요
@@ -45,7 +45,7 @@ export default function Main() {
       <section className="search">
         <div className="search-container">
           <div className="search-text-container">
-            <badge class="search-badge">Search item</badge>
+            <span className="search-badge">Search item</span>
             <h3 className="search-article">
               구매를 원하는 <br />
               상품을 검색하세요
@@ -63,7 +63,7 @@ export default function Main() {
         <div className="register-container">
           <img className="register-img" src={register} alt="등록 사진" />
           <div className="register-text-container">
-            <badge class="register-badge">Register</badge>
+            <span className="register-badge">Register</span>
             <h4 className="register-article">
               판매를 원하는 <br />
               상품을 등록하세요

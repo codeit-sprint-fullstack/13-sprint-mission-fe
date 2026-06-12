@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-
+import Image from "next/image";
+const ARROW_DOWN_ICON = "/icons/ic_arrow_down.svg";
 const OPTIONS = [{ label: "최신순", value: "recent" }];
 
 export default function SortDropdown({ value, onChange }) {
@@ -27,14 +28,7 @@ export default function SortDropdown({ value, onChange }) {
         className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 bg-white hover:border-gray-300 transition-colors min-w-25 justify-between"
       >
         {current}
-        <svg
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <Image src={ARROW_DOWN_ICON} alt="dropdown" width={24} height={24} />
       </button>
 
       {open && (
@@ -47,7 +41,9 @@ export default function SortDropdown({ value, onChange }) {
                 setOpen(false);
               }}
               className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                opt.value === value ? "text-blue-500 font-medium" : "text-gray-700"
+                opt.value === value
+                  ? "text-blue-500 font-medium"
+                  : "text-gray-700"
               }`}
             >
               {opt.label}

@@ -8,7 +8,7 @@ import ArticleListItem from "@/app/components/ui/ArticleListItem";
 import SearchBar from "@/app/components/ui/SearchBar";
 import SortDropdown from "@/app/components/ui/SortDropdown";
 
-export default function BoardsPage() {
+export default function CommunityPage() {
   const router = useRouter();
 
   const [bestArticles, setBestArticles] = useState([]);
@@ -79,7 +79,7 @@ export default function BoardsPage() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-base font-bold text-gray-900">게시글</h2>
           <button
-            onClick={() => router.push("/new")}
+            onClick={() => router.push("/community/new")}
             className="px-4 py-1.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
           >
             글쓰기

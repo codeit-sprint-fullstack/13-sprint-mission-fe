@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import defaultThumbnail from "../../../../public/images/Img_article_ex.png";
-import profileIcon from "../../../../public/icons/ic_profile.svg";
-import heartIcon from "../../../../public/icons/ic_heart.svg";
+const DEFAULT_IMAGE = "/images/Img_article_ex.png";
+const PROFILE_ICON = "/icons/ic_profile.svg";
+const HEART_ICON = "/icons/ic_heart.svg";
 
 const MOCK_NICKNAME = "총명한 판다";
 const MOCK_LIKES = "9999+";
@@ -10,7 +10,7 @@ const MOCK_LIKES = "9999+";
 export default function ArticleListItem({ article }) {
   return (
     <Link
-      href={`/boards/${article.id}`}
+      href={`/community/${article.id}`}
       className="flex items-center justify-between py-5 border-b border-gray-100 hover:bg-gray-50 transition-colors px-1 gap-4"
     >
       {/* Left: title + meta */}
@@ -21,7 +21,7 @@ export default function ArticleListItem({ article }) {
         <div className="flex items-center gap-3 text-xs text-gray-500">
           <div className="flex items-center gap-1.5">
             <Image
-              src={profileIcon}
+              src={PROFILE_ICON}
               alt=""
               width={20}
               height={20}
@@ -31,20 +31,21 @@ export default function ArticleListItem({ article }) {
           </div>
           <span>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</span>
           <span className="flex items-center gap-1">
-            <Image src={heartIcon} alt="" width={14} height={14} />
+            <Image src={HEART_ICON} alt="" width={14} height={14} />
             {MOCK_LIKES}
           </span>
         </div>
       </div>
 
       {/* Right: default thumbnail */}
-      <Image
-        src={defaultThumbnail}
-        alt="게시글 이미지"
-        width={64}
-        height={64}
-        className="rounded-lg object-cover flex-shrink-0 bg-gray-100"
-      />
+      <div className="w-18 h-18 rounded-lg bg-white shrink-0 flex items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={DEFAULT_IMAGE}
+          alt="게시글 이미지"
+          className="w-12 h-[44.571px] object-cover"
+        />
+      </div>
     </Link>
   );
 }

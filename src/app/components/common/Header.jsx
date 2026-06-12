@@ -3,14 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function Nav() {
+export default function Header() {
   const pathname = usePathname();
-
-  const handleLoginClick = () => {
-    alert("로그인 페이지로 이동합니다.");
-  };
-
+  const router = useRouter();
   return (
     <nav className="fixed inset-x-0 top-0 h-17.5 bg-white border-b border-[#dfdfdf] flex justify-center z-50">
       <div
@@ -48,9 +45,9 @@ export default function Nav() {
             자유게시판
           </Link>
           <Link
-            href="/items"
+            href="/market"
             className={`mx-3.75 text-center text-lg font-bold leading-6.5 no-underline whitespace-nowrap max-[375px]:text-base ${
-              pathname === "/items" ? "text-[#3692FF]" : "text-[#4b5563]"
+              pathname === "/market" ? "text-[#3692FF]" : "text-[#4b5563]"
             }`}
           >
             중고마켓
@@ -60,7 +57,7 @@ export default function Nav() {
         <button
           type="button"
           className="inline-flex w-32 h-10.5 py-3 px-5.75 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-[#3692FF]"
-          onClick={() => router.push("/login")} // TODO:
+          onClick={() => router.push("/login")} // TODO: 로그인 페이지 마이그레이션 미완
         >
           로그인
         </button>

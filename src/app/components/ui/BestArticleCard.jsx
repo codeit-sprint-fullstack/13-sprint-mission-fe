@@ -1,6 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 
+const BEST_ICON = "/icons/ic_medal.svg";
+const HEART_ICON = "/icons/ic_heart.svg";
 const DEFAULT_IMAGE = "/images/Img_article_ex.png";
+
+const MOCK_NICKNAME = "총명한 판다";
+const MOCK_LIKES = "9999+";
 
 export default function BestArticleCard({ article }) {
   return (
@@ -8,9 +14,10 @@ export default function BestArticleCard({ article }) {
       href={`/community/${article.id}`}
       className="block bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors"
     >
-      {/* Best badge */}
+      {/* 배지 부분 */}
       <div className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full mb-3">
-        🏆 Best
+        <Image src={BEST_ICON} alt="best" width={16} height={16} />
+        Best
       </div>
 
       {/* Title + image */}
@@ -18,24 +25,21 @@ export default function BestArticleCard({ article }) {
         <p className="text-sm font-medium text-gray-900 line-clamp-2 leading-snug flex-1">
           {article.title}
         </p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={DEFAULT_IMAGE}
-          alt="게시글 이미지"
-          className="w-14 h-14 rounded-lg object-cover shrink-0 bg-gray-200"
-          //   onError={(e) => {
-          //     e.target.src =
-          //       "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect width='56' height='56' fill='%23e5e7eb'/%3E%3C/svg%3E";
-          //   }}
-        />
+        <div className="w-18 h-18 rounded-lg bg-white shrink-0 flex items-center justify-center">
+          <Image
+            src={DEFAULT_IMAGE}
+            alt="게시글 이미지"
+            width={48}
+            height={44.571}
+          />
+        </div>
       </div>
 
-      {/* Meta */}
       <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gray-300" />
-          <span>{article.writer?.nickname}</span>
-          <span>♡ {article.likeCount}</span>
+          <span>{MOCK_NICKNAME}</span>
+          <Image src={HEART_ICON} alt="좋아요" width={16} height={16} />
+          <span>{MOCK_LIKES}</span>
         </div>
         <span>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</span>
       </div>

@@ -9,7 +9,7 @@ async function request(path, options) {
     const error = await res.json().catch(() => ({}));
     throw new Error(error?.message ?? `HTTP ${res.status}`);
   }
-  return res.json();
+  return res.status === 204 ? null : res.json();
 }
 
 // ─── Articles ────────────────────────────────────────────────────────────────
@@ -61,14 +61,14 @@ export function getComments(articleId) {
 export function createComment(articleId, data) {
   return request(`/articles/${articleId}/comments`, {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data, articleId }),
   });
 }
 
 export function updateComment(articleId, commentId, data) {
   return request(`/articles/${articleId}/comments/${commentId}`, {
     method: "PATCH",
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data, articleId }),
   });
 }
 

@@ -16,6 +16,7 @@ const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const KEBAB_ICON = "/icons/ic_kebab.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
+const ARROW_BACK_ICON = "/icons/ic_back.svg";
 
 const MOCK_NICKNAME = "총명한판다"; // TODO:
 const MOCK_COMMENT_NICKNAME = "똑똑한판다"; // TODO:
@@ -174,7 +175,10 @@ export default function ArticleDetailPage() {
         <p className="text-sm text-gray-500 mb-4">
           {error || "게시글을 찾을 수 없습니다."}
         </p>
-        <Link href="/boards" className="text-blue-500 text-sm hover:underline">
+        <Link
+          href="/community"
+          className="text-blue-500 text-sm hover:underline"
+        >
           목록으로 돌아가기
         </Link>
       </div>
@@ -325,11 +329,16 @@ export default function ArticleDetailPage() {
       {/* ── Back to list ── */}
       <div className="flex justify-center">
         <Link
-          href="/boards"
-          className="flex items-center gap-2 px-8 py-3 bg-blue-500 text-white text-sm font-medium rounded-xl hover:bg-blue-600 transition-colors"
+          href="/community"
+          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-[#3692FF] text-white font-medium hover:bg-blue-500 transition-colors whitespace-nowrap"
         >
           목록으로 돌아가기
-          <span aria-hidden>↩</span>
+          <Image
+            src={ARROW_BACK_ICON}
+            alt="목록으로 돌아가기"
+            width={24}
+            height={24}
+          />
         </Link>
       </div>
     </main>

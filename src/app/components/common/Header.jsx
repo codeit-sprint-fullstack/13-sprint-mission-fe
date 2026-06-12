@@ -56,7 +56,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="inline-flex w-32 h-10.5 py-3 px-5.75 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-[#3692FF]"
+          className="inline-flex w-32 h-10.5 py-3 px-5.75 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-[#3692FF] whitespace-nowrap"
           onClick={() => router.push("/login")} // TODO: 로그인 페이지 마이그레이션 미완
         >
           로그인

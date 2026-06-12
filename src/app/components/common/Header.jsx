@@ -40,7 +40,9 @@ export default function Nav() {
           <Link
             href="/community"
             className={`mx-3.75 text-center text-lg font-bold leading-6.5 no-underline whitespace-nowrap max-[375px]:text-base ${
-              pathname === "/community" ? "text-[#3692FF]" : "text-[#4b5563]"
+              pathname === "/community" || pathname === "/new"
+                ? "text-[#3692FF]"
+                : "text-[#4b5563]"
             }`}
           >
             자유게시판
@@ -58,7 +60,7 @@ export default function Nav() {
         <button
           type="button"
           className="inline-flex w-32 h-10.5 py-3 px-5.75 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-[#3692FF]"
-          onClick={handleLoginClick}
+          onClick={() => router.push("/login")} // TODO:
         >
           로그인
         </button>

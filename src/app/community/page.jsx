@@ -1,0 +1,164 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { getArticles } from "@/app/lib/api";
+import BestArticleCard from "@/app/components/ui/BestArticleCard";
+import ArticleListItem from "@/app/components/ui/ArticleListItem";
+import SearchBar from "@/app/components/ui/SearchBar";
+import SortDropdown from "@/app/components/ui/SortDropdown";
+
+export default function BoardsPage() {
+  const router = useRouter();
+
+  const [bestArticles, setBestArticles] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("recent");
+  const [loading, setLoading] = useState(true);
+
+  const LIMIT = 10;
+
+  useEffect(() => {
+    getArticles({ sort: "recent", limit: 3, page: 1 }).then((res) =>
+      setBestArticles(res.data),
+    );
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    getArticles({ search: search || undefined, sort, page, limit: LIMIT }).then(
+      (res) => {
+        if (!cancelled) {
+          setArticles(res.data); // TODO: list 와 차이 ?
+          setTotalPages(res.totalPages);
+          setLoading(false);
+        }
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [search, sort, page]);
+
+  const handleSearch = (v) => {
+    setLoading(true);
+    setSearch(v);
+    setPage(1);
+  };
+
+  const handleSort = (v) => {
+    setLoading(true);
+    setSort(v);
+    setPage(1);
+  };
+
+  const handlePage = (p) => {
+    setLoading(true);
+    setPage(p);
+  };
+
+  return (
+    <main className="max-w-5xl mx-auto px-4 py-8 mt-17.5">
+      {/* ── Best Articles ── */}
+      <section className="mb-10">
+        <h2 className="text-base font-bold text-gray-900 mb-4">
+          베스트 게시글
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {bestArticles.map((article) => (
+            <BestArticleCard key={article.id} article={article} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Article List ── */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-base font-bold text-gray-900">게시글</h2>
+          <button
+            onClick={() => router.push("/new")}
+            className="px-4 py-1.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            글쓰기
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3 mb-4">
+          <SearchBar value={search} onChange={handleSearch} />
+          <SortDropdown value={sort} onChange={handleSort} />
+        </div>
+
+        {loading ? (
+          <div className="py-20 text-center text-sm text-gray-400">
+            불러오는 중...
+          </div>
+        ) : articles.length === 0 ? (
+          <div className="py-20 text-center text-sm text-gray-400">
+            {search
+              ? `"${search}"에 대한 게시글이 없습니다.`
+              : "게시글이 없습니다."}
+          </div>
+        ) : (
+          <div>
+            {articles.map((article) => (
+              <ArticleListItem key={article.id} article={article} />
+            ))}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-8">
+            <button
+              onClick={() => handlePage(Math.max(1, page - 1))}
+              disabled={page === 1}
+              className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition-colors"
+            >
+              이전
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+              .filter(
+                (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 2,
+              )
+              .reduce((acc, p, i, arr) => {
+                if (i > 0 && p - arr[i - 1] > 1) acc.push("...");
+                acc.push(p);
+                return acc;
+              }, [])
+              .map((p, i) =>
+                p === "..." ? (
+                  <span
+                    key={`ellipsis-${i}`}
+                    className="px-2 text-gray-400 text-sm"
+                  >
+                    ...
+                  </span>
+                ) : (
+                  <button
+                    key={p}
+                    onClick={() => handlePage(p)}
+                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                      page === p
+                        ? "bg-blue-500 text-white"
+                        : "border border-gray-200 hover:bg-gray-50"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ),
+              )}
+            <button
+              onClick={() => handlePage(Math.min(totalPages, page + 1))}
+              disabled={page === totalPages}
+              className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition-colors"
+            >
+              다음
+            </button>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+}

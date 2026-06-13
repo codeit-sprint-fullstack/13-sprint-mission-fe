@@ -1,7 +1,11 @@
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import Button from "@/components/ui/Button";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
 import { mockPosts } from "@/mocks/posts";
+import "swiper/css";
 
 export default function BoardListPage() {
   return (
@@ -10,11 +14,13 @@ export default function BoardListPage() {
         <h1 className="text-secondary-900 text-[20px] font-bold mb-[24px]">
           베스트 게시글
         </h1>
-        <div className="flex gap-[24px]">
+        <Swiper slidesPerView="auto" spaceBetween={24}>
           {mockPosts.slice(0, 3).map((bestPost, index) => (
-            <PopularPostCard key={index} data={bestPost} />
+            <SwiperSlide key={index} className="w-auto!">
+              <PopularPostCard data={bestPost} />
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </section>
       <section>
         <header className="flex justify-between">

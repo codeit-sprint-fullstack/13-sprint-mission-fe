@@ -1,7 +1,7 @@
 export const mockPosts = [
   {
     id: 1,
-    title: "오늘 점심 추천 받습니다",
+    title: "오늘 점심 추천 받습니다. 일찍 일어났더니 배가 고프네요!!",
     author: "김민수",
     createdAt: "2026-06-13 09:12",
     likes: 24,

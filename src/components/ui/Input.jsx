@@ -7,18 +7,18 @@ export default function Input({
 }) {
   return (
     <div
-      className={`flex items-stretch bg-secondary-100 rounded-xl py-[15px] px-[16px] ${className}`}
+      className={`flex flex-1 items-stretch bg-secondary-100 rounded-xl py-[15px] px-[16px] ${className}`}
     >
       {prefix}
       {multiline ? (
         <textarea
           {...props}
-          className="flex-1 border-none outline-none bg-none resize-none placeholder:text-secondary-400"
+          className="flex-1 border-none outline-none bg-transparent resize-none placeholder:text-secondary-400 max-tablet:placeholder:text-[8px]"
         />
       ) : (
         <input
           {...props}
-          className="flex-1 border-none outline-none bg-none placeholder:text-secondary-400"
+          className="flex-1 border-none outline-none bg-transparent placeholder:text-secondary-400 max-tablet:placeholder:text-[14px]"
         />
       )}
       {suffix}

@@ -17,7 +17,6 @@ export default function ArticleEditPage() {
 
   const isValid = title.trim().length > 0 && content.trim().length > 0;
 
-  // 기존 게시글 데이터를 불러와서 input에 채우기
   useEffect(() => {
     async function fetchData() {
       try {
@@ -51,14 +50,12 @@ export default function ArticleEditPage() {
 
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center text-sm text-gray-400">
-        불러오는 중...
-      </div>
+      <p className="text-center text-sm text-gray-400 py-20">불러오는 중...</p>
     );
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 sm:py-10 mt-17.5">
+    <div className="max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-bold text-gray-900">게시글 수정</h1>
         <button
@@ -76,7 +73,6 @@ export default function ArticleEditPage() {
         </div>
       )}
 
-      {/* Title */}
       <div className="mb-6">
         <label
           htmlFor="title"
@@ -94,7 +90,6 @@ export default function ArticleEditPage() {
         />
       </div>
 
-      {/* Content */}
       <div className="mb-6">
         <label
           htmlFor="content"
@@ -111,6 +106,6 @@ export default function ArticleEditPage() {
           className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
-    </main>
+    </div>
   );
 }

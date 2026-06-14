@@ -26,12 +26,11 @@ export default function NewArticlePage() {
     } catch {
       setError("게시글 등록에 실패했습니다. 다시 시도해주세요.");
       setSubmitting(false);
-      //   router.push(`community/${articleId}`)
     }
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 sm:py-10 mt-17.5">
+    <div className="max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-bold text-gray-900">게시글 쓰기</h1>
         <button
@@ -49,7 +48,6 @@ export default function NewArticlePage() {
         </div>
       )}
 
-      {/* Title */}
       <div className="mb-6">
         <label
           htmlFor="title"
@@ -67,7 +65,6 @@ export default function NewArticlePage() {
         />
       </div>
 
-      {/* Content */}
       <div className="mb-6">
         <label
           htmlFor="content"
@@ -84,6 +81,6 @@ export default function NewArticlePage() {
           className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
-    </main>
+    </div>
   );
 }

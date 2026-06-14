@@ -12,11 +12,13 @@ import {
   updateComment,
   deleteComment,
 } from "../../lib/api.js";
+
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const KEBAB_ICON = "/icons/ic_kebab.svg";
-const VECTOR_IMG = "/images/Img_Vector_683.svg";
+const VECTOR_IMG = "/images/Img_vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
+const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 
 const MOCK_NICKNAME = "총명한판다"; // TODO:
 const MOCK_COMMENT_NICKNAME = "똑똑한판다"; // TODO:
@@ -47,7 +49,7 @@ function KebabMenu({ onEdit, onDelete }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-10 min-w-[100px] overflow-hidden">
+        <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-10 min-w-25 overflow-hidden">
           <button
             onClick={() => {
               setOpen(false);
@@ -84,7 +86,6 @@ export default function ArticleDetailPage() {
   const [commentInput, setCommentInput] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
 
-  // inline edit state for comments
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
 
@@ -92,7 +93,6 @@ export default function ArticleDetailPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // TODO: fetchData() 가 무슨 역할인지 알아봐
     async function fetchData() {
       try {
         const [articleRes, commentsRes] = await Promise.all([
@@ -163,15 +163,13 @@ export default function ArticleDetailPage() {
 
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center text-sm text-gray-400">
-        불러오는 중...
-      </div>
+      <p className="text-center text-sm text-gray-400 py-20">불러오는 중...</p>
     );
   }
 
   if (error || !article) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+      <div className="text-center py-20">
         <p className="text-sm text-gray-500 mb-4">
           {error || "게시글을 찾을 수 없습니다."}
         </p>
@@ -186,12 +184,11 @@ export default function ArticleDetailPage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 sm:py-10">
+    <div className="max-w-3xl mx-auto">
       {/* ── Article ── */}
       <article className="pb-6 border-b border-gray-100 mb-8">
-        {/* Title + kebab */}
-        <div className="flex items-start justify-between gap-3 mb-4 mt-17.5">
-          <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug flex-1 ">
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug flex-1">
             {article.title}
           </h1>
           <KebabMenu
@@ -200,7 +197,6 @@ export default function ArticleDetailPage() {
           />
         </div>
 
-        {/* Meta */}
         <div className="flex items-center gap-3 text-sm text-gray-500 mb-6">
           <Image
             src={PROFILE_ICON}
@@ -210,7 +206,6 @@ export default function ArticleDetailPage() {
             className="rounded-full"
           />
           <span className="text-gray-700">{MOCK_NICKNAME}</span>
-
           <span>
             {new Date(article.createdAt)
               .toLocaleDateString("ko-KR", {
@@ -220,7 +215,6 @@ export default function ArticleDetailPage() {
               })
               .replace(/\. /g, ". ")}
           </span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <Image src={VECTOR_IMG} alt="" width={1} height={34} />
           <div className="ml-auto flex items-center gap-1.5 px-3 py-1 border border-gray-200 rounded-full text-gray-500">
             <Image src={HEART_ICON} alt="" width={16} height={16} />
@@ -228,7 +222,6 @@ export default function ArticleDetailPage() {
           </div>
         </div>
 
-        {/* Content */}
         <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
           {article.content}
         </p>
@@ -258,15 +251,21 @@ export default function ArticleDetailPage() {
       {/* ── Comments ── */}
       <section className="mb-12">
         {comments.length === 0 ? (
-          <p className="text-center text-sm text-gray-400 py-8">
-            아직 댓글이 없어요. 첫 댓글을 남겨보세요!
-          </p>
+          <div className="flex flex-col items-center py-12 gap-2">
+            <Image
+              src={EMPTY_COMMENT_IMG}
+              alt="댓글 없음"
+              width={140}
+              height={140}
+            />
+            <p className="text-sm text-gray-400 mt-2">아직 댓글이 없어요,</p>
+            <p className="text-sm text-gray-400">지금 댓글을 달아보세요!</p>
+          </div>
         ) : (
           <ul>
             {comments.map((comment) => (
               <li key={comment.id} className="py-5 border-b border-gray-100">
                 {editingId === comment.id ? (
-                  /* inline edit */
                   <div>
                     <textarea
                       value={editContent}
@@ -292,7 +291,6 @@ export default function ArticleDetailPage() {
                   </div>
                 ) : (
                   <div>
-                    {/* Comment text + kebab */}
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <p className="text-sm text-gray-800 flex-1">
                         {comment.content}
@@ -302,8 +300,6 @@ export default function ArticleDetailPage() {
                         onDelete={() => handleDeleteComment(comment.id)}
                       />
                     </div>
-
-                    {/* Author + time */}
                     <div className="flex items-center gap-2 text-xs text-gray-400">
                       <Image
                         src={PROFILE_ICON}
@@ -341,7 +337,7 @@ export default function ArticleDetailPage() {
           />
         </Link>
       </div>
-    </main>
+    </div>
   );
 }
 

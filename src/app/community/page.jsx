@@ -61,7 +61,7 @@ export default function CommunityPage() {
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8 mt-17.5">
+    <div className="max-w-5xl mx-auto">
       {/* ── Best Articles ── */}
       <section className="mb-10">
         <h2 className="text-base font-bold text-gray-900 mb-4">
@@ -159,6 +159,6 @@ export default function CommunityPage() {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }

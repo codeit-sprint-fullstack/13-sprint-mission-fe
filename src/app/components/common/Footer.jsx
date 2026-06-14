@@ -3,18 +3,18 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-[70px] bg-gray-900 h-[160px]">
+    <footer className=" bg-gray-900">
       <div
-        className="h-full max-w-[1920px] mx-auto px-[200px] flex items-center justify-center"
-        style={{ padding: "0 clamp(8px, calc(21.8vw - 135.8px), 200px)" }}
+        className="max-w-[1920px] flex flex-wrap gap-6 items-center"
+        style={{
+          padding: "32px clamp(16px, calc(21.8vw - 135.8px), 200px) 32px 16px",
+        }}
       >
-        <span className="text-gray-400 text-base font-normal">
-          ©codeit - 2024
-        </span>
-        <div className="flex gap-[30px] mx-auto">
+        <div className="flex gap-[30px] mx-auto order-2 max-[465px]:order-1 max-[465px]:ml-0 max-[465px]:mr-auto">
+          {/* max-[375px] */}
           <Link
             href="/privacy"
-            className="text-gray-200 no-underline text-base font-normal cursor-pointer"
+            className="text-gray-200 no-underline text-base font-normal cursor-pointer "
           >
             Privacy Policy
           </Link>
@@ -25,7 +25,7 @@ export default function Footer() {
             FAQ
           </Link>
         </div>
-        <div className="flex gap-3 items-center shrink-0">
+        <div className="flex items-center gap-3 shrink-0 order-3 max-[465px]:order-2">
           <a
             href="https://www.facebook.com"
             target="_blank"
@@ -79,6 +79,9 @@ export default function Footer() {
             />
           </a>
         </div>
+        <span className="text-gray-400 text-base font-normal order-1 max-[465px]:order-3">
+          ©codeit - 2024
+        </span>
       </div>
     </footer>
   );

@@ -1,8 +1,11 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
 import { getDate } from "@/utils/getDate";
 
 export default function CommentItem({ data }) {
+  const [isClicked, setIsClicked] = useState(false);
   return (
     <div className="bg-[#fcfcfc] border-b border-secondary-200 cursor-pointer">
       <div className="flex justify-between">
@@ -31,15 +34,24 @@ export default function CommentItem({ data }) {
             {getDate(data.createdAt)}
           </p>
         </div>
-        <div className="flex gap-2 mt-[16px] mb-[24px]">
+        <div
+          onClick={() => {
+            setIsClicked((prev) => !prev);
+          }}
+          className=" flex gap-2 mt-[16px] mb-[24px]"
+        >
           <Image
-            src="/icons/ic_heart.svg"
+            src={
+              isClicked
+                ? "/icons/ic_heart_full.svg"
+                : "/icons/ic_heart_empty.svg"
+            }
             alt="heart icon"
             width={24}
             height={24}
           />
-          <p className="text-[16px]/[26px] text-secondary-500 font-normal">
-            {data.likes}
+          <p className="w-[50px] text-[16px]/[26px] text-secondary-500 font-normal">
+            {data.likes > 9999 ? "9999+" : data.likes}
           </p>
         </div>
       </div>

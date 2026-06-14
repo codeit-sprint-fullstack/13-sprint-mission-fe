@@ -1,8 +1,11 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
 import { getDate } from "@/utils/getDate";
 
 export default function PopularPostCard({ data }) {
+  const [isClicked, setIsClicked] = useState(false);
   return (
     <article className="w-fit px-[24px] pb-[16px] bg-secondary-50 rounded-lg">
       <div className="w-fit flex gap-[5px] bg-primary px-[24px] py-[2px] text-white rounded-br-[16px] rounded-bl-[16px]">
@@ -20,7 +23,7 @@ export default function PopularPostCard({ data }) {
         </h1>
         <div className="w-[72px] h-[72px] flex justify-center items-center border-secondary-200 border-[1px] border-radis rounded-md">
           <Image
-            src="/images/item.png"
+            src={"/images/item.png"}
             alt="product image"
             width={45}
             height={45}
@@ -30,9 +33,18 @@ export default function PopularPostCard({ data }) {
       <footer className="flex justify-between text-[14px] font-normal">
         <div className="flex text-secondary-600 gap-[8px]">
           <div>{data.author}</div>
-          <div className="flex text-secondary-500 gap-[4px]">
+          <div
+            onClick={() => {
+              setIsClicked((prev) => !prev);
+            }}
+            className="flex text-secondary-500 gap-[4px]"
+          >
             <Image
-              src="/icons/ic_heart.svg"
+              src={
+                isClicked
+                  ? "/icons/ic_heart_full.svg"
+                  : "/icons/ic_heart_empty.svg"
+              }
               alt="heart icon"
               width={16}
               height={16}

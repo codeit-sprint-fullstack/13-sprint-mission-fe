@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import CommentItem from "@/components/ui/CommentItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
 import { mockPosts } from "@/mocks/posts";
@@ -31,7 +32,7 @@ export default function BoardListPage() {
             글쓰기
           </Button>
         </header>
-        <div className="mb-[24px]">
+        <div>
           <Input
             placeholder="검색할 상품을 입력해주세요"
             prefix={
@@ -43,6 +44,11 @@ export default function BoardListPage() {
               />
             }
           />
+        </div>
+        <div className="flex flex-col gap-6 mt-[24px] mb-[78px]">
+          {mockPosts.map((post, index) => (
+            <CommentItem key={index} data={post} />
+          ))}
         </div>
       </section>
     </div>

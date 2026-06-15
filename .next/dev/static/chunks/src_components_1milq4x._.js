@@ -7,9 +7,9 @@ __turbopack_context__.s([
     ()=>apiUrl
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
-const apiBaseUrl = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_BASE_URL || "";
+const apiBaseUrl = ("TURBOPACK compile-time value", "http://127.0.0.1:4000/api") || "";
 function apiUrl(path) {
-    return apiBaseUrl ? `${apiBaseUrl}${path}` : `/api${path}`;
+    return ("TURBOPACK compile-time truthy", 1) ? `${apiBaseUrl}${path}` : "TURBOPACK unreachable";
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -74,11 +74,11 @@ const defaultImage = "/images/default-product.svg";
 function BoardPage() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(38);
-    if ($[0] !== "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f") {
+    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
         for(let $i = 0; $i < 38; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f";
+        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -113,7 +113,7 @@ function BoardPage() {
                     if (query.trim()) {
                         params.set("keyword", query.trim());
                     }
-                    const response = await fetch(`${apiUrl("/articles")}?${params.toString()}`, {
+                    const response = await fetch(`${(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$api$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiUrl"])("/articles")}?${params.toString()}`, {
                         cache: "no-store"
                     });
                     const data = await response.json();
@@ -142,7 +142,7 @@ function BoardPage() {
         t4 = ({
             "BoardPage[useEffect()]": ()=>{
                 const fetchBestPosts = async function fetchBestPosts() {
-                    const response_0 = await fetch(`${apiUrl("/articles")}?sort=latest&limit=3`, {
+                    const response_0 = await fetch(`${(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$api$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiUrl"])("/articles")}?sort=latest&limit=3`, {
                         cache: "no-store"
                     });
                     const data_0 = await response_0.json();
@@ -282,7 +282,7 @@ function BoardPage() {
                     className: "w-full bg-transparent text-gray-900 outline-none placeholder:text-gray-400",
                     value: query,
                     onChange: t12,
-                    placeholder: "\uAC80\uC0C9\uD560 \uC0C1\uD488\uC744 \uC784\uB825\uD574\uC8FC\uC138\uC694"
+                    placeholder: "\uAC80\uC0C9\uD560 \uC0C1\uD488\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694"
                 }, void 0, false, {
                     fileName: "[project]/src/components/BoardPage.js",
                     lineNumber: 150,
@@ -357,7 +357,7 @@ function BoardPage() {
     let t18;
     if ($[24] !== t13 || $[25] !== t17) {
         t18 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mb-3 grid gird-cols-1 gap-3 sm:grid-cols-[1fr_112px]",
+            className: "mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_112px]",
             children: [
                 t13,
                 t17
@@ -473,11 +473,11 @@ function _BoardPageBestPostsMap(post) {
 }
 function BestCard(t0) {
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(27);
-    if ($[0] !== "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f") {
+    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
         for(let $i = 0; $i < 27; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f";
+        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
     }
     const { post } = t0;
     let t1;
@@ -493,7 +493,7 @@ function BestCard(t0) {
     let t3;
     if ($[3] === Symbol.for("react.memo_cache_sentinel")) {
         t3 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "absoulte left-5 top-0 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
+            className: "absolute left-5 top-0 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
             children: "🏅 Best"
         }, void 0, false, {
             fileName: "[project]/src/components/BoardPage.js",
@@ -657,11 +657,11 @@ function BestCard(t0) {
 _c1 = BestCard;
 function PostRow(t0) {
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(29);
-    if ($[0] !== "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f") {
+    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
         for(let $i = 0; $i < 29; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "b319354922d06424f9320a71df82a7b7d73a051acf4bde63cc9f958a6573280f";
+        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
     }
     const { post } = t0;
     let t1;
@@ -742,7 +742,7 @@ function PostRow(t0) {
     let t8;
     if ($[12] !== t5 || $[13] !== t7) {
         t8 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex items-center gap-2 tex-[13px] text-gray-400",
+            className: "flex items-center gap-2 text-[13px] text-gray-400",
             children: [
                 t4,
                 t5,

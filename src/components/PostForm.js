@@ -73,7 +73,7 @@ export default function PostForm({ mode, postId }) {
             {isEdit ? "게시글 수정" : "게시글 쓰기"}
           </h1>
           <button
-            className="h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 dissabled:bg-gray-400"
+            className="h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 disabled:bg-gray-400"
             type="submit"
             disabled={!canSubmit}
           >

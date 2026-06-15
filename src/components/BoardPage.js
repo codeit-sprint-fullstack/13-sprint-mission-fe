@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { apoUrl } from "./api";
+import { apiUrl } from "./api";
 import { formatDate, getDisplayMeta } from "./meta";
 
 const defaultImage = "/images/default-product.svg";
@@ -57,7 +57,7 @@ export default function BoardPage() {
 
   return (
     <section>
-      <div className="mx-auto max-w-[1040px] px-5 pb-16 pt-7 sm:px-6">
+      <div className="mx-auto max-w-[1040px] px-5 pt-7 pb-16 sm:px-6">
         <section aria-labelledby="best-heading">
           <h2 id="best-heading" className="mb-5 text-xl font-bold">
             베스트 게시글
@@ -82,14 +82,14 @@ export default function BoardPage() {
             </Link>
           </div>
 
-          <div className="mb-3 grid gird-cols-1 gap-3 sm:grid-cols-[1fr_112px]">
+          <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_112px]">
             <label className="flex h-[42px] items-center gap-2 rounded-lg bg-gray-100 px-4 text-gray-400">
               <span aria-hidden="true">⌕</span>
               <input
                 className="w-full bg-transparent text-gray-900 outline-none placeholder:text-gray-400"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="검색할 상품을 임력해주세요"
+                placeholder="검색할 상품을 입력해주세요"
               />
             </label>
             <select
@@ -121,14 +121,14 @@ function BestCard({ post }) {
 
   return (
     <Link
-      className="relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pb-[18px] pt-[42px]"
+      className="relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pt-[42px] pb-[18px]"
       href={`/freeboard/${post.id}`}
     >
-      <span className="absoulte left-5 top-0 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white">
+      <span className="absolute top-0 left-5 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white">
         🏅 Best
       </span>
       <div className="grid grid-cols-[1fr_56px] items-center gap-4">
-        <h3 className="text-[17px] font-bold leading-[1.55]">{post.title}</h3>
+        <h3 className="text-[17px] leading-[1.55] font-bold">{post.title}</h3>
         <img
           className="size-14 rounded-md border border-gray-200 bg-white object-cover"
           src={post.imageUrl || defaultImage}
@@ -153,8 +153,8 @@ function PostRow({ post }) {
       href={`/freeboard/${post.id}`}
     >
       <div className="flex min-w-0 flex-col justify-between gap-5">
-        <h3 className="text-[17px] font-bold leading-[1.55]">{post.title}</h3>
-        <div className="flex items-center gap-2 tex-[13px] text-gray-400">
+        <h3 className="text-[17px] leading-[1.55] font-bold">{post.title}</h3>
+        <div className="flex items-center gap-2 text-[13px] text-gray-400">
           <span className="grid size-5 place-items-center rounded-full bg-gray-200 text-xs">
             🐼
           </span>

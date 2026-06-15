@@ -221,7 +221,7 @@ function CommentItem({ postId, comment, onChange }) {
           </button>
         ) : (
           <button
-            className="inline-flex h-[34px] min-w-[54px] items-center justify-center rounded-lg border border-gray-200 bg-white px-3 font-bold text-gray-700 diabled:text-gray-300"
+            className="inline-flex h-[34px] min-w-[54px] items-center justify-center rounded-lg border border-gray-200 bg-white px-3 font-bold text-gray-700 disabled:text-gray-300"
             type="button"
             onClick={() => setEditing(true)}
           >

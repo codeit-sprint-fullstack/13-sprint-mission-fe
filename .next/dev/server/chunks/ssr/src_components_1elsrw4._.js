@@ -6,9 +6,9 @@ __turbopack_context__.s([
     "apiUrl",
     ()=>apiUrl
 ]);
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+const apiBaseUrl = ("TURBOPACK compile-time value", "http://127.0.0.1:4000/api") || "";
 function apiUrl(path) {
-    return apiBaseUrl ? `${apiBaseUrl}${path}` : `/api${path}`;
+    return ("TURBOPACK compile-time truthy", 1) ? `${apiBaseUrl}${path}` : "TURBOPACK unreachable";
 }
 }),
 "[project]/src/components/PostForm.js [app-ssr] (ecmascript)", ((__turbopack_context__) => {
@@ -102,7 +102,7 @@ function PostForm({ mode, postId }) {
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 dissabled:bg-gray-400",
+                            className: "h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 disabled:bg-gray-400",
                             type: "submit",
                             disabled: !canSubmit,
                             children: isEdit ? "수정" : "등록"

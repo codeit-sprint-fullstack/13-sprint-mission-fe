@@ -7,9 +7,9 @@ __turbopack_context__.s([
     ()=>apiUrl
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
-const apiBaseUrl = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_BASE_URL || "";
+const apiBaseUrl = ("TURBOPACK compile-time value", "http://127.0.0.1:4000/api") || "";
 function apiUrl(path) {
-    return apiBaseUrl ? `${apiBaseUrl}${path}` : `/api${path}`;
+    return ("TURBOPACK compile-time truthy", 1) ? `${apiBaseUrl}${path}` : "TURBOPACK unreachable";
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -37,11 +37,11 @@ var _s = __turbopack_context__.k.signature();
 function PostForm(t0) {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(38);
-    if ($[0] !== "9f50b83010fc714f9c90b9bb02164fd5c31455634567f09405e48cf1420dee6d") {
+    if ($[0] !== "6b1a216d8e77101efc15c899c4b3dc0fdf7b087391dba3134d7c2debdd3c8a1f") {
         for(let $i = 0; $i < 38; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "9f50b83010fc714f9c90b9bb02164fd5c31455634567f09405e48cf1420dee6d";
+        $[0] = "6b1a216d8e77101efc15c899c4b3dc0fdf7b087391dba3134d7c2debdd3c8a1f";
     }
     const { mode, postId } = t0;
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
@@ -156,7 +156,7 @@ function PostForm(t0) {
     let t9;
     if ($[19] !== t7 || $[20] !== t8) {
         t9 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-            className: "h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 dissabled:bg-gray-400",
+            className: "h-[34px] min-w-[62px] rounded-lg bg-blue-500 px-[18px] font-bold text-white hover:bg-blue-600 disabled:bg-gray-400",
             type: "submit",
             disabled: t7,
             children: t8

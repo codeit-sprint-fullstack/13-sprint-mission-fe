@@ -1,5 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 import Image from "next/image";
 
 import Input from "@/components/ui/Input";
@@ -21,7 +22,9 @@ export default function BoardListPage() {
         <Swiper slidesPerView="auto" spaceBetween={24}>
           {mockPosts.slice(0, 3).map((bestPost, index) => (
             <SwiperSlide key={index} className="w-auto!">
-              <PopularPostCard data={bestPost} />
+              <Link href="/board/:boardId">
+                <PopularPostCard data={bestPost} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -29,9 +32,15 @@ export default function BoardListPage() {
       <section>
         <header className="flex justify-between mb-[24px]">
           <h1 className="text-secondary-900 text-[20px] font-bold">게시글</h1>
-          <Button variant="rectangle" className="bg-primary text-white">
-            글쓰기
-          </Button>
+          <Link href="/board/create">
+            <Button
+              type="button"
+              variant="rectangle"
+              className="bg-primary text-white"
+            >
+              글쓰기
+            </Button>
+          </Link>
         </header>
         <div className="flex items-center gap-[6px]">
           <Input
@@ -49,7 +58,9 @@ export default function BoardListPage() {
         </div>
         <div className="flex flex-col gap-6 mt-[24px] mb-[78px]">
           {mockPosts.map((post, index) => (
-            <CommentItem key={index} data={post} />
+            <Link href="/board/:boardId" key={index}>
+              <CommentItem data={post} />
+            </Link>
           ))}
         </div>
       </section>

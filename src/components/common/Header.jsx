@@ -1,9 +1,12 @@
+"use client";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 import Button from "../ui/Button";
 
 export default function Header() {
+  const pathname = usePathname();
   return (
     <header className="w-full h-[68px] flex items-center min-desktop:px-[200px] max-desktop:px-[24px] border-b-[1px] border-secondary-300">
       <div className="w-full flex items-center gap-[24px] max-desktop:gap-[8px]">
@@ -20,7 +23,10 @@ export default function Header() {
           </div>
         </Link>
         <nav className="flex font-bold text-[18px] text-secondary-600 max-tablet:text-[16px] max-tablet:gap-2">
-          <Link href="/community" className="px-[15px] max-tablet:px-0">
+          <Link
+            href="/board"
+            className={`px-[15px] max-tablet:px-0 ${(pathname === "/board" || pathname === "/board/create") && "text-primary"}`}
+          >
             자유게시판
           </Link>
           <Link href="/items" className="px-[15px] max-tablet:px-0">
@@ -30,6 +36,7 @@ export default function Header() {
       </div>
       <Link href="/login">
         <Button
+          type="button"
           variant="rectangle"
           className="bg-primary text-white max-tablet:text-[16px]"
         >

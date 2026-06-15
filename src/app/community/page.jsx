@@ -153,7 +153,7 @@ export default function CommunityPage() {
                     onClick={() => handlePage(p)}
                     className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
                       page === p
-                        ? "bg-blue-500 text-white"
+                        ? "bg-primary text-white"
                         : "border border-secondary-200 hover:bg-secondary-50"
                     }`}
                   >

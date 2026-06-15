@@ -277,7 +277,7 @@ export default function ArticleDetailPage() {
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition mb-2"
+                      className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary transition mb-2"
                     />
                     <div className="flex gap-2 justify-end">
                       <button

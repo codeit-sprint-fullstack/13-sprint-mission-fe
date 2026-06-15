@@ -7,7 +7,7 @@ export default function Footer() {
       <div
         className="max-w-[1920px] flex flex-wrap gap-6 items-center"
         style={{
-          padding: "32px clamp(16px, calc(21.8vw - 135.8px), 200px) 32px 16px",
+          padding: "32px clamp(16px, calc(21.8vw - 135.8px), 200px)",
         }}
       >
         <div className="flex gap-[30px] mx-auto order-2 max-[465px]:order-1 max-[465px]:ml-0 max-[465px]:mr-auto">

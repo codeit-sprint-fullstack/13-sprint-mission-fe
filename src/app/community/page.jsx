@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { getArticles } from "@/app/lib/api";
 import BestArticleCard from "@/app/components/ui/BestArticleCard";
@@ -9,6 +9,14 @@ import SearchBar from "@/app/components/ui/SearchBar";
 import SortDropdown from "@/app/components/ui/SortDropdown";
 
 export default function CommunityPage() {
+  return (
+    <Suspense>
+      <CommunityContent />
+    </Suspense>
+  );
+}
+
+function CommunityContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

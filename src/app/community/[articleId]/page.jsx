@@ -20,9 +20,9 @@ const VECTOR_IMG = "/images/Img_vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 
-const MOCK_NICKNAME = "총명한판다"; // TODO:
-const MOCK_COMMENT_NICKNAME = "똑똑한판다"; // TODO:
-const MOCK_LIKES = 123; // TODO: 이거 내 데이터로 바꿔야할것 같음 ㅇㅇ
+const MOCK_NICKNAME = "총명한판다";
+const MOCK_COMMENT_NICKNAME = "똑똑한판다";
+const MOCK_LIKES = 123;
 
 // ── Kebab dropdown menu ──────────────────────────────────────────────────
 

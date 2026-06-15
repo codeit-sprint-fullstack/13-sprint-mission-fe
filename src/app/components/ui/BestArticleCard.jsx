@@ -12,17 +12,17 @@ export default function BestArticleCard({ article }) {
   return (
     <Link
       href={`/community/${article.id}`}
-      className="block bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors"
+      className="block bg-secondary-50 rounded-xl p-4 hover:bg-secondary-100 transition-colors"
     >
       {/* 배지 부분 */}
-      <div className="inline-flex items-center gap-1 px-3 py-1 bg-[#3692FF] text-white text-xs font-semibold rounded-full mb-3">
+      <div className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-3">
         <Image src={BEST_ICON} alt="best" width={16} height={16} />
         Best
       </div>
 
       {/* Title + image */}
       <div className="flex items-start justify-between gap-3">
-        <p className="text-sm font-medium text-gray-900 line-clamp-2 leading-snug flex-1">
+        <p className="text-sm font-medium text-secondary-900 line-clamp-2 leading-snug flex-1">
           {article.title}
         </p>
         <div className="w-18 h-18 rounded-lg bg-white shrink-0 flex items-center justify-center">
@@ -35,7 +35,7 @@ export default function BestArticleCard({ article }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
+      <div className="flex items-center justify-between mt-3 text-xs text-secondary-500">
         <div className="flex items-center gap-2">
           <span>{MOCK_NICKNAME}</span>
           <Image src={HEART_ICON} alt="좋아요" width={16} height={16} />

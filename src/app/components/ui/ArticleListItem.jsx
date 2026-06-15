@@ -11,14 +11,14 @@ export default function ArticleListItem({ article }) {
   return (
     <Link
       href={`/community/${article.id}`}
-      className="flex items-center justify-between py-5 border-b border-gray-100 hover:bg-gray-50 transition-colors px-1 gap-4"
+      className="flex items-center justify-between py-5 border-b border-secondary-100 hover:bg-secondary-50 transition-colors px-1 gap-4"
     >
       {/* Left: title + meta */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-gray-900 truncate mb-3">
+        <p className="text-sm font-medium text-secondary-900 truncate mb-3">
           {article.title}
         </p>
-        <div className="flex items-center gap-3 text-xs text-gray-500">
+        <div className="flex items-center gap-3 text-xs text-secondary-500">
           <div className="flex items-center gap-1.5">
             <Image
               src={PROFILE_ICON}

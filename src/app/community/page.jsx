@@ -76,7 +76,7 @@ export default function CommunityPage() {
     <div className="max-w-5xl mx-auto">
       {/* ── Best Articles ── */}
       <section className="mb-10">
-        <h2 className="text-base font-bold text-gray-900 mb-4">
+        <h2 className="text-base font-bold text-secondary-900 mb-4">
           베스트 게시글
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -89,10 +89,10 @@ export default function CommunityPage() {
       {/* ── Article List ── */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-bold text-gray-900">게시글</h2>
+          <h2 className="text-base font-bold text-secondary-900">게시글</h2>
           <button
             onClick={() => router.push("/community/new")}
-            className="px-4 py-1.5 bg-[#3692FF] text-white text-sm font-medium rounded-lg transition-colors"
+            className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded-lg transition-colors"
           >
             글쓰기
           </button>
@@ -104,11 +104,11 @@ export default function CommunityPage() {
         </div>
 
         {loading ? (
-          <div className="py-20 text-center text-sm text-gray-400">
+          <div className="py-20 text-center text-sm text-secondary-400">
             불러오는 중...
           </div>
         ) : articles.length === 0 ? (
-          <div className="py-20 text-center text-sm text-gray-400">
+          <div className="py-20 text-center text-sm text-secondary-400">
             {search
               ? `"${search}"에 대한 게시글이 없습니다.`
               : "게시글이 없습니다."}
@@ -126,7 +126,7 @@ export default function CommunityPage() {
             <button
               onClick={() => handlePage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition-colors"
+              className="px-3 py-1.5 text-sm border border-secondary-200 rounded-lg disabled:opacity-40 hover:bg-secondary-50 transition-colors"
             >
               이전
             </button>
@@ -143,7 +143,7 @@ export default function CommunityPage() {
                 p === "..." ? (
                   <span
                     key={`ellipsis-${i}`}
-                    className="px-2 text-gray-400 text-sm"
+                    className="px-2 text-secondary-400 text-sm"
                   >
                     ...
                   </span>
@@ -154,7 +154,7 @@ export default function CommunityPage() {
                     className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
                       page === p
                         ? "bg-blue-500 text-white"
-                        : "border border-gray-200 hover:bg-gray-50"
+                        : "border border-secondary-200 hover:bg-secondary-50"
                     }`}
                   >
                     {p}
@@ -164,7 +164,7 @@ export default function CommunityPage() {
             <button
               onClick={() => handlePage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-40 hover:bg-gray-50 transition-colors"
+              className="px-3 py-1.5 text-sm border border-secondary-200 rounded-lg disabled:opacity-40 hover:bg-secondary-50 transition-colors"
             >
               다음
             </button>

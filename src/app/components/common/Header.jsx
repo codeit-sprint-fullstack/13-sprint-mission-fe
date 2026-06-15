@@ -26,7 +26,7 @@ export default function Header() {
             className="shrink-0 max-[465px]:hidden"
           />
           <span
-            className="text-[#3692FF] text-[25.633px] font-bold whitespace-nowrap max-[465px]:text-lg"
+            className="text-primary text-[25.633px] font-bold whitespace-nowrap max-[465px]:text-lg"
             style={{ fontFamily: '"ROKAF Sans"' }}
           >
             판다마켓
@@ -34,12 +34,11 @@ export default function Header() {
         </Link>
 
         <div className="flex flex-1 items-center pl-5 max-[465px]:pl-4">
-          
           <Link
             href="/community"
             className={`text-center text-lg font-bold leading-6.5 no-underline whitespace-nowrap max-[465px]:text-sm ${
               pathname === "/community" || pathname === "/new"
-                ? "text-[#3692FF]"
+                ? "text-primary"
                 : "text-[#4b5563]"
             }`}
             style={{ margin: "0 clamp(4px, calc(1.13vw + 0.1px), 15px)" }}
@@ -49,7 +48,7 @@ export default function Header() {
           <Link
             href="/market"
             className={`text-center text-lg font-bold leading-6.5 no-underline whitespace-nowrap max-[465px]:text-sm ${
-              pathname === "/market" ? "text-[#3692FF]" : "text-[#4b5563]"
+              pathname === "/market" ? "text-primary" : "text-[#4b5563]"
             }`}
             style={{ margin: "0 clamp(4px, calc(1.13vw + 0.1px), 15px)" }}
           >
@@ -59,7 +58,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="inline-flex h-10.5 max-[465px]:h-9 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-[#3692FF] whitespace-nowrap max-[465px]:text-sm"
+          className="inline-flex h-10.5 max-[465px]:h-9 justify-center items-center border-none rounded-lg text-white text-base font-semibold cursor-pointer bg-primary whitespace-nowrap max-[465px]:text-sm"
           style={{ padding: "0 clamp(12px, calc(1.13vw + 7.7px), 23px)" }}
           onClick={() => router.push("/login")} // TODO: 로그인 페이지 마이그레이션 미완
         >

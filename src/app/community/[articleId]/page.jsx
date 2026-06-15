@@ -42,20 +42,20 @@ function KebabMenu({ onEdit, onDelete }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+        className="p-1 text-secondary-400 hover:text-secondary-600 transition-colors"
         aria-label="더보기"
       >
         <Image src={KEBAB_ICON} alt="" width={20} height={20} />
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-10 min-w-25 overflow-hidden">
+        <div className="absolute right-0 top-full mt-1 bg-white border border-secondary-200 rounded-lg shadow-md z-10 min-w-25 overflow-hidden">
           <button
             onClick={() => {
               setOpen(false);
               onEdit();
             }}
-            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            className="w-full text-left px-4 py-2.5 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
           >
             수정하기
           </button>
@@ -64,7 +64,7 @@ function KebabMenu({ onEdit, onDelete }) {
               setOpen(false);
               onDelete();
             }}
-            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            className="w-full text-left px-4 py-2.5 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
           >
             삭제하기
           </button>
@@ -163,20 +163,19 @@ export default function ArticleDetailPage() {
 
   if (loading) {
     return (
-      <p className="text-center text-sm text-gray-400 py-20">불러오는 중...</p>
+      <p className="text-center text-sm text-secondary-400 py-20">
+        불러오는 중...
+      </p>
     );
   }
 
   if (error || !article) {
     return (
       <div className="text-center py-20">
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-secondary-500 mb-4">
           {error || "게시글을 찾을 수 없습니다."}
         </p>
-        <Link
-          href="/community"
-          className="bg-[#3692FF] text-sm hover:underline"
-        >
+        <Link href="/community" className="bg-primary text-sm hover:underline">
           목록으로 돌아가기
         </Link>
       </div>
@@ -186,9 +185,9 @@ export default function ArticleDetailPage() {
   return (
     <div className="max-w-3xl mx-auto">
       {/* ── Article ── */}
-      <article className="pb-6 border-b border-gray-100 mb-8">
+      <article className="pb-6 border-b border-secondary-100 mb-8">
         <div className="flex items-start justify-between gap-3 mb-4">
-          <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug flex-1">
+          <h1 className="text-lg sm:text-xl font-bold text-secondary-900 leading-snug flex-1">
             {article.title}
           </h1>
           <KebabMenu
@@ -197,7 +196,7 @@ export default function ArticleDetailPage() {
           />
         </div>
 
-        <div className="flex items-center gap-3 text-sm text-gray-500 mb-6">
+        <div className="flex items-center gap-3 text-sm text-secondary-500 mb-6">
           <Image
             src={PROFILE_ICON}
             alt=""
@@ -205,7 +204,7 @@ export default function ArticleDetailPage() {
             height={32}
             className="rounded-full"
           />
-          <span className="text-gray-700">{MOCK_NICKNAME}</span>
+          <span className="text-secondary-700">{MOCK_NICKNAME}</span>
           <span>
             {new Date(article.createdAt)
               .toLocaleDateString("ko-KR", {
@@ -216,32 +215,32 @@ export default function ArticleDetailPage() {
               .replace(/\. /g, ". ")}
           </span>
           <Image src={VECTOR_IMG} alt="" width={1} height={34} />
-          <div className="ml-auto flex items-center gap-1.5 px-3 py-1 border border-gray-200 rounded-full text-gray-500">
+          <div className="ml-auto flex items-center gap-1.5 px-3 py-1 border border-secondary-200 rounded-full text-secondary-500">
             <Image src={HEART_ICON} alt="" width={16} height={16} />
             <span>{MOCK_LIKES}</span>
           </div>
         </div>
 
-        <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+        <p className="text-sm text-secondary-700 leading-relaxed whitespace-pre-wrap">
           {article.content}
         </p>
       </article>
 
       {/* ── Comment Input ── */}
       <section className="mb-8">
-        <h2 className="text-sm font-bold text-gray-900 mb-3">댓글달기</h2>
+        <h2 className="text-sm font-bold text-secondary-900 mb-3">댓글달기</h2>
         <textarea
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
           placeholder="댓글을 입력해주세요."
           rows={3}
-          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400"
         />
         <div className="flex justify-end mt-3">
           <button
             onClick={handleCreateComment}
             disabled={!commentInput.trim() || submittingComment}
-            className="px-6 py-2 bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-[#3692FF] enabled:hover:bg-[#3692FF] disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-secondary-400 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-primary enabled:hover:bg-primary disabled:cursor-not-allowed"
           >
             {submittingComment ? "등록 중..." : "등록"}
           </button>
@@ -258,32 +257,39 @@ export default function ArticleDetailPage() {
               width={140}
               height={140}
             />
-            <p className="text-sm text-gray-400 mt-2">아직 댓글이 없어요,</p>
-            <p className="text-sm text-gray-400">지금 댓글을 달아보세요!</p>
+            <p className="text-sm text-secondary-400 mt-2">
+              아직 댓글이 없어요,
+            </p>
+            <p className="text-sm text-secondary-400">
+              지금 댓글을 달아보세요!
+            </p>
           </div>
         ) : (
           <ul>
             {comments.map((comment) => (
-              <li key={comment.id} className="py-5 border-b border-gray-100">
+              <li
+                key={comment.id}
+                className="py-5 border-b border-secondary-100"
+              >
                 {editingId === comment.id ? (
                   <div>
                     <textarea
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition mb-2"
+                      className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition mb-2"
                     />
                     <div className="flex gap-2 justify-end">
                       <button
                         onClick={() => setEditingId(null)}
-                        className="px-4 py-1.5 text-xs border border-gray-200 rounded-lg transition-colors"
+                        className="px-4 py-1.5 text-xs border border-secondary-200 rounded-lg transition-colors"
                       >
                         취소
                       </button>
                       <button
                         onClick={() => handleUpdateComment(comment.id)}
                         disabled={!editContent.trim()}
-                        className="px-4 py-1.5 text-xs bg-[#3692FF] text-white rounded-lg disabled:bg-gray-300 transition-colors"
+                        className="px-4 py-1.5 text-xs bg-primary text-white rounded-lg disabled:bg-secondary-400 transition-colors"
                       >
                         수정 완료
                       </button>
@@ -292,7 +298,7 @@ export default function ArticleDetailPage() {
                 ) : (
                   <div>
                     <div className="flex items-start justify-between gap-3 mb-3">
-                      <p className="text-sm text-gray-800 flex-1">
+                      <p className="text-sm text-secondary-800 flex-1">
                         {comment.content}
                       </p>
                       <KebabMenu
@@ -300,7 +306,7 @@ export default function ArticleDetailPage() {
                         onDelete={() => handleDeleteComment(comment.id)}
                       />
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <div className="flex items-center gap-2 text-xs text-secondary-400">
                       <Image
                         src={PROFILE_ICON}
                         alt=""
@@ -308,10 +314,10 @@ export default function ArticleDetailPage() {
                         height={24}
                         className="rounded-full"
                       />
-                      <span className="text-gray-600">
+                      <span className="text-secondary-600">
                         {MOCK_COMMENT_NICKNAME}
                       </span>
-                      <span className="text-gray-300">|</span>
+                      <span className="text-secondary-400">|</span>
                       <span>{timeAgo(comment.createdAt)}</span>
                     </div>
                   </div>
@@ -326,7 +332,7 @@ export default function ArticleDetailPage() {
       <div className="flex justify-center">
         <Link
           href="/community"
-          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-[#3692FF] text-white font-medium transition-colors whitespace-nowrap"
+          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-primary text-white font-medium transition-colors whitespace-nowrap"
         >
           목록으로 돌아가기
           <Image

@@ -32,11 +32,11 @@ export default function NewArticlePage() {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold text-gray-900">게시글 쓰기</h1>
+        <h1 className="text-xl font-bold text-secondary-900">게시글 쓰기</h1>
         <button
           onClick={handleSubmit}
           disabled={!isValid || submitting}
-          className="px-6 py-2 bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-blue-500 enabled:hover:bg-blue-600 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-secondary-400 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-blue-500 enabled:hover:bg-blue-600 disabled:cursor-not-allowed"
         >
           {submitting ? "등록 중..." : "등록"}
         </button>
@@ -51,7 +51,7 @@ export default function NewArticlePage() {
       <div className="mb-6">
         <label
           htmlFor="title"
-          className="block text-lg font-semibold text-gray-900 mb-2"
+          className="block text-lg font-semibold text-secondary-900 mb-2"
         >
           *제목
         </label>
@@ -61,14 +61,14 @@ export default function NewArticlePage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="제목을 입력해주세요"
-          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
 
       <div className="mb-6">
         <label
           htmlFor="content"
-          className="block text-lg font-semibold text-gray-900 mb-2"
+          className="block text-lg font-semibold text-secondary-900 mb-2"
         >
           *내용
         </label>
@@ -78,7 +78,7 @@ export default function NewArticlePage() {
           onChange={(e) => setContent(e.target.value)}
           placeholder="내용을 입력해주세요"
           rows={10}
-          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
     </div>

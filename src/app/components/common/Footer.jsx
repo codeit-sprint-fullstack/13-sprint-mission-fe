@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className=" bg-gray-900">
+    <footer className=" bg-secondary-900">
       <div
         className="max-w-[1920px] flex flex-wrap gap-6 items-center"
         style={{
@@ -14,13 +14,13 @@ export default function Footer() {
           {/* max-[375px] */}
           <Link
             href="/privacy"
-            className="text-gray-200 no-underline text-base font-normal cursor-pointer "
+            className="text-secondary-200 no-underline text-base font-normal cursor-pointer "
           >
             Privacy Policy
           </Link>
           <Link
             href="/faq"
-            className="text-gray-200 no-underline text-base font-normal cursor-pointer"
+            className="text-secondary-200 no-underline text-base font-normal cursor-pointer"
           >
             FAQ
           </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
             />
           </a>
         </div>
-        <span className="text-gray-400 text-base font-normal order-1 max-[465px]:order-3">
+        <span className="text-secondary-400 text-base font-normal order-1 max-[465px]:order-3">
           ©codeit - 2024
         </span>
       </div>

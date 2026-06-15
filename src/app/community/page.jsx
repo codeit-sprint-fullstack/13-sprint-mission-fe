@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { getArticles } from "@/app/lib/api";
 import BestArticleCard from "@/app/components/ui/BestArticleCard";
 import ArticleListItem from "@/app/components/ui/ArticleListItem";
@@ -10,13 +10,15 @@ import SortDropdown from "@/app/components/ui/SortDropdown";
 
 export default function CommunityPage() {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const [bestArticles, setBestArticles] = useState([]);
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("recent");
+  const [search, setSearch] = useState(searchParams.get("search") ?? "");
+  const [sort, setSort] = useState(searchParams.get("sort") ?? "recent");
   const [loading, setLoading] = useState(true);
 
   const LIMIT = 10;
@@ -43,16 +45,26 @@ export default function CommunityPage() {
     };
   }, [search, sort, page]);
 
+  const updateURL = (newSearch, newSort) => {
+    const params = new URLSearchParams();
+    if (newSearch) params.set("search", newSearch);
+    if (newSort !== "recent") params.set("sort", newSort);
+    const query = params.toString();
+    router.replace(`${pathname}${query ? `?${query}` : ""}`);
+  };
+
   const handleSearch = (v) => {
     setLoading(true);
     setSearch(v);
     setPage(1);
+    updateURL(v, sort);
   };
 
   const handleSort = (v) => {
     setLoading(true);
     setSort(v);
     setPage(1);
+    updateURL(search, v);
   };
 
   const handlePage = (p) => {
@@ -80,7 +92,7 @@ export default function CommunityPage() {
           <h2 className="text-base font-bold text-gray-900">게시글</h2>
           <button
             onClick={() => router.push("/community/new")}
-            className="px-4 py-1.5 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
+            className="px-4 py-1.5 bg-[#3692FF] text-white text-sm font-medium rounded-lg transition-colors"
           >
             글쓰기
           </button>

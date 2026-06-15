@@ -14,7 +14,11 @@ export default function SearchBar({
     const v = e.target.value;
     setLocal(v);
     if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => onChange(v), 400);
+    if (v.length === 0) {
+      onChange("");
+    } else if (v.length >= 1) {
+      timer.current = setTimeout(() => onChange(v), 400);
+    }
   };
 
   return (

@@ -15,7 +15,7 @@ export default function BestArticleCard({ article }) {
       className="block bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors"
     >
       {/* 배지 부분 */}
-      <div className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full mb-3">
+      <div className="inline-flex items-center gap-1 px-3 py-1 bg-[#3692FF] text-white text-xs font-semibold rounded-full mb-3">
         <Image src={BEST_ICON} alt="best" width={16} height={16} />
         Best
       </div>

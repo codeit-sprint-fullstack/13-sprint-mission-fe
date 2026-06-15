@@ -175,7 +175,7 @@ export default function ArticleDetailPage() {
         </p>
         <Link
           href="/community"
-          className="text-blue-500 text-sm hover:underline"
+          className="bg-[#3692FF] text-sm hover:underline"
         >
           목록으로 돌아가기
         </Link>
@@ -234,14 +234,14 @@ export default function ArticleDetailPage() {
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
           placeholder="댓글을 입력해주세요."
-          rows={4}
-          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          rows={3}
+          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm resize-none placeholder:text-gray-400"
         />
         <div className="flex justify-end mt-3">
           <button
             onClick={handleCreateComment}
             disabled={!commentInput.trim() || submittingComment}
-            className="px-6 py-2 bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-blue-500 enabled:hover:bg-blue-600 disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors enabled:bg-[#3692FF] enabled:hover:bg-[#3692FF] disabled:cursor-not-allowed"
           >
             {submittingComment ? "등록 중..." : "등록"}
           </button>
@@ -276,14 +276,14 @@ export default function ArticleDetailPage() {
                     <div className="flex gap-2 justify-end">
                       <button
                         onClick={() => setEditingId(null)}
-                        className="px-4 py-1.5 text-xs border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                        className="px-4 py-1.5 text-xs border border-gray-200 rounded-lg transition-colors"
                       >
                         취소
                       </button>
                       <button
                         onClick={() => handleUpdateComment(comment.id)}
                         disabled={!editContent.trim()}
-                        className="px-4 py-1.5 text-xs bg-blue-500 text-white rounded-lg disabled:bg-gray-300 hover:bg-blue-600 transition-colors"
+                        className="px-4 py-1.5 text-xs bg-[#3692FF] text-white rounded-lg disabled:bg-gray-300 transition-colors"
                       >
                         수정 완료
                       </button>
@@ -326,7 +326,7 @@ export default function ArticleDetailPage() {
       <div className="flex justify-center">
         <Link
           href="/community"
-          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-[#3692FF] text-white font-medium hover:bg-blue-500 transition-colors whitespace-nowrap"
+          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-[#3692FF] text-white font-medium transition-colors whitespace-nowrap"
         >
           목록으로 돌아가기
           <Image

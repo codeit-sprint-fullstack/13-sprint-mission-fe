@@ -1,10 +1,11 @@
 import "./globals.css";
 import "pretendard/dist/web/static/pretendard.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "판다마켓",
-  description: "판다마켓 스프린트 미션",
+  description: "판다마켓 스프린트 미션7",
 };
 
 export default function RootLayout({
@@ -20,6 +21,7 @@ export default function RootLayout({
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

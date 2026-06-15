@@ -8,7 +8,7 @@ export default function Footer() {
         피그마 레이아웃: padding: 32px 200px; height: 160px;
         반응형 대응: 데스크탑(md 이상)에서는 좌우 200px 패딩 유지, 모바일은 px-4로 자동 조절
       */}
-      <div className="mx-auto flex min-h-[160px] flex-col items-center justify-between gap-[10px] px-4 py-[32px] md:flex-row md:items-start lg:px-[200px]">
+      <div className="mx-auto flex min-h-[160px] w-full max-w-[1920] flex-col items-center justify-between gap-[10px] px-4 py-[32px] md:flex-row md:items-start lg:px-[200px]">
         {/* 카피라이트 영역 */}
         <div className="font-['Pretendard'] text-[16px] font-normal text-[#9CA3AF]">
           ©codeit - 2024

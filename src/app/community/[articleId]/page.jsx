@@ -16,7 +16,6 @@ import {
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const KEBAB_ICON = "/icons/ic_kebab.svg";
-const VECTOR_IMG = "/images/Img_vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 
@@ -214,7 +213,7 @@ export default function ArticleDetailPage() {
               })
               .replace(/\. /g, ". ")}
           </span>
-          <Image src={VECTOR_IMG} alt="" width={1} height={34} />
+          <Image src="/images/Img_vector_683.svg" alt="" width={1} height={34} unoptimized />
           <div className="ml-auto flex items-center gap-1.5 px-3 py-1 border border-secondary-200 rounded-full text-secondary-500">
             <Image src={HEART_ICON} alt="" width={16} height={16} />
             <span>{MOCK_LIKES}</span>

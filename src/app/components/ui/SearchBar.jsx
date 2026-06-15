@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+const DEBOUNCE_DELAY = 500;
 
+/**
+ * 디바운스가 적용된 검색 입력 컴포넌트입니다. DELAY = 500
+ * @param {{ value: string, onChange: (value: string) => void, placeholder?: string }} props
+ */
 export default function SearchBar({
   value,
   onChange,
@@ -11,13 +16,16 @@ export default function SearchBar({
   const timer = useRef(null);
 
   const handleChange = (e) => {
-    const v = e.target.value;
-    setLocal(v);
+    const debouncedValue = e.target.value;
+    setLocal(debouncedValue);
     if (timer.current) clearTimeout(timer.current);
-    if (v.length === 0) {
+    if (debouncedValue.length === 0) {
       onChange("");
-    } else if (v.length >= 1) {
-      timer.current = setTimeout(() => onChange(v), 400);
+    } else if (debouncedValue.length >= 1) {
+      timer.current = setTimeout(
+        () => onChange(debouncedValue),
+        DEBOUNCE_DELAY,
+      );
     }
   };
 
@@ -41,7 +49,7 @@ export default function SearchBar({
         value={local}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full pl-9 pr-4 py-2 bg-secondary-50 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+        className="w-full pl-9 pr-4 py-2 bg-secondary-50 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition"
       />
     </div>
   );

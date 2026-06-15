@@ -61,7 +61,7 @@ export default function NewArticlePage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="제목을 입력해주세요"
-          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm placeholder:text-secondary-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition"
         />
       </div>
 
@@ -78,7 +78,7 @@ export default function NewArticlePage() {
           onChange={(e) => setContent(e.target.value)}
           placeholder="내용을 입력해주세요"
           rows={10}
-          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition"
         />
       </div>
     </div>

@@ -5,6 +5,10 @@ import Image from "next/image";
 const ARROW_DOWN_ICON = "/icons/ic_arrow_down.svg";
 const OPTIONS = [{ label: "최신순", value: "recent" }];
 
+/**
+ * 정렬 옵션 드롭다운 컴포넌트입니다.
+ * @param {{ value: string, onChange: (value: string) => void }} props
+ */
 export default function SortDropdown({ value, onChange }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);

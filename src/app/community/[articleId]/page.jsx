@@ -277,7 +277,7 @@ export default function ArticleDetailPage() {
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary transition mb-2"
+                      className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-1 focus:ring-primary transition mb-2"
                     />
                     <div className="flex gap-2 justify-end">
                       <button
@@ -349,6 +349,11 @@ export default function ArticleDetailPage() {
 
 // ── Helpers ──────────────────────────────────────────────────────────────
 
+/**
+ * 날짜 문자열을 "n분 전" 형태로 변환합니다.
+ * @param {string} dateString - ISO 8601 날짜 문자열
+ * @returns {string}
+ */
 function timeAgo(dateString) {
   const diffMs = Date.now() - new Date(dateString).getTime();
   const diffMin = Math.floor(diffMs / 60000);

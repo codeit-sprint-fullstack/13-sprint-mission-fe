@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  /** Color Variable **/
+  /* Primary color */
+  --Primary-100: #3692ff;
+  --Primary-200: #1967d6;
+  --Primary-300: #1251aa;
+
+  /* Secondary color */
+  --Secondary-900: #111827;
+  --Secondary-800: #1f2937;
+  --Secondary-700: #374151;
+  --Secondary-600: #4b5563;
+  --Secondary-500: #6b7280;
+  --Secondary-400: #9ca3af;
+  --Secondary-300: #e5e7eb;
+  --Secondary-200: #e5e7eb;
+  --Secondary-100: #e5e7eb;
+  --Secondary-50: #f9fafb;
+  --Cool-Gray-500: #6b7280;
+  --Cool-Gray-400: #9ca3af;
+  --Cool-Gray-200: #e5e7eb;
+  --Cool-Gray-100: #f3f4f6;
+  --Cool-Gray-50: #f9fafb;
+
+  /* Error color */
+  --error-red: #f74747;
+  
+  /* Background color */
+  --background: #ffffff;
+}
+
+@theme inline {
+  --color-primary-100: var(--Primary-100);
+  --color-primary-200: var(--Primary-200);
+  --color-primary-300: var(--Primary-300);
+
+  --color-secondary-900: var(--Secondary-900);
+  --color-secondary-800: var(--Secondary-800);
+  --color-secondary-700: var(--Secondary-700);
+  --color-secondary-600: var(--Secondary-600);
+  --color-secondary-500: var(--Secondary-500);
+  --color-secondary-400: var(--Secondary-400);
+  --color-secondary-300: var(--Secondary-300);
+  --color-secondary-200: var(--Secondary-200);
+  --color-secondary-100: var(--Secondary-100);
+  --color-secondary-50: var(--Secondary-50);
+
+  --color-cool-gray-500: var(--Cool-Gray-500);
+  --color-cool-gray-400: var(--Cool-Gray-400);
+  --color-cool-gray-200: var(--Cool-Gray-200);
+  --color-cool-gray-100: var(--Cool-Gray-100);
+  --color-cool-gray-50: var(--Cool-Gray-50);
+
+  --color-error-red: var(--error-red);
+
+  --color-background: var(--background);
+
+  /* Font */
+  --font-pretendard: var(--font-pretendard);
+}
+
+body {
+  background: var(--background);
+}

@@ -234,7 +234,7 @@ export default function ArticleDetailPage() {
           onChange={(e) => setCommentInput(e.target.value)}
           placeholder="댓글을 입력해주세요."
           rows={3}
-          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400"
+          className="w-full px-4 py-3 bg-secondary-50 border border-secondary-200 rounded-xl text-sm resize-none placeholder:text-secondary-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition"
         />
         <div className="flex justify-end mt-3">
           <button

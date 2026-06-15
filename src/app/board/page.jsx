@@ -6,7 +6,7 @@ import Image from "next/image";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Dropdown from "@/components/ui/Dropdown";
-import CommentItem from "@/components/ui/CommentItem";
+import PostItem from "@/components/ui/PostItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
 import { mockPosts } from "@/mocks/posts";
@@ -14,7 +14,7 @@ import "swiper/css";
 
 export default function BoardListPage() {
   return (
-    <div className="p-[20px] flex-1 min-desktop:m-auto">
+    <div className="m-auto w-[1200px] py-[16px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <section className="mb-[24px]">
         <h1 className="text-secondary-900 text-[20px] font-bold mb-[24px]">
           베스트 게시글
@@ -22,9 +22,7 @@ export default function BoardListPage() {
         <Swiper slidesPerView="auto" spaceBetween={24}>
           {mockPosts.slice(0, 3).map((bestPost, index) => (
             <SwiperSlide key={index} className="w-auto!">
-              <Link href="/board/:boardId">
-                <PopularPostCard data={bestPost} />
-              </Link>
+              <PopularPostCard data={bestPost} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -58,9 +56,7 @@ export default function BoardListPage() {
         </div>
         <div className="flex flex-col gap-6 mt-[24px] mb-[78px]">
           {mockPosts.map((post, index) => (
-            <Link href="/board/:boardId" key={index}>
-              <CommentItem data={post} />
-            </Link>
+            <PostItem data={post} key={index} />
           ))}
         </div>
       </section>

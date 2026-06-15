@@ -1,0 +1,14 @@
+import Image from "next/image";
+
+export default function UserIcon({ width, height }) {
+  return (
+    <div className="w-fit h-fit rounded-[100%] bg-secondary-300">
+      <Image
+        src="/icons/ic_user.svg"
+        alt="profile icon"
+        width={width}
+        height={height}
+      />
+    </div>
+  );
+}

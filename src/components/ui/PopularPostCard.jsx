@@ -1,13 +1,18 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { getDate } from "@/utils/getDate";
 
 export default function PopularPostCard({ data }) {
+  const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
   return (
-    <article className="w-fit px-[24px] pb-[16px] bg-secondary-50 rounded-lg">
+    <article
+      onClick={() => router.push(`/board/${data.id}`)}
+      className="w-fit px-[24px] pb-[16px] bg-secondary-50 rounded-lg cursor-pointer"
+    >
       <div className="w-fit flex gap-[5px] bg-primary px-[24px] py-[2px] text-white rounded-br-[16px] rounded-bl-[16px]">
         <Image
           src="/icons/ic_medal.svg"
@@ -34,7 +39,9 @@ export default function PopularPostCard({ data }) {
         <div className="flex text-secondary-600 gap-[8px]">
           <div>{data.author}</div>
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               setIsClicked((prev) => !prev);
             }}
             className="flex text-secondary-500 gap-[4px]"

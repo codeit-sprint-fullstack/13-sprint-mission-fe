@@ -44,6 +44,7 @@ export default function BestArticleList({ articles }) {
                       alt='베스트 게시글 상품 이미지'
                       width={72}
                       height={72}
+                      priority
                     />
                   </figure>
                 </div>
@@ -54,13 +55,16 @@ export default function BestArticleList({ articles }) {
                 <div className='flex'>
                   <p className='mr-2 text-secondary-500'>{a.user.username}</p>
                   <Image
+                    className='w-auto'
                     src={IcHeart}
                     alt='좋아요 버튼'
                     aria-hidden='true'
                     width={16}
                     height={16}
                   />
-                  <span className='text-secondary-500'>{a.likeCount}+</span>
+                  <span className='ml-[4px] text-secondary-500'>
+                    {a.likeCount}+
+                  </span>
                 </div>
                 <span className='text-secondary-400'>
                   {formatDate(a.createdAt)}

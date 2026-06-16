@@ -29,6 +29,7 @@ export default function ArticlesList({ articles }) {
                       alt='베스트 게시글 상품 이미지'
                       width={72}
                       height={72}
+                      priority
                     />
                   </figure>
                 </header>
@@ -54,6 +55,7 @@ export default function ArticlesList({ articles }) {
                   <div className='flex items-center gap-[8px]'>
                     <figure>
                       <Image
+                        className='w-auto'
                         src={IcHeart}
                         alt='좋아요 버튼'
                         aria-hidden='true'

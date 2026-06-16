@@ -25,6 +25,7 @@ export default function Header() {
               alt='로고 이미지'
               width={81}
               height={40}
+              priority
             />
             <Image
               className='hidden md:block'
@@ -32,6 +33,7 @@ export default function Header() {
               alt='로고 이미지'
               width={153}
               height={51}
+              priority
             />
           </figure>
         </Link>

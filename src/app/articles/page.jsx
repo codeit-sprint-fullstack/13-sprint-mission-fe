@@ -20,7 +20,7 @@ export default async function ArticlesPage({ searchParams }) {
   const { search = "", order = "recent", page = 1 } = await searchParams;
 
   const articlesData = await getAllArticles({
-    pageSize: 100,
+    pageSize: 10,
     search,
     order,
     page: Number(page),

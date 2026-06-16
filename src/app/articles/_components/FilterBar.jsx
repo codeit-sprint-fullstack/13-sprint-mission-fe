@@ -2,7 +2,7 @@
 
 import { SORT_OPTIONS } from "@/lib/constants/constants";
 import Image from "next/image";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import IcSearch from "@/app/assets/ic_search.svg";
 import IcArrowDown from "@/app/assets/ic_arrow_down.svg";

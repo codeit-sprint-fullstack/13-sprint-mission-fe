@@ -33,9 +33,9 @@ export default function BestArticleList({ articles }) {
                     Best
                   </span>
                 </span>
-                <div className='flex gap-10 lg:gap-2 mb-10 lg:mb-4.5'>
+                <div className='flex justify-between gap-10 lg:gap-2 mb-10 lg:mb-4.5'>
                   <p className='text-[18px]/[calc(26/18)] lg:text-[20px]/[calc(32/20)] font-semibold'>
-                    {a.content}
+                    {a.title}
                   </p>
                   <figure className='relative shrink-0 w-18 h-18 border rounded-md border-gray-200 overflow-hidden'>
                     <Image

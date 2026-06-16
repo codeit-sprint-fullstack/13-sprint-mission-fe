@@ -10,17 +10,17 @@ export default function ArticlesList({ articles }) {
   return (
     <section className='mt-[16px] md:mt-[40px] lg:mt-[24px]'>
       <ul className='flex flex-col gap-[24px]'>
-        {articles.data.map((a, i) => (
+        {articles.data.map((a) => (
           <li
-            key={i}
+            key={a.id}
             className='border-b border-cool-gray-200 pb-[24px] bg-[#FCFCFC]'
           >
-            <Link href={`/articles/`}>
+            <Link href={`/articles/${a.id}`}>
               <article>
                 {/* 게시글 카드 헤더 */}
                 <header className='flex justify-between gap-[24px] lg:gap-2 mb-[15px]'>
                   <p className='text-[18px]/[calc(26/18)] lg:text-[20px]/[calc(32/20)] font-semibold'>
-                    {a.content}
+                    {a.title}
                   </p>
                   <figure className='relative shrink-0 w-18 h-18 border rounded-md border-gray-200 overflow-hidden'>
                     <Image

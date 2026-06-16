@@ -398,16 +398,6 @@
     height: calc(var(--spacing) * 14);
   }
 
-  .size-\[34px\] {
-    width: 34px;
-    height: 34px;
-  }
-
-  .size-\[40px\] {
-    width: 40px;
-    height: 40px;
-  }
-
   .size-\[120px\] {
     width: 120px;
     height: 120px;
@@ -575,10 +565,6 @@
 
   .gap-\[22px\] {
     gap: 22px;
-  }
-
-  .rounded-\[10px\] {
-    border-radius: 10px;
   }
 
   .rounded-full {
@@ -757,10 +743,6 @@
 
   .text-\[17px\] {
     font-size: 17px;
-  }
-
-  .text-\[22px\] {
-    font-size: 22px;
   }
 
   .text-\[25px\] {

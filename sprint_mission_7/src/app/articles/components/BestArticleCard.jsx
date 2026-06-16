@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export function BestArticleCard({ title, createdAt }) {
   return (
-    <div className="flex gap-4 px-6 pb-4 w-[340px] flex-col bg-gray-50 rounded-lg">
+    <Link href="/articles" className="flex gap-4 px-6 pb-4 w-[340px] flex-col bg-gray-50 rounded-lg">
       <div className="flex px-6 py-0.5 justify-center items-center gap-1 bg-primary-100 w-[102px] h-[30px] rounded-b-2xl">
         <Image
           src="/ic_medal.svg"
@@ -40,6 +41,6 @@ export function BestArticleCard({ title, createdAt }) {
           <p className="text-md text-gray-400">{createdAt}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

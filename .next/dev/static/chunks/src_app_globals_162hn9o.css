@@ -403,6 +403,11 @@
     height: 34px;
   }
 
+  .size-\[40px\] {
+    width: 40px;
+    height: 40px;
+  }
+
   .size-\[120px\] {
     width: 120px;
     height: 120px;
@@ -462,6 +467,10 @@
 
   .max-w-\[1040px\] {
     max-width: 1040px;
+  }
+
+  .max-w-\[1216px\] {
+    max-width: 1216px;
   }
 
   .min-w-0 {

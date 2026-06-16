@@ -19,11 +19,11 @@ var _s = __turbopack_context__.k.signature();
 function Header() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(10);
-    if ($[0] !== "26fd269fb8873f842465f84cc797eea5855bd20876a7f59792e112aa98aa2845") {
+    if ($[0] !== "52ee2fbdc1bff2f0bacfe466457d9a9f0bf103fc019ccfff2bcc3ccbf075e97b") {
         for(let $i = 0; $i < 10; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "26fd269fb8873f842465f84cc797eea5855bd20876a7f59792e112aa98aa2845";
+        $[0] = "52ee2fbdc1bff2f0bacfe466457d9a9f0bf103fc019ccfff2bcc3ccbf075e97b";
     }
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const isFreeboard = pathname.startsWith("/freeboard");
@@ -31,12 +31,12 @@ function Header() {
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
         t0 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
             href: "/freeboard",
-            className: "flex shrink-0 items-center gap-2 whitespace-nowrap text-[25px] font-extrabold text-blue-500",
+            className: "flex shrink-0 items-center gap-2 text-[25px] font-extrabold whitespace-nowrap text-blue-500",
             "aria-label": "\uD310\uB2E4\uB9C8\uCF13 \uD648",
             children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "grid size-[34px] place-items-center rounded-[10px] bg-blue-500 text-[22px]",
-                    children: "🐼"
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                    src: "/images/logo.png",
+                    alt: "\uD310\uB2E4\uB9C8\uCF13 \uB85C\uACE0"
                 }, void 0, false, {
                     fileName: "[project]/src/components/Header.js",
                     lineNumber: 18,
@@ -47,7 +47,7 @@ function Header() {
                 }, void 0, false, {
                     fileName: "[project]/src/components/Header.js",
                     lineNumber: 18,
-                    columnNumber: 287
+                    columnNumber: 261
                 }, this)
             ]
         }, void 0, true, {
@@ -128,7 +128,7 @@ function Header() {
         t6 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
             className: "border-b border-gray-200 bg-white",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mx-auto flex min-h-[72px] max-w-[1040px] flex-wrap items-center gap-4 px-5 py-3 sm:flex-nowrap sm:gap-10 sm:px-6 sm:py-0",
+                className: "mx-auto flex min-h-[72px] max-w-[1216px] flex-wrap items-center gap-4 px-5 py-3 sm:flex-nowrap sm:gap-10 sm:px-6 sm:py-0",
                 children: [
                     t0,
                     t4,

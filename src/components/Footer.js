@@ -11,10 +11,10 @@ export default function Footer() {
           className="flex gap-3 font-bold text-white sm:justify-end"
           aria-label="소셜 링크"
         >
-          <span>f</span>
-          <span>𝕏</span>
-          <span>▶</span>
-          <span>◎</span>
+          <img src="/images/ic_facebook.png" alt="페이스북" />
+          <img src="/images/ic_twitter.png" alt="트위터" />
+          <img src="/images/ic_youtube.png" alt="유튜브" />
+          <img src="/images/ic_instagram.png" alt="인스타그램" />
         </div>
       </div>
     </footer>

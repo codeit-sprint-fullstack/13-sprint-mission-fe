@@ -110,7 +110,7 @@ function BoardPage() {
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mx-auto max-w-[1040px] px-5 pb-16 pt-7 sm:px-6",
+            className: "mx-auto max-w-[1040px] px-5 pt-7 pb-16 sm:px-6",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                     "aria-labelledby": "best-heading",
@@ -280,11 +280,11 @@ function BoardPage() {
 function BestCard({ post }) {
     const meta = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$meta$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getDisplayMeta"])(post.id);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-        className: "relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pb-[18px] pt-[42px]",
+        className: "relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pt-[42px] pb-[18px]",
         href: `/freeboard/${post.id}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "absolute left-5 top-0 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
+                className: "absolute top-0 left-5 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
                 children: "🏅 Best"
             }, void 0, false, {
                 fileName: "[project]/src/components/BoardPage.js",
@@ -295,7 +295,7 @@ function BestCard({ post }) {
                 className: "grid grid-cols-[1fr_56px] items-center gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "text-[17px] font-bold leading-[1.55]",
+                        className: "text-[17px] leading-[1.55] font-bold",
                         children: post.title
                     }, void 0, false, {
                         fileName: "[project]/src/components/BoardPage.js",
@@ -368,7 +368,7 @@ function PostRow({ post }) {
                 className: "flex min-w-0 flex-col justify-between gap-5",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "text-[17px] font-bold leading-[1.55]",
+                        className: "text-[17px] leading-[1.55] font-bold",
                         children: post.title
                     }, void 0, false, {
                         fileName: "[project]/src/components/BoardPage.js",

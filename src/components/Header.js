@@ -9,15 +9,13 @@ export default function Header() {
 
   return (
     <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex min-h-[72px] max-w-[1040px] flex-wrap items-center gap-4 px-5 py-3 sm:flex-nowrap sm:gap-10 sm:px-6 sm:py-0">
+      <div className="mx-auto flex min-h-[72px] max-w-[1216px] flex-wrap items-center gap-4 px-5 py-3 sm:flex-nowrap sm:gap-10 sm:px-6 sm:py-0">
         <Link
           href="/freeboard"
-          className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[25px] font-extrabold text-blue-500"
+          className="flex shrink-0 items-center gap-2 text-[25px] font-extrabold whitespace-nowrap text-blue-500"
           aria-label="판다마켓 홈"
         >
-          <span className="grid size-[34px] place-items-center rounded-[10px] bg-blue-500 text-[22px]">
-            🐼
-          </span>
+          <img src="/images/logo.png" alt="판다마켓 로고" />
           <span>판다마켓</span>
         </Link>
         <nav className="order-3 flex w-full flex-1 items-center gap-5 text-[15px] font-bold text-gray-700 sm:order-none sm:w-auto sm:gap-8">

@@ -74,11 +74,11 @@ const defaultImage = "/images/default-product.svg";
 function BoardPage() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(38);
-    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
+    if ($[0] !== "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6") {
         for(let $i = 0; $i < 38; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
+        $[0] = "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -428,7 +428,7 @@ function BoardPage() {
     if ($[35] !== t21 || $[36] !== t9) {
         t22 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mx-auto max-w-[1040px] px-5 pb-16 pt-7 sm:px-6",
+                className: "mx-auto max-w-[1040px] px-5 pt-7 pb-16 sm:px-6",
                 children: [
                     t9,
                     t21
@@ -473,11 +473,11 @@ function _BoardPageBestPostsMap(post) {
 }
 function BestCard(t0) {
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(27);
-    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
+    if ($[0] !== "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6") {
         for(let $i = 0; $i < 27; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
+        $[0] = "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6";
     }
     const { post } = t0;
     let t1;
@@ -493,7 +493,7 @@ function BestCard(t0) {
     let t3;
     if ($[3] === Symbol.for("react.memo_cache_sentinel")) {
         t3 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "absolute left-5 top-0 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
+            className: "absolute top-0 left-5 inline-flex h-7 min-w-[82px] items-center justify-center rounded-b-xl bg-blue-500 text-[13px] font-extrabold text-white",
             children: "🏅 Best"
         }, void 0, false, {
             fileName: "[project]/src/components/BoardPage.js",
@@ -507,7 +507,7 @@ function BestCard(t0) {
     let t4;
     if ($[4] !== post.title) {
         t4 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-            className: "text-[17px] font-bold leading-[1.55]",
+            className: "text-[17px] leading-[1.55] font-bold",
             children: post.title
         }, void 0, false, {
             fileName: "[project]/src/components/BoardPage.js",
@@ -633,7 +633,7 @@ function BestCard(t0) {
     let t13;
     if ($[23] !== t12 || $[24] !== t2 || $[25] !== t7) {
         t13 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-            className: "relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pb-[18px] pt-[42px]",
+            className: "relative flex min-h-[136px] flex-col gap-[18px] rounded-lg bg-gray-50 px-5 pt-[42px] pb-[18px]",
             href: t2,
             children: [
                 t3,
@@ -657,11 +657,11 @@ function BestCard(t0) {
 _c1 = BestCard;
 function PostRow(t0) {
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(29);
-    if ($[0] !== "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1") {
+    if ($[0] !== "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6") {
         for(let $i = 0; $i < 29; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c5ccb09fa6503a72d766d95d0a27e5638ed821ce2550ce8f59830dbb0754f3d1";
+        $[0] = "02552e002fe222422c8fe97a661dc432a4ba3db1c6cc9fb1273daa7468c265c6";
     }
     const { post } = t0;
     let t1;
@@ -677,7 +677,7 @@ function PostRow(t0) {
     let t3;
     if ($[3] !== post.title) {
         t3 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-            className: "text-[17px] font-bold leading-[1.55]",
+            className: "text-[17px] leading-[1.55] font-bold",
             children: post.title
         }, void 0, false, {
             fileName: "[project]/src/components/BoardPage.js",

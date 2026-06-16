@@ -1,4 +1,5 @@
 {
+  "/freeboard/[id]/edit/page": "app/freeboard/[id]/edit/page.js",
   "/freeboard/[id]/page": "app/freeboard/[id]/page.js",
   "/freeboard/new/page": "app/freeboard/new/page.js",
   "/freeboard/page": "app/freeboard/page.js"

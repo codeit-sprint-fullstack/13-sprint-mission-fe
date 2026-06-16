@@ -1,10 +1,10 @@
-import { getAllArticles } from "@/lib/services/articleApi";
+import { getAllArticles, createArticle } from "@/lib/services/articleApi";
 
-// app/api/articles/route.js
+// GET /articles/
 export async function GET(request) {
   try {
-    console.log(123)
     const articles = await getAllArticles();
+
     return Response.json(articles);
   } catch (error) {
     return Response.json(
@@ -14,6 +14,17 @@ export async function GET(request) {
   }
 }
 
+// POST /articles
 export async function POST(request) {
-  // createArticle
+  try {
+    const body = await request.json();
+    const newArticle = await createArticle(body);
+
+    return Response.json(newArticle, { status: 201 });
+  } catch (error) {
+    return Response.json(
+      { error: "게시글 등록 중 오류가 발생했습니다." },
+      { status: 500 },
+    );
+  }
 }

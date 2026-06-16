@@ -26,7 +26,7 @@
 
   /* Error color */
   --error-red: #f74747;
-  
+
   /* Background color */
   --background: #ffffff;
 }
@@ -57,10 +57,27 @@
 
   --color-background: var(--background);
 
+  --color-white: var(--background);
+
   /* Font */
   --font-pretendard: var(--font-pretendard);
 }
 
+@theme {
+  /* Breakpoint */
+  /* 기본(no prefix) = 모바일: 375px 기준 */
+  --breakpoint-md: 744px;   /* 태블릿 이상 */
+  --breakpoint-lg: 1200px;  /* PC 이상 */
+
+  /* z-index */
+  --z-index-header: 1000;
+  --z-index-footer: 900;
+  --z-index-sort-select: 30;
+  --z-index-sort-group: 20;
+  --z-index-search-icon: 10;
+}
+
+/* @apply를 사용해 전체 폰트 컬러와 배경색 지정 */
 body {
-  background: var(--background);
+  @apply text-secondary-800 bg-white;
 }

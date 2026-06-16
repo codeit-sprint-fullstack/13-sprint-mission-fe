@@ -42,7 +42,7 @@ function CommunityContent() {
     getArticles({ search: search || undefined, sort, page, limit: LIMIT }).then(
       (res) => {
         if (!cancelled) {
-          setArticles(res.data); // TODO: list 와 차이 ?
+          setArticles(res.data);
           setTotalPages(res.totalPages);
           setLoading(false);
         }

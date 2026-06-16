@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { ArticleCard, BestArticleCard } from "./components/BestArticleCard";
-import Link from "next/link";
 import Btn from "@/components/common/Btn";
+import Dropdown from "@/components/common/Dropdown";
 
 export default function ArticlePage() {
   const mookArticle = [{ title: "타이틀", createdAt: "2026.6.15" }];
@@ -18,13 +18,27 @@ export default function ArticlePage() {
           />
         ))}
       </section>
-      <section>
-        <div className="flex justify-between">
+      <section className="flex flex-col gap-4">
+        <div className="flex justify-between items-center">
           <h2 className="text-2lg text-gray-800 font-bold">게시글</h2>
           <Btn text="글쓰기" />
         </div>
-        <div>
-          <Image alt="검색" src="/"/>
+        <div className="flex justify-between">
+          <div className="flex rounded-xl bg-gray-100 w-[288px] pr-[20px] pl-[16px] py-[9px]">
+            <Image
+              alt="검색"
+              src="/ic_search.svg"
+              width={24}
+              height={24}
+              className="max-w-none"
+            />
+            <input
+              type="text"
+              placeholder="검색할 상품을 입력해주세요"
+              className="w-[228px] text-lg text-gray-400"
+            />
+          </div>
+          <Dropdown />
         </div>
       </section>
     </main>

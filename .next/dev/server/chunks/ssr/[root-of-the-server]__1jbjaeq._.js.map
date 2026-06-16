@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/apple/FS_13/13-sprint-mission-fe/src/app/page.js"],"sourcesContent":["import { redirect } from \"next/navigation\";\n\nexport default function HomePage() {\n  redirect(\"/freeboard\");\n}\n"],"names":["HomePage"],"mappings":";;;;AAAA;AAAA;;AAEe,SAASA;IACtB,IAAA,iMAAQ,EAAC;AACX"}}]
-}

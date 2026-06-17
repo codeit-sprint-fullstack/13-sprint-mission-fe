@@ -20,6 +20,7 @@
   --Secondary-50: #f9fafb;
   --Cool-Gray-500: #6b7280;
   --Cool-Gray-400: #9ca3af;
+  --Cool-Gray-300: #d1d5db;
   --Cool-Gray-200: #e5e7eb;
   --Cool-Gray-100: #f3f4f6;
   --Cool-Gray-50: #f9fafb;
@@ -49,6 +50,7 @@
 
   --color-cool-gray-500: var(--Cool-Gray-500);
   --color-cool-gray-400: var(--Cool-Gray-400);
+  --color-cool-gray-300: var(--Cool-Gray-300);
   --color-cool-gray-200: var(--Cool-Gray-200);
   --color-cool-gray-100: var(--Cool-Gray-100);
   --color-cool-gray-50: var(--Cool-Gray-50);
@@ -66,8 +68,8 @@
 @theme {
   /* Breakpoint */
   /* 기본(no prefix) = 모바일: 375px 기준 */
-  --breakpoint-md: 744px;   /* 태블릿 이상 */
-  --breakpoint-lg: 1200px;  /* PC 이상 */
+  --breakpoint-md: 744px; /* 태블릿 이상 */
+  --breakpoint-lg: 1200px; /* PC 이상 */
 
   /* z-index */
   --z-index-header: 1000;

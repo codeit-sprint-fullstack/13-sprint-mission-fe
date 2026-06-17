@@ -3,15 +3,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className=" bg-secondary-900">
-      <div
-        className="max-w-[1920px] flex flex-wrap gap-6 items-center"
-        style={{
-          padding: "32px clamp(16px, calc(21.8vw - 135.8px), 200px)",
-        }}
-      >
-        <div className="flex gap-[30px] mx-auto order-2 max-[465px]:order-1 max-[465px]:ml-0 max-[465px]:mr-auto">
-          {/* max-[375px] */}
+    <footer className="bg-secondary-900">
+      <div className="max-w-390 mx-auto w-full flex flex-wrap gap-6 items-center py-8 px-4 bd:px-6 md:px-4">
+        <div className="flex gap-[30px] mx-auto order-2 max-md:order-1 max-md:ml-0 max-md:mr-auto">
           <Link
             href="/privacy"
             className="text-secondary-200 no-underline text-base font-normal cursor-pointer "
@@ -25,7 +19,7 @@ export default function Footer() {
             FAQ
           </Link>
         </div>
-        <div className="flex items-center gap-3 shrink-0 order-3 max-[465px]:order-2">
+        <div className="flex items-center gap-3 shrink-0 order-3 max-md:order-2">
           <a
             href="https://www.facebook.com"
             target="_blank"
@@ -79,7 +73,7 @@ export default function Footer() {
             />
           </a>
         </div>
-        <span className="text-secondary-400 text-base font-normal order-1 max-[465px]:order-3">
+        <span className="text-secondary-400 text-base font-normal order-1 max-md:order-3">
           ©codeit - 2024
         </span>
       </div>

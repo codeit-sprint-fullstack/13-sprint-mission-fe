@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,11 +11,11 @@ import {
   createComment,
   updateComment,
   deleteComment,
-} from "../../lib/api.js";
+} from "@/app/lib/api";
+import KebabMenu from "@/app/components/ui/KebabMenu";
 
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
-const KEBAB_ICON = "/icons/ic_kebab.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
@@ -23,56 +23,6 @@ const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 const MOCK_NICKNAME = "총명한판다";
 const MOCK_COMMENT_NICKNAME = "똑똑한판다";
 const MOCK_LIKES = 123;
-
-// ── Kebab dropdown menu ──────────────────────────────────────────────────
-
-function KebabMenu({ onEdit, onDelete }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="p-1 text-secondary-400 hover:text-secondary-600 transition-colors"
-        aria-label="더보기"
-      >
-        <Image src={KEBAB_ICON} alt="" width={20} height={20} />
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-full mt-1 bg-white border border-secondary-200 rounded-lg shadow-md z-10 min-w-25 overflow-hidden">
-          <button
-            onClick={() => {
-              setOpen(false);
-              onEdit();
-            }}
-            className="w-full text-left px-4 py-2.5 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
-          >
-            수정하기
-          </button>
-          <button
-            onClick={() => {
-              setOpen(false);
-              onDelete();
-            }}
-            className="w-full text-left px-4 py-2.5 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
-          >
-            삭제하기
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ── Page ──────────────────────────────────────────────────────────────────
 

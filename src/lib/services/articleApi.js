@@ -1,4 +1,7 @@
-async function getAllArticles({
+/** 게시글 API */
+
+// GET /articles
+export async function getAllArticles({
   pageSize = 10,
   page = 1,
   order = "recent",
@@ -25,7 +28,8 @@ async function getAllArticles({
   }
 }
 
-async function getArticleById(id) {
+// GET /articles/:id
+export async function getArticleById(id) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${id}`,
@@ -40,7 +44,8 @@ async function getArticleById(id) {
   }
 }
 
-async function createArticle(body) {
+// POST /articles
+export async function createArticle(body) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`,
@@ -61,7 +66,8 @@ async function createArticle(body) {
   }
 }
 
-async function updateArticle(id, body) {
+// PATCH /articles/:id
+export async function updateArticle(id, body) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${id}`,
@@ -82,4 +88,21 @@ async function updateArticle(id, body) {
   }
 }
 
-export { getAllArticles, getArticleById, createArticle, updateArticle };
+// DELETE /articles/:id
+export async function deleteArticle(id) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
+
+    revalidatePath("/articles/[id]", "page");
+    return { success: true };
+  } catch (error) {
+    throw new Error("❌ 게시글 수정 실패", { cause: error });
+  }
+}

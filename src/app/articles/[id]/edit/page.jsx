@@ -15,7 +15,7 @@ export default async function EditArticlePage({ params }) {
 
   return (
     <PageContainer>
-      <section className='mt-[16px] lg:mt-[24px]'>
+      <section className='mt-[16px] lg:mt-[24px] mb-[50px] lg:mb-[190px]'>
         <ArticleForm defaultValue={article.data} articleId={id} />
       </section>
     </PageContainer>

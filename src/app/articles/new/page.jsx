@@ -10,7 +10,7 @@ export const metadata = {
 export default async function CreateArticlePage() {
   return (
     <PageContainer>
-      <section className='mt-[16px] lg:mt-[24px]'>
+      <section className='mt-[16px] lg:mt-[24px] mb-[50px] lg:mb-[190px]'>
         <ArticleForm />
       </section>
     </PageContainer>

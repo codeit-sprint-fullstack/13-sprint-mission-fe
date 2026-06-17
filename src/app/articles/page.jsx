@@ -20,7 +20,7 @@ export default async function ArticlesPage({ searchParams }) {
   const { search = "", order = "recent", page = 1 } = await searchParams;
 
   const articlesData = await getAllArticles({
-    pageSize: 10,
+    pageSize: 100, // TODO: 페이지네이션 개발 시 데이터 수정 필요
     search,
     order,
     page: Number(page),

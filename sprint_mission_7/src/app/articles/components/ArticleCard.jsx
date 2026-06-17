@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function ArticleCard({ title, createdAt }) {
+export default function ArticleCard({ id, title, createdAt }) {
   return (
     <Link
-      href="/articles"
+      href={`/articles/${id}`}
       className="w-[340px] flex flex-col gap-4 bg-[#fcfcfc] pb-6 border-b border-b-gray-200"
     >
       <div className="flex justify-between">

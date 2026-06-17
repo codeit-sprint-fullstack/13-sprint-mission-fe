@@ -4,11 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import localFont from "next/font/local";
-
-const ROKAFSans = localFont({
-  src: "../../../../public/fonts/ROKAF Sans Bold.ttf",
-});
 
 export default function Header() {
   const pathname = usePathname();

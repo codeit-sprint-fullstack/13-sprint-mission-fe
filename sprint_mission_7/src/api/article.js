@@ -51,7 +51,7 @@ export async function createArticle(articleData) {
 export async function updateArticle(id, articleData) {
   try {
     const response = await fetch(`http://localhost:3000/articles/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },

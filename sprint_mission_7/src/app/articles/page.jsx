@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import Btn from "@/components/common/Btn";
-import Dropdown from "@/components/common/Dropdown";
+import Dropdown from "@/components/common/SortDropdown";
 import ArticleCard from "./components/ArticleCard";
 import { BestArticleCard } from "./components/BestArticleCard";
 import { getAllArticles } from "@/api/article";

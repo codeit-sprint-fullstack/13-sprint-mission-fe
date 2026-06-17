@@ -54,7 +54,7 @@ export default function ArticleFrom({ editData, onSubmit }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력해주세요"
-            className=" w-[297px] h-[250px] px-[24px] py-[16px] bg-gray-100 rounded-xl text-lg"
+            className=" w-[297px] h-[250px] px-[24px] py-[16px] bg-gray-100 rounded-xl text-lg resize-none"
           />
         </div>
       </div>

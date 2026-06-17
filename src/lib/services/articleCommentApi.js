@@ -2,7 +2,6 @@
 
 // GET /articles/:articleId/comments
 export async function getAllArticleComments(articleId) {
-  console.log("articleId:", articleId);
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${articleId}/comments`,

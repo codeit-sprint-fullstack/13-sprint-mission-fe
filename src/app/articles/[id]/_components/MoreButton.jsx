@@ -27,7 +27,6 @@ export default function MoreButton({
 
   // 댓글 수정
   async function handleCommentUpdate() {
-    console.log("click");
     setIsEditMode((prev) => !prev);
   }
 

@@ -11,6 +11,7 @@ import Comments from "@/app/articles/[id]/_components/Comments";
 import IcProfile from "@/app/assets/ic_profile.svg";
 import IcHeart from "@/app/assets/ic_heart.svg";
 import { getAllArticleComments } from "@/lib/services/articleCommentApi";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "자유 게시판 게시글 상세 페이지",
@@ -22,6 +23,11 @@ export default async function ArticleDetailPage({ params }) {
   const { id } = await params;
 
   const articleData = await getArticleById(id);
+
+  if (articleData.notFound) {
+    notFound();
+  }
+
   const commentsData = await getAllArticleComments(id);
 
   const article = articleData.data;

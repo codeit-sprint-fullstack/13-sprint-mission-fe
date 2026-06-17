@@ -35,6 +35,10 @@ export async function getArticleById(id) {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${id}`,
     );
 
+    if (response.status === 404) {
+      return { notFound: true, data: null };
+    }
+
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
     if (response.status === 204) return null;
 
@@ -100,9 +104,9 @@ export async function deleteArticle(id) {
 
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
 
-    revalidatePath("/articles/[id]", "page");
+    revalidatePath(`/articles/${id}`, "page");
     return { success: true };
   } catch (error) {
-    throw new Error("❌ 게시글 수정 실패", { cause: error });
+    throw new Error("❌ 게시글 삭제 실패", { cause: error });
   }
 }

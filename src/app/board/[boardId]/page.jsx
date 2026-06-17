@@ -20,19 +20,32 @@ export default function PostDetailPage() {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
+  console.log(openedMenuId);
 
   return (
-    <div className="relative m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
+    <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <header className="border-b border-b-secondary-200">
-        <div className="flex justify-between mb-[16px]">
+        <div className="relative flex justify-between mb-[16px]">
           <h1 className="font-bold text-[20px]/[32px]">{data.title}</h1>
           <Image
             src="/icons/ic_kebab.svg"
             alt="kebab icon"
             width={24}
             height={24}
+            onClick={() => {
+              setOpenedMenuId((prev) => (prev === 0 ? null : 0));
+            }}
             className="cursor-pointer"
           />
+          {openedMenuId === 0 && (
+            <Menu
+              menus={menus}
+              onClick={() => {
+                setOpenedMenuId((prev) => (prev === 0 ? null : 0));
+              }}
+              className="right-0 mt-[28px]"
+            />
+          )}
         </div>
         <div className="flex h-fit mb-[16px]">
           <div className="flex items-center">
@@ -101,10 +114,12 @@ export default function PostDetailPage() {
             <CommentItem
               data={comment}
               onMenuClick={() => {
-                setOpenedMenuId((prev) => (prev === index ? null : index));
+                setOpenedMenuId((prev) =>
+                  prev === index + 1 ? null : index + 1,
+                );
               }}
             >
-              {index === openedMenuId && (
+              {index + 1 === openedMenuId && (
                 <Menu
                   menus={menus}
                   onClick={() => {

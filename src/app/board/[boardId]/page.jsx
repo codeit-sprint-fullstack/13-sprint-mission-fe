@@ -8,7 +8,9 @@ import UserIcon from "@/components/ui/UserIcon";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import CommentItem from "@/components/ui/CommentItem";
+import Menu from "@/components/ui/Menu";
 
+import { menus } from "@/mocks/menus";
 import { mockPosts } from "@/mocks/posts";
 import { getDate } from "@/utils/getDate";
 
@@ -17,9 +19,10 @@ export default function PostDetailPage() {
   const data = mockPosts[pathname.split("/")[2] - 1];
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
+  const [openedMenuId, setOpenedMenuId] = useState(null);
 
   return (
-    <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
+    <div className="relative m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <header className="border-b border-b-secondary-200">
         <div className="flex justify-between mb-[16px]">
           <h1 className="font-bold text-[20px]/[32px]">{data.title}</h1>
@@ -94,7 +97,24 @@ export default function PostDetailPage() {
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
         {data.comments.map((comment, index) => (
-          <CommentItem key={index} data={comment} />
+          <div key={index}>
+            <CommentItem
+              data={comment}
+              onMenuClick={() => {
+                setOpenedMenuId((prev) => (prev === index ? null : index));
+              }}
+            >
+              {index === openedMenuId && (
+                <Menu
+                  menus={menus}
+                  onClick={() => {
+                    setOpenedMenuId(null);
+                  }}
+                  className="right-0 mt-[24px]"
+                />
+              )}
+            </CommentItem>
+          </div>
         ))}
       </div>
       <Link href="/board">

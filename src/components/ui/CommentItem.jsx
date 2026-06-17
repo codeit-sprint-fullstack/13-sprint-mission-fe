@@ -1,9 +1,10 @@
 import Image from "next/image";
+
 import UserIcon from "./UserIcon";
 
-export default function CommentItem({ data }) {
+export default function CommentItem({ data, onMenuClick, children }) {
   return (
-    <div className="bg-[#fcfcfc] border-b border-b-secondary-300 pb-[12px]">
+    <div className="bg-[#fcfcfc] border-b border-b-secondary-300 pb-[12px] relative">
       <div className="flex justify-between mb-[24px]">
         <h3 className="text-[14px]/[24px] text-secondary-800">
           {data.content}
@@ -13,8 +14,10 @@ export default function CommentItem({ data }) {
           alt="kebab icon"
           width={24}
           height={24}
+          onClick={onMenuClick}
           className="cursor-pointer"
         />
+        {children}
       </div>
       <div className="flex items-center gap-[8px]">
         <UserIcon width={32} height={32} />

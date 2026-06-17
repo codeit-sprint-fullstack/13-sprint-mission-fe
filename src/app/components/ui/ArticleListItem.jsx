@@ -13,7 +13,6 @@ export default function ArticleListItem({ article }) {
       href={`/community/${article.id}`}
       className="flex items-center justify-between py-5 border-b border-secondary-100 hover:bg-secondary-50 transition-colors px-1 gap-4"
     >
-      {/* Left: title + meta */}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-secondary-900 truncate mb-3">
           {article.title}
@@ -37,13 +36,12 @@ export default function ArticleListItem({ article }) {
         </div>
       </div>
 
-      {/* Right: default thumbnail */}
       <div className="w-18 h-18 rounded-lg bg-white shrink-0 flex items-center justify-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={DEFAULT_IMAGE}
           alt="게시글 이미지"
-          className="w-12 h-[44.571px] object-cover"
+          width={48}
+          height={44.571}
         />
       </div>
     </Link>

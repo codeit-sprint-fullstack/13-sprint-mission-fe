@@ -1,30 +1,58 @@
-import React from "react";
 import BestCard from "./components/BsetCard";
+import PostCard from "./components/PostCard";
+import SortDropdown from "./components/SortDropdown";
+import SearchInput from "./components/SearchInput";
+import { getBestArticles, getArticles, formatDate } from "@/services/articleService";
+import DefaultImg from "@/assets/png/borad_default.png";
 
-const BEST_POSTS = [
-  {
-    id: 1,
-    title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-    author: "총명한판다",
-    likeCount: 12300,
-    date: "2024. 04. 16",
-    image: null,
-  },
-];
+export default async function FreeBoardsPage({ searchParams }) {
+  const { orderBy = "recent", keyword = "" } = await searchParams;
 
-export default function FreeBoardsPage() {
+  const [bestPosts, posts] = await Promise.all([
+    getBestArticles(3),
+    getArticles({ orderBy, keyword }),
+  ]);
+
   return (
     <main className="mx-4 mt-4">
       <h2 className="font-bold text-[1.125rem]">베스트 게시글</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-        {BEST_POSTS.map((post) => (
-          <BestCard
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {bestPosts.map((post, index) => (
+          <div
+            key={post.id}
+            className={["", "hidden md:block", "hidden lg:block"][index]}
+          >
+            <BestCard
+              title={post.title}
+              author={"판다마켓"}
+              likeCount={post.favorite}
+              date={formatDate(post.createdAt)}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between mt-8">
+        <h2 className="font-bold text-[1.125rem]">게시글</h2>
+        <button className="bg-primary-100 hover:bg-primary-200 text-white font-medium px-5 py-2 rounded-lg transition-colors">
+          글쓰기
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2 mt-4">
+        <SearchInput />
+        <SortDropdown />
+      </div>
+
+      <div className="flex flex-col mt-2 mb-[5.69rem] gap-6">
+        {posts.map((post) => (
+          <PostCard
             key={post.id}
             title={post.title}
-            author={post.author}
-            likeCount={post.likeCount}
-            date={post.date}
-            image={post.image}
+            author={"판다마켓"}
+            likeCount={post.favorite}
+            date={formatDate(post.createdAt)}
+            image={DefaultImg}
           />
         ))}
       </div>

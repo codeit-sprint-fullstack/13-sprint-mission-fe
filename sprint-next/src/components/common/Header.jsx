@@ -13,7 +13,7 @@ export default function Header() {
             alt="판다마켓 로고"
             width={32}
             height={32}
-            className="hidden md:block"
+            className="hidden md:block w-8 h-8"
           />
           <span className="font-rokf font-bold text-[1.3rem] text-primary-100">
             판다마켓

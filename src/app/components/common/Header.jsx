@@ -4,6 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import localFont from "next/font/local";
+
+const ROKAFSans = localFont({
+  src: "../../../../public/fonts/ROKAF Sans Bold.ttf",
+});
 
 export default function Header() {
   const pathname = usePathname();
@@ -22,10 +27,7 @@ export default function Header() {
             height={40}
             className="shrink-0 max-bd:hidden"
           />
-          <span
-            className="text-primary text-[25.633px] font-bold whitespace-nowrap max-bd:text-lg"
-            style={{ fontFamily: '"ROKAF Sans"' }}
-          >
+          <span className="text-primary text-[25.633px] font-bold whitespace-nowrap max-bd:text-lg font-rokaf">
             판다마켓
           </span>
         </Link>

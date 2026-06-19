@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import Btn from "@/components/common/Btn";
 import Dropdown from "@/components/common/SortDropdown";
@@ -15,6 +15,10 @@ export default function ArticlePage() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [sort, setSort] = useState("latest");
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedKeyword(keyword);
@@ -24,6 +28,12 @@ export default function ArticlePage() {
       clearTimeout(timer);
     };
   }, [keyword]);
+
+  useEffect(() => {
+    setPage(1);
+    setHasMore(true);
+  }, [debouncedKeyword, sort]);
+
   useEffect(() => {
     async function fetchBestArticles() {
       try {
@@ -37,23 +47,51 @@ export default function ArticlePage() {
     }
     fetchBestArticles();
   }, []);
-  useEffect(() => {
-    async function fetchData() {
+
+  const fetchArticlesData = useCallback(
+    async (pageNum) => {
       try {
-        const data = await getAllArticles(debouncedKeyword, 1, sort);
+        setIsFetching(true);
+        const data = await getAllArticles(debouncedKeyword, pageNum, sort);
 
         if (data && data.success) {
-          setArticles(data.data);
+          const { data: listData, pagination } = data;
+
+          if (pageNum === 1) {
+            setArticles(listData);
+          } else {
+            setArticles((prev) => [...prev, ...listData]);
+          }
+
+          if (pagination && pagination.page >= pagination.totalPages) {
+            setHasMore(false);
+          } else if (listData.length < 10) {
+            setHasMore(false);
+          }
         }
       } catch (error) {
         console.error("게시글 데이터 로딩 실패", error.message);
+      } finally {
+        setIsFetching(false);
       }
+    },
+    [debouncedKeyword, sort],
+  );
+
+  useEffect(() => {
+    fetchArticlesData(page);
+  }, [page, fetchArticlesData]);
+
+  const handleLoadMore = () => {
+    if (!isFetching && hasMore) {
+      setPage((prevPage) => prevPage + 1);
     }
-    fetchData();
-  }, [debouncedKeyword, sort]);
+  };
+
   const handleSearchChange = (e) => {
     setKeyword(e.target.value);
   };
+
   return (
     <main className="mt-[86px] mx-auto flex flex-col gap-6">
       <section className="flex flex-col gap-4">
@@ -107,6 +145,15 @@ export default function ArticlePage() {
             />
           ))}
         </div>
+        {hasMore && articles.length > 0 && (
+          <button
+            onClick={handleLoadMore}
+            disabled={isFetching}
+            className="mt-4 w-full h-11 border border-gray-300 rounded-xl text-md font-medium text-gray-600 hover:bg-gray-50 transition cursor-pointer flex justify-center items-center disabled:bg-gray-100"
+          >
+            {isFetching ? "불러오는 중... " : "게시글 더보기 "}
+          </button>
+        )}
       </section>
     </main>
   );

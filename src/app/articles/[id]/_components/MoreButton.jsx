@@ -47,7 +47,7 @@ export default function MoreButton({
   // 댓글 삭제
   async function handleCommentDelete() {
     try {
-      const result = await deleteCommentAction(articleId, commentId);
+      const result = await deleteCommentAction({ articleId, commentId });
       if (result?.success) {
         setMoreModal(false);
       }

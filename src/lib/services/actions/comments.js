@@ -59,7 +59,7 @@ export async function updateCommentAction({ articleId, commentId, content }) {
 }
 
 // DELETE /articles/:articleId/comments/:commentId
-export async function deleteCommentAction(articleId, commentId) {
+export async function deleteCommentAction({ articleId, commentId }) {
   try {
     const response = await fetch(
       `${process.env.API_BASE_URL}/articles/${articleId}/comments/${commentId}`,

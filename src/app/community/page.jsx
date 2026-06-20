@@ -24,9 +24,9 @@ export default function ComuunityPage() {
   return (
     <div className="flex gap-[2.5rem] flex-col items-start max-w-[75rem] mt-[1.5rem] mx-auto">
       <section className="flex flex-col gap-[1.5rem] items-start self-stretch">
-        <h1 className="font-pretendard text-[1.25rem] font-[700] leading-normal text-[#111827]">
+        <h2 className="font-pretendard text-[1.25rem] font-[700] leading-normal text-[#111827]">
           베스트 게시글
-        </h1>
+        </h2>
         <div className="grid grid-cols-3 gap-[1.5rem] items-start">
           {BEST_DATA.map((best) => (
             <BestCard desc={best.desc} key={best.id} />
@@ -35,11 +35,11 @@ export default function ComuunityPage() {
       </section>
       <section className="flex flex-col items-start gap-[1.5rem] self-stretch">
         <div className="flex justify-between items-center w-full">
-          <h1 className="font-pretendard text-[1.25rem] font-[700] leading-[2rem] text-[#1F2937]">
+          <h2 className="font-pretendard text-[1.25rem] font-[700] leading-[2rem] text-[#1F2937]">
             게시글
-          </h1>
+          </h2>
           <Link
-            href={"/"}
+            href={"/community/create"}
             className="rounded-lg bg-[#3692FF] h-10.5 px-[1.44rem]"
           >
             <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">

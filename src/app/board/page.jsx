@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,10 +10,21 @@ import Dropdown from "@/components/ui/Dropdown";
 import PostItem from "@/components/ui/PostItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
+import { boardService } from "@/lib/boardService";
 import { mockPosts } from "@/mocks/posts";
 import "swiper/css";
 
 export default function BoardListPage() {
+  const [posts, setPosts] = useState([]);
+
+  async function getArticles() {
+    const response = await boardService.getArticles();
+    setPosts(response.list);
+  }
+  useEffect(() => {
+    getArticles();
+  }, []);
+
   return (
     <div className="m-auto w-[1200px] py-[16px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <section className="mb-[24px]">
@@ -55,7 +67,7 @@ export default function BoardListPage() {
           <Dropdown />
         </div>
         <div className="flex flex-col gap-6 mt-[24px] mb-[78px]">
-          {mockPosts.map((post, index) => (
+          {posts.map((post, index) => (
             <PostItem data={post} key={index} />
           ))}
         </div>

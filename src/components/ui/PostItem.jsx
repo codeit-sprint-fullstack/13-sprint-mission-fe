@@ -53,7 +53,7 @@ export default function PostItem({ data }) {
             height={24}
           />
           <p className="w-[50px] text-[16px]/[26px] text-secondary-500 font-normal">
-            {data.likes > 9999 ? "9999+" : data.likes}
+            {data.favoriteCount > 9999 ? "9999+" : data.favoriteCount}
           </p>
         </div>
       </div>

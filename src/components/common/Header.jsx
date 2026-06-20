@@ -10,8 +10,8 @@ export default function Header() {
   const path = usePathname();
   return (
     <header className="bg-white border-b border-[#DFDFDF] w-full h-17.5">
-      <div className="flex justify-between items-center h-full">
-        <nav className="mx-[12.5rem]">
+      <div className="flex justify-between items-center h-full ml-50 max-w-[120rem]">
+        <nav>
           <div className="flex justify-center items-center gap-[0.537rem]">
             <Image
               src={fandaLogo}

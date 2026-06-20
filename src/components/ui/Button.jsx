@@ -4,18 +4,10 @@ const variants = {
   circle: "rounded-full border border-secondary-200 p-[12px]",
 };
 
-export default function Button({
-  variant,
-  children,
-  disabled = false,
-  onClick,
-  className,
-}) {
+export default function Button({ variant, disabled, children, className, ...buttonProps }) {
   return (
     <button
-      type="button"
-      disabled={disabled}
-      onClick={onClick}
+      {...buttonProps}
       className={`
         text-center
         cursor-pointer

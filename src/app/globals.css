@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
+/* 1) 원시 팔레트 — 실제 색상값은 여기 :root 에 정의 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary */
+  --primary-100: #3692ff;
+  --primary-200: #1967d6;
+  --primary-300: #1251aa;
+
+  /* Error */
+  --error: #f74747;
+
+  /* Gray (Secondary) */
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50:  #f9fafb;
 }
 
+/* 2) Tailwind 토큰에 연결 — 위 변수를 @theme inline 에서 참조 */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* 색상 → bg-primary-100, text-gray-700, border-error ... 로 사용 */
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-error:       var(--error);
+  --color-gray-900: var(--gray-900);
+  --color-gray-800: var(--gray-800);
+  --color-gray-700: var(--gray-700);
+  --color-gray-600: var(--gray-600);
+  --color-gray-500: var(--gray-500);
+  --color-gray-400: var(--gray-400);
+  --color-gray-200: var(--gray-200);
+  --color-gray-100: var(--gray-100);
+  --color-gray-50:  var(--gray-50);
+
+  /* 폰트 → --font-pretendard 를 기본 글꼴로 */
+  --font-sans: var(--font-pretendard), system-ui, sans-serif;
+
+  /* 타이포 스케일 → text-3xl, text-2lg, text-md ... 로 사용 */
+  --text-3xl: 32px;  --text-3xl--line-height: 42px;
+  --text-2xl: 24px;  --text-2xl--line-height: 32px;
+  --text-xl:  20px;  --text-xl--line-height:  32px;
+  --text-2lg: 18px;  --text-2lg--line-height: 26px;
+  --text-lg:  16px;  --text-lg--line-height:  26px;
+  --text-md:  14px;  --text-md--line-height:  24px;
+  --text-sm:  13px;  --text-sm--line-height:  22px;
+  --text-xs:  12px;  --text-xs--line-height:  20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 3) 기본 바탕 (필요시 조정) */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--gray-100);
+  color: var(--gray-800);
 }

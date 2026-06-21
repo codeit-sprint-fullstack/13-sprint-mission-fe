@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL;
+import { API } from "@/services/apiService";
 
 export function formatDate(isoString) {
   const date = new Date(isoString);
@@ -9,19 +9,33 @@ export function formatDate(isoString) {
 }
 
 export async function getBestArticles(pageSize = 3) {
-  const res = await fetch(
-    `${BASE_URL}/articles?page=1&pageSize=${pageSize}&orderBy=favorite`,
+  const data = await API.get(
+    `/articles?page=1&pageSize=${pageSize}&orderBy=favorite`,
     { cache: "no-store" }
   );
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.list ?? [];
+  return data?.list ?? [];
 }
 
 export async function getArticles({ orderBy = "recent", keyword = "", pageSize = 10 } = {}) {
   const params = new URLSearchParams({ page: 1, pageSize, orderBy, keyword });
-  const res = await fetch(`${BASE_URL}/articles?${params}`, { cache: "no-store" });
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.list ?? [];
+  const data = await API.get(`/articles?${params}`, { cache: "no-store" });
+  return data?.list ?? [];
+}
+
+export async function getArticle(id) {
+  return API.get(`/articles/${id}`, { cache: "no-store" });
+}
+
+export async function getArticleComments(articleId) {
+  const data = await API.get(`/articles/${articleId}/comments`, { cache: "no-store" });
+  return data?.list ?? [];
+}
+
+export function formatRelativeTime(isoString) {
+  if (!isoString) return "방금 전";
+  const diff = Math.floor((Date.now() - new Date(isoString)) / 1000);
+  if (isNaN(diff) || diff < 60) return "방금 전";
+  if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}시간 전`;
+  return `${Math.floor(diff / 86400)}일 전`;
 }

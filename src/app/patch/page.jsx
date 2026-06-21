@@ -1,19 +1,21 @@
 "use client";
 
 import { marketAPI } from "@/lib/services/marketApi";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 export default function page() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const isEnabled = title.trim() && desc.trim();
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const router = useRouter();
 
   async function handleSubmit() {
     if (!isEnabled) return;
-    const res = await marketAPI.postArticle({ title, content: desc });
-    router.push(`${res.id}`);
+    await marketAPI.patchArticle({ title, content: desc }, id);
+    router.push(`community/${id}`);
   }
 
   return (
@@ -28,7 +30,7 @@ export default function page() {
           onClick={handleSubmit}
         >
           <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">
-            등록
+            수정
           </span>
         </button>
       </div>

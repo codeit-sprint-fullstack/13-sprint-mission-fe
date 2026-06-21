@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import kebabImg from "../../../assets/ic_kebab.png";
 import DropDownList from "@/components/common/DropDownList";
 import profileImg from "../../../assets/ic_profile.svg";
@@ -9,16 +9,60 @@ import heartImg from "../../../assets/ic_heart.svg";
 import backImg from "../../../assets/ic_back.svg";
 import CommentItem from "./_components/CommentItem";
 import Link from "next/link";
+import { marketAPI } from "@/lib/services/marketApi";
+import { useParams, useRouter } from "next/navigation";
 
 export default function page() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [open, isOpen] = useState(false);
+  const { id } = useParams();
+  const [articleData, setArticle] = useState({});
+  const [comments, setCommets] = useState([]);
+  const [fieldComment, setFieldComment] = useState("");
+  const [loading, setLoading] = useState(true);
+  const isEnabled = fieldComment.trim();
+  const router = useRouter();
+
+  const fetchCommentData = async () => {
+    const [articleRes, commentRes] = await Promise.all([
+      marketAPI.getDetailArticle(id),
+      marketAPI.getComments(id),
+    ]);
+    setCommets(commentRes);
+    setArticle(...articleRes);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetchCommentData();
+  }, []);
+
+  const handleSubmit = async () => {
+    const data = await marketAPI.postComment({ content: fieldComment }, id);
+    if (!comments || comments.length === 0) setCommets([data]);
+    else setCommets([...comments, data]);
+    setFieldComment("");
+  };
+
+  const updateFunc = () => {
+    router.push(`/patch?id=${id}`);
+  };
+
+  const deleteFunc = async () => {
+    await marketAPI.deleteArticle(id);
+    router.push(`/community`);
+  };
+
+  if (loading) {
+    return <div className="text-center mt-10">로딩중...</div>;
+  }
+
   return (
     <div className="flex flex-col items-start gap-[2rem] self-stretch max-w-[75rem] mt-[1.5rem] mx-auto">
       <section className="flex flex-col items-start gap-[1rem] self-stretch">
         <div className="flex justify-between items-start gap-[0.5rem] self-stretch relative">
           <h2 className="font-pretendard text-[1.25rem] font-[700] leading-[2rem] text-[#1F2937]">
-            맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
+            {articleData.title}
           </h2>
           <Image
             className="cursor-pointer"
@@ -26,7 +70,12 @@ export default function page() {
             alt="옵션 이미지"
             onClick={() => isOpen(!open)}
           ></Image>
-          {open && <DropDownList></DropDownList>}
+          {open && (
+            <DropDownList
+              updateFunc={updateFunc}
+              deleteFunc={deleteFunc}
+            ></DropDownList>
+          )}
         </div>
         <div className="flex gap-[2rem] self-stretch items-center">
           <div className="flex gap-[1rem] items-center">
@@ -40,7 +89,13 @@ export default function page() {
                 총명한 판다
               </span>
               <span className="font-pretendard text-[0.875remrem] font-[400] leading-[1.5rem] text-[#9CA3AF]">
-                2024. 04. 16
+                {new Date(articleData.createdAt)
+                  .toLocaleDateString("ko-KR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  })
+                  .slice(0, -1)}
               </span>
             </div>
           </div>
@@ -77,7 +132,7 @@ export default function page() {
           <path d="M0 0.5H1200" stroke="#E5E7EB" />
         </svg>
         <span className="font-pretendard text-[1.125rem] font-[400] leading-[1.625rem] text-[#1F2937]">
-          맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
+          {articleData.content}
         </span>
       </section>
       <section className="flex flex-col items-start gap-[2.5rem] self-stretch">
@@ -90,19 +145,35 @@ export default function page() {
               <textarea
                 className="flex-1 h-full resize-none font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
                 placeholder="댓글을 입력해주세요."
+                value={fieldComment}
+                onChange={(e) => setFieldComment(e.target.value)}
               />
             </div>
           </div>
-          <button className="rounded-lg bg-[#9CA3AF] h-10.5 px-[1.44rem] cursor-pointer">
+          <button
+            disabled={!isEnabled}
+            className={`rounded-lg ${isEnabled ? "bg-[#3692FF]" : "bg-[#9CA3AF]"} h-10.5 px-[1.44rem] cursor-pointer`}
+            onClick={handleSubmit}
+          >
             <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">
               등록
             </span>
           </button>
         </div>
         <div className="flex flex-col flex-wrap items-start gap-[1.5rem] w-full">
-          <CommentItem />
-          <CommentItem />
-          <CommentItem />
+          {comments
+            ? comments.map((comment) => {
+                return (
+                  <CommentItem
+                    key={comment.id}
+                    content={comment.content}
+                    setComments={setCommets}
+                    id={id}
+                    commentId={comment.id}
+                  />
+                );
+              })
+            : "댓글이 없습니다."}
         </div>
       </section>
       <Link

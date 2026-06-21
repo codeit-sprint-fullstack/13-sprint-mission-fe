@@ -2,25 +2,12 @@ import BestCard from "@/components/BestCard";
 import Card from "@/components/Card";
 import DropDown from "@/components/common/DropDown";
 import Input from "@/components/common/Input";
+import { marketAPI } from "@/lib/services/marketApi";
 import Link from "next/link";
 import React from "react";
 
-const BEST_DATA = [
-  {
-    id: 1,
-    desc: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-  },
-  {
-    id: 2,
-    desc: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-  },
-  {
-    id: 3,
-    desc: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-  },
-];
-
-export default function ComuunityPage() {
+export default async function ComuunityPage() {
+  const articles = await marketAPI.getArticle();
   return (
     <div className="flex gap-[2.5rem] flex-col items-start max-w-[75rem] mt-[1.5rem] mx-auto">
       <section className="flex flex-col gap-[1.5rem] items-start self-stretch">
@@ -28,8 +15,13 @@ export default function ComuunityPage() {
           베스트 게시글
         </h2>
         <div className="grid grid-cols-3 gap-[1.5rem] items-start">
-          {BEST_DATA.map((best) => (
-            <BestCard desc={best.desc} key={best.id} />
+          {articles.list.map((best) => (
+            <BestCard
+              title={best.title}
+              date={best.createdAt}
+              key={best.id}
+              id={best.id}
+            />
           ))}
         </div>
       </section>
@@ -52,8 +44,13 @@ export default function ComuunityPage() {
           <DropDown />
         </div>
         <div className="flex w-full gap-[1.5rem] flex-col">
-          {BEST_DATA.map(({}, i) => (
-            <Card key={i} />
+          {articles.list.map((item) => (
+            <Card
+              title={item.title}
+              date={item.createdAt}
+              id={item.id}
+              key={item.id}
+            />
           ))}
         </div>
       </section>

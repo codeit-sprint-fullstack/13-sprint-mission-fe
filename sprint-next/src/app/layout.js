@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${rokafSans.variable}`}>
       <body className="min-h-screen flex flex-col">
         <Header />
-        <div className="flex-1 pt-17.5">{children}</div>
+        <div className="flex-1 pt-17.5 lg: mx-90">{children}</div>
         <Footer />
       </body>
     </html>

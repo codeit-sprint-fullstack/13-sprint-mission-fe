@@ -56,7 +56,7 @@ export default function PopularPostCard({ data }) {
               width={16}
               height={16}
             />
-            <p>{data.likes > 9999 ? "9999+" : data.likes}</p>
+            <p>{data.favoriteCount > 9999 ? "9999+" : data.favoriteCount}</p>
           </div>
         </div>
         <div className="text-secondary-400">{getDate(data.createdAt)}</div>

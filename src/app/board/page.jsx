@@ -16,13 +16,21 @@ import "swiper/css";
 
 export default function BoardListPage() {
   const [posts, setPosts] = useState([]);
+  const [bestPosts, setBestPosts] = useState([]);
 
   async function getArticles() {
     const response = await boardService.getArticles();
     setPosts(response.list);
   }
+  async function getBestArticles() {
+    const response = await boardService.getBestArticles();
+    setBestPosts(response);
+  }
+
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     getArticles();
+    getBestArticles();
   }, []);
 
   return (
@@ -32,7 +40,7 @@ export default function BoardListPage() {
           베스트 게시글
         </h1>
         <Swiper slidesPerView="auto" spaceBetween={24}>
-          {mockPosts.slice(0, 3).map((bestPost, index) => (
+          {bestPosts.map((bestPost, index) => (
             <SwiperSlide key={index} className="w-auto!">
               <PopularPostCard data={bestPost} />
             </SwiperSlide>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import PostForm from "@/app/components/PostForm"; // PostForm 컴포넌트 경로 주의
+import PostForm from "@/app/components/PostForm";
 
 export default function EditPage() {
   const params = useParams();
@@ -12,7 +12,6 @@ export default function EditPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 수정을 위해 기존 데이터를 가져옴 (GET)
     const fetchPost = async () => {
       try {
         const response = await fetch(

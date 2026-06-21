@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GNB from "@/app/components/GNB";
-import Footer from "@/app/components/Footer"; // 👈 푸터 컴포넌트 불러오기
+import Footer from "@/app/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

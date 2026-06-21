@@ -1,12 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import defaultImg from "../assets/default.png";
-import profileImg from "../assets/ic_profile.png";
+import profileImg from "../assets/ic_profile.svg";
 import heartImg from "../assets/ic_heart.svg";
+import Link from "next/link";
 
 export default function Card() {
   return (
-    <>
+    <Link href={"community/1"}>
       <div className="flex gap-[1rem] flex-col items-start self-stretch ">
         <div className="flex items-start gap-[0.5rem] self-stretch">
           <h2 className="w-full font-pretendard text-[1.25rem] font-[600] leading-[2rem] text-[#1F2937]">
@@ -45,6 +46,6 @@ export default function Card() {
       >
         <path d="M0 0.5L1200 0.500105" stroke="#E5E7EB" />
       </svg>
-    </>
+    </Link>
   );
 }

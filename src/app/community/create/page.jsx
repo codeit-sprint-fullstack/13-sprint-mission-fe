@@ -7,7 +7,7 @@ export default function page() {
         <h2 className="font-pretendard text-[1.25rem] font-[700] leading-[2rem] text-[#1F2937]">
           게시글
         </h2>
-        <button className="rounded-lg bg-[#9CA3AF] h-10.5 px-[1.44rem]">
+        <button className="rounded-lg bg-[#9CA3AF] h-10.5 px-[1.44rem] cursor-pointer">
           <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">
             등록
           </span>

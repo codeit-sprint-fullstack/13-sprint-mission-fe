@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthForm from "@/app/components/auth/AuthForm";
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <div className="flex items-center justify-center">
       <div className="w-160 flex flex-col items-center gap-20">
@@ -18,7 +18,7 @@ export default function LoginPage() {
             판다마켓
           </h1>
         </Link>
-        <AuthForm mode="login" />
+        <AuthForm mode="signup" />
       </div>
     </div>
   );

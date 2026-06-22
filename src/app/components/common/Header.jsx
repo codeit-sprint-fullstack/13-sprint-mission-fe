@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+
+  if (pathname === "/login" || pathname === "/signup") return null;
+
   return (
     <nav className="fixed inset-x-0 top-0 h-17.5 bg-white border-b border-[#dfdfdf] flex items-center z-50">
       <div className="w-full max-w-390 mx-auto flex items-center justify-between px-4 bd:px-6">

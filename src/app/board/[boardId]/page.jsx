@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,23 +10,86 @@ import Button from "@/components/ui/Button";
 import CommentItem from "@/components/ui/CommentItem";
 import Menu from "@/components/ui/Menu";
 
-import { menus } from "@/mocks/menus";
-import { mockPosts } from "@/mocks/posts";
 import { getDate } from "@/utils/getDate";
+import { boardService } from "@/lib/boardService";
+import { commentService } from "@/lib/commentService";
 
 export default function PostDetailPage() {
+  const router = useRouter();
   const pathname = usePathname();
-  const data = mockPosts[pathname.split("/")[2] - 1];
+  const boardId = pathname.split("/")[2];
+  const [data, setData] = useState();
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
-  console.log(openedMenuId);
+
+  async function getPostDetail() {
+    const response = await boardService.getArticleDetail(boardId);
+    setData(response);
+  }
+  async function deletePost() {
+    const result = confirm("게시글을 삭제하시겠습니까?");
+    if (!result) return;
+
+    await boardService.deleteArticle(boardId);
+    router.push("/board");
+  }
+  async function postComment() {
+    // validation
+    if (!comment.trim()) return;
+
+    // userId는 아직 회원가입이 만들어지지 않아서 임의로 1로 지정
+    await commentService.postComment(boardId, {
+      content: comment,
+      userId: 1,
+    });
+    setComment("");
+    getPostDetail();
+  }
+  async function deleteComment() {
+    const result = confirm("댓글을 삭제하시겠습니까?");
+    if (!result) return;
+
+    await commentService.deleteComment(boardId, openedMenuId);
+    getPostDetail();
+  }
+
+  const boardMenus = [
+    {
+      name: "수정하기",
+      onClick: () => {
+        router.push(`/board/${boardId}/edit`);
+      },
+    },
+    {
+      name: "삭제하기",
+      onClick: async () => {
+        await deletePost();
+      },
+    },
+  ];
+  const commentMenus = [
+    {
+      name: "수정하기",
+      onClick: () => {},
+    },
+    {
+      name: "삭제하기",
+      onClick: async () => {
+        await deleteComment();
+      },
+    },
+  ];
+
+  useEffect(() => {
+    getPostDetail();
+  }, []);
 
   return (
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <header className="border-b border-b-secondary-200">
-        <div className="relative flex justify-between mb-[16px]">
-          <h1 className="font-bold text-[20px]/[32px]">{data.title}</h1>
+        <div className="relative flex justify-between items-start mb-[16px]">
+          <h1 className="font-bold text-[20px]/[32px]">{data?.title}</h1>
           <Image
             src="/icons/ic_kebab.svg"
             alt="kebab icon"
@@ -39,7 +102,7 @@ export default function PostDetailPage() {
           />
           {openedMenuId === 0 && (
             <Menu
-              menus={menus}
+              menus={boardMenus}
               onClick={() => {
                 setOpenedMenuId((prev) => (prev === 0 ? null : 0));
               }}
@@ -51,10 +114,10 @@ export default function PostDetailPage() {
           <div className="flex items-center">
             <UserIcon width={40} height={40} />
             <h2 className="text-[14px]/[24px] font-medium ml-[16px] mr-[8px]">
-              {data.author}
+              {data?.author}
             </h2>
             <p className="text-[14px]/[24px] text-secondary-400 font-normal">
-              {getDate(data.createdAt)}
+              {getDate(data?.createdAt)}
             </p>
           </div>
           <div className="w-px self-stretch bg-secondary-200 mx-[32px]"></div>
@@ -74,15 +137,17 @@ export default function PostDetailPage() {
               width={32}
               height={32}
             />
-            {data.likes}
+            {data?.favoriteCount}
           </div>
         </div>
       </header>
-      <p className="text-[18px]/[26px] mt-[24px] mb-[32px]">{data.content}</p>
+      <p className="text-[18px]/[26px] mt-[24px] mb-[32px] whitespace-pre-wrap">
+        {data?.content}
+      </p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(comment);
+          postComment();
         }}
       >
         <FormField
@@ -100,28 +165,26 @@ export default function PostDetailPage() {
             variant="rectangle"
             type="submit"
             disabled={comment.trim().length === 0}
-            className={`${
-              comment.trim().length === 0 ? "bg-secondary-400" : "bg-primary"
-            } text-white`}
+            className="bg-primary text-white"
           >
             등록
           </Button>
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {data.comments.map((comment, index) => (
+        {data?.comments.map((comment, index) => (
           <div key={index}>
             <CommentItem
               data={comment}
               onMenuClick={() => {
                 setOpenedMenuId((prev) =>
-                  prev === index + 1 ? null : index + 1,
+                  prev === comment.id ? null : comment.id,
                 );
               }}
             >
-              {index + 1 === openedMenuId && (
+              {comment.id === openedMenuId && (
                 <Menu
-                  menus={menus}
+                  menus={commentMenus}
                   onClick={() => {
                     setOpenedMenuId(null);
                   }}

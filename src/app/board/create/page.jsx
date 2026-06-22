@@ -1,17 +1,27 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
 
+import { boardService } from "@/lib/boardService";
+
 export default function CreatePostPage() {
+  const router = useRouter();
   const [data, setData] = useState({ title: "", content: "" });
+
+  async function postArticle() {
+    // 회원가입이 없는 이유로 임의로 userId 1로 해두기
+    await boardService.postArticle({ ...data, userId: 1 });
+    router.push("/board");
+  }
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(data);
+        postArticle();
       }}
       className="m-auto w-[1200px] py-[16px] flex-1 max-desktop:px-[20px] max-desktop:w-full"
     >
@@ -21,7 +31,8 @@ export default function CreatePostPage() {
         </h1>
         <Button
           type="submit"
-          className="bg-secondary-400 text-white px-[23px] py-[12px] rounded-[8px]"
+          disabled={!!!data.title || !!!data.content}
+          className="bg-primary text-white px-[23px] py-[12px] rounded-[8px]"
         >
           등록
         </Button>

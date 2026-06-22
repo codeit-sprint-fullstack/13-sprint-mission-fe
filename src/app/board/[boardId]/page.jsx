@@ -26,7 +26,6 @@ export default function PostDetailPage() {
 
   async function getPostDetail() {
     const response = await boardService.getArticleDetail(boardId);
-    console.log(response);
     setData(response);
   }
   async function postComment() {
@@ -124,9 +123,7 @@ export default function PostDetailPage() {
             variant="rectangle"
             type="submit"
             disabled={comment.trim().length === 0}
-            className={`${
-              comment.trim().length === 0 ? "bg-secondary-400" : "bg-primary"
-            } text-white`}
+            className="bg-primary text-white"
           >
             등록
           </Button>

@@ -9,4 +9,13 @@ export const boardService = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  patchArticle: async (id, body) =>
+    await defaultFetch(`/articles/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    }),
+  deleteArticle: async (id) =>
+    await defaultFetch(`/articles/${id}`, {
+      method: "DELETE",
+    }),
 };

@@ -5,4 +5,8 @@ export const commentService = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  deleteComment: async (articleId, commentId) =>
+    await defaultFetch(`/articles/${articleId}/comments/${commentId}`, {
+      method: "DELETE",
+    }),
 };

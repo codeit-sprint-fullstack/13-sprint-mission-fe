@@ -7,6 +7,7 @@ export default function Menu({ menus, className, ...props }) {
       {menus.map((menu, index) => (
         <div
           key={index}
+          onClick={menu.onClick}
           className="w-full py-[8px] flex justify-center bg-white whitespace-nowrap cursor-pointer hover:bg-secondary-50"
         >
           <p className="m-auto">{menu.name}</p>

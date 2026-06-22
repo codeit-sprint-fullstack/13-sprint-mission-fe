@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { getTime } from "@/utils/getDate";
+
 import UserIcon from "./UserIcon";
 
 export default function CommentItem({ data, onMenuClick, children }) {
@@ -24,7 +26,7 @@ export default function CommentItem({ data, onMenuClick, children }) {
         <div className="flex flex-col">
           <p className="text-[12px]/[18px] text-secondary-600">{data.author}</p>
           <p className="text-[12px]/[18px] text-secondary-400">
-            {data.createdAt}
+            {getTime(data.createdAt)} 전
           </p>
         </div>
       </div>

@@ -13,7 +13,7 @@ export default function Input({
       {multiline ? (
         <textarea
           {...props}
-          className="flex-1 border-none outline-none bg-transparent resize-none placeholder:text-secondary-400 max-tablet:placeholder:text-[8px]"
+          className="flex-1 border-none outline-none bg-transparent resize-none placeholder:text-secondary-400"
         />
       ) : (
         <input

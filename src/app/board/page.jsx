@@ -11,7 +11,6 @@ import PostItem from "@/components/ui/PostItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
 import { boardService } from "@/lib/boardService";
-import { mockPosts } from "@/mocks/posts";
 import "swiper/css";
 
 export default function BoardListPage() {

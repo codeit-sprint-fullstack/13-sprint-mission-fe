@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("/fonts/ROKAF Sans Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --color-blue-100: #3692ff;
+  --color-blue-200: #1967d6;
+  --color-blue-300: #1251aa;
+
+  --color-red: #f74747;
+
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
+}
+
+@theme inline {
+  --font-pretendard: var(--font-pretendard);   /* className="font-pretendard" 로 사용 */
+  --font-rokaf: "ROKAF Sans", sans-serif;       /* className="font-rokaf" 로 사용 */
+
+  --color-blue-100: var(--color-blue-100);
+  --color-blue-200: var(--color-blue-200);
+  --color-blue-300: var(--color-blue-300);
+
+  --color-red: var(--color-red);
+
+  --color-gray-900: var(--color-gray-900);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-50: var(--color-gray-50);
+
+  --color-primary: var(--color-blue-100);
+  --color-primary-200: var(--color-blue-200);
+
+  --color-secondary-900: var(--color-gray-900);
+  --color-secondary-800: var(--color-gray-800);
+  --color-secondary-700: var(--color-gray-700);
+  --color-secondary-600: var(--color-gray-600);
+  --color-secondary-500: var(--color-gray-500);
+  --color-secondary-400: var(--color-gray-400);
+  --color-secondary-200: var(--color-gray-200);
+  --color-secondary-100: var(--color-gray-100);
+  --color-secondary-50: var(--color-gray-50);
+}
+
+@theme {
+  --breakpoint-md: 375px;
+  --breakpoint-bd: 744px;
+  --breakpoint-lg: 1560px;
+}
+
+body {
+  font-family: var(--font-pretendard), sans-serif;
+}

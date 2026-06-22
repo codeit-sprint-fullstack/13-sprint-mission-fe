@@ -2,8 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function Dropdown() {
-  const menus = ["최신순", "좋아요순"];
+export default function Dropdown({ menus, value, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [clicked, setClicked] = useState(menus[0]);
 
@@ -15,7 +14,7 @@ export default function Dropdown() {
         }}
         className="w-[130px] flex justify-between items-center px-[20px] py-[12px] border border-secondary-200 rounded-xl cursor-pointer max-tablet:w-fit"
       >
-        <p className="max-tablet:hidden">{clicked}</p>
+        <p className="max-tablet:hidden">{value}</p>
         <Image
           src="/icons/ic_arrow_down.svg"
           alt="dropdown icon"
@@ -37,10 +36,10 @@ export default function Dropdown() {
             <div
               key={index}
               onClick={() => {
-                setClicked(menu);
+                onChange(menu);
                 setIsOpen(false);
               }}
-              className="w-full py-[8px] flex justify-center bg-white whitespace-nowrap cursor-pointer"
+              className="w-full py-[8px] flex justify-center bg-white whitespace-nowrap cursor-pointer hover:bg-secondary-100"
             >
               <p className="m-auto">{menu}</p>
             </div>

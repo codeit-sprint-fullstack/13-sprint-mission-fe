@@ -55,6 +55,6 @@
 
 /* 3) 기본 바탕 (필요시 조정) */
 body {
-  background-color: var(--gray-100);
+  background-color: #ffffff;
   color: var(--gray-800);
 }

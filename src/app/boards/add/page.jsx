@@ -1,4 +1,6 @@
-// src/app/boards/add/page.js
+import PostForm from "@/components/PostForm";
+import { FORM_MODE } from "@/constants/article";
+
 export default function AddBoardPage() {
-  return <h1>게시글 등록</h1>;
+  return <PostForm mode={FORM_MODE.CREATE} />;
 }

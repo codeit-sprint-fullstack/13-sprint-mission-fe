@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ArticleItem({ article }) {
   return (
     <Link href={`/boards/${article.id}`}>
-      <div className="border-b border-gray-200 py-6">
+      <div className="border-b border-gray-200 bg-gray-50 px-4 py-6">
         {/* 윗줄: 제목 + 기본 이미지 */}
         <div className="flex items-start justify-between gap-4">
           <h2 className="text-lg font-semibold text-gray-800">
@@ -23,7 +23,7 @@ export default function ArticleItem({ article }) {
         {/* 아랫줄: 닉네임·날짜 + 좋아요 */}
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-full bg-gray-400" />
+            <img src="/img/main/ic_profile.svg" alt="" className="h-8 w-8" />
             <span className="text-sm text-gray-600">총명한 판다</span>
             <span className="text-sm text-gray-400">2024. 04. 16</span>
           </div>

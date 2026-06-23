@@ -9,13 +9,15 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
 import Social from "@/components/ui/Social";
+import Modal from "@/components/ui/Modal";
 
 import { validateEmail, validatePassword } from "@/utils/validation";
 import { authService } from "@/lib/authService";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [passwordOpen, setPasswordOpen] = useState();
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [data, setData] = useState({ email: "", password: "" });
   const [validationResults, setValidationResults] = useState({
     email: true,
@@ -33,8 +35,7 @@ export default function LoginPage() {
       router.push("/market");
     },
     onError: (e) => {
-      /**TODO: e.message를 alert말고 모달 띄워주기*/
-      alert(e.message);
+      setModalMessage(e.message);
     },
   });
 
@@ -134,7 +135,13 @@ export default function LoginPage() {
           </p>
         </div>
       </form>
-      {/*<Popup text="비밀번호가 일치하지 않습니다." disabled={true} />*/}
+      {!!modalMessage && (
+        <Modal
+          text={modalMessage}
+          disabled={!!!modalMessage}
+          onClick={() => setModalMessage("")}
+        />
+      )}
     </div>
   );
 }

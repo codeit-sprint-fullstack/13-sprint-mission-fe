@@ -8,6 +8,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Social from "@/components/ui/Social";
 import FormField from "@/components/ui/FormField";
+import Modal from "@/components/ui/Modal";
 
 import {
   validateEmail,
@@ -20,6 +21,7 @@ export default function SignUpPage() {
   const router = useRouter();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordCheckOpen, setPasswordCheckOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [data, setData] = useState({
     email: "",
     nickname: "",
@@ -44,19 +46,18 @@ export default function SignUpPage() {
       router.push("/market");
     },
     onError: (e) => {
-      /**TODO: e.message를 alert말고 모달 띄워주기*/
-      alert(e.message);
+      setModalMessage(e.message);
     },
   });
 
   return (
-    <div className="w-full h-fit flex justify-center py-[48px]">
+    <div className="w-full h-fit flex justify-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           signUp(data);
         }}
-        className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
+        className="w-[640px] my-[48px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >
         <Link href="/">
           <div className="flex justify-center items-center gap-[22px] mb-[40px]">
@@ -205,6 +206,13 @@ export default function SignUpPage() {
           </p>
         </div>
       </form>
+      {!!modalMessage && (
+        <Modal
+          text={modalMessage}
+          disabled={!!!modalMessage}
+          onClick={() => setModalMessage("")}
+        />
+      )}
     </div>
   );
 }

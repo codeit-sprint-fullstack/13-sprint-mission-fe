@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -12,29 +14,47 @@ import {
   validatePassword,
   validateCheckedPassword,
 } from "@/utils/validation";
+import { authService } from "@/lib/authService";
 
 export default function SignUpPage() {
-  const [pwOpen, setPwOpen] = useState(false);
-  const [pwCheckOpen, setPwCheckOpen] = useState(false);
+  const router = useRouter();
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [passwordCheckOpen, setPasswordCheckOpen] = useState(false);
   const [data, setData] = useState({
     email: "",
     nickname: "",
-    pw: "",
-    checkPw: "",
+    password: "",
+    passwordConfirmation: "",
   });
   const [validationResults, setValidationResults] = useState({
     email: true,
     nickname: true,
-    pw: true,
-    checkPw: true,
+    password: true,
+    passwordConfirmation: true,
   });
   const isValidated = Object.values(validationResults).every((i) => i);
+
+  const { mutate: signUp } = useMutation({
+    mutationKey: ["signUp"],
+    mutationFn: authService.signUp,
+    onSuccess: (result) => {
+      localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("refreshToken", result.refreshToken);
+      /**TODO: user context 만들고 result.user을 상태로 세팅해주기 */
+      router.push("/market");
+    },
+    onError: (e) => {
+      /**TODO: e.message를 alert말고 모달 띄워주기*/
+      alert(e.message);
+    },
+  });
 
   return (
     <div className="w-full h-fit flex justify-center py-[48px]">
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          signUp(data);
         }}
         className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >
@@ -86,70 +106,80 @@ export default function SignUpPage() {
           <FormField
             title="비밀번호"
             errorMsg={
-              data.pw && !validationResults.pw
+              data.password && !validationResults.password
                 ? "영문, 숫자, 특수문자 조합 8자 이상 입력해주세요"
                 : ""
             }
-            type={pwOpen ? "text" : "password"}
+            type={passwordOpen ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요"
-            value={data.pw}
+            value={data.password}
             onChange={(e) => {
               const input = e.target.value.trim();
               if (!!!input) {
-                setValidationResults((prev) => ({ ...prev, pw: true }));
+                setValidationResults((prev) => ({ ...prev, password: true }));
               }
-              setData((prev) => ({ ...prev, pw: e.target.value }));
+              setData((prev) => ({ ...prev, password: e.target.value }));
               setValidationResults((prev) => ({
                 ...prev,
-                pw: validatePassword(input),
+                password: validatePassword(input),
               }));
             }}
             suffix={
               <Image
                 src={
-                  pwOpen
+                  passwordOpen
                     ? "/icons/ic_btn_visibility_on.svg"
                     : "/icons/ic_btn_visibility_off.svg"
                 }
                 alt="비밀번호 노출 아이콘"
                 width={24}
                 height={24}
-                onClick={() => setPwOpen((prev) => !prev)}
+                onClick={() => setPasswordOpen((prev) => !prev)}
               />
             }
           />
           <FormField
             title="비밀번호 확인"
             errorMsg={
-              data.checkPw && !validationResults.checkPw
+              data.passwordConfirmation &&
+              !validationResults.passwordConfirmation
                 ? "비밀번호가 일치하지 않습니다."
                 : ""
             }
-            type={pwCheckOpen ? "text" : "password"}
+            type={passwordCheckOpen ? "text" : "password"}
             placeholder="비밀번호를 다시 한 번 입력해주세요"
-            value={data.checkPw}
+            value={data.passwordConfirmation}
             onChange={(e) => {
               const input = e.target.value.trim();
               if (!!!input) {
-                setValidationResults((prev) => ({ ...prev, checkPw: true }));
+                setValidationResults((prev) => ({
+                  ...prev,
+                  passwordConfirmation: true,
+                }));
               }
-              setData((prev) => ({ ...prev, checkPw: e.target.value }));
+              setData((prev) => ({
+                ...prev,
+                passwordConfirmation: e.target.value,
+              }));
               setValidationResults((prev) => ({
                 ...prev,
-                checkPw: validateCheckedPassword(input, data.pw),
+                passwordConfirmation: validateCheckedPassword(
+                  input,
+                  data.password,
+                ),
               }));
             }}
             suffix={
               <Image
                 src={
-                  pwOpen
+                  passwordOpen
                     ? "/icons/ic_btn_visibility_on.svg"
                     : "/icons/ic_btn_visibility_off.svg"
                 }
                 alt="비밀번호 노출 아이콘"
                 width={24}
                 height={24}
-                onClick={() => setPwCheckOpen((prev) => !prev)}
+                onClick={() => setPasswordCheckOpen((prev) => !prev)}
               />
             }
           />
@@ -159,8 +189,8 @@ export default function SignUpPage() {
               !isValidated ||
               !data.email ||
               !data.nickname ||
-              !data.pw ||
-              !data.checkPw
+              !data.password ||
+              !data.passwordConfirmation
             }
             className="bg-primary py-[12px] text-[20px] font-semibold text-secondary-100"
           >

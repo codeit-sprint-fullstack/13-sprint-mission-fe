@@ -154,7 +154,7 @@ export default function SignUpPage() {
             }
           />
           <Button
-            variant="rectangle"
+            variant="circle"
             disabled={
               !isValidated ||
               !data.email ||

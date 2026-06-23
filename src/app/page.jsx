@@ -20,7 +20,7 @@ export default function Home() {
               거래해 보세요
             </p>
             <Link
-              href="/market"
+              href="/items"
               className="inline-flex h-14 px-31 py-4 justify-center items-center rounded-[50px] bg-primary text-white whitespace-nowrap text-xl font-semibold cursor-pointer leading-[160%] mt-8 mb-15 max-[744px]:px-16 max-[744px]:text-lg max-[744px]:mt-6 max-[744px]:mb-10 max-[465px]:px-10 max-[465px]:text-base max-[465px]:h-11 max-[465px]:mb-8"
             >
               구경하러 가기

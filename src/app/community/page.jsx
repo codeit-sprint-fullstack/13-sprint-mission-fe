@@ -33,7 +33,7 @@ function CommunityContent() {
 
   useEffect(() => {
     getArticles({ sort: "recent", limit: 3, page: 1 }).then((res) =>
-      setBestArticles(res.data),
+      setBestArticles(res.list ?? [])
     );
   }, []);
 
@@ -42,11 +42,11 @@ function CommunityContent() {
     getArticles({ search: search || undefined, sort, page, limit: LIMIT }).then(
       (res) => {
         if (!cancelled) {
-          setArticles(res.data);
-          setTotalPages(res.totalPages);
+          setArticles(res.list ?? []);
+          setTotalPages(Math.ceil((res.totalCount ?? 0) / LIMIT));
           setLoading(false);
         }
-      },
+      }
     );
     return () => {
       cancelled = true;
@@ -79,7 +79,7 @@ function CommunityContent() {
     setLoading(true);
     setPage(p);
   };
-
+  // console.log(articles);
   return (
     <div className="max-w-5xl mx-auto">
       {/* ── Best Articles ── */}
@@ -140,7 +140,7 @@ function CommunityContent() {
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1)
               .filter(
-                (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 2,
+                (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 2
               )
               .reduce((acc, p, i, arr) => {
                 if (i > 0 && p - arr[i - 1] > 1) acc.push("...");
@@ -167,7 +167,7 @@ function CommunityContent() {
                   >
                     {p}
                   </button>
-                ),
+                )
               )}
             <button
               onClick={() => handlePage(Math.min(totalPages, page + 1))}

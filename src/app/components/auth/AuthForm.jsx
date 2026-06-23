@@ -13,36 +13,27 @@ const MODES = {
   signup: {
     submitLabel: "회원가입",
     bottomText: "이미 회원이신가요?",
-    bottomLink: { href: "/login", label: "로그인" },
+    bottomLink: { href: "/login", label: "로그인하기" },
   },
 };
 
-export default function AuthForm({ mode = "login", onSubmit }) {
-  const [formData, setFormData] = useState({
-    email: "",
-    nickname: "",
-    password: "",
-    passwordConfirm: "",
-  });
+export default function AuthForm({
+  mode = "login",
+  values,
+  onChange,
+  onSubmit,
+  disabled = false,
+  errors = {},
+}) {
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const config = MODES[mode];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit?.(formData);
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
+    <form onSubmit={onSubmit} className="w-full flex flex-col gap-6">
       {/* 이메일 */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <label htmlFor="email" className="text-[18px] font-bold text-gray-800">
           이메일
         </label>
@@ -50,29 +41,34 @@ export default function AuthForm({ mode = "login", onSubmit }) {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value={values.email}
+          onChange={onChange}
           placeholder="이메일을 입력해주세요"
           required
-          className="w-full h-12 pl-4 pr-12 border border-transparent rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary"
+          className={`w-full h-12 pl-4 pr-12 border rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary ${
+            errors.email ? "border-red-500" : "border-transparent"
+          }`}
         />
+        {errors.email && (
+          <p className="text-sm text-red-500">{errors.email}</p>
+        )}
       </div>
 
       {/* 닉네임 (회원가입만) */}
       {mode === "signup" && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label
-            htmlFor="nickname"
+            htmlFor="name"
             className="text-[18px] font-bold text-gray-800"
           >
             닉네임
           </label>
           <input
             type="text"
-            id="nickname"
-            name="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
+            id="name"
+            name="name"
+            value={values.name}
+            onChange={onChange}
             placeholder="닉네임을 입력해주세요"
             required
             className="w-full h-12 pl-4 pr-12 border border-transparent rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary"
@@ -81,7 +77,7 @@ export default function AuthForm({ mode = "login", onSubmit }) {
       )}
 
       {/* 비밀번호 */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <label
           htmlFor="password"
           className="text-[18px] font-bold text-gray-800"
@@ -93,11 +89,13 @@ export default function AuthForm({ mode = "login", onSubmit }) {
             type={showPassword ? "text" : "password"}
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={values.password}
+            onChange={onChange}
             placeholder="비밀번호를 입력해주세요"
             required
-            className="w-full h-12 pl-4 pr-12 border border-transparent rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary"
+            className={`w-full h-12 pl-4 pr-12 border rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary ${
+              errors.password ? "border-red-500" : "border-transparent"
+            }`}
           />
           <button
             type="button"
@@ -116,36 +114,41 @@ export default function AuthForm({ mode = "login", onSubmit }) {
             />
           </button>
         </div>
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password}</p>
+        )}
       </div>
 
       {/* 비밀번호 확인 (회원가입만) */}
       {mode === "signup" && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label
-            htmlFor="passwordConfirm"
+            htmlFor="passwordRepeat"
             className="text-[18px] font-bold text-gray-800"
           >
             비밀번호 확인
           </label>
           <div className="relative flex items-center">
             <input
-              type={showPasswordConfirm ? "text" : "password"}
-              id="passwordConfirm"
-              name="passwordConfirm"
-              value={formData.passwordConfirm}
-              onChange={handleChange}
+              type={showPasswordRepeat ? "text" : "password"}
+              id="passwordRepeat"
+              name="passwordRepeat"
+              value={values.passwordRepeat}
+              onChange={onChange}
               placeholder="비밀번호를 다시 입력해주세요"
               required
-              className="w-full h-12 pl-4 pr-12 border border-transparent rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary"
+              className={`w-full h-12 pl-4 pr-12 border rounded-lg text-base outline-none bg-gray-100 text-gray-800 focus:border-primary ${
+                errors.passwordRepeat ? "border-red-500" : "border-transparent"
+              }`}
             />
             <button
               type="button"
-              onClick={() => setShowPasswordConfirm((prev) => !prev)}
+              onClick={() => setShowPasswordRepeat((prev) => !prev)}
               className="absolute right-6 p-0 bg-transparent border-none cursor-pointer flex items-center"
             >
               <Image
                 src={
-                  showPasswordConfirm
+                  showPasswordRepeat
                     ? "/icons/btn_visibility_on_24px.svg"
                     : "/icons/btn_visibility_off_24px.svg"
                 }
@@ -155,13 +158,17 @@ export default function AuthForm({ mode = "login", onSubmit }) {
               />
             </button>
           </div>
+          {errors.passwordRepeat && (
+            <p className="text-sm text-red-500">{errors.passwordRepeat}</p>
+          )}
         </div>
       )}
 
       {/* 제출 버튼 */}
       <button
         type="submit"
-        className="w-full h-14 bg-primary text-gray-100 border-none rounded-[40px] text-xl font-semibold cursor-pointer hover:bg-primary-200"
+        disabled={disabled}
+        className="w-full h-14 bg-primary text-gray-100 border-none rounded-[40px] text-xl font-semibold cursor-pointer hover:bg-primary-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {config.submitLabel}
       </button>

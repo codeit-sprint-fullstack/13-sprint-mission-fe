@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/app/providers/AuthProvider";
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, signOut } = useAuth();
 
   if (pathname === "/login" || pathname === "/signup") return null;
 
@@ -34,7 +35,7 @@ export default function Header() {
           <Link
             href="/community"
             className={`text-center text-sm bd:text-lg font-bold leading-6.5 no-underline whitespace-nowrap mx-1 bd:mx-[15px] ${
-              pathname === "/community" || pathname === "/new"
+              pathname.startsWith("/community")
                 ? "text-primary"
                 : "text-gray-600"
             }`}
@@ -42,22 +43,35 @@ export default function Header() {
             자유게시판
           </Link>
           <Link
-            href="/market"
+            href="/items"
             className={`text-center text-sm bd:text-lg font-bold leading-6.5 no-underline whitespace-nowrap mx-1 bd:mx-[15px] ${
-              pathname === "/market" ? "text-primary" : "text-gray-600"
+              pathname.startsWith("/items") ? "text-primary" : "text-gray-600"
             }`}
           >
             중고마켓
           </Link>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-9 bd:h-10.5 justify-center items-center border-none rounded-lg text-white text-sm bd:text-base font-semibold cursor-pointer bg-primary whitespace-nowrap px-3 bd:px-[23px]"
-          onClick={() => router.push("/login")}
-        >
-          로그인
-        </button>
+        {user ? (
+          <div className="flex items-center gap-3 whitespace-nowrap cursor-pointer text-secondary-600">
+            <Image
+              src="/icons/ic_profile.svg"
+              alt={`${user.nickname}의 프로필`}
+              width={40}
+              height={40}
+              className="shrink-0"
+            />
+            <span>{user.nickname}</span>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="inline-flex h-9 bd:h-10.5 justify-center items-center border-none rounded-lg text-white text-sm bd:text-base font-semibold cursor-pointer bg-primary whitespace-nowrap px-3 bd:px-[23px]"
+            onClick={() => router.push("/login")}
+          >
+            로그인
+          </button>
+        )}
       </div>
     </nav>
   );

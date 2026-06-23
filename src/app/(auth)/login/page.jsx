@@ -1,0 +1,88 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/providers/AuthProvider";
+import AuthForm from "@/app/components/auth/AuthForm";
+import ConfirmModal from "@/app/components/ui/Modal";
+
+export default function LoginPage() {
+  const router = useRouter();
+  const { signIn, isInitialized, user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
+  const [modal, setModal] = useState(null);
+
+  useEffect(() => {
+    if (isInitialized && user) {
+      router.replace("/items");
+    }
+  }, [isInitialized, user, router]);
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      setErrors({});
+      await signIn(values.email, values.password);
+      router.push("/items");
+    } catch {
+      setErrors({
+        email: "이메일을 확인해 주세요.",
+        password: "비밀번호를 확인해 주세요.",
+      });
+      setModal({
+        title: "로그인 실패",
+        message: "이메일 또는 비밀번호를 확인해 주세요.",
+        onConfirm: () => setModal(null),
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="flex items-center justify-center">
+      <div className="w-160 flex flex-col items-center gap-20">
+        <Link href="/" className="flex items-center justify-center gap-7">
+          <Image
+            src="/logo/panda-logo.svg"
+            alt="판다마켓 로고"
+            width={103}
+            height={103}
+            className="object-contain"
+          />
+          <h1 className="text-primary font-rokaf text-[66.344px] font-bold leading-normal">
+            판다마켓
+          </h1>
+        </Link>
+        <AuthForm
+          mode="login"
+          values={values}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          disabled={loading}
+          errors={errors}
+        />
+      </div>
+
+      {modal && (
+        <ConfirmModal
+          title={modal.title}
+          message={modal.message}
+          onClick={modal.onConfirm}
+          onExit={() => setModal(null)}
+        />
+      )}
+    </div>
+  );
+}

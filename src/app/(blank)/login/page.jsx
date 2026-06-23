@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -9,21 +11,39 @@ import FormField from "@/components/ui/FormField";
 import Social from "@/components/ui/Social";
 
 import { validateEmail, validatePassword } from "@/utils/validation";
+import { authService } from "@/lib/authService";
 
 export default function LoginPage() {
-  const [pwOpen, setPwOpen] = useState();
-  const [data, setData] = useState({ email: "", pw: "" });
+  const router = useRouter();
+  const [passwordOpen, setPasswordOpen] = useState();
+  const [data, setData] = useState({ email: "", password: "" });
   const [validationResults, setValidationResults] = useState({
     email: true,
-    pw: true,
+    password: true,
   });
   const isValidated = Object.values(validationResults).every((i) => i);
+
+  const { mutate: login } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: authService.login,
+    onSuccess: (result) => {
+      localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("refreshToken", result.refreshToken);
+      /**TODO: user context 만들고 result.user을 상태로 세팅해주기 */
+      router.push("/market");
+    },
+    onError: (e) => {
+      /**TODO: e.message를 alert말고 모달 띄워주기*/
+      alert(e.message);
+    },
+  });
 
   return (
     <div className="w-full h-dvh flex justify-center items-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          login(data);
         }}
         className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >
@@ -66,41 +86,41 @@ export default function LoginPage() {
           <FormField
             title="비밀번호"
             errorMsg={
-              data.pw && !validationResults.pw
+              data.password && !validationResults.password
                 ? "영문, 숫자, 특수문자 조합 8자 이상 입력해주세요"
                 : ""
             }
-            type={pwOpen ? "text" : "password"}
+            type={passwordOpen ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요"
-            value={data.pw}
+            value={data.password}
             onChange={(e) => {
               const input = e.target.value.trim();
               if (!!!e.target.value) {
-                setValidationResults((prev) => ({ ...prev, pw: true }));
+                setValidationResults((prev) => ({ ...prev, password: true }));
               }
-              setData((prev) => ({ ...prev, pw: e.target.value }));
+              setData((prev) => ({ ...prev, password: e.target.value }));
               setValidationResults((prev) => ({
                 ...prev,
-                pw: validatePassword(input),
+                password: validatePassword(input),
               }));
             }}
             suffix={
               <Image
                 src={
-                  pwOpen
+                  passwordOpen
                     ? "/icons/ic_btn_visibility_on.svg"
                     : "/icons/ic_btn_visibility_off.svg"
                 }
                 alt="비밀번호 노출 아이콘"
                 width={24}
                 height={24}
-                onClick={() => setPwOpen((prev) => !prev)}
+                onClick={() => setPasswordOpen((prev) => !prev)}
               />
             }
           />
           <Button
             variant="circle"
-            disabled={!isValidated || !data.email || !data.pw}
+            disabled={!isValidated || !data.email || !data.password}
             className="bg-primary py-[12px] text-[20px] font-semibold text-secondary-100"
           >
             로그인

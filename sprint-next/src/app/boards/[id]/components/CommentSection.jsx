@@ -1,0 +1,148 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { formatRelativeTime } from "@/services/articleService";
+import { createComment, updateComment, deleteComment } from "@/app/boards/[id]/actions";
+import KebabMenu from "./KebabMenu";
+import DefaultProfile from "@/assets/png/ic_default_profile.png";
+import EmptyComment from "@/assets/png/Img_reply_empty.png";
+
+function CommentItem({ comment, onUpdate, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(comment.content);
+
+  const handleUpdate = async () => {
+    if (!editContent.trim()) return;
+    await onUpdate(comment.id, editContent);
+    setIsEditing(false);
+  };
+
+  const menuOptions = [
+    { label: "수정하기", onClick: () => setIsEditing(true) },
+    { label: "삭제하기", onClick: () => onDelete(comment.id) },
+  ];
+
+  return (
+    <div className="flex flex-col gap-3 py-4 border-b border-gray-100">
+      <div className="flex items-start justify-between gap-2">
+        {isEditing ? (
+          <textarea
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
+            className="flex-1 bg-gray-100 rounded-lg px-3 py-2 text-sm outline-none resize-none"
+            rows={2}
+          />
+        ) : (
+          <p className="flex-1 text-sm text-gray-700">{comment.content}</p>
+        )}
+        <KebabMenu options={menuOptions} />
+      </div>
+
+      {isEditing && (
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() => setIsEditing(false)}
+            className="text-sm text-gray-400 px-3 py-1"
+          >
+            취소
+          </button>
+          <button
+            onClick={handleUpdate}
+            className="text-sm text-white bg-primary-100 px-3 py-1 rounded-lg"
+          >
+            수정
+          </button>
+        </div>
+      )}
+
+      <div className="flex items-center gap-2 text-sm text-gray-400">
+        <Image src={DefaultProfile} alt="프로필" width={24} height={24} className="rounded-full w-6 h-6 shrink-0" />
+        <div className="flex flex-col">
+          <span>{comment.writer?.nickname || "판다마켓"}</span>
+          <span className="text-xs">{formatRelativeTime(comment.createdAt)}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function CommentSection({ articleId, initialComments }) {
+  const [comments, setComments] = useState(initialComments);
+  const [newComment, setNewComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleCreate = async () => {
+    if (!newComment.trim() || isSubmitting) return;
+    setIsSubmitting(true);
+    const content = newComment.trim();
+    try {
+      const created = await createComment(articleId, content);
+      setComments((prev) => [
+        { id: `temp-${Date.now()}`, content, createdAt: new Date().toISOString(), ...created },
+        ...prev,
+      ]);
+      setNewComment("");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleUpdate = async (commentId, content) => {
+    const updated = await updateComment(commentId, content);
+    setComments((prev) =>
+      prev.map((c) => (c.id === commentId ? { ...c, content: updated.content } : c))
+    );
+  };
+
+  const handleDelete = async (commentId) => {
+    if (!confirm("댓글을 삭제하시겠습니까?")) return;
+    await deleteComment(commentId);
+    setComments((prev) => prev.filter((c) => c.id !== commentId));
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h2 className="font-bold text-base">댓글달기</h2>
+
+      <div className="flex flex-col gap-2">
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="댓글을 입력해주세요."
+          rows={4}
+          className="w-full bg-gray-100 rounded-lg px-4 py-3 text-sm outline-none placeholder:text-gray-400 resize-none"
+        />
+        <div className="flex justify-end">
+          <button
+            onClick={handleCreate}
+            disabled={!newComment.trim() || isSubmitting}
+            className="bg-primary-100 text-white font-medium px-5 py-2 rounded-lg transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-primary-200"
+          >
+            등록
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-col">
+        {comments.length === 0 ? (
+          <div className="flex flex-col items-center gap-4 py-10">
+            <Image src={EmptyComment} alt="댓글 없음" width={140} height={140} />
+            <p className="text-sm text-gray-400 text-center">
+              아직 댓글이 없어요,<br />지금 댓글을 달아보세요!
+            </p>
+          </div>
+        ) : (
+          comments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
+}

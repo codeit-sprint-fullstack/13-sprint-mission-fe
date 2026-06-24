@@ -3,10 +3,12 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useAuth } from "@/providers/AuthProvider";
 import Button from "../ui/Button";
 
 export default function Header() {
   const pathname = usePathname();
+  const { isLogin, logout } = useAuth();
   return (
     <header className="w-full h-[68px] flex items-center min-desktop:px-[200px] max-desktop:px-[24px] border-b-[1px] border-secondary-300">
       <div className="w-full flex items-center gap-[24px] max-desktop:gap-[8px]">
@@ -34,15 +36,26 @@ export default function Header() {
           </Link>
         </nav>
       </div>
-      <Link href="/login">
+      {isLogin ? (
         <Button
           type="button"
           variant="rectangle"
+          onClick={logout}
           className="bg-primary text-white max-tablet:text-[16px]"
         >
-          로그인
+          로그아웃
         </Button>
-      </Link>
+      ) : (
+        <Link href="/login">
+          <Button
+            type="button"
+            variant="rectangle"
+            className="bg-primary text-white max-tablet:text-[16px]"
+          >
+            로그인
+          </Button>
+        </Link>
+      )}
     </header>
   );
 }

@@ -2,19 +2,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
 import Image from "next/image";
 
+import { useAuth } from "@/providers/AuthProvider";
 import Button from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
 import Social from "@/components/ui/Social";
 import Modal from "@/components/ui/Modal";
 
 import { validateEmail, validatePassword } from "@/utils/validation";
-import { authService } from "@/lib/authService";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [data, setData] = useState({ email: "", password: "" });
@@ -24,24 +24,17 @@ export default function LoginPage() {
   });
   const isValidated = Object.values(validationResults).every((i) => i);
 
-  async function login() {
-    try {
-      const result = await authService.login(data);
-      localStorage.setItem("accessToken", result.accessToken);
-      localStorage.setItem("refreshToken", result.refreshToken);
-      /**TODO: user context 만들고 result.user을 상태로 세팅해주기 */
-      router.push("/market");
-    } catch (e) {
-      setModalMessage(e.message);
-    }
-  }
-
   return (
     <div className="w-full h-dvh flex justify-center items-center">
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          login();
+          try {
+            await login(data);
+            router.push("/market");
+          } catch (e) {
+            setModalMessage(e.message);
+          }
         }}
         className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >

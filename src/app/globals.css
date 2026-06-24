@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("/fonts/ROKAF-Sans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@theme {
+  --font-rokaf: "ROKAF Sans", sans-serif;
+
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+
+  /* -----------------------------------------------
+     Primary Colors
+  ----------------------------------------------- */
+  --color-primary-100: #3692ff; /* blue - light */
+  --color-primary-200: #1967d6; /* blue - medium */
+  --color-primary-300: #1251aa; /* blue - dark */
+
+  /* -----------------------------------------------
+     Error Color
+  ----------------------------------------------- */
+  --color-error: #f74747; /* red */
+
+  /* -----------------------------------------------
+     Secondary Colors (Gray Scale)
+  ----------------------------------------------- */
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
+
+
+  --text-3xl: 32px;
+  --text-3xl--line-height: 42px;
+
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+
+  --text-xl: 20px;
+  --text-xl--line-height: 32px;
+
+  --text-2lg: 18px;
+  --text-2lg--line-height: 26px;
+
+  --text-lg: 16px;
+  --text-lg--line-height: 26px;
+
+  --text-md: 14px;
+  --text-md--line-height: 24px;
+
+  --text-sm: 13px;
+  --text-sm--line-height: 22px;
+
+  --text-xs: 12px;
+--text-xs--line-height: 18px;
+
+}
+
+body {
+  font-family: Pretendard, sans-serif;
+}
+
+@layer components {
+  .btn_small_40 {
+    @apply bg-primary-100 inline-flex h-10 items-center justify-center gap-2.5 rounded-lg px-5.75 py-3 text-lg font-semibold text-white;
+  }
+  .btn_small_40:disabled {
+    @apply cursor-not-allowed bg-gray-400;
+  }
+}

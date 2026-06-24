@@ -21,9 +21,10 @@ import KebabMenu from "@/app/components/ui/KebabMenu";
 
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
+const HEART_FILLED_ICON = "/icons/ic_heart_filled.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
-// const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
+const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
 
 function relativeTime(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -220,13 +221,18 @@ export default function ItemDetailPage({ params }) {
               <Image src={VECTOR_IMG} alt="" width={1} height={34} />
               <button
                 onClick={() => favoriteMutation.mutate()}
-                className={`ml-auto flex items-center gap-1 px-3 py-1 border rounded-full text-secondary-500 transition-colors ${
-                  product.isFavorite
-                    ? "border-primary text-primary"
-                    : "border-secondary-200"
-                }`}
+                className="flex items-center gap-1 px-3 py-1 border border-secondary-200 rounded-4xl text-secondary-500"
               >
-                <Image src={HEART_ICON} alt="" width={16} height={16} />
+                {product.isFavorite ? (
+                  <Image
+                    src={HEART_FILLED_ICON}
+                    alt=""
+                    width={16}
+                    height={16}
+                  />
+                ) : (
+                  <Image src={HEART_ICON} alt="" width={16} height={16} />
+                )}
                 <span>{product.favoriteCount}</span>
               </button>
             </div>
@@ -260,7 +266,7 @@ export default function ItemDetailPage({ params }) {
         {comments.length === 0 ? (
           <div className="flex flex-col items-center py-12 gap-2">
             <Image
-              src="/images/Img_items_detail.png"
+              src={EMPTY_COMMENT_IMG}
               alt="문의 없음"
               width={120}
               height={120}

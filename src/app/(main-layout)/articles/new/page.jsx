@@ -1,6 +1,6 @@
 "use client";
 import { createArticle } from "@/api/article";
-import ArticleFrom from "@/app/articles/components/ArticleFrom";
+import ArticleFrom from "@/app/(main-layout)/articles/_components/ArticleFrom";
 import { useRouter } from "next/navigation";
 import React from "react";
 

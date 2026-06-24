@@ -12,6 +12,8 @@
 }
 
 @theme {
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
   /* primary color */
   --color-primary-100: #3692ff;
   --color-primary-200: #1967d6;
@@ -60,4 +62,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  scrollbar-gutter: stable;
 }

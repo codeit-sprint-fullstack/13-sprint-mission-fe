@@ -4,8 +4,8 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import Btn from "@/components/common/Btn";
 import Dropdown from "@/components/common/SortDropdown";
-import ArticleCard from "./components/ArticleCard";
-import { BestArticleCard } from "./components/BestArticleCard";
+import ArticleCard from "./_components/ArticleCard";
+import { BestArticleCard } from "./_components/BestArticleCard";
 import { getAllArticles } from "@/api/article";
 import Link from "next/link";
 

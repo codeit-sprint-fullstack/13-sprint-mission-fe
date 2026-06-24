@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import ic_kebab from "@/assets/icons/ic_kebab.svg";
 
 export default function KebabMenu({ onEdit, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function KebabMenu({ onEdit, onDelete }) {
         className="cursor-pointer flex justify-center items-center   "
       >
         <Image
-          src="/ic_kebab.svg"
+          src={ic_kebab}
           alt="드롭다운 버튼"
           width={24}
           height={24}

@@ -2,8 +2,8 @@
 import KebabMenu from "@/components/common/KebabMenu";
 import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
-import CommentForm from "../components/CommentForm";
-import CommentCard from "../components/CommentCard";
+import CommentForm from "../_components/CommentForm";
+import CommentCard from "../_components/CommentCard";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { deleteArticle, getArticle } from "@/api/article";

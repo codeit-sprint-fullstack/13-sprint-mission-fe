@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import ic_sort from "@/assets/icons/ic_sort.svg";
+import ic_arrow_down from "@/assets/icons/ic_arrow_down.svg";
 
 export default function Dropdown({ onSortChange }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,17 +15,24 @@ export default function Dropdown({ onSortChange }) {
     setIsOpen(false);
   };
   return (
-    <div className="relative po">
+    <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer flex justify-center items-center w-10.5 h-10.5 rounded-xl border border-gray-200 bg-white"
+        className="hidden md:flex gap-6 items-center justify-center w-[130px] h-[42px]  border border-gray-200 rounded-xl"
+      >
+        <p className="text-lg font-normal">최신순</p>
+        <Image alt="드롭다운 버튼" src={ic_arrow_down} width={24} height={24} />
+      </button>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden cursor-pointer flex justify-center items-center w-10.5 h-10.5 rounded-xl border border-gray-200 bg-white"
       >
         <Image
-          src="/ic_sort.svg"
+          src={ic_sort}
           alt="드롭다운 버튼"
           width={24}
           height={24}
-          className="max-w-none"
+          className="max-w-none "
         />
       </button>
       {isOpen && (

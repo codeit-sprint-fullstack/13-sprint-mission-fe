@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ArticleFrom from "../../components/ArticleFrom";
+import ArticleFrom from "../../_components/ArticleFrom";
 import { useParams, useRouter } from "next/navigation";
 import { getArticle, updateArticle } from "@/api/article";
 

@@ -5,6 +5,13 @@ import { authService } from "@/app/lib/authService";
 import { userService } from "@/app/lib/userService";
 
 const AuthContext = createContext(null);
+// const AuthContext = createContext({
+//   login: () => {},
+//   logout: () => {},
+//   user: null,
+//   updateUser: () => {},
+//   register: () => {},
+// });
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -17,7 +24,23 @@ export default function AuthProvider({ children }) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken"); // @todo:
+    //     useEffect(() => {
+    //   const getUser = async () => {
+    //     try {
+    //       const user = await userService.getMe();
+    //       setUser(user);
+    //     } catch {
+    //       localStorage.removeItem("accessToken");
+    //     } finally {
+    //       setIsInitialized(true);
+    //     }
+    //   };
+
+    //   getUser();
+    // }, []);
+    // 이렇게도 할수는 있는데 token 없으면 실패하고 다시 뭔 api 호출해야한대서 낭비래
+
     if (token) {
       userService
         .getMe()
@@ -25,7 +48,7 @@ export default function AuthProvider({ children }) {
         .catch(() => localStorage.removeItem("accessToken"))
         .finally(() => setIsInitialized(true));
     } else {
-      setIsInitialized(true);
+      setIsInitialized(true); // @todo: 왜 if else로 나누지? local스토리지 써서?
     }
   }, []);
 

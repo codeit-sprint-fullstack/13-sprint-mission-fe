@@ -7,8 +7,8 @@ import Image from "next/image";
 import {
   getArticle,
   deleteArticle,
-  getComments,
-  createComment,
+  getArticleComments,
+  createArticleComment,
   updateComment,
   deleteComment,
 } from "@/app/lib/api";
@@ -47,7 +47,7 @@ export default function ArticleDetailPage() {
       try {
         const [articleRes, commentsRes] = await Promise.all([
           getArticle(articleId),
-          getComments(articleId),
+          getArticleComments(articleId),
         ]);
         setArticle(articleRes.data);
         setComments(commentsRes.data);
@@ -78,7 +78,7 @@ export default function ArticleDetailPage() {
     if (!commentInput.trim() || submittingComment) return;
     setSubmittingComment(true);
     try {
-      const res = await createComment(articleId, {
+      const res = await createArticleComment(articleId, {
         content: commentInput.trim(),
       });
       setComments((prev) => [...prev, res.data]);

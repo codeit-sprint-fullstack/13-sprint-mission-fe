@@ -49,18 +49,13 @@ export default function AuthForm({
             errors.email ? "border-red-500" : "border-transparent"
           }`}
         />
-        {errors.email && (
-          <p className="text-sm text-red-500">{errors.email}</p>
-        )}
+        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>
 
       {/* 닉네임 (회원가입만) */}
       {mode === "signup" && (
         <div className="flex flex-col gap-2">
-          <label
-            htmlFor="name"
-            className="text-[18px] font-bold text-gray-800"
-          >
+          <label htmlFor="name" className="text-[18px] font-bold text-gray-800">
             닉네임
           </label>
           <input
@@ -191,7 +186,7 @@ export default function AuthForm({
             />
           </a>
           <a
-            href="https://www.kakaocorp.com/page/"
+            href="https://www.kakaocorp.com/page"
             target="_blank"
             rel="noopener noreferrer"
             className="w-10.5 h-10.5 rounded-full flex items-center justify-center cursor-pointer overflow-hidden bg-[#FEE500]"
@@ -209,7 +204,7 @@ export default function AuthForm({
       {/* 하단 링크 */}
       <div className="text-center text-sm text-gray-800">
         <p>
-          {config.bottomText}{" "}
+          {config.bottomText}
           <Link
             href={config.bottomLink.href}
             className="text-primary font-medium underline"

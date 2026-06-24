@@ -1,3 +1,6 @@
+/**
+ * 기본 fetch 클라이언트 - 인증이 필요 없는 일반 요청용
+ */
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function getToken() {

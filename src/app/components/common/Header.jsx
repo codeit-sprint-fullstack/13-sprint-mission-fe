@@ -8,7 +8,7 @@ import { useAuth } from "@/app/providers/AuthProvider";
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
 
   if (pathname === "/login" || pathname === "/signup") return null;
 

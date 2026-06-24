@@ -39,7 +39,7 @@ export default function AuthProvider({ children }) {
 
     //   getUser();
     // }, []);
-    // 이렇게도 할수는 있는데 token 없으면 실패하고 다시 뭔 api 호출해야한대서 낭비래
+    // 이렇게도 할수는 있는데 token 없으면 실패하고 다시 api 호출해야한대서 낭비?
 
     if (token) {
       userService
@@ -48,7 +48,7 @@ export default function AuthProvider({ children }) {
         .catch(() => localStorage.removeItem("accessToken"))
         .finally(() => setIsInitialized(true));
     } else {
-      setIsInitialized(true); // @todo: 왜 if else로 나누지? local스토리지 써서?
+      setIsInitialized(true); // @todo: 굳이 if else?
     }
   }, []);
 
@@ -71,14 +71,9 @@ export default function AuthProvider({ children }) {
     return data;
   };
 
-  const signOut = () => {
-    localStorage.removeItem("accessToken");
-    setUser(null);
-  };
-
   return (
     <AuthContext.Provider
-      value={{ user, signIn, signUp, signOut, isInitialized }}
+      value={{ user, signIn, signUp, isInitialized }}
     >
       {children}
     </AuthContext.Provider>

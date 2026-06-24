@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
 import AuthForm from "@/app/components/auth/AuthForm";
 import ConfirmModal from "@/app/components/ui/Modal";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") ?? "/items";
   const { signIn, isInitialized, user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({ email: "", password: "" });
@@ -18,9 +20,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isInitialized && user) {
-      router.replace("/items");
+      router.replace(redirectTo);
     }
-  }, [isInitialized, user, router]);
+  }, [isInitialized, user, router, redirectTo]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -34,7 +36,7 @@ export default function LoginPage() {
       setLoading(true);
       setErrors({});
       await signIn(values.email, values.password);
-      router.push("/items");
+      router.push(redirectTo);
     } catch {
       setErrors({
         email: "이메일을 확인해 주세요.",
@@ -84,5 +86,13 @@ export default function LoginPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginContent />
+    </Suspense>
   );
 }

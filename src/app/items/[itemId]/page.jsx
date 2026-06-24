@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
@@ -35,8 +35,14 @@ export default function ItemDetailPage({ params }) {
   const [editContent, setEditContent] = useState("");
 
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isInitialized } = useAuth();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (isInitialized && !user) {
+      router.replace(`/login?redirect=/items/${itemId}`);
+    }
+  }, [isInitialized, user, router, itemId]);
 
   const {
     data: product,
@@ -103,6 +109,10 @@ export default function ItemDetailPage({ params }) {
     setEditContent(comment.content);
   };
 
+  if (!isInitialized)
+    return <p className="text-center py-20 text-gray-500">로딩 중...</p>;
+  if (!user) return null;
+
   if (isLoading)
     return <p className="text-center py-20 text-gray-500">로딩 중...</p>;
   if (isError || !product)
@@ -124,9 +134,7 @@ export default function ItemDetailPage({ params }) {
             <img
               src={product.images[0]}
               alt={product.name}
-              width={486}
-              height={486}
-              className="rounded-2xl object-cover w-121.5 h-121.5"
+              className="rounded-2xl object-cover w-85.75 h-85.75 xl:w-121.25 xl:h-121.25"
             />
             //    <Image className="rounded-2xl object-cover"
           )}

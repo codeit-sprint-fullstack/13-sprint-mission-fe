@@ -117,23 +117,24 @@ export default function ItemDetailPage({ params }) {
   return (
     <div>
       {/* 상품 상세 상단 */}
-      <div className="flex pb-6 border-b border-secondary-100 mb-8 gap-6">
+      <div className="flex flex-col pb-6 border-b border-secondary-100 mb-8 gap-6 md:flex-row">
         {/* 이미지 */}
-        <div className="shrink-0">
+        <div>
           {product.images?.[0] && (
-            <Image
+            <img
               src={product.images[0]}
               alt={product.name}
               width={486}
               height={486}
-              className="rounded-2xl object-cover"
+              className="rounded-2xl object-cover w-121.5 h-121.5"
             />
+            //    <Image className="rounded-2xl object-cover"
           )}
         </div>
         {/* 우측 정보 */}
         <div className="flex flex-col flex-1">
           <div className="flex items-start justify-between gap-3 mb-4">
-            <h1 className="text-lg sm:text-xl font-bold text-secondary-900 leading-snug flex-1">
+            <h1 className="text-lg sm:text-xl font-bold text-secondary-800 leading-snug flex-1">
               {product.name}
             </h1>
             {isOwner && (
@@ -143,21 +144,23 @@ export default function ItemDetailPage({ params }) {
               />
             )}
           </div>
-          <span className="text-2xl font-bold text-secondary-900 mb-4">
+          <span className="text-3xl font-bold text-secondary-800 mb-4">
             {product.price.toLocaleString()}원
           </span>
-          <hr className="border-secondary-100 mb-4" />
+          <hr className="border-secondary-100 mb-6" />
           <div className="mb-4">
-            <h3 className="text-sm font-medium text-secondary-500 mb-2">
+            <h3 className="text-sm font-medium text-secondary-600 mb-4">
               상품 소개
             </h3>
-            <span className="text-secondary-800">{product.description}</span>
+            <span className="text-secondary-600 mb-6">
+              {product.description}
+            </span>
           </div>
-          <div className="mb-6">
-            <h3 className="text-sm font-medium text-secondary-500 mb-2">
+          <div>
+            <h3 className="text-sm font-medium text-secondary-600 mb-4">
               상품 태그
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
               {product.tags.map((tag) => (
                 <span
                   key={tag}
@@ -168,38 +171,45 @@ export default function ItemDetailPage({ params }) {
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-3 text-sm text-secondary-500 mt-auto">
-            <Image
-              src={PROFILE_ICON}
-              alt=""
-              width={32}
-              height={32}
-              className="rounded-full"
-            />
-            <div>
-              <span className="text-secondary-700">{product.ownerNickname}</span>
-              <span className="ml-2">
-                {new Date(product.createdAt)
-                  .toLocaleDateString("ko-KR", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  })
-                  .replace(/\. /g, ". ")}
-              </span>
+
+          <div className="flex items-center justify-between gap-3 text-sm text-secondary-500 mt-auto">
+            <div className="flex flex-row gap-4">
+              <Image
+                src={PROFILE_ICON}
+                alt=""
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              <div className="flex flex-col items-center">
+                <span className="text-secondary-600">
+                  {product.ownerNickname}
+                </span>
+                <span className="ml-2 text-secondary-400">
+                  {new Date(product.createdAt)
+                    .toLocaleDateString("ko-KR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
+                    .replace(/\. /g, ". ")}
+                </span>
+              </div>
             </div>
-            <Image src={VECTOR_IMG} alt="" width={1} height={34} />
-            <button
-              onClick={() => favoriteMutation.mutate()}
-              className={`ml-auto flex items-center gap-1.5 px-3 py-1 border rounded-full text-secondary-500 transition-colors ${
-                product.isFavorite
-                  ? "border-primary text-primary"
-                  : "border-secondary-200"
-              }`}
-            >
-              <Image src={HEART_ICON} alt="" width={16} height={16} />
-              <span>{product.favoriteCount}</span>
-            </button>
+            <div className="flex gap-6">
+              <Image src={VECTOR_IMG} alt="" width={1} height={34} />
+              <button
+                onClick={() => favoriteMutation.mutate()}
+                className={`ml-auto flex items-center gap-1.5 px-3 py-1 border rounded-full text-secondary-500 transition-colors ${
+                  product.isFavorite
+                    ? "border-primary text-primary"
+                    : "border-secondary-200"
+                }`}
+              >
+                <Image src={HEART_ICON} alt="" width={16} height={16} />
+                <span>{product.favoriteCount}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

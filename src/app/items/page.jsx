@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import Image from "next/image";
 import { getProducts } from "@/app/lib/api";
 
 // const PAGE_SIZE = 10;
 const PAGE_GROUP_SIZE = 5;
+const ARROW_RIGHT_ICON = "/icons/arrow_right.svg";
+const ARROW_LEFT_ICON = "/icons/arrow_left.svg";
 
 function ProductCard({ product }) {
   return (
@@ -162,7 +165,12 @@ export default function ItemsPage() {
                 disabled={currentGroup === 1}
                 className="px-3 py-1 rounded border border-gray-300 text-sm disabled:opacity-40"
               >
-                이전
+                <Image
+                  src={ARROW_LEFT_ICON}
+                  alt="이전"
+                  width={16}
+                  height={16}
+                />
               </button>
               {Array.from(
                 { length: groupEnd - groupStart + 1 },
@@ -185,7 +193,12 @@ export default function ItemsPage() {
                 disabled={groupEnd === totalPages}
                 className="px-3 py-1 rounded border border-gray-300 text-sm disabled:opacity-40"
               >
-                다음
+                <Image
+                  src={ARROW_RIGHT_ICON}
+                  alt="다음"
+                  width={10}
+                  height={10}
+                />
               </button>
             </div>
           )}

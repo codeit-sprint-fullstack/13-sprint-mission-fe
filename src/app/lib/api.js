@@ -89,7 +89,7 @@ export function unfavoriteProduct(productId) {
 
 export function getProductComments(productId, query = {}) {
   const params = new URLSearchParams();
-  if (query.limit) params.set("limit", String(query.limit));
+  params.set("limit", String(query.limit ?? 10));
   if (query.cursor) params.set("cursor", String(query.cursor));
   const qs = params.toString();
   return publicFetch(

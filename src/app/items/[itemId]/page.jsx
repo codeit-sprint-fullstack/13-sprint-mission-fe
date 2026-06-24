@@ -45,8 +45,7 @@ export default function ItemDetailPage({ params }) {
   const [submittingComment, setSubmittingComment] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteCommentId, setDeleteCommentId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // 상품삭제 모달
 
   const router = useRouter();
   const { user, isInitialized } = useAuth();
@@ -315,7 +314,7 @@ export default function ItemDetailPage({ params }) {
                       {comment.writer?.id === user?.id && (
                         <KebabMenu
                           onEdit={() => handleStartEditComment(comment)}
-                          onDelete={() => setDeleteCommentId(comment.id)}
+                          onDelete={() => handleDeleteComment(comment.id)}
                         />
                       )}
                     </div>
@@ -371,18 +370,6 @@ export default function ItemDetailPage({ params }) {
           onExit={() => setShowDeleteModal(false)}
         />
       )}
-
-      {/* {deleteCommentId && (
-        <ProductDeleteConfirmModal
-          title="댓글을 삭제하시겠어요?"
-          message="삭제하면 다시 복구할 수 없어요."
-          onClick={() => {
-            handleDeleteComment(deleteCommentId);
-            setDeleteCommentId(null);
-          }}
-          onExit={() => setDeleteCommentId(null)}
-        />
-      )} */}
     </div>
   );
 }

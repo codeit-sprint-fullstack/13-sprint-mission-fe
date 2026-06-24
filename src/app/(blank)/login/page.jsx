@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -25,26 +24,24 @@ export default function LoginPage() {
   });
   const isValidated = Object.values(validationResults).every((i) => i);
 
-  const { mutate: login } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: authService.login,
-    onSuccess: (result) => {
+  async function login() {
+    try {
+      const result = await authService.login(data);
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
       /**TODO: user context 만들고 result.user을 상태로 세팅해주기 */
       router.push("/market");
-    },
-    onError: (e) => {
+    } catch (e) {
       setModalMessage(e.message);
-    },
-  });
+    }
+  }
 
   return (
     <div className="w-full h-dvh flex justify-center items-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          login(data);
+          login();
         }}
         className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -36,26 +35,24 @@ export default function SignUpPage() {
   });
   const isValidated = Object.values(validationResults).every((i) => i);
 
-  const { mutate: signUp } = useMutation({
-    mutationKey: ["signUp"],
-    mutationFn: authService.signUp,
-    onSuccess: (result) => {
+  async function signUp() {
+    try {
+      const result = await authService.signUp(data);
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
       /**TODO: user context 만들고 result.user을 상태로 세팅해주기 */
       router.push("/market");
-    },
-    onError: (e) => {
+    } catch (e) {
       setModalMessage(e.message);
-    },
-  });
+    }
+  }
 
   return (
     <div className="w-full h-fit flex justify-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          signUp(data);
+          signUp();
         }}
         className="w-[640px] my-[48px] max-tablet:max-w-[640px] max-tablet:px-[16px]"
       >

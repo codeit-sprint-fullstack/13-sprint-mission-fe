@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/app/providers/AuthProvider";
-import ConfirmModal from "@/app/components/ui/Modal";
+import ProductDeleteConfirmModal from "@/app/components/ui/ProductModal";
 import {
   getProduct,
   deleteProduct,
@@ -23,7 +23,7 @@ const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
-const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
+const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
 
 function relativeTime(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -44,6 +44,8 @@ export default function ItemDetailPage({ params }) {
   const [submittingComment, setSubmittingComment] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteCommentId, setDeleteCommentId] = useState(null);
 
   const router = useRouter();
   const { user, isInitialized } = useAuth();
@@ -147,7 +149,6 @@ export default function ItemDetailPage({ params }) {
               alt={product.name}
               className="rounded-2xl object-cover w-85.75 h-85.75 xl:w-121.25 xl:h-121.25"
             />
-            //    <Image className="rounded-2xl object-cover"
           )}
         </div>
         {/* 우측 정보 */}
@@ -159,7 +160,7 @@ export default function ItemDetailPage({ params }) {
             {isOwner && (
               <KebabMenu
                 onEdit={() => router.push(`/items/${productId}/edit`)}
-                onDelete={() => deleteMutation.mutate()}
+                onDelete={() => setShowDeleteModal(true)}
               />
             )}
           </div>
@@ -233,7 +234,7 @@ export default function ItemDetailPage({ params }) {
         </div>
       </div>
 
-      {/* ── Comment Input ── */}
+      {/* 문의하기 입력 */}
       <section className="mb-8">
         <h2 className="text-sm font-bold text-secondary-900 mb-3">문의하기</h2>
         <textarea
@@ -253,7 +254,8 @@ export default function ItemDetailPage({ params }) {
           </button>
         </div>
       </section>
-      {/* ── 문의하기 ── */}
+
+      {/* 댓글 목록 */}
       <section className="mb-12">
         {comments.length === 0 ? (
           <div className="flex flex-col items-center py-12 gap-2">
@@ -264,10 +266,7 @@ export default function ItemDetailPage({ params }) {
               height={140}
             />
             <p className="text-sm text-secondary-400 mt-2">
-              아직 문의가 없어요,
-            </p>
-            <p className="text-sm text-secondary-400">
-              지금 문의를 남겨보세요!
+              아직 문의가 없어요
             </p>
           </div>
         ) : (
@@ -307,10 +306,12 @@ export default function ItemDetailPage({ params }) {
                       <p className="text-sm text-secondary-800 flex-1">
                         {comment.content}
                       </p>
-                      <KebabMenu
-                        onEdit={() => handleStartEditComment(comment)}
-                        onDelete={() => handleDeleteComment(comment.id)}
-                      />
+                      {comment.writer?.id === user?.id && (
+                        <KebabMenu
+                          onEdit={() => handleStartEditComment(comment)}
+                          onDelete={() => setDeleteCommentId(comment.id)}
+                        />
+                      )}
                     </div>
                     <div className="flex items-center gap-3">
                       <Image
@@ -336,7 +337,8 @@ export default function ItemDetailPage({ params }) {
           </ul>
         )}
       </section>
-      {/* ── Back to list ── */}
+
+      {/* 목록으로 돌아가기 */}
       <div className="flex justify-center">
         <Link
           href="/items"
@@ -351,6 +353,30 @@ export default function ItemDetailPage({ params }) {
           />
         </Link>
       </div>
+
+      {showDeleteModal && (
+        <ProductDeleteConfirmModal
+          title="상품을 삭제하시겠어요?"
+          message=" 정말로 상품을 삭제하시겠어요?"
+          onClick={() => {
+            setShowDeleteModal(false);
+            deleteMutation.mutate();
+          }}
+          onExit={() => setShowDeleteModal(false)}
+        />
+      )}
+
+      {/* {deleteCommentId && (
+        <ProductDeleteConfirmModal
+          title="댓글을 삭제하시겠어요?"
+          message="삭제하면 다시 복구할 수 없어요."
+          onClick={() => {
+            handleDeleteComment(deleteCommentId);
+            setDeleteCommentId(null);
+          }}
+          onExit={() => setDeleteCommentId(null)}
+        />
+      )} */}
     </div>
   );
 }

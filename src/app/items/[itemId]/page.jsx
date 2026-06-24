@@ -23,7 +23,7 @@ const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
-const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
+// const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
 
 function relativeTime(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -260,10 +260,10 @@ export default function ItemDetailPage({ params }) {
         {comments.length === 0 ? (
           <div className="flex flex-col items-center py-12 gap-2">
             <Image
-              src={EMPTY_COMMENT_IMG}
+              src="/images/Img_items_detail.png"
               alt="문의 없음"
-              width={140}
-              height={140}
+              width={120}
+              height={120}
             />
             <p className="text-sm text-secondary-400 mt-2">
               아직 문의가 없어요

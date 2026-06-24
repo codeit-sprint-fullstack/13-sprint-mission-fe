@@ -1,8 +1,8 @@
 "use client";
 
-import { use, useState, useEffect } from "react";
+import { use, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { getProduct, updateProduct } from "@/app/lib/api";
 
@@ -12,14 +12,15 @@ export default function ItemEditPage({ params }) {
 
   const router = useRouter();
   const { user, isInitialized } = useAuth();
+  const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
-  const [prefilled, setPrefilled] = useState(false);
   const [error, setError] = useState("");
+  const prefilled = useRef(false);
 
   useEffect(() => {
     if (isInitialized && !user) {
@@ -33,14 +34,14 @@ export default function ItemEditPage({ params }) {
   });
 
   useEffect(() => {
-    if (product && !prefilled) {
+    if (product && !prefilled.current) {
+      prefilled.current = true;
       setName(product.name ?? "");
       setDescription(product.description ?? "");
       setPrice(String(product.price ?? ""));
       setTags(product.tags ?? []);
-      setPrefilled(true);
     }
-  }, [product, prefilled]);
+  }, [product]);
 
   useEffect(() => {
     if (product && user && user.id !== product.ownerId) {
@@ -50,7 +51,10 @@ export default function ItemEditPage({ params }) {
 
   const updateMutation = useMutation({
     mutationFn: (data) => updateProduct(productId, data),
-    onSuccess: () => router.push(`/items/${itemId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", productId] });
+      router.push(`/items/${itemId}`);
+    },
     onError: (err) => setError(err.message || "수정 중 오류가 발생했습니다."),
   });
 

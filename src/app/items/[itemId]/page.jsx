@@ -25,6 +25,17 @@ const VECTOR_IMG = "/images/Img_Vector_683.svg";
 const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 
+function relativeTime(dateStr) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return "방금 전";
+  if (minutes < 60) return `${minutes}분 전`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}시간 전`;
+  const days = Math.floor(hours / 24);
+  return `${days}일 전`;
+}
+
 export default function ItemDetailPage({ params }) {
   const { itemId } = use(params);
   const productId = Number(itemId);
@@ -189,11 +200,11 @@ export default function ItemDetailPage({ params }) {
                 height={40}
                 className="rounded-full"
               />
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col">
                 <span className="text-secondary-600">
                   {product.ownerNickname}
                 </span>
-                <span className="ml-2 text-secondary-400">
+                <span className="text-secondary-400">
                   {new Date(product.createdAt)
                     .toLocaleDateString("ko-KR", {
                       year: "numeric",
@@ -208,7 +219,7 @@ export default function ItemDetailPage({ params }) {
               <Image src={VECTOR_IMG} alt="" width={1} height={34} />
               <button
                 onClick={() => favoriteMutation.mutate()}
-                className={`ml-auto flex items-center gap-1.5 px-3 py-1 border rounded-full text-secondary-500 transition-colors ${
+                className={`ml-auto flex items-center gap-1 px-3 py-1 border rounded-full text-secondary-500 transition-colors ${
                   product.isFavorite
                     ? "border-primary text-primary"
                     : "border-secondary-200"
@@ -301,23 +312,22 @@ export default function ItemDetailPage({ params }) {
                         onDelete={() => handleDeleteComment(comment.id)}
                       />
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-secondary-400">
+                    <div className="flex items-center gap-3">
                       <Image
-                        src={PROFILE_ICON}
+                        src={comment.writer?.image ?? PROFILE_ICON}
                         alt=""
-                        width={24}
-                        height={24}
+                        width={40}
+                        height={40}
                         className="rounded-full"
                       />
-                      <span className="text-secondary-600">
-                        {comment.writer?.nickname}
-                      </span>
-                      <span className="text-secondary-400">|</span>
-                      <span>
-                        {new Date(comment.createdAt).toLocaleDateString(
-                          "ko-KR"
-                        )}
-                      </span>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-sm text-secondary-600">
+                          {comment.writer?.nickname}
+                        </span>
+                        <span className="text-xs text-secondary-400">
+                          {relativeTime(comment.createdAt)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 )}

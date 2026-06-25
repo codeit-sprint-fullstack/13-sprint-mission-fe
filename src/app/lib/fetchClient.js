@@ -43,7 +43,7 @@ export async function authFetch(url, options = {}) {
   const res = await fetch(`${BASE_URL}${url}`, {
     headers: {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}), // Authorization: Bearer <token> 헤더를 자동 첨부 = axios interceptors 유사 기능
       ...options.headers,
     },
     ...options,

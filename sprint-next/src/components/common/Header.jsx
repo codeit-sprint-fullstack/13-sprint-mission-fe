@@ -24,7 +24,7 @@ export default function Header() {
       </div>
 
       <Link
-        href="/login"
+        href="/sign"
         className="bg-primary-100 hover:bg-primary-200 text-nowrap text-white font-medium px-5 py-2.5 rounded-lg transition-colors"
       >
         로그인

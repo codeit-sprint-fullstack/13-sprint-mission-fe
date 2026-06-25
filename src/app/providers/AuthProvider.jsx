@@ -5,13 +5,6 @@ import { authService } from "@/app/lib/authService";
 import { userService } from "@/app/lib/userService";
 
 const AuthContext = createContext(null);
-// const AuthContext = createContext({
-//   login: () => {},
-//   logout: () => {},
-//   user: null,
-//   updateUser: () => {},
-//   register: () => {},
-// });
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -21,41 +14,25 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(
+    () => !localStorage.getItem("accessToken")
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken"); // @todo:
-    //     useEffect(() => {
-    //   const getUser = async () => {
-    //     try {
-    //       const user = await userService.getMe();
-    //       setUser(user);
-    //     } catch {
-    //       localStorage.removeItem("accessToken");
-    //     } finally {
-    //       setIsInitialized(true);
-    //     }
-    //   };
-
-    //   getUser();
-    // }, []);
-    // 이렇게도 할수는 있는데 token 없으면 실패하고 다시 api 호출해야한대서 낭비?
-
-    if (token) {
-      userService
-        .getMe()
-        .then(setUser)
-        .catch(() => localStorage.removeItem("accessToken"))
-        .finally(() => setIsInitialized(true));
-    } else {
-      setIsInitialized(true); // @todo: 굳이 if else?
-    }
+    const token = localStorage.getItem("accessToken");
+    // Promise 체인잉
+    userService
+      .getMe()
+      .then(setUser)
+      .catch(() => localStorage.removeItem("accessToken"))
+      .finally(() => setIsInitialized(true));
   }, []);
 
   const signIn = async (email, password) => {
     const data = await authService.signIn(email, password);
     localStorage.setItem("accessToken", data.accessToken);
-    if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
+    if (data.refreshToken)
+      localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };
@@ -68,15 +45,14 @@ export default function AuthProvider({ children }) {
       passwordConfirmation
     );
     localStorage.setItem("accessToken", data.accessToken);
-    if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
+    if (data.refreshToken)
+      localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, signIn, signUp, isInitialized }}
-    >
+    <AuthContext.Provider value={{ user, signIn, signUp, isInitialized }}>
       {children}
     </AuthContext.Provider>
   );

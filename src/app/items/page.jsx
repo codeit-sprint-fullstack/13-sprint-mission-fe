@@ -5,15 +5,18 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { getProducts } from "@/app/lib/api";
 import ProductCard from "../components/ui/ProductCard";
+import SearchBar from "../components/ui/SearchBar";
+import SortDropdown from "../components/ui/SortDropdown";
+import { useRouter } from "next/navigation";
 
 const PAGE_GROUP_SIZE = 5;
 const ARROW_RIGHT_ICON = "/icons/arrow_right.svg";
 const ARROW_LEFT_ICON = "/icons/arrow_left.svg";
 
 export default function ItemsPage() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
-  const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
   const [pageSize, setPageSize] = useState(10);
   const { data, isLoading, isError } = useQuery({
@@ -45,11 +48,19 @@ export default function ItemsPage() {
   const groupStart = (currentGroup - 1) * PAGE_GROUP_SIZE + 1;
   const groupEnd = Math.min(groupStart + PAGE_GROUP_SIZE - 1, totalPages);
 
-  function handleSearch(e) {
-    e.preventDefault();
-    setKeyword(search);
+  const handleSearch = (v) => {
+    setKeyword(v);
     setPage(1);
-  }
+  };
+
+  const handleSort = (v) => {
+    setOrderBy(v);
+    setPage(1);
+  };
+
+  const handlePage = (p) => {
+    setPage(p);
+  };
 
   return (
     <div className="max-w-390 mx-auto">
@@ -71,38 +82,24 @@ export default function ItemsPage() {
         </div>
       </section>
       {/* 상단 검색/정렬 */}
-      <div className="flex items-center justify-between gap-4 mb-6">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-3 mb-6">
         <h2 className="text-lg font-bold text-gray-800 whitespace-nowrap">
           판매 중인 상품
         </h2>
-        <form onSubmit={handleSearch} className="flex gap-2 flex-1 max-w-sm">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="검색할 상품을 입력해주세요"
-            className="flex-1 h-10 px-4 rounded-xl bg-gray-100 text-sm outline-none"
-          />
-          <button
-            type="submit"
-            className="h-10 px-4 bg-primary text-white rounded-xl text-sm font-semibold"
-          >
-            검색
-          </button>
-        </form>
-        <select
-          value={orderBy}
-          onChange={(e) => {
-            setOrderBy(e.target.value);
-            setPage(1);
-          }}
-          className="h-10 px-3 rounded-xl border border-gray-200 text-sm outline-none"
+        <button
+          className="ml-auto bd:ml-0 bd:order-3 h-10 px-5 bg-primary text-white text-sm font-semibold rounded-xl whitespace-nowrap"
+          onClick={() => router.push("/items/new")}
         >
-          <option value="recent">최신순</option>
-          <option value="favorite">좋아요순</option>
-        </select>
+          상품 등록하기
+        </button>
+        <div className="basis-full bd:hidden" />
+        <div className="flex-1 min-w-0 bd:order-2">
+          <SearchBar value={keyword} onChange={handleSearch} />
+        </div>
+        <div className="shrink-0 bd:order-4">
+          <SortDropdown value={orderBy} onChange={handleSort} />
+        </div>
       </div>
-
       {/* 상품 목록 */}
       {isLoading && (
         <p className="text-center text-gray-500 py-20">로딩 중...</p>
@@ -124,7 +121,7 @@ export default function ItemsPage() {
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 mt-10">
               <button
-                onClick={() => setPage(groupStart - 1)}
+                onClick={() => handlePage(groupStart - 1)}
                 disabled={currentGroup === 1}
                 className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 disabled:opacity-40"
               >
@@ -141,7 +138,7 @@ export default function ItemsPage() {
               ).map((p) => (
                 <button
                   key={p}
-                  onClick={() => setPage(p)}
+                  onClick={() => handlePage(p)}
                   className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium border transition-colors ${
                     p === page
                       ? "bg-primary text-white border-primary"
@@ -152,7 +149,7 @@ export default function ItemsPage() {
                 </button>
               ))}
               <button
-                onClick={() => setPage(groupEnd + 1)}
+                onClick={() => handlePage(groupEnd + 1)}
                 disabled={groupEnd === totalPages}
                 className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 disabled:opacity-40"
               >

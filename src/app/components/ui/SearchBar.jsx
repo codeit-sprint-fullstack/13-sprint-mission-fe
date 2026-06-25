@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 const DEBOUNCE_DELAY = 500;
 
 /**
@@ -14,6 +14,10 @@ export default function SearchBar({
 }) {
   const [local, setLocal] = useState(value);
   const timer = useRef(null);
+
+  useEffect(() => {
+    setLocal(value);
+  }, [value]);
 
   const handleChange = (e) => {
     const debouncedValue = e.target.value;

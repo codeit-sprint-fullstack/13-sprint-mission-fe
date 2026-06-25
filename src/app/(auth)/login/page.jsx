@@ -11,6 +11,7 @@ import ConfirmModal from "@/app/components/ui/Modal";
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // 인증된 사용자만 접근 가능 : redirectTo
   const redirectTo = searchParams.get("redirect") ?? "/items";
   const { signIn, isInitialized, user } = useAuth();
   const [loading, setLoading] = useState(false);

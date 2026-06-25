@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProducts } from "@/app/lib/api";
 
-// const PAGE_SIZE = 10;
 const PAGE_GROUP_SIZE = 5;
 const ARROW_RIGHT_ICON = "/icons/arrow_right.svg";
 const ARROW_LEFT_ICON = "/icons/arrow_left.svg";

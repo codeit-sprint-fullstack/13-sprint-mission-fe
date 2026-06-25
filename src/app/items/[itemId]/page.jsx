@@ -141,9 +141,9 @@ export default function ItemDetailPage({ params }) {
     <div>
       {/* 상품 상세 상단 */}
       <div className="flex flex-col pb-6 border-b border-secondary-100 mb-8 gap-6 md:flex-row">
-        {/* 이미지 */}
         <div>
           {product.images?.[0] && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={product.images[0]}
               alt={product.name}
@@ -151,7 +151,6 @@ export default function ItemDetailPage({ params }) {
             />
           )}
         </div>
-        {/* 우측 정보 */}
         <div className="flex flex-col flex-1">
           <div className="flex items-start justify-between gap-3 mb-4">
             <h1 className="text-lg sm:text-xl font-bold text-secondary-800 leading-snug flex-1">
@@ -191,7 +190,6 @@ export default function ItemDetailPage({ params }) {
               ))}
             </div>
           </div>
-
           <div className="flex items-center justify-between gap-3 text-sm text-secondary-500 mt-auto">
             <div className="flex flex-row gap-4">
               <Image
@@ -239,7 +237,7 @@ export default function ItemDetailPage({ params }) {
         </div>
       </div>
 
-      {/* 문의하기 입력 */}
+      {/* 문의하기 */}
       <section className="mb-8">
         <h2 className="text-sm font-bold text-secondary-900 mb-3">문의하기</h2>
         <textarea

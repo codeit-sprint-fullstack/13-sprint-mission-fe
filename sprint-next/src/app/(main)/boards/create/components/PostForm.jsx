@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createArticle } from "@/app/boards/create/actions";
-import { updateArticle } from "@/app/boards/[id]/actions";
+import { createArticle } from "@/app/(main)/boards/create/actions";
+import { updateArticle } from "@/app/(main)/boards/[id]/actions";
 import { articleSchema } from "@/schemas/articleSchema";
 
 const TITLE_MAX = 10;

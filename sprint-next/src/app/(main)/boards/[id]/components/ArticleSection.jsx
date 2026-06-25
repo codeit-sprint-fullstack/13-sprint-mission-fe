@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/services/articleService";
-import { deleteArticle } from "@/app/boards/[id]/actions";
+import { deleteArticle } from "@/app/(main)/boards/[id]/actions";
 import KebabMenu from "./KebabMenu";
-import DefaultProfile from "@/assets/png/ic_default_profile.png";
+import DefaultProfile from "@/assets/png/img_default_profile.png";
 
 export default function ArticleSection({ article }) {
   const router = useRouter();
@@ -17,7 +17,10 @@ export default function ArticleSection({ article }) {
   };
 
   const menuOptions = [
-    { label: "수정하기", onClick: () => router.push(`/boards/${article.id}/edit`) },
+    {
+      label: "수정하기",
+      onClick: () => router.push(`/boards/${article.id}/edit`),
+    },
     { label: "삭제하기", onClick: handleDelete },
   ];
 
@@ -29,7 +32,13 @@ export default function ArticleSection({ article }) {
       </div>
 
       <div className="flex items-center gap-2 text-sm text-gray-500">
-        <Image src={DefaultProfile} alt="프로필" width={24} height={24} className="rounded-full w-6 h-6 shrink-0" />
+        <Image
+          src={DefaultProfile}
+          alt="프로필"
+          width={24}
+          height={24}
+          className="rounded-full w-6 h-6 shrink-0"
+        />
         <span>{article.writer?.nickname || "판다마켓"}</span>
         <span className="text-gray-300">|</span>
         <span>{formatDate(article.createdAt)}</span>

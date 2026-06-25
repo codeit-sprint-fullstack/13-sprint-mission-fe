@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getArticle } from "@/services/articleService";
-import PostForm from "@/app/boards/create/components/PostForm";
+import PostForm from "@/app/(main)/boards/create/components/PostForm";
 
 export default async function EditBoardPage({ params }) {
   const { id } = await params;

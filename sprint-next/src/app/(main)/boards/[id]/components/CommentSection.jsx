@@ -3,9 +3,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import { formatRelativeTime } from "@/services/articleService";
-import { createComment, updateComment, deleteComment } from "@/app/boards/[id]/actions";
+import {
+  createComment,
+  updateComment,
+  deleteComment,
+} from "@/app/(main)/boards/[id]/actions";
 import KebabMenu from "./KebabMenu";
-import DefaultProfile from "@/assets/png/ic_default_profile.png";
+import DefaultProfile from "@/assets/png/img_default_profile.png";
 import EmptyComment from "@/assets/png/Img_reply_empty.png";
 
 function CommentItem({ comment, onUpdate, onDelete }) {
@@ -57,10 +61,18 @@ function CommentItem({ comment, onUpdate, onDelete }) {
       )}
 
       <div className="flex items-center gap-2 text-sm text-gray-400">
-        <Image src={DefaultProfile} alt="프로필" width={24} height={24} className="rounded-full w-6 h-6 shrink-0" />
+        <Image
+          src={DefaultProfile}
+          alt="프로필"
+          width={24}
+          height={24}
+          className="rounded-full w-6 h-6 shrink-0"
+        />
         <div className="flex flex-col">
           <span>{comment.writer?.nickname || "판다마켓"}</span>
-          <span className="text-xs">{formatRelativeTime(comment.createdAt)}</span>
+          <span className="text-xs">
+            {formatRelativeTime(comment.createdAt)}
+          </span>
         </div>
       </div>
     </div>
@@ -79,7 +91,12 @@ export default function CommentSection({ articleId, initialComments }) {
     try {
       const created = await createComment(articleId, content);
       setComments((prev) => [
-        { id: `temp-${Date.now()}`, content, createdAt: new Date().toISOString(), ...created },
+        {
+          id: `temp-${Date.now()}`,
+          content,
+          createdAt: new Date().toISOString(),
+          ...created,
+        },
         ...prev,
       ]);
       setNewComment("");
@@ -91,7 +108,9 @@ export default function CommentSection({ articleId, initialComments }) {
   const handleUpdate = async (commentId, content) => {
     const updated = await updateComment(commentId, content);
     setComments((prev) =>
-      prev.map((c) => (c.id === commentId ? { ...c, content: updated.content } : c))
+      prev.map((c) =>
+        c.id === commentId ? { ...c, content: updated.content } : c,
+      ),
     );
   };
 
@@ -127,9 +146,16 @@ export default function CommentSection({ articleId, initialComments }) {
       <div className="flex flex-col">
         {comments.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-10">
-            <Image src={EmptyComment} alt="댓글 없음" width={140} height={140} />
+            <Image
+              src={EmptyComment}
+              alt="댓글 없음"
+              width={140}
+              height={140}
+            />
             <p className="text-sm text-gray-400 text-center">
-              아직 댓글이 없어요,<br />지금 댓글을 달아보세요!
+              아직 댓글이 없어요,
+              <br />
+              지금 댓글을 달아보세요!
             </p>
           </div>
         ) : (

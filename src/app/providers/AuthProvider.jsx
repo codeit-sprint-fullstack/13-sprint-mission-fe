@@ -55,6 +55,7 @@ export default function AuthProvider({ children }) {
   const signIn = async (email, password) => {
     const data = await authService.signIn(email, password);
     localStorage.setItem("accessToken", data.accessToken);
+    if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };
@@ -67,6 +68,7 @@ export default function AuthProvider({ children }) {
       passwordConfirmation
     );
     localStorage.setItem("accessToken", data.accessToken);
+    if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };

@@ -77,8 +77,11 @@ export default function ItemDetailPage({ params }) {
       product?.isFavorite
         ? unfavoriteProduct(productId)
         : favoriteProduct(productId),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["product", productId] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", productId] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["best-products"] });
+    },
   });
 
   const deleteMutation = useMutation({

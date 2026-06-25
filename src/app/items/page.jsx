@@ -19,6 +19,7 @@ function ProductCard({ product }) {
     >
       <div className="w-full aspect-square rounded-xl overflow-hidden bg-gray-100">
         {product.images?.[0] ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={product.images[0]}
             alt={product.name}
@@ -38,7 +39,12 @@ function ProductCard({ product }) {
           {product.price.toLocaleString()}원
         </p>
         <div className="flex items-center gap-1 text-gray-500 text-sm">
-          <img src="/icons/ic_heart.svg" alt="좋아요" className="w-4 h-4" />
+          <Image
+            src="/icons/ic_heart.svg"
+            alt="좋아요"
+            width={16}
+            height={16}
+          />
           <span>{product.favoriteCount}</span>
         </div>
       </div>
@@ -52,8 +58,7 @@ export default function ItemsPage() {
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
   const [pageSize, setPageSize] = useState(10);
-
-  const { data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["products", { page, keyword, orderBy, pageSize }],
     queryFn: () => getProducts({ page, pageSize, keyword, orderBy }),
   });
@@ -163,7 +168,7 @@ export default function ItemsPage() {
               <button
                 onClick={() => setPage(groupStart - 1)}
                 disabled={currentGroup === 1}
-                className="px-3 py-1 rounded border border-gray-300 text-sm disabled:opacity-40"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 disabled:opacity-40"
               >
                 <Image
                   src={ARROW_LEFT_ICON}
@@ -179,10 +184,10 @@ export default function ItemsPage() {
                 <button
                   key={p}
                   onClick={() => setPage(p)}
-                  className={`px-3 py-1 rounded border text-sm ${
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium border transition-colors ${
                     p === page
                       ? "bg-primary text-white border-primary"
-                      : "border-gray-300"
+                      : "border-gray-300 text-gray-700 hover:border-primary hover:text-primary"
                   }`}
                 >
                   {p}
@@ -191,13 +196,13 @@ export default function ItemsPage() {
               <button
                 onClick={() => setPage(groupEnd + 1)}
                 disabled={groupEnd === totalPages}
-                className="px-3 py-1 rounded border border-gray-300 text-sm disabled:opacity-40"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 disabled:opacity-40"
               >
                 <Image
                   src={ARROW_RIGHT_ICON}
                   alt="다음"
-                  width={10}
-                  height={10}
+                  width={16}
+                  height={16}
                 />
               </button>
             </div>

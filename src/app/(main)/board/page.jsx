@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -15,32 +16,22 @@ import "swiper/css";
 
 export default function BoardListPage() {
   const menu = ["최신순", "좋아요순"];
-  const [posts, setPosts] = useState([]);
-  const [bestPosts, setBestPosts] = useState([]);
   const [input, setInput] = useState("");
   const [clicked, setClicked] = useState(menu[0]);
 
-  async function getArticles() {
-    const orderBy = `orderBy=${clicked === "최신순" ? "createdAt" : "favoriteCount"}`;
-    const keyword = input ? `keyword=${input}` : "";
-    const query = `${orderBy}&${keyword}`;
-
-    const response = await boardService.getArticles(query);
-    setPosts(response.list);
-  }
-  async function getBestArticles() {
-    const response = await boardService.getBestArticles();
-    setBestPosts(response);
-  }
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    getBestArticles();
-  }, []);
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    getArticles();
-  }, [input, clicked]);
+  const { data: { list: posts = [], totalCount = 0 } = {} } = useQuery({
+    queryKey: ["board", input, clicked],
+    queryFn: () => {
+      const orderBy = `orderBy=${clicked === "최신순" ? "recent" : "like"}`;
+      const keyword = input ? `keyword=${input}` : "";
+      const query = `${orderBy}&${keyword}`;
+      return boardService.getArticles(query);
+    },
+  });
+  const { data: { list: bestPosts = [] } = {} } = useQuery({
+    queryKey: ["board", "best"],
+    queryFn: boardService.getBestArticles,
+  });
 
   return (
     <div className="m-auto w-[1200px] py-[16px] flex-1 max-desktop:px-[20px] max-desktop:w-full">

@@ -29,7 +29,9 @@ export default function PostItem({ data }) {
       <div className="flex justify-between">
         <div className="flex gap-2">
           <UserIcon width={24} height={24} />
-          <p className="text-secondary-600 text-[14px]/[24px]">{data.author}</p>
+          <p className="text-secondary-600 text-[14px]/[24px]">
+            {data.writer.nickname}
+          </p>
           <p className="text-secondary-400 text-[14px]/[24px]">
             {getDate(data.createdAt)}
           </p>
@@ -53,7 +55,7 @@ export default function PostItem({ data }) {
             height={24}
           />
           <p className="w-[50px] text-[16px]/[26px] text-secondary-500 font-normal">
-            {data.favoriteCount > 9999 ? "9999+" : data.favoriteCount}
+            {data.likeCount > 9999 ? "9999+" : data.likeCount}
           </p>
         </div>
       </div>

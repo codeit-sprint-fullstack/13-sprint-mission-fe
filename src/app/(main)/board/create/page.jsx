@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import PostForm from "../PostForm";
 
@@ -9,12 +10,13 @@ import { boardService } from "@/lib/boardService";
 export default function CreatePostPage() {
   const router = useRouter();
   const [data, setData] = useState({ title: "", content: "" });
-
-  async function postArticle() {
-    // 회원가입이 없는 이유로 임의로 userId 1로 해두기
-    const result = await boardService.postArticle({ ...data, userId: 1 });
-    router.push(`/board/${result.id}`);
-  }
+  const { mutate: postArticle } = useMutation({
+    mutationKey: ["board", "create"],
+    mutationFn: boardService.postArticle,
+    onSuccess: (result) => {
+      router.push(`/board/${result.id}`);
+    },
+  });
 
   return (
     <PostForm
@@ -22,7 +24,11 @@ export default function CreatePostPage() {
       setData={setData}
       onSubmit={(e) => {
         e.preventDefault();
-        postArticle();
+        postArticle({
+          ...data,
+          image:
+            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
+        });
       }}
     />
   );

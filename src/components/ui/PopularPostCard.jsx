@@ -37,7 +37,7 @@ export default function PopularPostCard({ data }) {
       </div>
       <footer className="flex justify-between text-[14px] font-normal">
         <div className="flex text-secondary-600 gap-[8px]">
-          <div>{data.author}</div>
+          <div>{data.writer.nickname}</div>
           <div
             onClick={(e) => {
               e.preventDefault();
@@ -56,7 +56,7 @@ export default function PopularPostCard({ data }) {
               width={16}
               height={16}
             />
-            <p>{data.favoriteCount > 9999 ? "9999+" : data.favoriteCount}</p>
+            <p>{data.likeCount > 9999 ? "9999+" : data.likeCount}</p>
           </div>
         </div>
         <div className="text-secondary-400">{getDate(data.createdAt)}</div>

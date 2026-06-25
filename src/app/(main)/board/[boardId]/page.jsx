@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,6 +11,7 @@ import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import CommentItem from "@/components/ui/CommentItem";
 import Menu from "@/components/ui/Menu";
+import Modal from "@/components/ui/Modal";
 
 import { getDate } from "@/utils/getDate";
 import { boardService } from "@/lib/boardService";
@@ -17,24 +20,34 @@ import { commentService } from "@/lib/commentService";
 export default function PostDetailPage() {
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
   const boardId = pathname.split("/")[2];
-  const [data, setData] = useState();
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
 
-  async function getPostDetail() {
-    const response = await boardService.getArticleDetail(boardId);
-    setData(response);
-  }
-  async function deletePost() {
-    const result = confirm("게시글을 삭제하시겠습니까?");
-    if (!result) return;
+  const { data: data } = useQuery({
+    queryKey: ["board", boardId],
+    queryFn: () => boardService.getArticleDetail(boardId),
+  });
+  const { mutate: deletePost } = useMutation({
+    mutationKey: ["board", boardId, "delete"],
+    mutationFn: boardService.deleteArticle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["board"],
+      });
+      router.push("/board");
+    },
+    onError: (e) => {
+      setModalMessage(e.message);
+    },
+  });
 
-    await boardService.deleteArticle(boardId);
-    router.push("/board");
-  }
-  async function postComment() {
+  // 제공된 API에 Product의 Comment만 있고 Article의 Comment는 없어서 잠시 주석 처리
+  /*async function postComment() {
     // validation
     if (!comment.trim()) return;
 
@@ -52,23 +65,34 @@ export default function PostDetailPage() {
 
     await commentService.deleteComment(boardId, openedMenuId);
     getPostDetail();
-  }
+  }*/
 
   const boardMenus = [
     {
       name: "수정하기",
       onClick: () => {
+        if (user.id !== data.writer.id) {
+          setModalMessage("게시글 작성자만 수정할 수 있습니다.");
+          return;
+        }
         router.push(`/board/${boardId}/edit`);
       },
     },
     {
       name: "삭제하기",
       onClick: async () => {
-        await deletePost();
+        if (user.id !== data.writer.id) {
+          setModalMessage("게시글 작성자만 수정할 수 있습니다.");
+          return;
+        }
+        const result = confirm("게시글을 삭제하시겠습니까?");
+        if (!result) return;
+
+        await deletePost(boardId);
       },
     },
   ];
-  const commentMenus = [
+  /*const commentMenus = [
     {
       name: "수정하기",
       onClick: () => {},
@@ -79,11 +103,7 @@ export default function PostDetailPage() {
         await deleteComment();
       },
     },
-  ];
-
-  useEffect(() => {
-    getPostDetail();
-  }, []);
+  ];*/
 
   return (
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
@@ -114,7 +134,7 @@ export default function PostDetailPage() {
           <div className="flex items-center">
             <UserIcon width={40} height={40} />
             <h2 className="text-[14px]/[24px] font-medium ml-[16px] mr-[8px]">
-              {data?.author}
+              {data?.writer.nickname}
             </h2>
             <p className="text-[14px]/[24px] text-secondary-400 font-normal">
               {getDate(data?.createdAt)}
@@ -137,7 +157,7 @@ export default function PostDetailPage() {
               width={32}
               height={32}
             />
-            {data?.favoriteCount}
+            {data?.likeCount}
           </div>
         </div>
       </header>
@@ -172,7 +192,7 @@ export default function PostDetailPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {data?.comments.map((comment, index) => (
+        {/*data?.comments.map((comment, index) => (
           <div key={index}>
             <CommentItem
               data={comment}
@@ -193,7 +213,7 @@ export default function PostDetailPage() {
               )}
             </CommentItem>
           </div>
-        ))}
+        ))*/}
       </div>
       <Link href="/board">
         <Button
@@ -210,6 +230,11 @@ export default function PostDetailPage() {
           />
         </Button>
       </Link>
+      <Modal
+        text={modalMessage}
+        disabled={!!!modalMessage}
+        onClick={() => setModalMessage("")}
+      />
     </div>
   );
 }

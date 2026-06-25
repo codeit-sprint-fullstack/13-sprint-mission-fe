@@ -41,7 +41,7 @@ export default function Header() {
 
         <div className="flex items-center">
           <Link
-            href="/login"
+            href="/signin"
             className="inline-flex h-[42px] items-center justify-center gap-[10px] rounded-[8px] bg-[#3692FF] px-[23px] py-[12px] text-sm font-medium text-white transition-colors hover:bg-blue-600"
           >
             로그인

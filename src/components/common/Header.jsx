@@ -27,11 +27,14 @@ export default function Header() {
         <nav className="flex font-bold text-[18px] text-secondary-600 max-tablet:text-[16px] max-tablet:gap-2">
           <Link
             href="/board"
-            className={`px-[15px] max-tablet:px-0 ${(pathname === "/board" || pathname === "/board/create") && "text-primary"}`}
+            className={`px-[15px] max-tablet:px-0 ${pathname.startsWith("/board") && "text-primary"}`}
           >
             자유게시판
           </Link>
-          <Link href="/items" className="px-[15px] max-tablet:px-0">
+          <Link
+            href="/items"
+            className={`px-[15px] max-tablet:px-0 ${pathname.startsWith("/items") && "text-primary"}`}
+          >
             중고마켓
           </Link>
         </nav>

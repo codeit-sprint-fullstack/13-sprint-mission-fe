@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
-const protectedPaths = ["/board/create"];
+const protectedPaths = [
+  "/board/create",
+  /^\/board\/[^/]+$/,
+  /^\/board\/[^/]+\/edit$/,
+];
 const publicPaths = ["/", "/login", "/register", "/board", "/items"];
 
 export default function RouteGuard({ children }) {
@@ -15,8 +19,14 @@ export default function RouteGuard({ children }) {
 
   useEffect(() => {
     const path = pathname.split("?")[0];
-    const isProtectedRoute = protectedPaths.some((i) => i === path);
-    const isPublicRoute = publicPaths.some((i) => i === path);
+    const isProtectedRoute = protectedPaths.some((route) => {
+      if (typeof route === "string") return route === path;
+      return route.test(path);
+    });
+    const isPublicRoute = publicPaths.some((route) => {
+      if (typeof route === "string") return route === path;
+      return route.test(path);
+    });
 
     if (!isLogin && isProtectedRoute) {
       alert("로그인 이후 이용해 주세요.");

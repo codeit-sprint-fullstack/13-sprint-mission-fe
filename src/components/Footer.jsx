@@ -1,4 +1,9 @@
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+const socialLinks = [
+  { label: "Facebook", href: "#", src: "/icons/ic_facebook.png" },
+  { label: "Twitter", href: "#", src: "icons/ic_twitter.png" },
+  { label: "Youtube", href: "#", src: "icons/ic_youtube.png" },
+  { label: "Instagram", href: "#", src: "iconss/ic_instagram.png" },
+];
 
 export default function Footer() {
   return (
@@ -10,10 +15,11 @@ export default function Footer() {
           <a href="#">FAQ</a>
         </div>
         <div className="flex gap-[22px]" aria-label="소셜 링크">
-          <Facebook size={16} />
-          <Instagram size={16} />
-          <Twitter size={16} />
-          <Youtube size={16} />
+          {socialLinks.map((link) => (
+            <a href={link.href} key={link.label} aria-label={link.label}>
+              <img className="h-5 w-5" src={link.src} alt="" />
+            </a>
+          ))}
         </div>
       </div>
     </footer>

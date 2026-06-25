@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
         <strong>{product.price.toLocaleString("ko-KR")}원</strong>
         <span className="inline-flex items-center gap-1 text-[13px] text-[#6b7280]">
           <Heart size={14} />
-          {product.favoriteCount.toLacaleString("ko-KR")}
+          {product.favoriteCount.toLocaleString("ko-KR")}
         </span>
       </span>
     </Link>

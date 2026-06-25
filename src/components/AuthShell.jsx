@@ -15,9 +15,9 @@ export default function AuthShell({ children }) {
   }, [router]);
 
   return (
-    <main className="grid min-h-screen place-items-center bg-white px-6 py-16">
+    <main className="flex min-h-screen items-start justify-center bg-white px-6 pt-[110px]">
       <section
-        className="flex w-full max-w-[480px] flex-col items-center"
+        className="flex w-full max-w-[440px] flex-col items-center"
         aria-label="인증"
       >
         <Logo large />

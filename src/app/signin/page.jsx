@@ -12,7 +12,7 @@ import { authApi, getErrorMessage } from "@/lib/api";
 import { saveTokens } from "@/lib/auth";
 
 const inputClass =
-  "h-12 w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[#1f2937] outline-none";
+  "h-[45px] w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[14px] text-[#1f2937] outline-none placeholer:text-[#9ca3af]";
 const invalidInputClass = "border-[#ef4444] bg-red-50";
 
 export default function SignInPage() {
@@ -40,7 +40,7 @@ export default function SignInPage() {
   return (
     <AuthShell>
       <form className="w-full" onSubmit={onSubmit}>
-        <label className="mb-5 block w-full font-bold">
+        <label className="mb-5 block w-full text-[13px] font-bold">
           <span className="mb-2.5 inline-block">이메일</span>
           <input
             className={`${inputClass} ${errors.email ? invalidInputClass : ""}`}
@@ -61,7 +61,7 @@ export default function SignInPage() {
           ) : null}
         </label>
 
-        <label className="mb-5 block w-full font-bold">
+        <label className="mb-5 block w-full text-[13px] font-bold">
           <span className="mb-2.5 inline-block">비밀번호</span>
           <PasswordInput
             placeholder="비밀번호를 입력해주세요"
@@ -69,16 +69,13 @@ export default function SignInPage() {
             error={errors.password?.message}
             {...register("password", {
               required: "비밀번호를 확인해 주세요.",
-              minLength: {
-                value: 8,
-                message: "비밀번호를 확인해 주세요.",
-              },
+              minLength: { value: 8, message: "비밀번호를 확인해 주세요." },
             })}
           />
         </label>
 
         <button
-          className="mt-0.5 inline-flex h-[52px] w-full itmes-center justify-center rounded-full bg-gray-400 px-[18px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-70 enabled:bg-[#3692ff]"
+          className="mt-0.5 inline-flex h-[48px] w-full items-center justify-center rounded-full bg-gray-400 px-[18px] text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-70 enabled:bg-[#3692ff]"
           type="submit"
           disabled={!isValid || mutation.isPending}
         >
@@ -86,27 +83,35 @@ export default function SignInPage() {
         </button>
       </form>
 
-      <div className="mt-[18px] flex min-h-14 w-full items-center justify-between rounded-lg bg-blue-50 px-[22px] text-sm font-bold">
+      <div className="mt-[18px] flex min-h-14 w-full items-center justify-between rounded-lg bg-blue-50 px-[22px] text-[13px] font-bold">
         <span>간편 로그인하기</span>
         <div className="flex gap-3">
           <a
-            className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white text-[13px] font-black text-[#4285f4]"
+            className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white"
             href="https://www.google.com"
-            alt-label="구글로 이동"
+            aria-label="구글로 이동"
           >
-            G
+            <img
+              className="h-5 w-5 object-contain"
+              src="/icons/ic_google.png"
+              alt=""
+            />
           </a>
           <a
-            className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#fee500] text-[10px] font-black text-[#1f2937]"
+            className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#fee500]"
             href="https://www.kakaocorp.com/page"
             aria-label="카카오로 이동"
           >
-            TALK
+            <img
+              className="h-5 w-5 object-contain"
+              src="/icons/ic_kakao.png"
+              alt=""
+            />
           </a>
         </div>
       </div>
 
-      <p className="mt-[22px] text-sm">
+      <p className="mt-[22px] text-[13px]">
         판다마켓이 처음이신가요?{" "}
         <Link className="text-[#3692ff] underline" href="/signup">
           회원가입

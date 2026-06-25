@@ -6,7 +6,7 @@ export const API_BASE_URL = "https://panda-market-api.vercel.app";
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    "Content-Type": "applicaation/json",
+    "Content-Type": "application/json",
   },
 });
 

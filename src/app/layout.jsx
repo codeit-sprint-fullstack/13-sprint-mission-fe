@@ -1,4 +1,4 @@
-import Providers from "./providers";
+import Providers from "../providers/ReactQueryProvider";
 import "./global.css";
 
 export const metadata = {

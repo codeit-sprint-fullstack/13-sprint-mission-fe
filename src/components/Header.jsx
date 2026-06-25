@@ -32,14 +32,14 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-10 border-b border-[#e5e7eb] bg-white/95">
-      <div className="mx-auto flex min-h-[68px] w-[min(100%-32px,640px)] flex-wrap items-center gap-3 py-3 tablet:w-[min(100%-48px,900px)] desktop:h-[74px] desktop:w-[min(100%-48px,1120px)] desktop:flex-nowrap desktop:gap-8 desktop:py-0">
+    <header className="sticky top-0 z-10 border-b border-[#e5e7eb] bg-white">
+      <div className="mx-auto flex h-[72px] w-[min(100%-32px,640px)] items-center gap-6 tablet:w-[min(100%-48px,1120px)] desktop:w-[1120px]">
         <Logo />
         <nav
-          className="oredr-3 flex w-full gap-[18px] text-sm font-bold desktop:order-none desktop:w-auto desktop:gap-7 dsektop:text-base"
+          className="flex gap-7 text-[16px] font-bold text-[#1f2937]"
           aria-label="주요 메뉴"
         >
-          <Link href="/board">자유게시판</Link>
+          <Link href="/borad">자유게시판</Link>
           <Link href="/items">중고마켓</Link>
         </nav>
         <div className="ml-auto">
@@ -63,10 +63,9 @@ export default function Header() {
             </button>
           ) : (
             <Link
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-[#3692ff] px-[18px] font-bold text-white"
+              className="inline-flex h-[42px] min-w-[88px] items-center justify-center rounded-lg bg-[#3692ff] px-6 text-[15px] font-bold text-white"
               href="/signin"
             >
-              <LogIn size={16} />
               로그인
             </Link>
           )}

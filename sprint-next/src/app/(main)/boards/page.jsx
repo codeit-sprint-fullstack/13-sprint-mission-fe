@@ -8,7 +8,7 @@ import {
   getArticles,
   formatDate,
 } from "@/services/articleService";
-import DefaultImg from "@/assets/png/borad_default.png";
+import DefaultImg from "@/assets/png/img_board_default.png";
 
 export default async function FreeBoardsPage({ searchParams }) {
   const { orderBy = "recent", keyword = "" } = await searchParams;

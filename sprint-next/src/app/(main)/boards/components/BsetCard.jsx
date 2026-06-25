@@ -1,6 +1,6 @@
 import Image from "next/image";
 import MedalIcon from "@/assets/svg/ic_medal.svg";
-import DefaultImage from "@/assets/png/borad_default.png";
+import DefaultImage from "@/assets/png/img_board_default.png";
 import Link from "next/link";
 
 export default function BestCard({

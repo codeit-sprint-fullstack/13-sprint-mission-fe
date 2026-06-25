@@ -1,13 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import DefaultImage from "@/assets/png/borad_default.png";
-import DefaultProfile from "@/assets/png/ic_default_profile.png";
+import DefaultImage from "@/assets/png/img_board_default.png";
+import DefaultProfile from "@/assets/png/img_default_profile.png";
 
-export default function PostCard({ id, title, author, likeCount, date, image }) {
+export default function PostCard({
+  id,
+  title,
+  author,
+  likeCount,
+  date,
+  image,
+}) {
   const displayLike = likeCount > 9999 ? "9999+" : likeCount;
 
   return (
-    <Link href={`/boards/${id}`} className="flex flex-col gap-3 md:gap-3 lg:gap-4 py-4 md:py-4 lg:py-5 border-b border-gray-100 hover:bg-gray-50 transition-colors -mx-1 px-1 rounded">
+    <Link
+      href={`/boards/${id}`}
+      className="flex flex-col gap-3 md:gap-3 lg:gap-4 py-4 md:py-4 lg:py-5 border-b border-gray-100 hover:bg-gray-50 transition-colors -mx-1 px-1 rounded"
+    >
       <div className="flex items-start justify-between gap-3 md:gap-3 lg:gap-4">
         <p className="text-sm md:text-base lg:text-lg font-bold text-gray-800 leading-snug flex-1">
           {title}
@@ -25,7 +35,13 @@ export default function PostCard({ id, title, author, likeCount, date, image }) 
 
       <div className="flex items-center justify-between text-xs md:text-sm lg:text-sm text-gray-500">
         <div className="flex items-center gap-2">
-          <Image src={DefaultProfile} alt="프로필" width={24} height={24} className="rounded-full w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6" />
+          <Image
+            src={DefaultProfile}
+            alt="프로필"
+            width={24}
+            height={24}
+            className="rounded-full w-5 h-5 md:w-6 md:h-6 lg:w-6 lg:h-6"
+          />
           <span>{author}</span>
           <span>{date}</span>
         </div>

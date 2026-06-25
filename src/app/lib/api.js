@@ -39,7 +39,7 @@ export function deleteArticle(articleId) {
 
 export function getArticleComments(articleId, query = {}) {
   const params = new URLSearchParams();
-  if (query.limit) params.set("limit", String(query.limit));
+  params.set("limit", String(query.limit ?? 10));
   if (query.cursor) params.set("cursor", String(query.cursor));
   const qs = params.toString();
   return publicFetch(`/articles/${articleId}/comments${qs ? `?${qs}` : ""}`);
@@ -104,19 +104,28 @@ export function createProductComment(productId, content) {
   });
 }
 
-// 커뮤니티 페이지 하위 호환 별칭
-export const getComments = getArticleComments;
-export const createComment = createArticleComment;
+// ─── Article Comments ─────────────────────────────────────────────────────────
 
-// ─── Comments ────────────────────────────────────────────────────────────────
-
-export function updateComment(commentId, content) {
+export function updateArticleComment(commentId, content) {
   return authFetch(`/comments/${commentId}`, {
     method: "PATCH",
     body: JSON.stringify({ content }),
   });
 }
 
-export function deleteComment(commentId) {
+export function deleteArticleComment(commentId) {
+  return authFetch(`/comments/${commentId}`, { method: "DELETE" });
+}
+
+// ─── Product Comments ─────────────────────────────────────────────────────────
+
+export function updateProductComment(commentId, content) {
+  return authFetch(`/comments/${commentId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ content }),
+  });
+}
+
+export function deleteProductComment(commentId) {
   return authFetch(`/comments/${commentId}`, { method: "DELETE" });
 }

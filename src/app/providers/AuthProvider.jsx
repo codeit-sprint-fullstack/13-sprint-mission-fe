@@ -14,12 +14,13 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isInitialized, setIsInitialized] = useState(
-    () => !localStorage.getItem("accessToken")
-  );
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    if (!localStorage.getItem("accessToken")) {
+      setIsInitialized(true); // Error
+      return;
+    }
     // Promise 체인잉
     userService
       .getMe()

@@ -4,7 +4,6 @@ import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "@/app/providers/AuthProvider";
 import ProductDeleteConfirmModal from "@/app/components/ui/ProductModal";
 import {
@@ -17,13 +16,13 @@ import {
   updateComment,
   deleteComment,
 } from "@/app/lib/api";
+import BackToListButton from "@/app/components/ui/BackToListButton";
 import KebabMenu from "@/app/components/ui/KebabMenu";
 
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const HEART_FILLED_ICON = "/icons/ic_heart_filled.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
-const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_items_detail.svg";
 
 function relativeTime(dateStr) {
@@ -317,12 +316,13 @@ export default function ItemDetailPage({ params }) {
                       )}
                     </div>
                     <div className="flex items-center gap-3">
-                      <Image
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         src={comment.writer?.image ?? PROFILE_ICON}
                         alt=""
                         width={40}
                         height={40}
-                        className="rounded-full"
+                        className="rounded-full object-cover"
                       />
                       <div className="flex flex-col gap-1">
                         <span className="text-sm text-secondary-600">
@@ -340,23 +340,7 @@ export default function ItemDetailPage({ params }) {
           </ul>
         )}
       </section>
-
-      {/* 목록으로 돌아가기 */}
-      <div className="flex justify-center">
-        <Link
-          href="/items"
-          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-primary text-white font-medium transition-colors whitespace-nowrap"
-        >
-          목록으로 돌아가기
-          <Image
-            src={ARROW_BACK_ICON}
-            alt="목록으로 돌아가기"
-            width={24}
-            height={24}
-          />
-        </Link>
-      </div>
-
+      <BackToListButton href="/items" />
       {showDeleteModal && (
         <ProductDeleteConfirmModal
           title="상품을 삭제하시겠어요?"

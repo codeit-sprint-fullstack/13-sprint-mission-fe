@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import {
   getArticle,
@@ -13,6 +12,7 @@ import {
   deleteComment,
 } from "@/app/lib/api";
 import KebabMenu from "@/app/components/ui/KebabMenu";
+import BackToListButton from "@/app/components/ui/BackToListButton";
 
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
@@ -125,9 +125,7 @@ export default function ArticleDetailPage() {
         <p className="text-sm text-secondary-500 mb-4">
           {error || "게시글을 찾을 수 없습니다."}
         </p>
-        <Link href="/community" className="bg-primary text-sm hover:underline">
-          목록으로 돌아가기
-        </Link>
+        <BackToListButton href="/community" />
       </div>
     );
   }
@@ -277,22 +275,7 @@ export default function ArticleDetailPage() {
           </ul>
         )}
       </section>
-
-      {/* ── Back to list ── */}
-      <div className="flex justify-center">
-        <Link
-          href="/community"
-          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-primary text-white font-medium transition-colors whitespace-nowrap"
-        >
-          목록으로 돌아가기
-          <Image
-            src={ARROW_BACK_ICON}
-            alt="목록으로 돌아가기"
-            width={24}
-            height={24}
-          />
-        </Link>
-      </div>
+      <BackToListButton href="/community" />
     </div>
   );
 }

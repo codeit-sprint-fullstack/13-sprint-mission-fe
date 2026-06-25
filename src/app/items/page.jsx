@@ -141,14 +141,14 @@ export default function ItemsPage() {
       </div>
 
       {/* 상품 목록 */}
-      {/* {isLoading && (
+      {isLoading && (
         <p className="text-center text-gray-500 py-20">로딩 중...</p>
       )}
       {isError && (
         <p className="text-center text-red-500 py-20">
           상품을 불러오지 못했습니다.
         </p>
-      )} */}
+      )}
       {data && (
         <>
           <div className="grid grid-cols-2 bd:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">

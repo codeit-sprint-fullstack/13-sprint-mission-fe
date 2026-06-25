@@ -12,7 +12,7 @@ import { authApi, getErrorMessage } from "@/lib/api";
 import { saveTokens } from "@/lib/auth";
 
 const inputClass =
-  "h-[45px] w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[14px] text-[#1f2937] outline-none placeholer:text-[#9ca3af]";
+  "h-[45px] w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[14px] text-[#1f2937] outline-none placeholder:text-[#9ca3af]";
 const invalidInputClass = "border-[#ef4444] bg-red-50";
 
 export default function SignInPage() {

@@ -117,7 +117,7 @@ export default function SignUpPage() {
           type="submit"
           disabled={!isValid || mutation.isPending}
         >
-          {mutation.isPending ? "가임 중..." : "회원가입"}
+          {mutation.isPending ? "가입 중..." : "회원가입"}
         </button>
       </form>
 

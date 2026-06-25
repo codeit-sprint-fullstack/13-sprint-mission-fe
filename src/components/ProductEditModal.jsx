@@ -1,4 +1,4 @@
-"use clinet";
+"use client";
 
 import { useForm } from "react-hook-form";
 import Modal from "./Modal";

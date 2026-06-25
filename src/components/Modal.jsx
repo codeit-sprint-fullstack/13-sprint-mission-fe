@@ -40,7 +40,7 @@ export default function Modal({
         <div className="mt-6 flex justify-end gap-2.5">
           {cancelText ? (
             <button
-              className="inline-flex min-h-[42px] items-center justify-center rouned-lg bg-[#f3f4f6] px-[18px] font-bold text-[#1f2937]"
+              className="inline-flex min-h-[42px] items-center justify-center rounded-lg bg-[#f3f4f6] px-[18px] font-bold text-[#1f2937]"
               type="button"
               onClick={onClose}
             >

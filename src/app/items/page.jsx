@@ -150,7 +150,7 @@ export default function ItemsPage() {
               상품 목록을 불러오지 못했어요.
             </p>
           ) : null}
-          <div className="grid grid-cols-2 gap-x-3.5 gap-y-7 tablet:grid-cols-3 desktop:grid-cols-5 desktop:gap-x-5 dexktop:gap-y-9">
+          <div className="grid grid-cols-2 gap-x-3.5 gap-y-7 tablet:grid-cols-3 desktop:grid-cols-5 desktop:gap-x-5 desktop:gap-y-9">
             {productsQuery.data?.list.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

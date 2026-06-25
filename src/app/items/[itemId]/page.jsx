@@ -24,7 +24,7 @@ export default function ItemDetailPage() {
   const params = useParams();
   const productId = Number(params.itemId);
   const router = useRouter();
-  const quertClient = useQueryClient();
+  const queryClient = useQueryClient();
   const [comment, setComment] = useState("");
   const [modalMessage, setModalMessage] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -268,7 +268,7 @@ export default function ItemDetailPage() {
                   placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
                 />
                 <button
-                  className="inline-flex min-h-[38px] min-w-[74px] justify-self-end rounded-lg bg-gray-400 px-[18px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-70 enabled:bg-[#3692ff]"
+                  className="inline-flex h-[42px] min-w-[74px] items-center justify-center justify-self-end rounded-lg bg-gray-400 px-[18px] text-[16px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-70 enabled:bg-[#3692ff]"
                   type="submit"
                   disabled={!comment.trim() || createCommentMutation.isPending}
                 >
@@ -314,7 +314,7 @@ export default function ItemDetailPage() {
                     </div>
                     <div className="absolute right-0 top-3.5">
                       <button
-                        classNAme="inline-flex h-9 w-9 items-center justify-center rounded-full text-gray-600"
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-full text-gray-600"
                         type="button"
                         aria-label="댓글 메뉴"
                         onClick={() =>

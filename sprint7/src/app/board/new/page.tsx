@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { fetchClient } from '@/lib/api/fetchClient';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003';
 
@@ -14,38 +15,23 @@ export default function BoardWritePage() {
 
   const isFormValid = title.trim() !== '' && content.trim() !== '';
 
-  const handleSubmit = async () => {
-    if (!isFormValid || isSubmitting) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !content) return;
 
-    setIsSubmitting(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/articles`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, content })
+      const response = await fetchClient("/articles", {
+        method: "POST",
+        body: JSON.stringify({ title, content }),
       });
       
-      if (!response.ok) {
-        throw new Error('서버에서 글 등록을 거절했습니다.');
-      }
-      
-      // 백엔드에서 생성해준 진짜 게시글 데이터 받기
       const data = await response.json();
-      
-      // 백엔드 구조에 따라 data 객체 안에 바로 id가 있거나, data.data.id 에 있을 수 있음
       const newPostId = data.id || (data.data && data.data.id);
       
-      if (!newPostId) {
-        throw new Error('응답받은 게시글 번호가 없습니다.');
-      }
-
       router.push(`/board/${newPostId}`);
-      
     } catch (error) {
-      console.error("게시글 등록 오류:", error);
+      console.error(error);
       alert("게시글 등록에 실패했습니다.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

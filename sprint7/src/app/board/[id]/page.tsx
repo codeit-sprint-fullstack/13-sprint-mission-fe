@@ -5,8 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { commentService, Comment } from "../../../lib/api/comments";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003';
+import { fetchClient } from "../../../lib/api/fetchClient";
 
 interface Article {
   id: number;
@@ -14,6 +13,10 @@ interface Article {
   content: string;
   createdAt: string;
   likeCount?: number; 
+  writer?: {       
+    id: number;
+    nickname: string;
+  };
 }
 
 const formatDate = (dateString: string) => {
@@ -34,6 +37,7 @@ const timeAgo = (dateString: string) => {
   return `${diffInDays}일 전`;
 };
 
+
 function CommentItem({ 
   data, 
   onUpdate, 
@@ -46,6 +50,8 @@ function CommentItem({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(data.content);
+
+  const authorName = data.writer?.nickname || "익명";
 
   return (
     <div className="flex w-full max-w-[1200px] flex-col border-b border-[#E5E7EB] bg-[#FCFCFC] pb-[12px]">
@@ -64,7 +70,7 @@ function CommentItem({
                   <Image src="/images/ic_profile.svg" alt="프로필" fill className="object-cover" />
                 </div>
                 <div className="flex flex-col items-start">
-                  <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#4B5563]">익명</span>
+                  <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#4B5563]">{authorName}</span>
                   <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#9CA3AF]">{timeAgo(data.createdAt)}</span>
                 </div>
               </div>
@@ -100,7 +106,6 @@ function CommentItem({
             {isMenuOpen && (
               <div className="absolute right-0 top-[32px] z-10 flex w-[139px] flex-col items-start overflow-hidden rounded-[8px] border border-[#E5E7EB] bg-white shadow-md">
                 <button onClick={() => { setIsEditing(true); setIsMenuOpen(false); }} className="w-full px-[16px] py-[8px] text-center font-['Pretendard'] text-[16px] font-normal leading-[26px] text-[#6B7280] hover:bg-gray-50">수정하기</button>
-                {/* 댓글 삭제하기 버튼 색상 수정 완료: text-[#EF4444] -> text-[#6B7280] */}
                 <button onClick={() => { onDelete(data.id); setIsMenuOpen(false); }} className="w-full px-[16px] py-[8px] text-center font-['Pretendard'] text-[16px] font-normal leading-[26px] text-[#6B7280] hover:bg-gray-50">삭제하기</button>
               </div>
             )}
@@ -114,7 +119,7 @@ function CommentItem({
             <Image src="/images/ic_profile.svg" alt="프로필" fill className="object-cover" />
           </div>
           <div className="ml-[8px] flex flex-col items-start gap-[4px]">
-            <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#4B5563]">익명</span>
+            <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#4B5563]">{authorName}</span>
             <span className="font-['Pretendard'] text-[12px] font-normal leading-[18px] text-[#9CA3AF]">{formatDate(data.createdAt)}</span>
           </div>
         </div>
@@ -134,7 +139,6 @@ export default function BoardDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [likeCount, setLikeCount] = useState<number>(0);
 
-  // --- 게시글 자체 수정/삭제 상태 ---
   const [isArticleMenuOpen, setIsArticleMenuOpen] = useState(false);
   const [isArticleEditing, setIsArticleEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
@@ -144,19 +148,19 @@ export default function BoardDetailPage() {
     if (!id) return;
     try {
       setIsLoading(true);
-      const artRes = await fetch(`${API_BASE_URL}/articles/${id}`, { cache: 'no-store' });
-      if (!artRes.ok) {
-        router.push('/board');
-        return;
-      }
+      
+      const artRes = await fetchClient(`/articles/${id}`, { cache: 'no-store' });
       const articleData = await artRes.json();
+      
       setArticle(articleData);
       setLikeCount(articleData.likeCount || 0);
 
       const allComments = await commentService.getAllByArticleId(id);
       setComments(allComments);
     } catch (e) {
-      console.error(e);
+      console.error("게시글 로딩 실패:", e);
+      alert("존재하지 않거나 삭제된 게시글입니다.");
+      router.push('/board'); 
     } finally {
       setIsLoading(false);
     }
@@ -166,40 +170,34 @@ export default function BoardDetailPage() {
     fetchData();
   }, [fetchData]);
 
-  // 게시글 삭제 핸들러
   const handleArticleDelete = async () => {
     setIsArticleMenuOpen(false);
     if (!window.confirm("정말 이 게시글을 삭제하시겠습니까?")) return;
     try {
-      const res = await fetch(`${API_BASE_URL}/articles/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error("게시글 삭제 실패");
+      await fetchClient(`/articles/${id}`, { method: 'DELETE' });
       alert("게시글이 삭제되었습니다.");
       router.push('/board');
     } catch (error) {
       console.error(error);
-      alert("게시글 삭제에 실패했습니다.");
+      alert("본인의 게시글만 삭제할 수 있습니다.");
     }
   };
 
-  // 게시글 수정 핸들러
   const handleArticleUpdate = async () => {
     if (!editTitle.trim() || !editContent.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
     try {
-      const res = await fetch(`${API_BASE_URL}/articles/${id}`, {
+      await fetchClient(`/articles/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: editTitle, content: editContent })
       });
-      if (!res.ok) throw new Error("게시글 수정 실패");
-      
       setIsArticleEditing(false);
       await fetchData(); 
     } catch (error) {
       console.error(error);
-      alert("게시글 수정에 실패했습니다.");
+      alert("본인의 게시글만 수정할 수 있습니다.");
     }
   };
 
@@ -210,7 +208,7 @@ export default function BoardDetailPage() {
       setNewComment("");
       await fetchData();
     } catch (error) {
-      alert("댓글 등록에 실패했습니다.");
+      alert("댓글 등록에 실패했습니다. (로그인 필요)");
     }
   };
 
@@ -219,7 +217,7 @@ export default function BoardDetailPage() {
       await commentService.update(commentId, content);
       await fetchData();
     } catch (error) {
-      alert("댓글 수정에 실패했습니다.");
+      alert("본인의 댓글만 수정할 수 있습니다.");
     }
   };
 
@@ -229,29 +227,28 @@ export default function BoardDetailPage() {
       await commentService.delete(commentId);
       await fetchData();
     } catch (error) {
-      alert("댓글 삭제에 실패했습니다.");
+      alert("본인의 댓글만 삭제할 수 있습니다.");
     }
   };
 
   const handleLikeClick = async () => {
     setLikeCount((prev) => prev + 1);
     try {
-      const res = await fetch(`${API_BASE_URL}/articles/${id}/like`, { method: 'POST' });
-      if (!res.ok) throw new Error("좋아요 실패");
+      await fetchClient(`/articles/${id}/like`, { method: 'POST' });
     } catch (error) {
       console.error(error);
       setLikeCount((prev) => prev - 1);
-      alert("좋아요 처리에 실패했습니다.");
+      alert("이미 좋아요를 눌렀거나 권한이 없습니다.");
     }
   };
 
-  if (isLoading) return <div className="mx-auto flex w-full max-w-[1200px] justify-center py-20 font-['Pretendard'] text-[#9CA3AF]">로딩 중...</div>;
+  if (isLoading) return <div className="mx-auto flex w-full max-w-[1200px] justify-center py-20 font-['Pretendard'] text-[#9CA3AF]">데이터를 불러오는 중입니다...</div>;
   if (!article) return null;
+
+  const articleAuthorName = article.writer?.nickname || "익명";
 
   return (
     <div className="mx-auto max-w-[1200px] py-8 px-4">
-      
-      {/* 1. 상단 제목 & 케밥 메뉴 (수정 모드 분기) */}
       {isArticleEditing ? (
         <div className="mb-[24px] flex w-full flex-col">
           <input 
@@ -276,7 +273,6 @@ export default function BoardDetailPage() {
                   setEditContent(article.content); 
                   setIsArticleMenuOpen(false); 
                 }} className="w-full px-[16px] py-[8px] text-center font-['Pretendard'] text-[16px] font-normal leading-[26px] text-[#6B7280] hover:bg-gray-50">수정하기</button>
-                {/* 게시글 삭제하기 버튼 색상 수정 완료: text-[#EF4444] -> text-[#6B7280] */}
                 <button onClick={handleArticleDelete} className="w-full px-[16px] py-[8px] text-center font-['Pretendard'] text-[16px] font-normal leading-[26px] text-[#6B7280] hover:bg-gray-50">삭제하기</button>
               </div>
             )}
@@ -284,14 +280,13 @@ export default function BoardDetailPage() {
         </div>
       )}
 
-      {/* 2. 작성자 프로필 및 좋아요 영역 */}
       {!isArticleEditing && (
         <>
           <div className="mb-[24px] flex items-center">
             <div className="relative mr-[16px] h-[32px] w-[32px] overflow-hidden rounded-full bg-gray-100">
               <Image src="/images/ic_profile.svg" alt="프로필" fill className="object-cover" />
             </div>
-            <span className="mr-[8px] font-['Pretendard'] text-[14px] font-normal text-[#4B5563]">익명</span>
+            <span className="mr-[8px] font-['Pretendard'] text-[14px] font-normal text-[#4B5563]">{articleAuthorName}</span>
             <span className="mr-[32px] font-['Pretendard'] text-[14px] font-normal text-[#9CA3AF]">{formatDate(article.createdAt)}</span>
             <div className="mr-[32px] h-[14px] w-[1px] bg-[#E5E7EB]" />
             
@@ -311,7 +306,6 @@ export default function BoardDetailPage() {
         </>
       )}
 
-      {/* 3. 게시글 내용 영역 (수정 폼 전환 처리) */}
       {isArticleEditing ? (
         <div className="mb-[40px] flex w-full flex-col gap-[16px]">
           <textarea 
@@ -339,7 +333,6 @@ export default function BoardDetailPage() {
         <p className="mb-[40px] font-['Pretendard'] text-[18px] font-normal leading-[26px] text-[#1F2937] whitespace-pre-wrap">{article.content}</p>
       )}
       
-      {/* 4. 댓글 영역 (게시글 수정 중일 때는 산만하지 않게 숨김 처리) */}
       {!isArticleEditing && (
         <>
           <div className="flex flex-col gap-[16px]">

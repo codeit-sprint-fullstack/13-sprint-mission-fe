@@ -1,54 +1,41 @@
+import { fetchClient } from "./fetchClient";
+
 export interface Comment {
   id: number;
-  articleId: number;
   content: string;
   createdAt: string;
+  updatedAt: string;
+  writer: {
+    id: number;
+    nickname: string;
+  };
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003';
-
 export const commentService = {
-  getAllByArticleId: async (articleId: string): Promise<Comment[]> => {
-    let allComments: Comment[] = [];
-    let cursor = 0;
-    let hasNext = true;
-
-    while (hasNext) {
-      const res = await fetch(`${API_BASE_URL}/articles/${articleId}/comments?take=10&cursor=${cursor}`, {
-        cache: 'no-store'
-      });
-      if (!res.ok) throw new Error("댓글 로드 실패");
+  getAllByArticleId: async (articleId: string) => {
+      const res = await fetchClient(`/articles/${articleId}/comments?limit=100`);
+      const data = await res.json();
       
-      const json = await res.json();
-      const items = Array.isArray(json) ? json : (json.data || []);
-      allComments = [...allComments, ...items];
-      
-      hasNext = json.hasNext ?? false;
-      cursor = json.nextCursor ?? 0;
-    }
-
-    return allComments.reverse();
+      return data.list || data.data || data || []; 
   },
-
   create: async (articleId: string, content: string) => {
-    return fetch(`${API_BASE_URL}/articles/${articleId}/comments`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetchClient(`/articles/${articleId}/comments`, {
+      method: "POST",
       body: JSON.stringify({ content }),
     });
+    return res.json();
   },
-
   update: async (commentId: number, content: string) => {
-    return fetch(`${API_BASE_URL}/comments/${commentId}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetchClient(`/comments/${commentId}`, {
+      method: "PATCH",
       body: JSON.stringify({ content }),
     });
+    return res.json();
   },
-
   delete: async (commentId: number) => {
-    return fetch(`${API_BASE_URL}/comments/${commentId}`, {
-      method: 'DELETE'
+    const res = await fetchClient(`/comments/${commentId}`, {
+      method: "DELETE",
     });
-  }
+    return res.json();
+  },
 };

@@ -1,52 +1,96 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchClient } from "../lib/api/fetchClient";
 
 export default function Header() {
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+  }, []);
+
+  const { data: user } = useQuery({
+    queryKey: ["userMe"],
+    queryFn: async () => {
+      const res = await fetchClient("/users/me");
+      return res.json();
+    },
+    enabled: !!token,
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#DFDFDF] bg-[#FFF]">
-      <div className="mx-auto flex h-[70px] w-full max-w-[1920px] items-center justify-between px-4 lg:px-[200px]">
-        <div className="flex items-center gap-8">
-          <Link
-            href="/"
-            className="flex h-[51px] w-[153px] items-end justify-center gap-[8.59px] pt-[5.017px] pb-[5.848px]"
-          >
-            <div className="relative h-[35px] w-[35px]">
-              <Image
-                src="/images/ic_panda.svg"
-                alt="판다마켓 로고"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span className="font-['ROKAF_Sans'] text-[25.63px] font-bold text-[#3692FF]">
+    <header className="flex h-[70px] w-full items-center justify-center border-b border-[#E5E7EB] bg-white px-[16px] md:px-[24px]">
+      <div className="flex w-full max-w-[1200px] items-center justify-between">
+        
+        <div className="flex items-center gap-[24px] md:gap-[32px]">
+          <Link href="/" className="flex items-center gap-[8px] md:gap-[12px]">
+            <Image 
+              src="/images/ic_panda.svg" 
+              alt="Panda Market" 
+              width={40} 
+              height={40} 
+              priority
+            />
+            <span className="hidden sm:inline font-['Pretendard'] text-[20px] font-bold text-[#3692FF]">
               판다마켓
             </span>
           </Link>
-
-          <nav className="flex items-center">
-            <Link
-              href="/board"
-              className="flex items-center justify-center text-center font-['Pretendard'] text-[18px] font-bold leading-[26px] text-[#4B5563] transition-colors hover:text-[#3692FF]"
-            >
+          <nav className="hidden md:flex gap-[24px]">
+            <Link href="/board" className="font-['Pretendard'] text-[18px] font-bold text-[#4B5563] hover:text-[#1F2937]">
               자유게시판
             </Link>
-            <Link
-              href="/items"
-              className="flex items-center justify-center gap-[10px] px-[15px] py-[21px] text-center font-['Pretendard'] text-[18px] font-bold leading-[26px] text-[#4B5563] transition-colors hover:text-[#3692FF]"
-            >
+            <Link href="/items" className="font-['Pretendard'] text-[18px] font-bold text-[#4B5563] hover:text-[#1F2937]">
               중고마켓
             </Link>
           </nav>
         </div>
 
-        <div className="flex items-center">
-          <Link
-            href="/signin"
-            className="inline-flex h-[42px] items-center justify-center gap-[10px] rounded-[8px] bg-[#3692FF] px-[23px] py-[12px] text-sm font-medium text-white transition-colors hover:bg-blue-600"
-          >
-            로그인
-          </Link>
+        <div>
+          {token ? (
+            user ? (
+              <div className="flex items-center gap-[12px]">
+                <div className="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-100 border border-gray-200">
+                  <Image 
+                    src={user.image || "/images/ic_profile.svg"} 
+                    alt="User Profile" 
+                    width={40} 
+                    height={40} 
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="flex items-center gap-[16px]">
+                  <span className="font-['Pretendard'] text-[16px] font-medium text-[#1F2937]">
+                    {user.nickname}
+                  </span>
+                  <button 
+                    onClick={handleLogout} 
+                    className="font-['Pretendard'] text-[14px] text-gray-400 hover:text-[#F74747] transition-colors"
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="h-[40px] w-[40px] animate-pulse rounded-full bg-gray-200"></div>
+            )
+          ) : (
+            <Link href="/signin">
+              <button className="flex h-[48px] items-center justify-center rounded-[8px] bg-[#3692FF] px-[24px] font-['Pretendard'] text-[16px] font-bold text-white transition-colors hover:bg-blue-600">
+                로그인
+              </button>
+            </Link>
+          )}
         </div>
+
       </div>
     </header>
   );

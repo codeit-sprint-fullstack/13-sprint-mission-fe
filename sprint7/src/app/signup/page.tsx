@@ -35,6 +35,7 @@ export default function SignUpPage() {
         email: data.email,
         nickname: data.nickname,
         password: data.password,
+        passwordConfirmation: data.passwordConfirm,
       };
       const res = await fetchClient("/auth/signUp", {
         method: "POST",
@@ -42,9 +43,9 @@ export default function SignUpPage() {
       });
       return res.json();
     },
-    onSuccess: (data) => {
-      localStorage.setItem("accessToken", data.accessToken);
-      router.push("/items");
+    onSuccess: () => {
+      alert("회원가입이 완료되었습니다. 로그인해 주세요.");
+      router.push("/signin");
     },
     onError: (error: any) => {
       setModalMessage(error.message || "회원가입에 실패했습니다.");

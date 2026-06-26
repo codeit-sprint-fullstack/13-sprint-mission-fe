@@ -16,6 +16,7 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // 웬만하면 authprovider안에 useEffect넣기
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
       setIsInitialized(true); // Error

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
-import Header from "@/comeponents/common/Header";
+import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import { productApi } from "@/lib/api";
@@ -130,7 +130,7 @@ export default function ItemsPage() {
                   }}
                 >
                   <option value="recent">최신순</option>
-                  <opriton value="favorite">좋아요순</opriton>
+                  <option value="favorite">좋아요순</option>
                 </select>
                 <ChevronDown
                   className="pointer-events-none absolute right-3.5"

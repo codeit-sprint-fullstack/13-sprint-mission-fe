@@ -39,7 +39,7 @@ export default function Header() {
           className="flex gap-7 text-[16px] font-bold text-[#1f2937]"
           aria-label="주요 메뉴"
         >
-          <Link href="/borad">자유게시판</Link>
+          <Link href="/board">자유게시판</Link>
           <Link href="/items">중고마켓</Link>
         </nav>
         <div className="ml-auto">

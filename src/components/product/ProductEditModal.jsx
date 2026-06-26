@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import Modal from "./Modal";
+import Modal from "./common/Modal";
 
 const inputClass =
   "w-full rounded-lg border border-transparent bg-[#f3f4f6] p-3 text-[#1f2937] outline-none";
@@ -12,8 +12,8 @@ export default function ProductEditModal({ product, busy, onClose, onSubmit }) {
       name: product.name,
       price: product.price,
       description: product.description,
-      tags: product.tags.join(", "),
-      image: product.images[0] || "",
+      tags: product.tags?.join(", ") || "",
+      image: product.images?.[0] || "",
     },
   });
 

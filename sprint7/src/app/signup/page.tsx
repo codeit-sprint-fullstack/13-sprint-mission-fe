@@ -48,7 +48,8 @@ export default function SignUpPage() {
       router.push("/signin");
     },
     onError: (error: any) => {
-      setModalMessage(error.message || "회원가입에 실패했습니다.");
+      router.push("/signin");
+      alert("사용 중인 이메일입니다.");
     },
   });
 

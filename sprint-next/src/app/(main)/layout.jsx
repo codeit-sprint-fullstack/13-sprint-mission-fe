@@ -5,7 +5,7 @@ export default function MainLayout({ children }) {
   return (
     <>
       <Header />
-      <div className="flex-1 pt-17.5">{children}</div>
+      <div className="flex-1 pt-17.5 lg:px-[22.5rem]">{children}</div>
       <Footer />
     </>
   );

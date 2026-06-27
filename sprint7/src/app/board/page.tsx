@@ -4,12 +4,17 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fetchClient } from "../../lib/api/fetchClient";
+
 interface Article {
   id: number;
   title: string;
   content: string;
   likeCount?: number;
   createdAt: string;
+  writer?: {
+    id: number;
+    nickname: string;
+  };
 }
 
 export default function BoardListPage() {
@@ -115,7 +120,9 @@ export default function BoardListPage() {
               </div>
               <div className="flex w-full items-center justify-between">
                 <div className="flex items-center">
-                  <span className="font-['Pretendard'] text-[12px] md:text-[14px] font-normal leading-[24px] text-[#4B5563]">익명</span>
+                  <span className="font-['Pretendard'] text-[12px] md:text-[14px] font-normal leading-[24px] text-[#4B5563]">
+                    {post.writer?.nickname || "익명"}
+                  </span>
                   <div className="ml-[8px] flex items-center gap-[4px]">
                     <div className="relative h-[14px] w-[14px] md:h-[16px] md:w-[16px]">
                       <Image src="/images/ic_heart.svg" alt="좋아요" fill className="object-contain" />
@@ -182,7 +189,9 @@ export default function BoardListPage() {
                   <div className="relative h-[20px] w-[20px] md:h-[24px] md:w-[24px] shrink-0 overflow-hidden rounded-full">
                     <Image src="/images/ic_profile.svg" alt="프로필" fill className="object-cover" />
                   </div>
-                  <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#4B5563]">익명</span>
+                  <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#4B5563]">
+                    {post.writer?.nickname || "익명"}
+                  </span>
                   <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#9CA3AF]">{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center">

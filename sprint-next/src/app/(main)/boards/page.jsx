@@ -1,8 +1,8 @@
 import Link from "next/link";
-import BestCard from "./components/BsetCard";
-import PostCard from "./components/PostCard";
-import SortDropdown from "./components/SortDropdown";
-import SearchInput from "./components/SearchInput";
+import BestCard from "./_components/BsetCard";
+import PostCard from "./_components/PostCard";
+import SortDropdown from "./_components/SortDropdown";
+import SearchInput from "./_components/SearchInput";
 import {
   getBestArticles,
   getArticles,

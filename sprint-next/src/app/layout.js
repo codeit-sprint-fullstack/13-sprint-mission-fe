@@ -1,6 +1,9 @@
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import QueryProvider from "@/providers/QueryProvider";
+import AuthProvider from "@/providers/AuthProvider";
+import RouteGuard from "@/providers/RouteGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +35,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={`${geistSans.variable} ${rokafSans.variable}`}>
       <body className="min-h-screen flex flex-col">
-        {children}
+        <QueryProvider>
+          <AuthProvider>
+            <RouteGuard>{children}</RouteGuard>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

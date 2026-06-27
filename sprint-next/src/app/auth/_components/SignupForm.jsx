@@ -46,7 +46,7 @@ export default function SignupForm() {
         message: "가입 완료되었습니다.",
         onClose: () => {
           saveAuth({ user, accessToken });
-          router.push("/");
+          router.push("/items");
         },
       });
     } catch (err) {

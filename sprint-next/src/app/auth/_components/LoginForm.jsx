@@ -43,7 +43,7 @@ export default function LoginForm() {
     try {
       const { user, accessToken } = await authService.login(values.email, values.password);
       saveAuth({ user, accessToken });
-      router.push("/");
+      router.push("/items");
     } catch (err) {
       setModal({ message: err.message ?? "오류가 발생했습니다.", onClose: () => setModal(null) });
     } finally {

@@ -28,7 +28,7 @@ export default function RouteGuard({ children }) {
     if (isProtectedRoute && !user) {
       router.replace("/auth");
     } else if (isGuestOnlyRoute && user) {
-      router.replace("/");
+      router.replace("/items");
     }
   }, [user, isInitialized, pathname, router]);
 

@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import RouteGuard from "./RouteGuard";
 
 export default function Providers({ children }) {
   const [queryClient] = useState(
@@ -18,6 +19,8 @@ export default function Providers({ children }) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouteGuard>{children}</RouteGuard>
+    </QueryClientProvider>
   );
 }

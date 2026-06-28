@@ -103,7 +103,7 @@ export default function SignUpPage() {
           <PasswordInput
             placeholder="비밀번호를 다시 한 번 입력해주세요"
             autoComplete="new-password"
-            error={errors.passwordConfrimation?.message}
+            error={errors.passwordConfirmation?.message}
             {...register("passwordConfirmation", {
               required: "비밀번호가 일치하지 않아요",
               validate: (value) =>

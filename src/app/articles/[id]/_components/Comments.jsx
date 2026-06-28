@@ -30,7 +30,7 @@ export default function Comments({ articleId, commentsData }) {
         as={Link}
         href='/articles'
         variant='secondary'
-        width='240'
+        width='240px'
         aria-label='목록으로 돌아가기 버튼'
       >
         목록으로 돌아가기

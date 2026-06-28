@@ -14,6 +14,8 @@
 
 @theme {
   --font-sans: Arial, "Helvetica Neue", sans-serif;
+  --breakpoint-tablet: 744px;
+  --breakpoint-desktop: 1200px;
 }
 
 @media (prefers-color-scheme: dark) {

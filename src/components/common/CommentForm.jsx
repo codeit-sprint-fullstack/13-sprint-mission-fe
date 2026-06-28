@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function CommentForm({ onSubmit }) {
+export default function CommentForm({ title, onSubmit, placeholder }) {
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
@@ -12,14 +12,14 @@ export default function CommentForm({ onSubmit }) {
     setContent("");
   };
   return (
-    <form onSubmit={handleSubmit} className="w-[343px] flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
       <div className="flex flex-col gap-[9px]">
-        <h3 className="text-lg font-semibold text-gray-900">댓글달기</h3>
+        <label className="text-lg font-semibold text-gray-900">{title}</label>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="댓글을 입력해주세요."
-          className="bg-gray-100 h-[104px] px-6 py-4 rounded-xl resize-none "
+          placeholder={placeholder}
+          className="bg-gray-100 h-[129px] px-6 py-4 rounded-xl resize-none text-md text-gray-400"
         />
       </div>
       <button

@@ -57,14 +57,17 @@ export default function AuthForm({ type = "signin" }) {
       passwordCheck: "",
     };
 
-    // 1차 프론트엔드 유효성 검사
     if (!formData.email || !formData.password) {
       newErrors.email = "이메일을 확인해 주세요.";
       newErrors.password = "비밀번호를 확인해 주세요.";
       setErrors(newErrors);
       return;
     }
-
+    if (formData.password.length < 8) {
+      newErrors.password = "비밀번호를 8자 이상 입력해주세요.";
+      setErrors(newErrors);
+      return;
+    }
     if (!isSignin && formData.password !== formData.passwordCheck) {
       newErrors.passwordCheck = "비밀번호가 일치하지 않아요.";
       setErrors(newErrors);
@@ -75,11 +78,9 @@ export default function AuthForm({ type = "signin" }) {
 
     try {
       if (isSignin) {
-        // 🔑 1. 로그인 요청 보내기
         await signin(formData.email, formData.password);
-        setModalMessage("로그인에 성공했습니다");
+        router.push("/");
       } else {
-        // 📝 2. 회원가입 요청 보내기
         await signup({
           nickname: formData.nickname,
           email: formData.email,
@@ -87,20 +88,29 @@ export default function AuthForm({ type = "signin" }) {
           passwordConfirmation: formData.passwordCheck,
         });
 
-        // ⚡ 회원가입 성공하자마자 딜레이 없이 바로 가입한 정보로 로그인 꽂아버리기!
         await signin(formData.email, formData.password);
         setModalMessage("가입이 완료되었습니다.");
+        setIsModalOpen(true);
       }
       setIsSuccess(true);
-      setIsModalOpen(true);
     } catch (error) {
-      // 💥 백엔드가 뱉은 에러(400, 401, 409 중복 등)를 여기서 잡아서 모달에 표기!
       console.error("인증 처리 중 에러 발생:", error);
       setIsSuccess(false);
+
+      const backendErrors = {
+        email: isSignin
+          ? "이메일을 다시 확인해 주세요."
+          : "사용 중인 이메일입니다.",
+        password: "비밀번호가 일치하지 않습니다.",
+        passwordCheck: isSignin ? "" : "비밀번호가 일치하는지 확인해 주세요.",
+      };
+
+      setErrors(backendErrors);
+
       setModalMessage(
         isSignin
           ? "이메일 또는 비밀번호를 다시 확인해 주세요."
-          : "이미 존재하는 이메일이거나 회원가입에 실패했습니다.",
+          : "이미 존재하는 이메일이   회원가입에 실패했습니다.",
       );
       setIsModalOpen(true);
     }
@@ -108,7 +118,7 @@ export default function AuthForm({ type = "signin" }) {
   const handleModalClose = () => {
     setIsModalOpen(false);
     if (isSuccess) {
-      router.push("/"); // 🚀 성공했을 때만 메인 페이지('/')로 리다이렉트!
+      router.push("/");
     }
   };
   return (

@@ -27,7 +27,7 @@ export default function AuthModal({
           {message}
         </p>
         <button
-          onClick={onClose} // 👈 닫기 누르면 부모가 준 닫기 함수 실행
+          onClick={onClose} 
           className="bg-primary-100 rounded-lg w-[120px] h-[48px] text-gray-100 text-lg font-semibold md:w-[165px]"
         >
           확인

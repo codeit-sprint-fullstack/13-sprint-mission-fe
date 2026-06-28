@@ -1,6 +1,9 @@
 import AuthProvider from "@/providers/AuthProvider";
 import "./globals.css";
 import localFont from "next/font/local";
+import RouteGuard from "@/providers/RouteGuard";
+import QueryProvider from "@/providers/QueryProvider";
+
 
 export const metadata = {
   title: "판다 마켓",
@@ -17,7 +20,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            <RouteGuard>{children}</RouteGuard>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

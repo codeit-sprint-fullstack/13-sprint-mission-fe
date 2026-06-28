@@ -1,4 +1,4 @@
-import { deFaultFetch } from "./fetchClient";
+import { authFetch, deFaultFetch } from "./fetchClient";
 
 export const authService = {
   signin: (email, password) =>
@@ -16,4 +16,5 @@ export const authService = {
         passwordConfirmation,
       }),
     }),
+  getUser: () => authFetch("/users/me"),
 };

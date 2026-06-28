@@ -1,8 +1,8 @@
 const socialLinks = [
   { label: "Facebook", href: "#", src: "/icons/ic_facebook.png" },
-  { label: "Twitter", href: "#", src: "icons/ic_twitter.png" },
-  { label: "Youtube", href: "#", src: "icons/ic_youtube.png" },
-  { label: "Instagram", href: "#", src: "icons/ic_instagram.png" },
+  { label: "Twitter", href: "#", src: "/icons/ic_twitter.png" },
+  { label: "Youtube", href: "#", src: "/icons/ic_youtube.png" },
+  { label: "Instagram", href: "#", src: "/icons/ic_instagram.png" },
 ];
 
 export default function Footer() {

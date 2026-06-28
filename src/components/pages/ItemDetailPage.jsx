@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "first";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { Heart, MoreVertical, RotateCcw, UserRound } from "lucide-react";
@@ -120,7 +120,7 @@ export default function ItemDetailPage() {
 
   const product = productQuery.data;
   const image =
-    product?.images?.[0] || "https://picsum.phots/seed/panda-detail/960/720";
+    product?.images?.[0] || "https://picsum.photos/seed/panda-detail/960/720";
   const formattedDate = useMemo(() => {
     if (!product?.createdAt) return "";
     return new Intl.DateTimeFormat("ko-KR", {
@@ -154,7 +154,7 @@ export default function ItemDetailPage() {
                 <img
                   className="h-full w-full object-cover"
                   src={image}
-                  atl={product.name}
+                  alt={product.name}
                 />
               </div>
               <article className="min-w-0">
@@ -225,13 +225,13 @@ export default function ItemDetailPage() {
                     </span>
                     <span>
                       <b>{product.ownerNickname || "판매자"}</b>
-                      <small className="mt-1 block text-xs tex-gray-400">
+                      <small className="mt-1 block text-xs text-gray-400">
                         {formattedDate}
                       </small>
                     </span>
                   </div>
                   <button
-                    className={`inline-flex min-h-[42px] items-center gap-[7px] rounded-full broder px-[18px] ${product.favorite ? "border-red-200 bg-rose-50 text-[#ef4444]" : "border-[#e5e7eb] bg-white text-gray-600"}`}
+                    className={`inline-flex min-h-[42px] items-center gap-[7px] rounded-full border px-[18px] ${product.favorite ? "border-red-200 bg-rose-50 text-[#ef4444]" : "border-[#e5e7eb] bg-white text-gray-600"}`}
                     type="button"
                     onClick={() => favoriteMutation.mutate()}
                     disabled={favoriteMutation.isPending}
@@ -268,7 +268,7 @@ export default function ItemDetailPage() {
               </form>
 
               {commentsQuery.isLoading ? (
-                <div className="rounded-lg bg-[#f3f4f6] p-[18px] text-[#6b7280">
+                <div className="rounded-lg bg-[#f3f4f6] p-[18px] text-[#6b7280]">
                   댓글을 불러오는 중...
                 </div>
               ) : null}
@@ -289,7 +289,7 @@ export default function ItemDetailPage() {
                         {item.writer.image ? (
                           <img
                             className="h-7 w-7 rounded-full object-cover"
-                            srt={item.writer.image}
+                            src={item.writer.image}
                             alt=""
                           />
                         ) : (
@@ -423,7 +423,7 @@ function EditCommentModal({ comment, busy, onClose, onSubmit }) {
 function timeAgo(dateString) {
   const diff = Date.now() - new Date(dateString).getTime();
   const minutes = Math.max(1, Math.floor(diff / 60000));
-  if (minutes < 60) retur`${minutes}분 전`;
+  if (minutes < 60) return `${minutes}분 전`;
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours}시간 전`;
   const days = Math.floor(hours / 24);

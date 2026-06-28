@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import Modal from "./common/Modal";
+import Modal from "../common/Modal";
 
 const inputClass =
   "w-full rounded-lg border border-transparent bg-[#f3f4f6] p-3 text-[#1f2937] outline-none";

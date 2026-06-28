@@ -62,13 +62,13 @@ export default function ItemsPage() {
   }, [bestProductsQuery.data?.list, productsQuery.data?.list, queryClient]);
 
   const search = (event) => {
-    event.prevenDefault();
+    event.preventDefault();
     setPage(1);
     setKeyword(draftKeyword.trim());
   };
 
   return (
-    <div className="bg-white text-[#1f2937">
+    <div className="bg-white text-[#1f2937]">
       <Header />
       <main
         className={`${shellClass} min-h-[calc(100vh-170px)] pb-[90px] pt-8`}
@@ -169,7 +169,7 @@ export default function ItemsPage() {
               (_, index) => index + 1,
             ).map((pageNumber) => (
               <button
-                className={`h-8 w-8 rounded-full border ${page === pageNumber ? "border-[#3692ff] bg-[#3692ff] tet-white" : "border-[#e5e7eb] bg-white text-gray-600"}`}
+                className={`h-8 w-8 rounded-full border ${page === pageNumber ? "border-[#3692ff] bg-[#3692ff] text-white" : "border-[#e5e7eb] bg-white text-gray-600"}`}
                 key={pageNumber}
                 type="button"
                 onClick={() => setPage(pageNumber)}
@@ -189,6 +189,7 @@ export default function ItemsPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { authApi, getErrorMessage } from "@/lib/api";
 import { saveTokens } from "@/lib/auth";
 
 const inputClass =
-  "h-[45px] w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[14px] text-[#1f2937] outline-none palceholder:text-[#9ca3af]";
+  "h-[45px] w-full rounded-lg border border-transparent bg-[#f3f4f6] px-[18px] text-[14px] text-[#1f2937] outline-none placeholder:text-[#9ca3af]";
 const invalidInputClass = "border-[#ef4444] bg-red-50";
 
 export default function SignInPage() {
@@ -54,7 +54,7 @@ export default function SignInPage() {
               },
             })}
           />
-          {errors.emain ? (
+          {errors.email ? (
             <p className="mt-2 text-[13px] font-semibold text-[#ef4444]">
               {errors.email.message}
             </p>
@@ -88,7 +88,7 @@ export default function SignInPage() {
         <div className="flex gap-3">
           <a
             className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white"
-            href="http://www.google.com"
+            href="https://www.google.com"
             aria-label="구글로 이동"
           >
             <img

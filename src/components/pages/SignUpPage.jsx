@@ -48,8 +48,8 @@ export default function SignUpPage() {
           <input
             className={`${inputClass} ${errors.email ? invalidInputClass : ""}`}
             placeholder="이메일을 입력해주세요"
-            autoComplete="emial"
-            {...register("emial", {
+            autoComplete="email"
+            {...register("email", {
               required: "이메일을 확인해 주세요",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+.[^\s@]+$/,
@@ -93,7 +93,7 @@ export default function SignUpPage() {
             error={errors.password?.message}
             {...register("password", {
               required: "비밀번호를 확인해 주세요.",
-              minLength: { value: 8, message: "비밀번호를 화인해 주세요." },
+              minLength: { value: 8, message: "비밀번호를 확인해 주세요." },
             })}
           />
         </label>
@@ -117,7 +117,7 @@ export default function SignUpPage() {
           type="submit"
           disabled={!isValid || mutation.isPending}
         >
-          {mutation.isPending ? "가임 중..." : "회원가입"}
+          {mutation.isPending ? "가입 중..." : "회원가입"}
         </button>
       </form>
 

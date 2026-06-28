@@ -38,7 +38,7 @@ async function request(endpoint, options = {}) {
 }
 
 addRequestInterceptor((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   if (!token) return config;
   return { ...config, headers: { ...config.headers, Authorization: `Bearer ${token}` } };
 });

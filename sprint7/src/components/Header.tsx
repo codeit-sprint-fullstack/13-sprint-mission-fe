@@ -13,14 +13,24 @@ export default function Header() {
     setToken(localStorage.getItem("accessToken"));
   }, []);
 
-  const { data: user } = useQuery({
+  const { data: user, isError } = useQuery({
     queryKey: ["userMe"],
     queryFn: async () => {
       const res = await fetchClient("/users/me");
       return res.json();
     },
     enabled: !!token,
+    retry: false,
   });
+
+  useEffect(() => {
+    if (isError) {
+      localStorage.removeItem("accessToken");
+      setToken(null)
+
+      alert("로그인 시간이 만료되었습니다.")
+    }
+  }, [isError]);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");

@@ -72,6 +72,7 @@
   --breakpoint-lg: 1200px; /* PC 이상 */
 
   /* z-index */
+  --z-index-modal: 1100;
   --z-index-header: 1000;
   --z-index-footer: 900;
   --z-index-sort-select: 30;

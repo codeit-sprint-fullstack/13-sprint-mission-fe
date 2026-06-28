@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { Heart, MoreVertical, RotateCcw, UserRound } from "lucide-react";
@@ -27,12 +27,6 @@ export default function ItemDetailPage() {
   const [editingComment, setEditingComment] = useState(null);
   const [commentMenuId, setCommentMenuId] = useState(null);
   const [productMenuOpen, setProductMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (!getAccessToken()) {
-      router.replace("/signin");
-    }
-  }, [router]);
 
   const productQuery = useQuery({
     queryKey: queryKeys.product(productId),
@@ -99,7 +93,7 @@ export default function ItemDetailPage() {
     onSuccess: () => {
       setEditingComment(null);
       queryClient.invalidateQueries({
-        QueryKey: queryKeys.comments(productId),
+        queryKey: queryKeys.comments(productId),
       });
     },
     onError: (error) =>
@@ -231,7 +225,7 @@ export default function ItemDetailPage() {
                     </span>
                   </div>
                   <button
-                    className={`inline-flex min-h-[42px] items-center gap-[7px] rounded-full border px-[18px] ${product.favorite ? "border-red-200 bg-rose-50 text-[#ef4444]" : "border-[#e5e7eb] bg-white text-gray-600"}`}
+                    className={`inline-flex min-h-[42px] items-center gap-[7px] rounded-full border px-[18px] ${product.isFavorite ? "border-red-200 bg-rose-50 text-[#ef4444]" : "border-[#e5e7eb] bg-white text-gray-600"}`}
                     type="button"
                     onClick={() => favoriteMutation.mutate()}
                     disabled={favoriteMutation.isPending}
@@ -256,7 +250,7 @@ export default function ItemDetailPage() {
                   className="min-h-[74px] w-full resize-y rounded-lg border-0 bg-[#f3f4f6] p-4 outline-none"
                   value={comment}
                   onChange={(event) => setComment(event.target.value)}
-                  placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민원사상 책임은 게시자에게 있습니다."
+                  placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
                 />
                 <button
                   className="inline-flex h-[42px] min-w-[74px] items-center justify-center justify-self-end rounded-lg bg-gray-400 px-[18px] text-[16px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-70 enabled:bg-[#3692ff]"
@@ -274,7 +268,7 @@ export default function ItemDetailPage() {
               ) : null}
               {commentsQuery.isError ? (
                 <p className="rounded-lg bg-red-50 p-[18px] text-red-700">
-                  댓들을 불러오지 못했어요.
+                  댓글을 불러오지 못했어요.
                 </p>
               ) : null}
               <div className="mt-[18px]">

@@ -6,13 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchClient } from "../../../lib/api/fetchClient";
 
-// 날짜 포맷팅 함수 (YYYY. MM. DD)
 const formatDate = (dateString: string) => {
   const d = new Date(dateString);
   return `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(2, '0')}. ${String(d.getDate()).padStart(2, '0')}`;
 };
 
-// 상대 시간 계산 함수
 const timeAgo = (dateString: string) => {
   const now = new Date();
   const past = new Date(dateString);
@@ -51,9 +49,6 @@ interface Comment {
   };
 }
 
-// ----------------------------------------------------
-// 1. 상품 전용 댓글 아이템 컴포넌트
-// ----------------------------------------------------
 function ProductCommentItem({ data, onUpdate, onDelete }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -130,9 +125,6 @@ function ProductCommentItem({ data, onUpdate, onDelete }: any) {
   );
 }
 
-// ----------------------------------------------------
-// 2. 상품 상세 페이지 메인 컴포넌트
-// ----------------------------------------------------
 export default function ItemDetailPage() {
   const { id } = useParams();
   const router = useRouter();
@@ -358,7 +350,6 @@ export default function ItemDetailPage() {
           </button>
         </div>
 
-        {/* 💡 [명세 완벽 반영] comments가 없을 때의 Empty State UI 최적화 */}
         {comments.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-[40px]">
             <Image src="/images/Img_inquiry_empty.svg" alt="문의 없음" width={150} height={150} />

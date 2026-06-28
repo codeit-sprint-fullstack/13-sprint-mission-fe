@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
-const protectedPaths = ["/me", "/me/edit"];
+const protectedPaths = ["/me", "/me/edit", "/items/", "/boards/"];
 const guestOnlyPaths = ["/auth", "/auth/signup"];
 
 export default function RouteGuard({ children }) {
@@ -17,8 +17,10 @@ export default function RouteGuard({ children }) {
 
     const path = pathname.split("?")[0];
 
-    const isProtectedRoute = protectedPaths.some(
-      (route) => path === route || path.startsWith(route + "/")
+    const isProtectedRoute = protectedPaths.some((route) =>
+      route.endsWith("/")
+        ? path.startsWith(route)
+        : path === route || path.startsWith(route + "/")
     );
 
     const isGuestOnlyRoute = guestOnlyPaths.some(

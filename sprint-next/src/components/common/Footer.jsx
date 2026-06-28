@@ -13,7 +13,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 w-full px-4 md:px-6 lg:px-20 py-6 md:py-8 lg:py-8 flex flex-wrap md:flex-nowrap md:items-center md:justify-between gap-y-4 md:gap-0 lg:gap-0">
+    <footer className="bg-gray-900 w-full px-4 md:px-6 lg:px-20 py-6 md:py-8 lg:py-8 flex flex-wrap md:flex-nowrap md:items-center md:justify-between gap-y-4 md:gap-0 lg:gap-0 lg:pb-24 ">
       {/* 모바일: 첫째 줄 왼쪽 | 태블릿~데스크탑: 가운데 */}
       <nav className="flex gap-4 md:gap-6 text-gray-400 text-sm order-1 md:order-2">
         <a href="/privacy" className="hover:text-white transition-colors">

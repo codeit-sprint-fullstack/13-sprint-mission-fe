@@ -1,12 +1,5 @@
 import { API } from "@/services/apiService";
-
-export function formatDate(isoString) {
-  const date = new Date(isoString);
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}. ${m}. ${d}`;
-}
+export { formatDate } from "@/utils/formatDate";
 
 export async function getBestArticles(pageSize = 3) {
   const data = await API.get(

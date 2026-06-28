@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { getArticle, getArticleComments } from "@/services/articleService";
+import {
+  createComment,
+  updateComment,
+  deleteComment,
+} from "./actions";
 import ArticleSection from "./components/ArticleSection";
-import CommentSection from "./components/CommentSection";
+import CommentSection from "@/components/ui/CommentSection";
 
 export default async function ArticleDetailPage({ params }) {
   const { id } = await params;
@@ -14,7 +19,12 @@ export default async function ArticleDetailPage({ params }) {
   return (
     <main className="mx-4 mt-4 flex flex-col gap-6">
       <ArticleSection article={article} />
-      <CommentSection articleId={id} initialComments={comments} />
+      <CommentSection
+        initialComments={comments}
+        createAction={createComment.bind(null, id)}
+        updateAction={updateComment}
+        deleteAction={deleteComment}
+      />
 
       <div className="flex justify-center pb-10">
         <Link

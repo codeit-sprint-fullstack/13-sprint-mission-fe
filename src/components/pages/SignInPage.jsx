@@ -48,7 +48,7 @@ export default function SignInPage() {
             autoComplete="email"
             {...register("email", {
               required: "이메일을 확인해 주세요.",
-              pattenrn: {
+              pattern: {
                 value: /^[^\s@]+@[^\s@]+.[^\s@]+$/,
                 message: "이메일을 확인해 주세요.",
               },

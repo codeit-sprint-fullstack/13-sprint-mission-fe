@@ -7,7 +7,7 @@ export default function Input({
 }) {
   return (
     <div
-      className={`flex flex-1 items-stretch bg-secondary-100 rounded-xl py-[15px] px-[16px] ${className}`}
+      className={`flex flex-1 min-w-fit items-stretch bg-secondary-100 rounded-xl py-[15px] px-[16px] ${className}`}
     >
       {prefix}
       {multiline ? (

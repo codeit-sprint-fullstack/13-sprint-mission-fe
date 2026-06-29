@@ -4,7 +4,13 @@ const variants = {
   circle: "rounded-full border border-secondary-200 p-[12px]",
 };
 
-export default function Button({ variant, disabled, children, className, ...buttonProps }) {
+export default function Button({
+  variant,
+  disabled,
+  children,
+  className,
+  ...buttonProps
+}) {
   return (
     <button
       {...buttonProps}

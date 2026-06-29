@@ -3,6 +3,9 @@ import instagramIc from "@/app/assets/ic_instagram.svg";
 import twitterIc from "@/app/assets/ic_twitter.svg";
 import youtubeIc from "@/app/assets/ic_youtube.svg";
 
+// Header, Footer 컴포넌트 예외처리
+export const WIDTH_HEADER_LIST = ["/signin", "/signup"];
+
 export const NAVIGATION = [
   { link: "/articles", title: "자유게시판" },
   { link: "/items", title: "중고마켓" },

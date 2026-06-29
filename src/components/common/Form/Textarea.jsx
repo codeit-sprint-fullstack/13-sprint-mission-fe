@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 
-import FormLabel from "@/components/common/FormLabel";
+import FormLabel from "@/components/common/Form/FormLabel";
 import { useInputValidation } from "@/hooks/useValidators";
 
 export default function Textarea({
@@ -37,7 +37,7 @@ export default function Textarea({
       />
 
       {error && (
-        <span className='inline-block ml-[16px] mt-[8px] text-[14px] leading-[calc(24/14)] text-error-red'>
+        <span className='inline-block ml-[16px] mt-[8px] text-[14px] font-semibold leading-[calc(24/14)] text-error-red'>
           {error}
         </span>
       )}

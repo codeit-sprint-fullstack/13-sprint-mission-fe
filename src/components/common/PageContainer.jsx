@@ -1,9 +1,25 @@
 "use client";
 
-export default function PageContainer({ children }) {
+import { clsx } from "clsx";
+
+export default function PageContainer({ children, size = "md" }) {
   return (
-    <div className='max-w-[1200px] mx-auto w-full pr-[16px] pl-[16px] md:pr-[24px] md:pl-[24px]'>
-      <main className=''>{children}</main>
-    </div>
+    <section
+      className={clsx(
+        "pr-[16px] pl-[16px]",
+        (size === "md"
+          ? "md:pr-[24px] md:pl-[24px]"
+          : "md:pr-[52px] md:pl-[52px]"),
+      )}
+    >
+      <main
+        className={clsx(
+          "mx-auto w-full ",
+          size === "md" ? "max-w-[1200px]" : "max-w-[640px]",
+        )}
+      >
+        {children}
+      </main>
+    </section>
   );
 }

@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import MoreButton from "@/app/articles/[id]/_components/MoreButton";
-
 import { getRelativeTime } from "@/utils/getRelativeTime";
 
-import IcProfile from "@/app/assets/ic_profile.svg";
+import MoreButton from "@/app/articles/[id]/_components/MoreButton";
 import CommentForm from "@/app/articles/[id]/_components/CommentForm";
 
-export default function CommentItem({ articleId, commentId, comments }) {
+import IcProfile from "@/app/assets/ic_profile.svg";
+
+export default function CommentItem({ id, commentId, comments }) {
   const [isEditMode, setIsEditMode] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export default function CommentItem({ articleId, commentId, comments }) {
         <div className='w-full'>
           {isEditMode ? (
             <CommentForm
-              articleId={articleId}
+              id={id}
               isEditMode={isEditMode}
               comments={comments}
               setIsEditMode={setIsEditMode}
@@ -31,7 +31,7 @@ export default function CommentItem({ articleId, commentId, comments }) {
               </p>
               <MoreButton
                 type='comment'
-                articleId={articleId}
+                id={id}
                 commentId={commentId}
                 setIsEditMode={setIsEditMode}
               />
@@ -49,7 +49,7 @@ export default function CommentItem({ articleId, commentId, comments }) {
         />
         <div className='ml-[8px] md:ml-[12px]'>
           <p className='mb-[4px] text-[12px]/[calc(18/12)] text-secondary-600'>
-            {comments.user.username}
+            {comments.writer.nickname}
           </p>
           <span className='text-[12px]/[calc(18/12)] text-secondary-400'>
             {getRelativeTime(comments.createdAt)}

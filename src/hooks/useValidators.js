@@ -40,7 +40,8 @@ export function useInputValidation({
 
     // 상태 업데이트
     setError(errorMessage);
-    onActive({ [name]: isValid });
+    // 활성화 조건 + 유효성 검사 둘 다 통과해야 true
+    onActive({ [name]: isValid && isPassed });
 
     // 검증 통과 여부를 반환하여 컴포넌트가 입력을 막을 수 있게 함
     return isPassed;

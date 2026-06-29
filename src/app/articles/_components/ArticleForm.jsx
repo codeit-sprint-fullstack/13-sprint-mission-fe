@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 import Button from "@/components/common/Button";
-import InputBasic from "@/components/common/InputBasic";
-import Textarea from "@/components/common/Textarea";
+import InputBasic from "@/components/common/Form/InputBasic";
+import Textarea from "@/components/common/Form/Textarea";
 import { useRouter } from "next/navigation";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 

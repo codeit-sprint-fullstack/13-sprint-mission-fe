@@ -5,7 +5,11 @@
  * @returns {string} "YYYY.MM.DD" 형식의 날짜 문자열 (예: "2026.06.17")
  */
 export default function formatDate(date) {
+  if (!date) return "";
+
   const newData = new Date(date);
+
+  if (isNaN(newData.getTime())) return ""; // Invalid Date 예외 처리
 
   const formatted = new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",

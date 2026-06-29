@@ -1,6 +1,6 @@
 import CommentItem from "@/app/articles/[id]/_components/CommentItem";
 
-export default function CommentList({ articleId, commentsData }) {
+export default function CommentList({ id, commentsData }) {
   return (
     <ul className='flex flex-col gap-[16px] md:gap-[24px] mb-[40px] md:mb-[47px] lg:mb-[64px]'>
       {commentsData.map((comments) => (
@@ -10,7 +10,7 @@ export default function CommentList({ articleId, commentsData }) {
         >
           {/* 댓글 아이템 */}
           <CommentItem
-            articleId={articleId}
+            id={id}
             commentId={comments.id}
             comments={comments}
           />

@@ -232,7 +232,7 @@ export default function PostDetailPage() {
       </Link>
       <Modal
         text={modalMessage}
-        disabled={!!!modalMessage}
+        disabled={!modalMessage}
         onClick={() => setModalMessage("")}
       />
     </div>

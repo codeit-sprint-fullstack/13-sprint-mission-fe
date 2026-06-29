@@ -53,7 +53,7 @@ export default function Dropdown({ menu, value, onChange }) {
           ${!open ? "hidden" : ""}
         `}
       >
-        {menu.map((m) => (
+        {menu?.map((m) => (
           <div
             key={m.id}
             className="

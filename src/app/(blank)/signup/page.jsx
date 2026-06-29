@@ -200,7 +200,7 @@ export default function SignUpPage() {
       {!!modalMessage && (
         <Modal
           text={modalMessage}
-          disabled={!!!modalMessage}
+          disabled={!modalMessage}
           onClick={() => setModalMessage("")}
         />
       )}

@@ -13,7 +13,7 @@ export default function PostForm({ data, setData, onSubmit }) {
         </h1>
         <Button
           type="submit"
-          disabled={!!!data?.title || !!!data?.content}
+          disabled={!data?.title || !data?.content}
           className="bg-primary text-white px-[23px] py-[12px] rounded-[8px]"
         >
           등록

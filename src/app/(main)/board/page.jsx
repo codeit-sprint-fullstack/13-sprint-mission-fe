@@ -70,7 +70,7 @@ export default function BoardListPage() {
             prefix={
               <Image
                 src="/icons/ic_search.svg"
-                alt="search icon"
+                alt="검색 아이콘"
                 width={24}
                 height={24}
               />

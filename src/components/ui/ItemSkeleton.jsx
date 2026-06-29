@@ -14,7 +14,7 @@ export default function ItemSkeleton() {
         <div className="flex items-center gap-[2px]">
           <Image
             src="/icons/ic_heart_empty.svg"
-            alt="heart"
+            alt="좋아요 아이콘"
             width={16}
             height={16}
           />

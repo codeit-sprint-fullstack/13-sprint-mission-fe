@@ -14,7 +14,7 @@ export default function Footer() {
         <a href="https://www.facebook.com/">
           <Image
             src="/icons/ic_facebook.svg"
-            alt="facebook"
+            alt="페이스북 아이콘"
             width={20}
             height={20}
           />
@@ -22,7 +22,7 @@ export default function Footer() {
         <a href="https://x.com/">
           <Image
             src="/icons/ic_twitter.svg"
-            alt="twitter"
+            alt="트위터 아이콘"
             width={20}
             height={20}
           />
@@ -30,7 +30,7 @@ export default function Footer() {
         <a href="https://www.youtube.com/">
           <Image
             src="/icons/ic_youtube.svg"
-            alt="youtube"
+            alt="유튜브 아이콘"
             width={20}
             height={20}
           />
@@ -38,7 +38,7 @@ export default function Footer() {
         <a href="https://www.instagram.com/">
           <Image
             src="/icons/ic_instagram.svg"
-            alt="instagram"
+            alt="인스타그램 아이콘"
             width={20}
             height={20}
           />

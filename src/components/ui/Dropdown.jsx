@@ -27,7 +27,7 @@ export default function Dropdown({ menu, value, onChange }) {
                 width={24}
                 height={24}
                 src="/icons/ic_arrow_down.svg"
-                alt="dropdown icon"
+                alt="드랍다운 아이콘"
                 className="h-[24px] w-[24px] hover:cursor-pointer"
               />
             </>
@@ -37,7 +37,7 @@ export default function Dropdown({ menu, value, onChange }) {
                 width={24}
                 height={24}
                 src="/icons/ic_search.svg"
-                alt="dropdown icon"
+                alt="드랍다운 아이콘"
                 className="h-[24px] w-[24px] hover:cursor-pointer"
               />
             </>

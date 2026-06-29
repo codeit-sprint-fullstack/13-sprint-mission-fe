@@ -111,7 +111,7 @@ export default function PostDetailPage() {
           <h1 className="font-bold text-[20px]/[32px]">{data?.title}</h1>
           <Image
             src="/icons/ic_kebab.svg"
-            alt="kebab icon"
+            alt="케밥 아이콘"
             width={24}
             height={24}
             onClick={() => {
@@ -152,7 +152,7 @@ export default function PostDetailPage() {
                   ? "/icons/ic_heart_full.svg"
                   : "/icons/ic_heart_empty.svg"
               }
-              alt="heart icon"
+              alt="좋아요 아이콘"
               width={32}
               height={32}
             />
@@ -223,7 +223,7 @@ export default function PostDetailPage() {
           목록으로 돌아가기
           <Image
             src="/icons/ic_back.svg"
-            alt="back icon"
+            alt="뒤로가기 아이콘"
             width={24}
             height={24}
           />

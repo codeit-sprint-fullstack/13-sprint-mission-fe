@@ -13,7 +13,7 @@ export default function CommentItem({ data, onMenuClick, children }) {
         </h3>
         <Image
           src="/icons/ic_kebab.svg"
-          alt="kebab icon"
+          alt="케밥 아이콘"
           width={24}
           height={24}
           onClick={onMenuClick}

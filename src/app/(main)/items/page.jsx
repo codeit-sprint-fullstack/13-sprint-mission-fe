@@ -103,7 +103,7 @@ export default function ItemPage() {
                   width={24}
                   height={24}
                   src="/icons/ic_search.svg"
-                  alt="search icon"
+                  alt="검색 아이콘"
                 />
               }
               placeholder="검색할 상품을 입력하세요"

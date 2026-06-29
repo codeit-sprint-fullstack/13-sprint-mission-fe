@@ -1,0 +1,63 @@
+.signUpPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 0;
+}
+.signUpContainer {
+  width: 64rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.3rem;
+  margin-bottom: 4rem;
+}
+.logoText {
+  font-size: 6.7rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.input {
+  height: 5.6rem;
+}
+.pwIcon {
+  cursor: pointer;
+}
+.inputs .btn {
+  height: 5rem;
+  border-radius: 4rem;
+  font-size: 2rem;
+}
+.login {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--secondary-800);
+}
+.link {
+  color: var(--brand-blue);
+  text-decoration: underline;
+}
+.link:focus {
+  color: var(--brand-blue);
+  text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .signUpContainer {
+    width: 100%;
+    padding: 0 2rem;
+  }
+  .logoText {
+    font-size: 6rem;
+  }
+  .logoImg {
+    width: 8rem;
+  }
+}

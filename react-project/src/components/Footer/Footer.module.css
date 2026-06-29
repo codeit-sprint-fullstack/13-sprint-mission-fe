@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  height: 6.8rem;
+  background-color: var(--secondary-900);
+  padding: 3.2rem 20rem;
+  display: flex;
+  color: var(--secondary-200);
+  justify-content: space-between;
+  align-items: center;
+}
+.section {
+  width: fit-content;
+  display: flex;
+  gap: 3rem;
+}
+.icSection {
+  width: fit-content;
+  display: flex;
+  gap: 1.2rem;
+}
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+/* Desktop (1280px 이하) */
+@media (max-width: 1280px) {
+  .container {
+    padding: 2.4rem;
+  }
+}

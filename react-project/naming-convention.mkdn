@@ -1,0 +1,35 @@
+## kebab-case
+
+- Files and Folders
+
+```
+product-card.tsx
+add-to-cart-button.tsx
+use-cart.ts
+```
+
+## PascalCase
+
+- React Components (Pages, Components)
+
+```
+export function ProductCard() {}
+```
+
+## camelCase
+
+- Functions and Variables
+
+```
+getProductList
+handleSubmit
+```
+
+## UPPER_SNAKE_CASE
+
+- Constants
+
+```
+MAX_CART_ITEMS
+API_BASE_URL
+```

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9E4PEJJ0ZT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9E4PEJJ0ZT");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../../reset.css" />
+    <link rel="stylesheet" href="../../../variables.css" />
+    <link rel="stylesheet" href="./login.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../../assets/img/logo-sm.png"
+    />
+    <script type="text/javascript" src="./login.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="body">
+      <a href="../../../index.html" class="logo">
+        <img
+          class="logo-img"
+          src="../../../assets/img/logo-lg.png"
+          alt="panda-logo"
+        />
+        <h1 class="logo-txt">판다마켓</h1>
+      </a>
+      <div class="content">
+        <form class="form" onsubmit="handleSubmit(event)">
+          <div class="input">
+            <label for="email" class="input-txt">이메일</label>
+            <div class="input-bar">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="이메일을 입력해주세요"
+              />
+            </div>
+          </div>
+          <div class="input">
+            <label for="password" class="input-txt">비밀번호</label>
+            <div class="input-bar">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+              />
+              <img
+                src="../../../assets/icons/ic_btn_visibility_off.png"
+                alt="toggle-pw-visibility"
+                class="input-toggle"
+              />
+            </div>
+          </div>
+          <button type="submit" class="btn">로그인</button>
+        </form>
+        <div class="social-login">
+          <p class="social-txt">간편 로그인하기</p>
+          <div class="social-btns">
+            <a href="https://www.google.com/">
+              <img
+                src="../../../assets/icons/ic_google.png"
+                alt="google-login"
+                class="social-btn"
+              />
+            </a>
+            <a href="https://www.kakaocorp.com/page/">
+              <img
+                src="../../../assets/icons/ic_kakao.png"
+                alt="kakao-login"
+                class="social-btn"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="signup">
+          <p>판다마켓이 처음이신가요?</p>
+          <a class="signup-link" href="../signup/signup.html">회원가입</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

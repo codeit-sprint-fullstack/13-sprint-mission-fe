@@ -1,0 +1,47 @@
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.form {
+  width: 120rem;
+  padding: 1.8rem 2.4rem 7.6rem 2.4rem;
+}
+.titleContainer {
+  height: 4.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+}
+.title {
+  color: var(--cool-gray);
+  font-weight: 700;
+  font-size: 2rem;
+}
+.inputBlocksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.input {
+  height: 5.6rem;
+}
+.textarea {
+  height: 28.2rem;
+}
+.tagsContainer {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  color: var(--secondary-800);
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+.tagsContainer img:hover {
+  cursor: pointer;
+}
+@media (max-width: 1280px) {
+  .form {
+    width: 100%;
+  }
+}

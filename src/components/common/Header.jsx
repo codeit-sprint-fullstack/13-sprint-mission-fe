@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import fandaLogo from "../../assets/pandaface.png";
+import fandaLogo from "../../assets/pandaface.svg";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -40,7 +40,7 @@ export default function Header() {
           </div>
         </nav>
         <Link
-          href={"/"}
+          href={"/login"}
           className="mr-50 rounded-lg bg-[#3692FF] h-10.5 px-[1.44rem]"
         >
           <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">

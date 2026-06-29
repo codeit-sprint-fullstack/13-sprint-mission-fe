@@ -8,7 +8,7 @@ import Image from "next/image";
 import NavLink from "./NavLink";
 import { useAuth } from "@/providers/AuthProvider";
 import Button from "../ui/Button";
-import Profile from "../ui/Profile";
+import { Profile } from "../ui/Profile";
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -40,13 +40,17 @@ export default function Header() {
               <NavLink href={"/board"}>자유게시판</NavLink>
             </li>
             <li className="tablet:px-4 py-6">
-              <NavLink href={"/market"}>중고마켓</NavLink>
+              <NavLink href={"/items"}>중고마켓</NavLink>
             </li>
           </ul>
         </div>
         {user ? (
-          // <Button size="small">로그아웃</Button>
-          <Profile></Profile>
+          <div className="flex gap-3">
+            <Profile user={user}></Profile>
+            {/* <Button size="small" onClick={logout}>
+              로그아웃
+            </Button> */}
+          </div>
         ) : (
           <Button
             size="small"
@@ -57,7 +61,6 @@ export default function Header() {
             로그인
           </Button>
         )}
-        {/* <button>로그인</button> */}
       </div>
     </header>
   );

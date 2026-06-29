@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import { cva } from "class-variance-authority";
 
 const buttonVariants = cva(
@@ -31,7 +32,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={buttonVariants({ size, className })}
+      className={cn(buttonVariants({ size }), className)}
       {...rest}
     >
       {children}

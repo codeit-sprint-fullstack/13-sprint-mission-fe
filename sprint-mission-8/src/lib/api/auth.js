@@ -3,7 +3,7 @@ import { defaultFetch, cookieFetch } from "@/lib/fetchClient";
 export const authService = {
   // 쿠키 인증을 사용하는 로그인
   signin: (email, password) =>
-    cookieFetch("/auth/signIn", {
+    defaultFetch("/auth/signIn", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     }),

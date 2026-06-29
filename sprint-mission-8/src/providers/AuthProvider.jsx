@@ -8,6 +8,7 @@ const AuthContext = createContext({
   signin: () => {},
   signup: () => {},
   logout: () => {},
+  getUser: () => {},
 });
 
 export const useAuth = () => {
@@ -34,15 +35,29 @@ export default function AuthProvider({ children }) {
   };
 
   const signup = async (nickname, email, password, passwordConfirmation) => {
-    await authService.signup(nickname, email, password, passwordConfirmation);
+    const { accessToken, refreshToken } = await authService.signup(
+      nickname,
+      email,
+      password,
+      passwordConfirmation,
+    );
+    localStorage.setItem("accessToken", accessToken); // ← 추가
+    localStorage.setItem("refreshToken", refreshToken); // ← 추가
   };
 
   const signin = async (email, password) => {
-    await authService.signin(email, password);
+    const { accessToken, refreshToken } = await authService.signin(
+      email,
+      password,
+    );
+    localStorage.setItem("accessToken", accessToken); // ← 추가
+    localStorage.setItem("refreshToken", refreshToken); // ← 추가
     await getUser();
   };
 
   const logout = async () => {
+    localStorage.removeItem("accessToken"); // ← 추가
+    localStorage.removeItem("refreshToken"); // ← 추가
     setUser(null);
   };
 
@@ -54,7 +69,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signin, signup, logout, isInitialized }}
+      value={{ user, signin, signup, logout, getUser, isInitialized }}
     >
       {children}
     </AuthContext.Provider>

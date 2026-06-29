@@ -109,3 +109,40 @@ export function PassWordWithLabel({
     </div>
   );
 }
+
+export function TextAreaWithLabel({
+  label,
+  placeholder,
+  value,
+  onChange,
+  error,
+  className,
+  ...rest
+}) {
+  return (
+    <div>
+      {label && (
+        <div className="font-[Pretendard] text-[14px] font-bold tablet:text-[18px] ">
+          {label}
+        </div>
+      )}
+
+      <textarea
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        className={cn(
+          "w-full h-32.25 rounded-xl py-4 px-6 mt-2 tablet:mt-4 placeholder:text-gray-400 placeholder:text-sm text-base/6 text-gray-800 bg-gray-100 focus:outline-none focus:border-[#3692FF] border border-gray-50",
+          className,
+          error ? "border-error border focus:ring-error" : "",
+        )}
+        {...rest}
+      />
+      {error && (
+        <div className="pl-4 mt-2 text-sm font-semibold text-error">
+          {error}
+        </div>
+      )}
+    </div>
+  );
+}

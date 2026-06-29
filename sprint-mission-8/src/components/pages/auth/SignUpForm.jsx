@@ -9,10 +9,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/providers/ModalProvider";
 
 export default function SignUpForm() {
-  const { signup } = useAuth(); // ← 추가
+  const { signup, getUser } = useAuth(); // ← 추가
   const router = useRouter();
+  const { open } = useModal();
 
   const [values, setValues] = useState({
     email: "",
@@ -82,9 +84,21 @@ export default function SignUpForm() {
         values.password,
         values.passwordConfirmation,
       );
-      router.push("/signin");
+      open("가입이 완료되었습니다.", "alert");
+      getUser();
+      // router.push("/market");
     } catch (err) {
-      setErrors({ email: err.message });
+      const emailMessage = err.details?.email?.message;
+      const nicknameMessage = err.details?.nickname?.message;
+      if (emailMessage) {
+        setErrors({ email: err.message });
+        open(emailMessage, "alert");
+      }
+      if (nicknameMessage) {
+        setErrors({ nickname: err.message });
+        open(nicknameMessage, "alert");
+      }
+      open(err.message, "alert");
     }
   }
 

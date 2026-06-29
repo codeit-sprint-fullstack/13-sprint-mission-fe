@@ -10,10 +10,12 @@ import Button from "@/components/ui/Button";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useModal } from "@/providers/ModalProvider";
 
 export default function SignInForm() {
-  const { signin } = useAuth(); // ← 추가
+  const { signin } = useAuth();
   const router = useRouter();
+  const { open } = useModal();
 
   const [values, setValues] = useState({
     email: "",
@@ -66,7 +68,16 @@ export default function SignInForm() {
       await signin(values.email, values.password);
       router.push("/");
     } catch (err) {
-      setErrors({ email: err.message });
+      const passwordMessage = err.details?.password?.message;
+      const emailMessage = err.details?.email?.message;
+      if (emailMessage) {
+        setErrors({ email: err.message });
+        open(emailMessage, "alert");
+      }
+      if (passwordMessage) {
+        setErrors({ password: err.message });
+        open(passwordMessage, "alert");
+      }
     }
   }
 

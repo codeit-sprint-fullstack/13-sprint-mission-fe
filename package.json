@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "mypandan8",
+=======
+  "name": "my-panda7",
+>>>>>>> 1a446c5e5b01968498b4f5a65b4275671e4760e6
   "version": "0.1.0",
   "private": true,
   "scripts": {

@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 :root {
+<<<<<<< HEAD
   --background: #f9fafb; /* 전체 배경색 통일 */
+=======
+  --background: #ffffff;
+>>>>>>> 1a446c5e5b01968498b4f5a65b4275671e4760e6
   --foreground: #171717;
 }
 
@@ -10,12 +14,22 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+<<<<<<< HEAD
   --color-primary-100: #3692ff;
 
   /* 반응형 브레이크포인트 설정 */
   --breakpoint-mobile: 375px;
   --breakpoint-tablet: 744px;
   --breakpoint-pc: 1200px;
+=======
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+>>>>>>> 1a446c5e5b01968498b4f5a65b4275671e4760e6
 }
 
 body {

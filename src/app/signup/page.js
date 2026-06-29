@@ -22,7 +22,6 @@ export default function SignUpPage() {
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, message: "", type: "" });
 
-  // 2. React Query: 회원가입 Mutation
   const signUpMutation = useMutation({
     mutationFn: (formData) => api.post("/users", formData),
     onSuccess: () => {

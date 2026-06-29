@@ -65,7 +65,6 @@ export default function LoginPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
-            {/* 이메일 입력 */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 이메일

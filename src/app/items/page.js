@@ -14,18 +14,15 @@ import { api } from "@/app/lib/axios";
 export default function ItemsPage() {
   const queryClient = useQueryClient();
 
-  // 컨트롤 상태
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  // 상수 정의
   const PAGE_SIZE = 10;
   const BEST_PAGE_SIZE = 4;
   const PAGE_GROUP_SIZE = 5;
 
-  // 1. 베스트 상품 불러오기
   const {
     data: bestProducts = [],
     isLoading: isBestLoading,
@@ -62,7 +59,6 @@ export default function ItemsPage() {
   const products = productsData?.list || [];
   const totalCount = productsData?.totalCount || 0;
 
-  // --- 페이지네이션 로직 ---
   const totalPages = Math.ceil(totalCount / PAGE_SIZE) || 1;
   const currentGroup = Math.ceil(page / PAGE_GROUP_SIZE);
   const startPage = (currentGroup - 1) * PAGE_GROUP_SIZE + 1;
@@ -73,7 +69,6 @@ export default function ItemsPage() {
     pageNumbers.push(i);
   }
 
-  // 3. 다음 페이지 Prefetching
   useEffect(() => {
     if (page < totalPages) {
       queryClient.prefetchQuery({
@@ -103,7 +98,6 @@ export default function ItemsPage() {
   const ProductCard = ({ product }) => (
     <Link href={`/items/${product.id}`} className="block group">
       <div className="flex flex-col h-full overflow-hidden transition-shadow bg-white border border-gray-200 rounded-xl hover:shadow-lg">
-        {/* 썸네일 */}
         <div className="relative overflow-hidden bg-gray-100 aspect-square">
           {product.images && product.images.length > 0 ? (
             <img
@@ -117,7 +111,7 @@ export default function ItemsPage() {
             </div>
           )}
         </div>
-        {/* 정보 */}
+
         <div className="flex flex-col flex-1 p-4">
           <h3 className="text-lg font-medium text-gray-800 line-clamp-1">
             {product.name}
@@ -149,7 +143,6 @@ export default function ItemsPage() {
       <Gnb />
 
       <main className="max-w-6xl px-4 py-10 mx-auto">
-        {/* 베스트 상품 영역 */}
         <section className="mb-16">
           <h2 className="mb-6 text-2xl font-bold text-gray-800">베스트 상품</h2>
           {isBestLoading ? (
@@ -239,7 +232,6 @@ export default function ItemsPage() {
                 )}
               </div>
 
-              {/* 페이지네이션 */}
               {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2 mt-12">
                   <button

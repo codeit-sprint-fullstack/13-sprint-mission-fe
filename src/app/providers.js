@@ -9,7 +9,7 @@ export default function Providers({ children }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 1000 * 60 * 1, // 1분 동안 캐시 유지
+            staleTime: 1000 * 60 * 1,
             retry: 1,
             refetchOnWindowFocus: false,
           },

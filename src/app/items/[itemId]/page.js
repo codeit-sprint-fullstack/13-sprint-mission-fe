@@ -4,24 +4,21 @@ import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/app/lib/axios"; // 실제 axios.js 경로에 맞게 수정해 주세요.
+import { api } from "@/app/lib/axios";
 
 export default function ItemDetailPage() {
   const router = useRouter();
   const { itemId } = useParams();
   const queryClient = useQueryClient();
 
-  // UI 컨트롤 상태
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [openCommentMenuId, setOpenCommentMenuId] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // 입력 상태
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState("");
 
-  // 1. 상품 상세 데이터 패칭 (React Query)
   const {
     data: product,
     isLoading: isProductLoading,
@@ -34,7 +31,6 @@ export default function ItemDetailPage() {
     },
   });
 
-  // 2. 댓글 데이터 패칭 (React Query)
   const { data: comments = [], isLoading: isCommentsLoading } = useQuery({
     queryKey: ["comments", itemId],
     queryFn: async () => {
@@ -45,7 +41,6 @@ export default function ItemDetailPage() {
     },
   });
 
-  // [Mutations] 상품 및 댓글 조작 로직
   const deleteProductMutation = useMutation({
     mutationFn: () => api.delete(`/products/${itemId}`),
     onSuccess: () => {
@@ -62,7 +57,6 @@ export default function ItemDetailPage() {
         ? api.delete(`/products/${itemId}/favorite`)
         : api.post(`/products/${itemId}/favorite`),
     onSuccess: () => {
-      // 캐시를 무효화하여 좋아요 갯수와 상태를 실시간 업데이트
       queryClient.invalidateQueries({ queryKey: ["product", itemId] });
     },
     onError: (error) => {
@@ -102,7 +96,6 @@ export default function ItemDetailPage() {
     onError: () => alert("댓글 삭제에 실패했습니다."),
   });
 
-  // [Handlers] UI 상호작용 핸들러
   const handleEditProduct = () => router.push(`/items/${itemId}/edit`);
   const handleDeleteProduct = () => deleteProductMutation.mutate();
   const toggleFavorite = () => {
@@ -123,7 +116,6 @@ export default function ItemDetailPage() {
     deleteCommentMutation.mutate(commentId);
   };
 
-  // 로딩 및 에러 핸들링
   if (isProductLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#F9FAFB]">
@@ -146,9 +138,7 @@ export default function ItemDetailPage() {
 
   return (
     <div className="mx-auto min-h-screen max-w-screen-lg bg-[#F9FAFB] px-4 py-8">
-      {/* 1. 상품 상세 정보 영역 */}
       <div className="flex flex-col gap-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:flex-row">
-        {/* 상품 이미지 */}
         <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100 md:w-1/2">
           <img
             src={product.images?.[0] || "https://via.placeholder.com/500"}
@@ -157,12 +147,10 @@ export default function ItemDetailPage() {
           />
         </div>
 
-        {/* 상품 정보 */}
         <div className="flex w-full flex-col md:w-1/2">
           <div className="relative flex items-start justify-between">
             <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
 
-            {/* 상품 케밥 메뉴 */}
             <button
               onClick={() => setIsProductMenuOpen(!isProductMenuOpen)}
               className="p-2 text-gray-500"
@@ -216,7 +204,6 @@ export default function ItemDetailPage() {
             </div>
           </div>
 
-          {/* 작성자 & 좋아요 */}
           <div className="mt-8 flex items-center justify-between border-t pt-4">
             <div className="flex items-center gap-3">
               <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200">
@@ -253,11 +240,9 @@ export default function ItemDetailPage() {
         </div>
       </div>
 
-      {/* 2. 문의하기 (댓글) 영역 */}
       <div className="mt-10">
         <h2 className="mb-4 text-lg font-bold text-gray-800">문의하기</h2>
 
-        {/* 댓글 입력 폼 */}
         <div className="mb-6 rounded-lg border bg-gray-50 p-4">
           <textarea
             className="w-full resize-none bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none"
@@ -277,7 +262,6 @@ export default function ItemDetailPage() {
           </div>
         </div>
 
-        {/* 댓글 목록 */}
         {isCommentsLoading ? (
           <div className="py-10 text-center text-sm text-gray-400">
             댓글을 불러오는 중입니다...
@@ -289,7 +273,6 @@ export default function ItemDetailPage() {
                 key={comment.id}
                 className="group relative rounded-lg border bg-white p-4"
               >
-                {/* 수정 모드 */}
                 {editingCommentId === comment.id ? (
                   <div className="flex w-full items-center gap-2">
                     <input
@@ -312,10 +295,8 @@ export default function ItemDetailPage() {
                     </button>
                   </div>
                 ) : (
-                  // 일반 모드
                   <div className="flex items-start justify-between">
                     <p className="text-sm text-gray-700">{comment.content}</p>
-                    {/* 댓글 케밥 메뉴 */}
                     <div className="relative">
                       <button
                         onClick={() =>
@@ -366,7 +347,6 @@ export default function ItemDetailPage() {
             ))}
           </div>
         ) : (
-          /* 문의 없음 Empty State */
           <div className="flex flex-col items-center justify-center py-20 text-gray-400">
             <div className="mb-4 h-32 w-32 bg-[url('/empty-panda.png')] bg-contain bg-center bg-no-repeat opacity-50"></div>
             <p>아직 문의가 없어요</p>
@@ -374,7 +354,6 @@ export default function ItemDetailPage() {
         )}
       </div>
 
-      {/* 3. 하단 버튼 */}
       <div className="mt-12 flex justify-center pb-20">
         <button
           onClick={() => router.push("/items")}
@@ -385,7 +364,6 @@ export default function ItemDetailPage() {
         </button>
       </div>
 
-      {/* 4. 상품 삭제 확인 모달 */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div className="flex w-full max-w-sm flex-col items-center rounded-xl bg-white p-8 shadow-lg">

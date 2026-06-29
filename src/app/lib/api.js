@@ -1,161 +1,131 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-/**
- * @typedef {Object} Article
- * @property {number} id
- * @property {string} title
- * @property {string} content
- * @property {string} createdAt
- * @property {string} updatedAt
- */
-
-/**
- * @typedef {Object} Comment
- * @property {number} id
- * @property {string} content
- * @property {number} articleId
- * @property {string} createdAt
- * @property {string} updatedAt
- */
-
-/**
- * @typedef {Object} ArticleQuery
- * @property {string} [search]
- * @property {'recent'|'like'} [sort]
- * @property {number} [page]
- * @property {number} [limit]
- */
-
-/**
- * @param {string} path
- * @param {RequestInit} [options]
- * @returns {Promise<any>}
- */
-
-async function request(path, options) {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { "Content-Type": "application/json" },
-    ...options,
-  });
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({}));
-    throw new Error(error?.message ?? `HTTP ${res.status}`);
-  }
-  return res.status === 204 ? null : res.json();
-}
+import { publicFetch, authFetch } from "./fetchClient";
 
 // ─── Articles ────────────────────────────────────────────────────────────────
 
-/**
- * 게시글 목록을 가져옵니다.
- * @param {ArticleQuery} query
- * @returns {Promise<{ data: Article[], totalCount: number }>}
- */
 export function getArticles(query = {}) {
   const params = new URLSearchParams();
-  if (query.search) params.set("search", query.search);
-  if (query.sort) params.set("sort", query.sort);
+  const keyword = query.keyword ?? query.search;
+  const orderBy = query.orderBy ?? query.sort;
+  const pageSize = query.pageSize ?? query.limit;
+  if (keyword) params.set("keyword", keyword);
+  if (orderBy) params.set("orderBy", orderBy);
   if (query.page) params.set("page", String(query.page));
-  if (query.limit) params.set("limit", String(query.limit));
+  if (pageSize) params.set("pageSize", String(pageSize));
   const qs = params.toString();
-  return request(`/articles${qs ? `?${qs}` : ""}`, {
-    cache: "no-store",
-  });
+  return publicFetch(`/articles${qs ? `?${qs}` : ""}`);
 }
 
-/**
- * 게시글 단건을 가져옵니다.
- * @param {number} articleId
- * @returns {Promise<{ data: Article }>}
- */
 export function getArticle(articleId) {
-  return request(`/articles/${articleId}`, {
-    cache: "no-store",
-  });
+  return publicFetch(`/articles/${articleId}`);
 }
 
-/**
- * 게시글을 생성합니다.
- * @param {{ title: string, content: string }} data
- * @returns {Promise<{ data: Article }>}
- */
 export function createArticle(data) {
-  return request("/articles", {
+  return authFetch("/articles", {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
-/**
- * 게시글을 수정합니다.
- * @param {number} articleId
- * @param {{ title?: string, content?: string }} data
- * @returns {Promise<{ data: Article }>}
- */
 export function updateArticle(articleId, data) {
-  return request(`/articles/${articleId}`, {
+  return authFetch(`/articles/${articleId}`, {
     method: "PATCH",
     body: JSON.stringify(data),
   });
 }
 
-/**
- * 게시글을 삭제합니다.
- * @param {number} articleId
- * @returns {Promise<null>}
- */
 export function deleteArticle(articleId) {
-  return request(`/articles/${articleId}`, { method: "DELETE" });
+  return authFetch(`/articles/${articleId}`, { method: "DELETE" });
 }
 
-// ─── Comments ────────────────────────────────────────────────────────────────
-
-/**
- * 댓글 목록을 가져옵니다.
- * @param {number} articleId
- * @returns {Promise<{ data: Comment[] }>}
- */
-export function getComments(articleId) {
-  return request(`/articles/${articleId}/comments`, {
-    cache: "no-store",
-  });
+export function getArticleComments(articleId, query = {}) {
+  const params = new URLSearchParams();
+  params.set("limit", String(query.limit ?? 10));
+  if (query.cursor) params.set("cursor", String(query.cursor));
+  const qs = params.toString();
+  return publicFetch(`/articles/${articleId}/comments${qs ? `?${qs}` : ""}`);
 }
 
-/**
- * 댓글을 생성합니다.
- * @param {number} articleId
- * @param {{ content: string }} data
- * @returns {Promise<{ data: Comment }>}
- */
-export function createComment(articleId, data) {
-  return request(`/articles/${articleId}/comments`, {
+export function createArticleComment(articleId, content) {
+  return authFetch(`/articles/${articleId}/comments`, {
     method: "POST",
-    body: JSON.stringify({ ...data, articleId }),
+    body: JSON.stringify({ content }),
   });
 }
 
-/**
- * 댓글을 수정합니다.
- * @param {number} articleId
- * @param {number} commentId
- * @param {{ content: string }} data
- * @returns {Promise<{ data: Comment }>}
- */
-export function updateComment(articleId, commentId, data) {
-  return request(`/articles/${articleId}/comments/${commentId}`, {
+// ─── Products ────────────────────────────────────────────────────────────────
+
+export function getProducts(query = {}) {
+  const params = new URLSearchParams();
+  if (query.keyword) params.set("keyword", query.keyword);
+  if (query.orderBy) params.set("orderBy", query.orderBy);
+  if (query.page) params.set("page", String(query.page));
+  if (query.pageSize) params.set("pageSize", String(query.pageSize));
+  const qs = params.toString();
+  return publicFetch(`/products${qs ? `?${qs}` : ""}`);
+}
+
+export function getProduct(productId) {
+  return authFetch(`/products/${productId}`);
+}
+
+export function updateProduct(productId, data) {
+  return authFetch(`/products/${productId}`, {
     method: "PATCH",
-    body: JSON.stringify({ ...data, articleId }),
+    body: JSON.stringify(data),
   });
 }
 
-/**
- * 댓글을 삭제합니다.
- * @param {number} articleId
- * @param {number} commentId
- * @returns {Promise<null>}
- */
-export function deleteComment(articleId, commentId) {
-  return request(`/articles/${articleId}/comments/${commentId}`, {
-    method: "DELETE",
+export function deleteProduct(productId) {
+  return authFetch(`/products/${productId}`, { method: "DELETE" });
+}
+
+export function favoriteProduct(productId) {
+  return authFetch(`/products/${productId}/favorite`, { method: "POST" });
+}
+
+export function unfavoriteProduct(productId) {
+  return authFetch(`/products/${productId}/favorite`, { method: "DELETE" });
+}
+
+export function getProductComments(productId, query = {}) {
+  const params = new URLSearchParams();
+  params.set("limit", String(query.limit ?? 10));
+  if (query.cursor) params.set("cursor", String(query.cursor));
+  const qs = params.toString();
+  return publicFetch(
+    `/products/${productId}/comments${qs ? `?${qs}` : ""}`
+  );
+}
+
+export function createProductComment(productId, content) {
+  return authFetch(`/products/${productId}/comments`, {
+    method: "POST",
+    body: JSON.stringify({ content }),
   });
+}
+
+// ─── Article Comments ─────────────────────────────────────────────────────────
+
+export function updateArticleComment(commentId, content) {
+  return authFetch(`/comments/${commentId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ content }),
+  });
+}
+
+export function deleteArticleComment(commentId) {
+  return authFetch(`/comments/${commentId}`, { method: "DELETE" });
+}
+
+// ─── Product Comments ─────────────────────────────────────────────────────────
+
+export function updateProductComment(commentId, content) {
+  return authFetch(`/comments/${commentId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ content }),
+  });
+}
+
+export function deleteProductComment(commentId) {
+  return authFetch(`/comments/${commentId}`, { method: "DELETE" });
 }

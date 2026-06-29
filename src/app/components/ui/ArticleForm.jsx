@@ -16,17 +16,26 @@ export default function ArticleForm({
 
   const isValid = title.trim().length > 0 && content.trim().length > 0;
 
-  const handleSubmit = async () => {
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  }
+  async function handleSubmit(e) {
+    // e.preventDefault(); // 있어야하나?
+
     if (!isValid || submitting) return;
     setSubmitting(true);
     setError("");
     try {
-      await onSubmit({ title: title.trim(), content: content.trim() });
+      await onSubmit({ title: title.trim(), content: content.trim() }); // @todo 뭐고? 왜 title이 있는건데 ? name 에 내용을 content?
     } catch (err) {
       setError(err.message || "다시 시도해주세요.");
       setSubmitting(false);
     }
-  };
+  }
 
   return (
     <div className="max-w-3xl mx-auto">

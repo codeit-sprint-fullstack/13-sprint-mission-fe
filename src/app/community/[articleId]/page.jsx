@@ -2,22 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import {
   getArticle,
   deleteArticle,
-  getComments,
-  createComment,
-  updateComment,
-  deleteComment,
+  getArticleComments,
+  createArticleComment,
+  updateArticleComment,
+  deleteArticleComment,
 } from "@/app/lib/api";
+import { formatAgo } from "@/app/lib/timeago";
 import KebabMenu from "@/app/components/ui/KebabMenu";
+import BackToListButton from "@/app/components/ui/BackToListButton";
 
 const PROFILE_ICON = "/icons/ic_profile.svg";
 const HEART_ICON = "/icons/ic_heart.svg";
 const VECTOR_IMG = "/images/Img_Vector_683.svg";
-const ARROW_BACK_ICON = "/icons/ic_back.svg";
 const EMPTY_COMMENT_IMG = "/images/Img_article.svg";
 
 const MOCK_NICKNAME = "총명한판다";
@@ -47,10 +47,10 @@ export default function ArticleDetailPage() {
       try {
         const [articleRes, commentsRes] = await Promise.all([
           getArticle(articleId),
-          getComments(articleId),
+          getArticleComments(articleId),
         ]);
-        setArticle(articleRes.data);
-        setComments(commentsRes.data);
+        setArticle(articleRes);
+        setComments(commentsRes.data ?? []);
       } catch {
         setError("게시글을 불러올 수 없습니다.");
       } finally {
@@ -78,10 +78,8 @@ export default function ArticleDetailPage() {
     if (!commentInput.trim() || submittingComment) return;
     setSubmittingComment(true);
     try {
-      const res = await createComment(articleId, {
-        content: commentInput.trim(),
-      });
-      setComments((prev) => [...prev, res.data]);
+      const res = await createArticleComment(articleId, commentInput.trim());
+      setComments((prev) => [...prev, res]);
       setCommentInput("");
     } finally {
       setSubmittingComment(false);
@@ -95,17 +93,15 @@ export default function ArticleDetailPage() {
 
   const handleUpdateComment = async (commentId) => {
     if (!editContent.trim()) return;
-    const res = await updateComment(articleId, commentId, {
-      content: editContent.trim(),
-    });
-    setComments((prev) => prev.map((c) => (c.id === commentId ? res.data : c)));
+    const res = await updateArticleComment(commentId, editContent.trim());
+    setComments((prev) => prev.map((c) => (c.id === commentId ? res : c)));
     setEditingId(null);
     setEditContent("");
   };
 
   const handleDeleteComment = async (commentId) => {
     if (!confirm("댓글을 삭제할까요?")) return;
-    await deleteComment(articleId, commentId);
+    await deleteArticleComment(commentId);
     setComments((prev) => prev.filter((c) => c.id !== commentId));
   };
 
@@ -125,9 +121,7 @@ export default function ArticleDetailPage() {
         <p className="text-sm text-secondary-500 mb-4">
           {error || "게시글을 찾을 수 없습니다."}
         </p>
-        <Link href="/community" className="bg-primary text-sm hover:underline">
-          목록으로 돌아가기
-        </Link>
+        <BackToListButton href="/community" />
       </div>
     );
   }
@@ -268,7 +262,7 @@ export default function ArticleDetailPage() {
                         {MOCK_COMMENT_NICKNAME}
                       </span>
                       <span className="text-secondary-400">|</span>
-                      <span>{timeAgo(comment.createdAt)}</span>
+                      <span>{formatAgo(comment.createdAt, "ko")}</span>
                     </div>
                   </div>
                 )}
@@ -277,40 +271,8 @@ export default function ArticleDetailPage() {
           </ul>
         )}
       </section>
-
-      {/* ── Back to list ── */}
-      <div className="flex justify-center">
-        <Link
-          href="/community"
-          className="flex w-60 h-12 px-16 py-3 items-center justify-center gap-2 shrink-0 rounded-[40px] bg-primary text-white font-medium transition-colors whitespace-nowrap"
-        >
-          목록으로 돌아가기
-          <Image
-            src={ARROW_BACK_ICON}
-            alt="목록으로 돌아가기"
-            width={24}
-            height={24}
-          />
-        </Link>
-      </div>
+      <BackToListButton href="/community" />
     </div>
   );
 }
 
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-/**
- * 날짜 문자열을 "n분 전" 형태로 변환합니다.
- * @param {string} dateString - ISO 8601 날짜 문자열
- * @returns {string}
- */
-function timeAgo(dateString) {
-  const diffMs = Date.now() - new Date(dateString).getTime();
-  const diffMin = Math.floor(diffMs / 60000);
-  if (diffMin < 1) return "방금 전";
-  if (diffMin < 60) return `${diffMin}분 전`;
-  const diffHour = Math.floor(diffMin / 60);
-  if (diffHour < 24) return `${diffHour}시간 전`;
-  const diffDay = Math.floor(diffHour / 24);
-  return `${diffDay}일 전`;
-}

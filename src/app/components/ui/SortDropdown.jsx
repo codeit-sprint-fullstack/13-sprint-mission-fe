@@ -3,7 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 const ARROW_DOWN_ICON = "/icons/ic_arrow_down.svg";
-const OPTIONS = [{ label: "최신순", value: "recent" }];
+const OPTIONS = [
+  { label: "최신순", value: "recent" },
+  { label: "좋아요순", value: "favorite" },
+];
 
 /**
  * 정렬 옵션 드롭다운 컴포넌트입니다.

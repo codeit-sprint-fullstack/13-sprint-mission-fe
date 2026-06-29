@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -15,17 +15,21 @@ import { boardService } from "@/lib/boardService";
 import "swiper/css";
 
 export default function BoardListPage() {
-  const menu = ["최신순", "좋아요순"];
+  const menu = [
+    { id: 1, type: "recent", name: "최신순" },
+    { id: 2, type: "like", name: "좋아요순" },
+  ];
   const [input, setInput] = useState("");
-  const [clicked, setClicked] = useState(menu[0]);
+  const [selected, setSelected] = useState(menu[0]);
 
   const { data: { list: posts = [], totalCount = 0 } = {} } = useQuery({
-    queryKey: ["board", input, clicked],
+    queryKey: ["board", input, selected],
     queryFn: () => {
-      const orderBy = `orderBy=${clicked === "최신순" ? "recent" : "like"}`;
-      const keyword = input ? `keyword=${input}` : "";
-      const query = `${orderBy}&${keyword}`;
-      return boardService.getArticles(query);
+      const queryParams = new URLSearchParams({
+        orderBy: selected.type,
+        ...(input && { keyword: input }),
+      });
+      return boardService.getArticles(queryParams);
     },
   });
   const { data: { list: bestPosts = [] } = {} } = useQuery({
@@ -76,7 +80,7 @@ export default function BoardListPage() {
               />
             }
           />
-          <Dropdown menus={menu} value={clicked} onChange={setClicked} />
+          <Dropdown menus={menu} value={selected} onChange={setSelected} />
         </div>
         <div className="flex flex-col gap-6 mt-[24px] mb-[78px]">
           {posts.map((post, index) => (

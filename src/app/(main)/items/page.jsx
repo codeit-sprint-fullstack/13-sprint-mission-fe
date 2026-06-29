@@ -14,7 +14,7 @@ import { itemService } from "@/lib/itemService";
 
 export default function ItemPage() {
   const size = useResponsiveWidth();
-  const constant = Object.freeze([
+  const menu = Object.freeze([
     {
       id: 1,
       type: "recent",
@@ -27,31 +27,28 @@ export default function ItemPage() {
     },
   ]);
 
-  const [token, setToken] = useState(null);
   const [input, setInput] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [selected, setSelected] = useState(constant[0]);
+  const [selected, setSelected] = useState(menu[0]);
   const [page, setPage] = useState(1);
 
   const { data: products = { list: [] }, isPending: isProductsPending } =
     useQuery({
-      queryKey: ["products", token, page, selected, keyword, size],
+      queryKey: ["products", page, selected, keyword, size],
       queryFn: async () => {
-        const orderBy = `orderBy=${selected.type === "최신순" ? "recent" : "favorite"}`;
-        const keyword = input ? `keyword=${input}` : "";
-        const pageNum = page !== 1 ? `page=${page}` : "";
-        const pageSize = `pageSize=${size === "mobile" ? 4 : size === "tablet" ? 6 : 10}`;
-        const query = [orderBy, keyword, pageNum, pageSize]
-          .filter(Boolean)
-          .join("&");
-        const result = await itemService.getItems(query);
-        console.log(result);
+        const queryParams = new URLSearchParams({
+          orderBy: selected.type,
+          pageSize: size === "mobile" ? 4 : size === "tablet" ? 6 : 10,
+          ...(input && { keyword: input }),
+          ...(page !== 1 && { page }),
+        });
+        const result = await itemService.getItems(queryParams);
         return result;
       },
     });
 
   const { data: best = { list: [] }, isPending: isBestPending } = useQuery({
-    queryKey: ["best", token, size],
+    queryKey: ["best", size],
     queryFn: () => {
       const pageSize = `pageSize=${size === "mobile" ? 1 : size === "tablet" ? 2 : 4}`;
       return itemService.getItems(`orderBy=favorite&${pageSize}&page=1`);
@@ -125,7 +122,7 @@ export default function ItemPage() {
             />
 
             <Dropdown
-              menu={constant}
+              menus={menu}
               value={selected}
               onChange={(s) => {
                 if (s !== selected) {
@@ -169,7 +166,7 @@ export default function ItemPage() {
             />
 
             <Dropdown
-              menu={constant}
+              menus={menu}
               value={selected}
               onChange={(s) => {
                 if (s !== selected) {

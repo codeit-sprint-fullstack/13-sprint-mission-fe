@@ -1,51 +1,50 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const requestInterceptors = [];
-
-function addRequestInterceptor(fn) {
-  requestInterceptors.push(fn);
+function getAccessToken() {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("accessToken");
 }
 
 async function request(endpoint, options = {}) {
+  const token = getAccessToken();
+
   const { body, headers: customHeaders, ...rest } = options;
 
-  let config = {
-    ...rest,
+  const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  };
+
+  const mergedOptions = {
+    ...defaultOptions,
+    ...rest,
+    headers: {
+      ...defaultOptions.headers,
       ...customHeaders,
     },
   };
 
   if (body !== undefined) {
-    config.body = JSON.stringify(body);
+    mergedOptions.body = JSON.stringify(body);
   }
 
-  for (const interceptor of requestInterceptors) {
-    config = interceptor(config);
+  const response = await fetch(`${BASE_URL}${endpoint}`, mergedOptions);
+
+  if (response.status === 204) return null;
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => null);
+    throw new Error(err?.message ?? `HTTP Error ${response.status}: ${endpoint}`);
   }
 
-  const res = await fetch(`${BASE_URL}${endpoint}`, config);
-
-  if (res.status === 204) return null;
-
-  if (!res.ok) {
-    const err = await res.json().catch(() => null);
-    throw new Error(err?.message ?? `HTTP Error ${res.status}: ${endpoint}`);
-  }
-
-  return res.json();
+  return response.json();
 }
 
-addRequestInterceptor((config) => {
-  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
-  if (!token) return config;
-  return { ...config, headers: { ...config.headers, Authorization: `Bearer ${token}` } };
-});
-
 export const clientApi = {
-  get: (endpoint, config = {}) => request(endpoint, config),
-  post: (endpoint, body, config = {}) => request(endpoint, { method: "POST", body, ...config }),
-  patch: (endpoint, body, config = {}) => request(endpoint, { method: "PATCH", body, ...config }),
-  delete: (endpoint, config = {}) => request(endpoint, { method: "DELETE", ...config }),
+  get: (endpoint, options = {}) => request(endpoint, options),
+  post: (endpoint, body, options = {}) => request(endpoint, { method: "POST", body, ...options }),
+  patch: (endpoint, body, options = {}) => request(endpoint, { method: "PATCH", body, ...options }),
+  delete: (endpoint, options = {}) => request(endpoint, { method: "DELETE", ...options }),
 };

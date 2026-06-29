@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import GNB from "@/app/components/GNB";
 import Footer from "@/app/components/Footer";
+import Providers from "@/app/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,13 +20,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
-      <body>
-        {/* 모든 페이지 상단에 GNB 배치 */}
-        <GNB />
-        <main>{children}</main>
-
-        {/* 하단 푸터 고정 */}
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        <Providers>{children}</Providers>
         <Footer />
       </body>
     </html>

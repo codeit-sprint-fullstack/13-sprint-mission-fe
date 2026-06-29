@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import PostForm from "../../PostForm";
@@ -8,8 +8,7 @@ import { boardService } from "@/lib/boardService";
 
 export default function EditPostPage() {
   const router = useRouter();
-  const pathname = usePathname();
-  const boardId = pathname.split("/")[2];
+  const { boardId } = useParams();
   const [data, setData] = useState({
     title: "",
     content: "",

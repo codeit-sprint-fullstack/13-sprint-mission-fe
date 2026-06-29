@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
@@ -19,10 +19,9 @@ import { commentService } from "@/lib/commentService";
 
 export default function PostDetailPage() {
   const router = useRouter();
-  const pathname = usePathname();
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const boardId = pathname.split("/")[2];
+  const { boardId } = useParams();
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
@@ -88,7 +87,7 @@ export default function PostDetailPage() {
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
 
-        await deletePost(boardId);
+        deletePost(boardId);
       },
     },
   ];
@@ -192,8 +191,8 @@ export default function PostDetailPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {/*data?.comments.map((comment, index) => (
-          <div key={index}>
+        {/*data?.comments.map((comment) => (
+          <div key={comment.id}>
             <CommentItem
               data={comment}
               onMenuClick={() => {

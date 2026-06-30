@@ -9,8 +9,10 @@ import eyesOn from "../../../assets/visibility_on.svg";
 import Image from "next/image";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/common/Modal";
 
 export default function LoginPage() {
+  const [errorModal, setErrorModal] = useState("");
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -41,14 +43,13 @@ export default function LoginPage() {
       });
       isValidForm = true;
     }
-    console.log(errors);
     if (isValidForm) return;
 
     try {
       await login(email, password);
       router.push("/product");
     } catch (error) {
-      alert(error.message || "로그인에 실패했습니다.");
+      setErrorModal(error.message || "로그인에 실패했습니다.");
     }
   }
   return (
@@ -150,6 +151,13 @@ export default function LoginPage() {
           회원가입
         </Link>
       </div>
+      {errorModal && (
+        <Modal onClose={() => setErrorModal("")}>
+          <p className="whitespace-nowrap font-pretendard text-[1.125rem] text-[500] leading-[1.625rem] text-center text-[#1F2937]">
+            {errorModal}
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }

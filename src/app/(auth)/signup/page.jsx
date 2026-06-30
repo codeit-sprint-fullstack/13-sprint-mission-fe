@@ -9,12 +9,24 @@ import eyesOn from "../../../assets/visibility_on.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
+import Modal from "@/components/common/Modal";
 
 export default function SignupPage() {
+  const [errorModal, setErrorModal] = useState("");
   const [eyesActive, setEyesActive] = useState(false);
   const [eyesCheckActive, setEyesCheckActive] = useState(false);
+  const [errors, setErrors] = useState({
+    email: "",
+    nickname: "",
+    password: "",
+    passwordcheck: "",
+  });
+
   const { register } = useAuth();
   const router = useRouter();
+
+  const validateEmail = (email) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
   async function handleSubmit(formData) {
     const email = formData.get("email");
@@ -22,11 +34,38 @@ export default function SignupPage() {
     const password = formData.get("password");
     const passwordcheck = formData.get("passwordcheck");
 
+    let isValidForm = false;
+    if (!validateEmail(email) || !email) {
+      setErrors((prev) => {
+        return { ...prev, email: "잘못된 이메일입니다." };
+      });
+      isValidForm = true;
+    }
+    if (!nickname) {
+      setErrors((prev) => {
+        return { ...prev, nickname: "닉네임을 입력해주세요" };
+      });
+      isValidForm = true;
+    }
+    if (!password || password.length < 8) {
+      setErrors((prev) => {
+        return { ...prev, password: "비밀번호를 8자 이상 입력해주세요" };
+      });
+      isValidForm = true;
+    }
+    if (passwordcheck !== password) {
+      setErrors((prev) => {
+        return { ...prev, passwordcheck: "비밀번호가 일치하지 않습니다" };
+      });
+      isValidForm = true;
+    }
+    if (isValidForm) return;
+
     try {
       await register(nickname, email, password, passwordcheck);
       router.push("/product");
     } catch (error) {
-      alert(error.message || "회원가입에 실패했습니다.");
+      setErrorModal(error.message || "회원가입에 실패했습니다.");
     }
   }
 
@@ -51,11 +90,16 @@ export default function SignupPage() {
           이메일
         </label>
         <input
-          className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF]"
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF] ${errors.email && "border-[#F74747] border"}`}
           id="email"
           name="email"
           placeholder="이메일을 입력해 주세요"
         />
+        {errors.email && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.email}
+          </p>
+        )}
         <label
           htmlFor="nickname"
           className="text-[#1F2937] font-pretendard text-[1.125rem] font-bold leading-[1.625rem]"
@@ -63,18 +107,24 @@ export default function SignupPage() {
           닉네임
         </label>
         <input
-          className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF]"
-          id="nickname"
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF] ${errors.nickname && "border-[#F74747] border"}`}
           name="nickname"
           placeholder="닉네임을 입력해주세요"
         />
+        {errors.nickname && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.nickname}
+          </p>
+        )}
         <label
           htmlFor="password"
           className="text-[#1F2937] font-pretendard text-[1.125rem] font-bold leading-[1.625rem]"
         >
           비밀번호
         </label>
-        <div className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]">
+        <div
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  ${errors.password && "border-[#F74747] border"}`}
+        >
           <input
             className="w-full font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
             id="password"
@@ -89,13 +139,20 @@ export default function SignupPage() {
             onClick={() => setEyesActive(!eyesActive)}
           ></Image>
         </div>
+        {errors.password && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.password}
+          </p>
+        )}
         <label
           htmlFor="passwordcheck"
           className="text-[#1F2937] font-pretendard text-[1.125rem] font-bold leading-[1.625rem]"
         >
           비밀번호 확인
         </label>
-        <div className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]">
+        <div
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  ${errors.passwordcheck && "border-[#F74747] border"}`}
+        >
           <input
             className="w-full font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
             id="passwordcheck"
@@ -110,7 +167,11 @@ export default function SignupPage() {
             onClick={() => setEyesCheckActive(!eyesCheckActive)}
           ></Image>
         </div>
-
+        {errors.passwordcheck && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.passwordcheck}
+          </p>
+        )}
         <button
           type="submit"
           className={`w-[40rem] rounded-[2.5rem] bg-[#3692FF] h-[3.5rem] py[1rem] px-[7.75rem] cursor-pointer`}
@@ -151,6 +212,13 @@ export default function SignupPage() {
           로그인
         </Link>
       </div>
+      {errorModal && (
+        <Modal onClose={() => setErrorModal("")}>
+          <p className="whitespace-nowrap font-pretendard text-[1.125rem] text-[500] leading-[1.625rem] text-center text-[#1F2937]">
+            {errorModal}
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }

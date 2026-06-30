@@ -16,7 +16,7 @@ export default function PopularPostCard({ data }) {
       <div className="w-fit flex gap-[5px] bg-primary px-[24px] py-[2px] text-white rounded-br-[16px] rounded-bl-[16px]">
         <Image
           src="/icons/ic_medal.svg"
-          alt="medal icon"
+          alt="메달 아이콘"
           width={16}
           height={16}
         />
@@ -29,7 +29,7 @@ export default function PopularPostCard({ data }) {
         <div className="w-[72px] h-[72px] flex justify-center items-center border-secondary-200 border-[1px] border-radis rounded-md">
           <Image
             src={"/images/item.png"}
-            alt="product image"
+            alt="제품 이미지"
             width={45}
             height={45}
           />
@@ -52,7 +52,7 @@ export default function PopularPostCard({ data }) {
                   ? "/icons/ic_heart_full.svg"
                   : "/icons/ic_heart_empty.svg"
               }
-              alt="heart icon"
+              alt="좋아요 아이콘"
               width={16}
               height={16}
             />

@@ -37,7 +37,7 @@ export default function Item({ data }) {
         <div className="flex items-center gap-[2px] text-secondary-700">
           <Image
             src="/icons/ic_heart_empty.svg"
-            alt="좋아요"
+            alt="좋아요 아이콘"
             width={16}
             height={16}
           />

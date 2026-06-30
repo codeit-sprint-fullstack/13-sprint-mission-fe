@@ -16,7 +16,7 @@ export default function Header() {
           <div className="flex gap-[10px] items-center text-primary font-bold text-[26px] max-tablet:text-[20px]">
             <Image
               src={"/icons/ic_logo.svg"}
-              alt="logo icon"
+              alt="로고 아이콘"
               className="max-tablet:hidden"
               width={40}
               height={40}

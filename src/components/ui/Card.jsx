@@ -24,7 +24,7 @@ export default function Card({ tag, title, text, flip = false, ...imgProps }) {
           {...imgProps}
           width={588}
           height={444}
-          alt="card image"
+          alt="카드 이미지"
           className="w-[588px] h-auto max-desktop:w-full"
         />
 

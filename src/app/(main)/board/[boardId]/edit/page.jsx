@@ -9,7 +9,7 @@ import { boardService } from "@/lib/boardService";
 export default function EditPostPage() {
   const router = useRouter();
   const { boardId } = useParams();
-  const [data, setData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     content: "",
   });
@@ -32,7 +32,7 @@ export default function EditPostPage() {
   useEffect(() => {
     if (!boardData) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setData({
+    setFormData({
       title: boardData.title ?? "",
       content: boardData.content ?? "",
     });
@@ -40,14 +40,14 @@ export default function EditPostPage() {
 
   return (
     <PostForm
-      data={data}
-      setData={setData}
+      data={formData}
+      setData={setFormData}
       onSubmit={(e) => {
         e.preventDefault();
         patchArticle({
           id: boardId,
           data: {
-            ...data,
+            ...formData,
             image:
               "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
           },

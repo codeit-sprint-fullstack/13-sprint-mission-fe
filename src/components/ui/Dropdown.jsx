@@ -14,12 +14,7 @@ export default function Dropdown({ menus, value, onChange }) {
         className="rounded-[12px] border border-secondary-200 px-[20px] py-[12px]"
         onClick={toggleDropdown}
       >
-        <div
-          className="
-            flex h-[18px] w-[90px] items-center justify-between
-            max-[720px]:w-fit
-          "
-        >
+        <div className="flex h-[18px] w-[90px] items-center justify-between max-[720px]:w-fit">
           {size !== "mobile" ? (
             <>
               <p>{value.name}</p>
@@ -47,20 +42,12 @@ export default function Dropdown({ menus, value, onChange }) {
 
       <div
         onMouseLeave={closeDropdown}
-        className={`
-          absolute z-[500] mt-[8px] h-fit w-[130px] overflow-hidden rounded-[16px] bg-white border border-secondary-300
-          max-[720px]:right-0
-          ${!open ? "hidden" : ""}
-        `}
+        className={`absolute z-[500] mt-[8px] h-fit w-[130px] overflow-hidden rounded-[16px] bg-white border border-secondary-300 max-[720px]:right-0 ${!open ? "hidden" : ""}`}
       >
         {menus?.map((m) => (
           <div
             key={m.id}
-            className="
-              flex h-[42px] w-full items-center justify-center
-              hover:cursor-pointer hover:bg-secondary-200
-              [&+div]:border-t [&+div]:border-secondary-200
-            "
+            className="flex h-[42px] w-full items-center justify-center hover:cursor-pointer hover:bg-secondary-200"
             onClick={(e) => {
               onChange(m);
               closeDropdown();

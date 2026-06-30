@@ -14,11 +14,12 @@ import PopularPostCard from "@/components/ui/PopularPostCard";
 import { boardService } from "@/lib/boardService";
 import "swiper/css";
 
+const menu = [
+  { id: 1, type: "recent", name: "최신순" },
+  { id: 2, type: "like", name: "좋아요순" },
+];
+
 export default function BoardListPage() {
-  const menu = [
-    { id: 1, type: "recent", name: "최신순" },
-    { id: 2, type: "like", name: "좋아요순" },
-  ];
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(menu[0]);
 

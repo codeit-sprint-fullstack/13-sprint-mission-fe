@@ -14,10 +14,11 @@ const publicPaths = ["/", "/login", "/register", "/board", "/items"];
 export default function RouteGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { isLogin } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLogin, isAuthLoading } = useAuth();
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
     const path = pathname.split("?")[0];
     const isProtectedRoute = protectedPaths.some((route) => {
       if (typeof route === "string") return route === path;
@@ -34,14 +35,8 @@ export default function RouteGuard({ children }) {
     }
     if (isLogin && ["/login", "/signup"].some((i) => i === path)) {
       router.push("/items");
-    } else {
-      setIsLoading(false);
     }
   }, [isLogin, pathname, router]);
-
-  if (isLoading) {
-    return null;
-  }
 
   return children;
 }

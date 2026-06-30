@@ -1,5 +1,5 @@
 import { getArticle } from "@/api/articles";
-import { getComments } from "@/api/comments";
+import { getComments } from "@/api/articlesComments";
 import PostDetail from "../_components/PostDetail";
 import CommentsSection from "../_components/CommentsSection";
 import Image from "next/image";

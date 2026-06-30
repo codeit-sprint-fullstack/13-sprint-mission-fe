@@ -1,38 +1,48 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function SearchBar({ keyword, orderBy }) {
+export default function SearchBar({
+  keyword,
+  onKeywordChange,
+  orderBy,
+  onOrderChange,
+}) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const selected = orderBy === "like" ? "좋아요순" : "최신순";
+  const selected = orderBy === "favorite" ? "좋아요순" : "최신순";
 
   const options = [
     { label: "최신순", value: "recent" },
-    { label: "좋아요순", value: "like" },
+    { label: "좋아요순", value: "favorite" },
   ];
 
   return (
-    <div className="flex w-full items-center justify-between gap-2">
-      <div className="flex flex-1 items-center gap-1 rounded-xl bg-gray-100 py-2.25 pr-5 pl-4 font-normal">
+    <div className="flex items-center gap-3">
+      <div className="flex w-[288px] items-center gap-1 rounded-xl bg-gray-100 px-4 py-2 md:w-[242px] lg:w-[325px]">
         <Image src="/image/ic_search.svg" alt="search" width={20} height={20} />
         <input
           type="text"
-          placeholder="검색할 게시글을 입력해 주세요"
-          defaultValue={keyword}
-          onChange={(e) =>
-            router.replace(
-              `/freeboard?keyword=${e.target.value}&orderBy=${orderBy}`,
-            )
-          }
-          className="w-full bg-transparent text-lg text-gray-800 placeholder-gray-400 outline-none"
+          placeholder="상품을 검색해보세요"
+          value={keyword}
+          onChange={(e) => onKeywordChange(e.target.value)}
+          className="text-md w-full bg-transparent text-gray-800 placeholder-gray-400 outline-none"
         />
       </div>
+
+      <button
+        onClick={() => router.push("/registration")}
+        className="bg-primary-100 text-md hidden rounded-xl px-5 py-2 font-semibold whitespace-nowrap text-white transition hover:opacity-90 md:block"
+      >
+        상품 등록하기
+      </button>
+
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center rounded-xl border border-gray-200 p-2.25 md:h-10.5 md:w-32.5 md:justify-between md:rounded-xl md:bg-white md:px-5 md:py-3"
+          className="flex items-center justify-center rounded-xl border border-gray-200 p-2 md:w-32 md:justify-between md:px-5 md:py-2"
         >
           <Image
             src="/image/ic_sort.svg"
@@ -41,7 +51,7 @@ export default function SearchBar({ keyword, orderBy }) {
             height={24}
             className="md:hidden"
           />
-          <span className="hidden text-md text-gray-800 md:block">
+          <span className="text-md hidden text-gray-800 md:block">
             {selected}
           </span>
           <Image
@@ -58,12 +68,10 @@ export default function SearchBar({ keyword, orderBy }) {
               <li
                 key={option.value}
                 onClick={() => {
-                  router.replace(
-                    `/freeboard?keyword=${keyword}&orderBy=${option.value}`,
-                  );
+                  onOrderChange(option.value);
                   setIsOpen(false);
                 }}
-                className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
+                className="text-md cursor-pointer px-4 py-2 text-gray-700 hover:bg-gray-100"
               >
                 {option.label}
               </li>

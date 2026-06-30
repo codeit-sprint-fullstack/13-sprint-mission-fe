@@ -5,7 +5,7 @@ import {
   updateComment,
   deleteComment,
   getComments,
-} from "@/api/comments";
+} from "@/api/articlesComments";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 

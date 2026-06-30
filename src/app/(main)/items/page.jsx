@@ -1,0 +1,79 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "@/api/product";
+import BestSection from "./_components/BestSection";
+import ProductListSection from "./_components/ProductListSection";
+
+export default function page() {
+  const [bestCount, setBestCount] = useState(4);
+  const [pageSize, setPageSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
+  const [orderBy, setOrderBy] = useState("recent");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 1200) {
+        setBestCount(4);
+        setPageSize(10);
+      } else if (width >= 744) {
+        setBestCount(2);
+        setPageSize(6);
+      } else {
+        setBestCount(1);
+        setPageSize(4);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const { data: bestData } = useQuery({
+    queryKey: ["products", "best", bestCount],
+    queryFn: () =>
+      getProducts({ page: 1, pageSize: bestCount, orderBy: "favorite" }),
+  });
+
+  const { data: listData, isLoading } = useQuery({
+    queryKey: ["products", "list", page, pageSize, orderBy, keyword],
+    queryFn: () => getProducts({ page, pageSize, orderBy, keyword }),
+  });
+
+  const bestProducts = bestData?.list || [];
+  const products = listData?.list || [];
+  const totalCount = listData?.totalCount || 0;
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  const handleKeywordChange = (value) => {
+    setKeyword(value);
+    setPage(1);
+  };
+  const handleOrderChange = (value) => {
+    setOrderBy(value);
+    setPage(1);
+  };
+
+  return (
+    <main className="mx-auto flex max-w-[1200px] flex-col gap-6 pb-10 md:gap-10 md:px-6">
+      <BestSection items={bestProducts} />
+      {isLoading ? (
+        <p className="text-center text-gray-400">불러오는 중...</p>
+      ) : (
+        <ProductListSection
+          products={products}
+          keyword={keyword}
+          onKeywordChange={handleKeywordChange}
+          orderBy={orderBy}
+          onOrderChange={handleOrderChange}
+          totalPages={totalPages}
+          page={page}
+          setPage={setPage}
+        />
+      )}
+    </main>
+  );
+}

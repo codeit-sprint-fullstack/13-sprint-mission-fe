@@ -17,9 +17,9 @@ export default function NavLinks() {
         자유게시판
       </Link>
       <Link
-        href="/market"
+        href="/items"
         className={`text-md md:text-2lg flex items-center justify-center font-bold md:px-5.75 md:py-6 ${
-          pathname.startsWith("/market") ? "text-primary-100" : "text-gray-600"
+          pathname.startsWith("/items") ? "text-primary-100" : "text-gray-600"
         }`}
       >
         중고마켓

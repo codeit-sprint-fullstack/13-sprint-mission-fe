@@ -7,13 +7,29 @@ import googleIcon from "../../../assets/ic_google.svg";
 import kakaoIcon from "../../../assets/ic_kakao.svg";
 import eyesOn from "../../../assets/visibility_on.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SignupPage() {
   const [eyesActive, setEyesActive] = useState(false);
   const [eyesCheckActive, setEyesCheckActive] = useState(false);
+  const { register } = useAuth();
+  const router = useRouter();
 
-  const isLogin = false;
-  const handleSubmit = () => {};
+  async function handleSubmit(formData) {
+    const email = formData.get("email");
+    const nickname = formData.get("nickname");
+    const password = formData.get("password");
+    const passwordcheck = formData.get("passwordcheck");
+
+    try {
+      await register(nickname, email, password, passwordcheck);
+      router.push("/product");
+    } catch (error) {
+      alert(error.message || "회원가입에 실패했습니다.");
+    }
+  }
+
   return (
     <div className="flex w-[40rem] flex-col items-center gap-[2.5rem] shrink-0 mx-auto mt-[3.75rem]">
       <Link className="flex justify-center items-center gap-[1.39rem]" href="/">
@@ -37,6 +53,7 @@ export default function SignupPage() {
         <input
           className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF]"
           id="email"
+          name="email"
           placeholder="이메일을 입력해 주세요"
         />
         <label
@@ -48,6 +65,7 @@ export default function SignupPage() {
         <input
           className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF]"
           id="nickname"
+          name="nickname"
           placeholder="닉네임을 입력해주세요"
         />
         <label
@@ -60,6 +78,7 @@ export default function SignupPage() {
           <input
             className="w-full font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
             id="password"
+            name="password"
             type={eyesActive ? `none` : `password`}
             placeholder="비밀번호를 입력해 주세요"
           />
@@ -80,6 +99,7 @@ export default function SignupPage() {
           <input
             className="w-full font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
             id="passwordcheck"
+            name="passwordcheck"
             type={eyesCheckActive ? `none` : `password`}
             placeholder="비밀번호를 다시 한 번 입력해주세요"
           />
@@ -93,7 +113,7 @@ export default function SignupPage() {
 
         <button
           type="submit"
-          className={`w-[40rem] rounded-[2.5rem] ${isLogin ? "bg-[#3692FF]" : "bg-[#9CA3AF]"} h-[3.5rem] py[1rem] px-[7.75rem] cursor-pointer`}
+          className={`w-[40rem] rounded-[2.5rem] bg-[#3692FF] h-[3.5rem] py[1rem] px-[7.75rem] cursor-pointer`}
         >
           <span className="text-white font-pretendard text-center text-[1.25rem] leading-[2rem] font-semibold">
             회원가입
@@ -121,13 +141,14 @@ export default function SignupPage() {
           </div>
         </div>
       </div>
+
       <div className="font-medium leading-[1.5rem] text-[0.875rem] text-center text[#1F2937]">
-        판다마켓이 처음이신가요?
+        이미 회원이신가요?
         <Link
-          href="/signup"
+          href="/login"
           className="text-[#3182f6] underline underline-[0.125rem]"
         >
-          회원가입
+          로그인
         </Link>
       </div>
     </div>

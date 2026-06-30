@@ -7,11 +7,50 @@ import googleIcon from "../../../assets/ic_google.svg";
 import kakaoIcon from "../../../assets/ic_kakao.svg";
 import eyesOn from "../../../assets/visibility_on.svg";
 import Image from "next/image";
+import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
   const [eyesActive, setEyesActive] = useState(false);
-  const isLogin = false;
-  const handleSubmit = () => {};
+  const router = useRouter();
+  const { login } = useAuth();
+
+  const validateEmail = (email) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+  async function handleSubmit(formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    let isValidForm = false;
+    if (!validateEmail(email) || !email) {
+      setErrors((prev) => {
+        return { ...prev, email: "잘못된 이메일입니다." };
+      });
+      isValidForm = true;
+    }
+    console.log(errors);
+    if (!password || password.length < 8) {
+      setErrors((prev) => {
+        return { ...prev, password: "비밀번호를 8자 이상 입력해주세요" };
+      });
+      isValidForm = true;
+    }
+    console.log(errors);
+    if (isValidForm) return;
+
+    try {
+      await login(email, password);
+      router.push("/product");
+    } catch (error) {
+      alert(error.message || "로그인에 실패했습니다.");
+    }
+  }
   return (
     <div className="flex w-[40rem] flex-col items-center gap-[2.5rem] shrink-0 mx-auto mt-[14.44rem]">
       <Link className="flex justify-center items-center gap-[1.39rem]" href="/">
@@ -33,20 +72,29 @@ export default function LoginPage() {
           이메일
         </label>
         <input
-          className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF]"
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  text-[#9CA3AF] ${errors.email && "border-[#F74747] border"}`}
           id="email"
+          name="email"
           placeholder="이메일을 입력해 주세요"
         />
+        {errors.email && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.email}
+          </p>
+        )}
         <label
           htmlFor="password"
           className="text-[#1F2937] font-pretendard text-[1.125rem] font-bold leading-[1.625rem]"
         >
           비밀번호
         </label>
-        <div className="flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]">
+        <div
+          className={`flex gap-[0.625rem] shrink-0 w-full h-[2.625rem] items-start py-[0.5625rem] px-[1.25rem] bg-[#F3F4F6] rounded-[0.75rem]  ${errors.email && "border-[#F74747] border"}`}
+        >
           <input
             className="w-full font-pretendard text-[1rem] font-[400] leading-[1.625rem] text-[#9CA3AF]"
             id="password"
+            name="password"
             type={eyesActive ? `none` : `password`}
             placeholder="비밀번호를 입력해 주세요"
           />
@@ -57,13 +105,18 @@ export default function LoginPage() {
             onClick={() => setEyesActive(!eyesActive)}
           ></Image>
         </div>
+        {errors.password && (
+          <p className="font-pretendard text-[0.875rem] font-semibold leading-[1.5rem] text-[#F74747]">
+            {errors.password}
+          </p>
+        )}
 
         <button
           type="submit"
-          className={`w-[40rem] rounded-[2.5rem] ${isLogin ? "bg-[#3692FF]" : "bg-[#9CA3AF]"} h-[3.5rem] py[1rem] px-[7.75rem] cursor-pointer`}
+          className={`w-[40rem] rounded-[2.5rem] bg-[#3692FF] h-[3.5rem] py[1rem] px-[7.75rem] cursor-pointer`}
         >
           <span className="text-white font-pretendard text-center text-[1.25rem] leading-[2rem] font-semibold">
-            회원가입
+            로그인
           </span>
         </button>
       </form>
@@ -89,12 +142,12 @@ export default function LoginPage() {
         </div>
       </div>
       <div className="font-medium leading-[1.5rem] text-[0.875rem] text-center text[#1F2937]">
-        이미 회원이신가요?
+        판다마켓이 처음이신가요?
         <Link
-          href="/login"
+          href="/signup"
           className="text-[#3182f6] underline underline-[0.125rem]"
         >
-          로그인
+          회원가입
         </Link>
       </div>
     </div>

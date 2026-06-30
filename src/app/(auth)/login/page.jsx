@@ -6,6 +6,7 @@ import fandaLogo from "../../../assets/logo/pandaface.svg";
 import googleIcon from "../../../assets/social/ic_google.svg";
 import kakaoIcon from "../../../assets/social/ic_kakao.svg";
 import eyesOn from "../../../assets/icon/visibility_on.svg";
+import eyesOff from "../../../assets/icon/visibility_off.svg";
 import Image from "next/image";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
@@ -45,8 +46,7 @@ export default function LoginPage() {
     if (isValidForm) return;
 
     try {
-      const data = await login(email, password);
-      localStorage.setItem("accessToken", data.accessToken);
+      await login(email, password);
       router.push("/items");
     } catch (error) {
       setErrorModal(error.message || "로그인에 실패했습니다.");
@@ -101,7 +101,7 @@ export default function LoginPage() {
           />
           <Image
             className="cursor-pointer"
-            src={eyesOn}
+            src={eyesActive ? eyesOn : eyesOff}
             alt="검색이미지"
             onClick={() => setEyesActive(!eyesActive)}
           ></Image>

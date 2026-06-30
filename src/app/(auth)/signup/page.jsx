@@ -6,6 +6,7 @@ import fandaLogo from "../../../assets/logo/pandaface.svg";
 import googleIcon from "../../../assets/social/ic_google.svg";
 import kakaoIcon from "../../../assets/social/ic_kakao.svg";
 import eyesOn from "../../../assets/icon/visibility_on.svg";
+import eyesOff from "../../../assets/icon/visibility_off.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
@@ -62,8 +63,7 @@ export default function SignupPage() {
     if (isValidForm) return;
 
     try {
-      const data = await register(nickname, email, password, passwordcheck);
-      localStorage.setItem("accessToken", data.accessToken);
+      await register(nickname, email, password, passwordcheck);
       router.push("/items");
     } catch (error) {
       setErrorModal(error.message || "회원가입에 실패했습니다.");
@@ -135,7 +135,7 @@ export default function SignupPage() {
           />
           <Image
             className="cursor-pointer"
-            src={eyesOn}
+            src={eyesActive ? eyesOn : eyesOff}
             alt="검색이미지"
             onClick={() => setEyesActive(!eyesActive)}
           ></Image>
@@ -163,7 +163,7 @@ export default function SignupPage() {
           />
           <Image
             className="cursor-pointer"
-            src={eyesOn}
+            src={eyesActive ? eyesOn : eyesOff}
             alt="검색이미지"
             onClick={() => setEyesCheckActive(!eyesCheckActive)}
           ></Image>

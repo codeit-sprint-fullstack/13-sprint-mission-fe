@@ -27,14 +27,14 @@ export default function AuthProvider({ children }) {
       password,
       passwordConfirmation,
     );
+    localStorage.setItem("accessToken", registerData.accessToken);
     await getUser();
-    return registerData;
   };
 
   const login = async (email, password) => {
     const loginData = await authAPI.login(email, password);
+    localStorage.setItem("accessToken", loginData.accessToken);
     await getUser();
-    return loginData;
   };
 
   const getUser = async () => {

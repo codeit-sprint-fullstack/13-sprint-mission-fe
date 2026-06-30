@@ -36,7 +36,6 @@ export default function LoginPage() {
       });
       isValidForm = true;
     }
-    console.log(errors);
     if (!password || password.length < 8) {
       setErrors((prev) => {
         return { ...prev, password: "비밀번호를 8자 이상 입력해주세요" };
@@ -46,7 +45,8 @@ export default function LoginPage() {
     if (isValidForm) return;
 
     try {
-      await login(email, password);
+      const data = await login(email, password);
+      localStorage.setItem("accessToken", data.accessToken);
       router.push("/product");
     } catch (error) {
       setErrorModal(error.message || "로그인에 실패했습니다.");

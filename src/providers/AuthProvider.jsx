@@ -18,11 +18,11 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const register = async (name, email, password, passwordConfirmation) => {
-    await authAPI.register(name, email, password, passwordConfirmation);
+    return await authAPI.register(name, email, password, passwordConfirmation);
   };
 
   const login = async (email, password) => {
-    await authAPI.login(email, password);
+    return await authAPI.login(email, password);
   };
 
   return (

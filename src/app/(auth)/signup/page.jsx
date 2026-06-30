@@ -62,7 +62,8 @@ export default function SignupPage() {
     if (isValidForm) return;
 
     try {
-      await register(nickname, email, password, passwordcheck);
+      const data = await register(nickname, email, password, passwordcheck);
+      localStorage.setItem("accessToken", data.accessToken);
       router.push("/product");
     } catch (error) {
       setErrorModal(error.message || "회원가입에 실패했습니다.");

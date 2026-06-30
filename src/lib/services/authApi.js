@@ -16,11 +16,9 @@ export const authAPI = {
       const errorBody = await response.json().catch(() => ({}));
       throw new Error(errorBody.message || `API error: ${response.status}`);
     }
-
-    return response.json();
+    return await response.json();
   },
 
-  // 회원가입
   register: async (nickname, email, password, passwordConfirmation) => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -38,6 +36,6 @@ export const authAPI = {
       throw new Error(errorBody.message || `API error: ${response.status}`);
     }
 
-    return response.json();
+    return await response.json();
   },
 };

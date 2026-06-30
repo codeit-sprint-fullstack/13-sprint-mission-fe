@@ -3,7 +3,7 @@
 import Link from "next/link";
 import DropDown from "./DropDown";
 import { useEffect, useState } from "react";
-import EmptyState from "./EmptyState";
+import EmptyState from "../../../../components/EmptyState";
 import ArticleItem from "./ArticleItem";
 import { getArticles } from "@/app/api/articles";
 

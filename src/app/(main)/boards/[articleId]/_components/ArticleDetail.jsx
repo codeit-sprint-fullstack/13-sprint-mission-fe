@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import KebabMenu from "./KebabMenu";
+import KebabMenu from "../../../../../components/KebabMenu";
 import { useParams, useRouter } from "next/navigation";
 import { deleteDetailArticle, getDetailArticleData } from "@/app/api/articles";
-import EmptyState from "../../_components/EmptyState";
+import EmptyState from "../../../../../components/EmptyState";
 
 export default function ArticleDetail() {
   const router = useRouter();

@@ -1,7 +1,6 @@
 import "./globals.css";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import localFont from "next/font/local";
+import Providers from "./providers";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -18,11 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="mx-auto w-full max-w-[1200px] flex-1 px-[16px] md:px-[20px]">
-          {children}
-        </main>
-        <Footer />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

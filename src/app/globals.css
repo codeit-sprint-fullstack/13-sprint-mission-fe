@@ -25,6 +25,8 @@
   --color-cool-gray-200: #e5e7eb;
   --color-cool-gray-100: #f3f4f6;
   --color-secondary-500: #6b7280;
+  --color-primary-100: #3692ff;
+  --color-error-red: #f74747;
 }
 
 body {

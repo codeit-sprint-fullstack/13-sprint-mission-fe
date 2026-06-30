@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import EmptyState from "../../_components/EmptyState";
+import EmptyState from "../../../../../components/EmptyState";
 import CommentItem from "./CommentItem";
 import { deleteComment, getComment, updateComment } from "@/app/api/comments";
 

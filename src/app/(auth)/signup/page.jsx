@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import fandaLogo from "../../../assets/pandaface.svg";
-import googleIcon from "../../../assets/ic_google.svg";
-import kakaoIcon from "../../../assets/ic_kakao.svg";
-import eyesOn from "../../../assets/visibility_on.svg";
+import fandaLogo from "../../../assets/logo/pandaface.svg";
+import googleIcon from "../../../assets/social/ic_google.svg";
+import kakaoIcon from "../../../assets/social/ic_kakao.svg";
+import eyesOn from "../../../assets/icon/visibility_on.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";

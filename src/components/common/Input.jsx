@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import searchImg from "../../assets/ic_search.png";
+import searchImg from "../../assets/icon/ic_search.png";
 import { marketAPI } from "@/lib/services/marketApi";
 
 export default function Input() {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import arrowDown from "../../assets/ic_arrow_down.png";
+import arrowDown from "../../assets/icon/ic_arrow_down.png";
 
 export default function DropDown() {
   return (

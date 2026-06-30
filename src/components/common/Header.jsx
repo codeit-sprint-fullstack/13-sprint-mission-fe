@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import fandaLogo from "../../assets/pandaface.svg";
-import profileImg from "../../assets/ic_profile.svg";
+import fandaLogo from "../../assets/logo/pandaface.svg";
+import profileImg from "../../assets/icon/ic_profile.svg";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 

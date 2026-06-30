@@ -32,8 +32,8 @@ export default function Header() {
               자유게시판
             </Link>
             <Link
-              className={`py-6 px-4 font-pretendard font-bold  ${path === "/product" ? "text-[#3692FF]" : ""}`}
-              href={"/product"}
+              className={`py-6 px-4 font-pretendard font-bold  ${path === "/items" ? "text-[#3692FF]" : ""}`}
+              href={"/items"}
             >
               중고마켓
             </Link>

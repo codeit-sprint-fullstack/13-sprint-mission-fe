@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import AuthProvider from "@/providers/AuthProvider";
+import RouteGuard from "@/providers/RouteGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +28,11 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-          <Header></Header>
-          <main className="flex-1">{children}</main>
-          <Footer></Footer>
+          <RouteGuard>
+            <Header></Header>
+            <main className="flex-1">{children}</main>
+            <Footer></Footer>
+          </RouteGuard>
         </AuthProvider>
       </body>
     </html>

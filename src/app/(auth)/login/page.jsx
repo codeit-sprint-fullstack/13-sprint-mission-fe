@@ -47,7 +47,7 @@ export default function LoginPage() {
     try {
       const data = await login(email, password);
       localStorage.setItem("accessToken", data.accessToken);
-      router.push("/product");
+      router.push("/items");
     } catch (error) {
       setErrorModal(error.message || "로그인에 실패했습니다.");
     }

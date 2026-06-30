@@ -38,4 +38,23 @@ export const authAPI = {
 
     return await response.json();
   },
+  getUser: async () => {
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+    const token = localStorage.getItem("accessToken");
+    const response = await fetch(`${baseURL}/users/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}));
+      throw new Error(errorBody.message || `API error: ${response.status}`);
+    }
+
+    return await response.json();
+  },
 };

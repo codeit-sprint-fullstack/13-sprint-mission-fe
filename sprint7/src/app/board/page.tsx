@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003';
+import { fetchClient } from "../../lib/api/fetchClient";
 
 interface Article {
   id: number;
@@ -12,6 +11,10 @@ interface Article {
   content: string;
   likeCount?: number;
   createdAt: string;
+  writer?: {
+    id: number;
+    nickname: string;
+  };
 }
 
 export default function BoardListPage() {
@@ -24,7 +27,6 @@ export default function BoardListPage() {
   const [bestPosts, setBestPosts] = useState<Article[]>([]);
   const [posts, setPosts] = useState<Article[]>([]);
   
-  const [cursor, setCursor] = useState<number | null>(0);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   
@@ -33,11 +35,9 @@ export default function BoardListPage() {
   useEffect(() => {
     const fetchBestPosts = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/articles/best`);
-        if (res.ok) {
-          const data = await res.json();
-          setBestPosts(data.data);
-        }
+        const res = await fetchClient("/articles?orderBy=like&pageSize=3");
+        const data = await res.json();
+        setBestPosts(data.list || data);
       } catch (error) {
         console.error("베스트 게시글 로드 실패:", error);
       }
@@ -47,34 +47,31 @@ export default function BoardListPage() {
 
   useEffect(() => {
     setPosts([]);
-    setCursor(0);
     setHasMore(true);
   }, [keyword, sortBy]);
 
   const loadMorePosts = useCallback(async () => {
-    if (isLoading || !hasMore || cursor === null) return;
+    if (isLoading || !hasMore) return;
     
     setIsLoading(true);
     try {
       const orderParam = sortBy === '최신순' ? '&orderBy=recent' : '&orderBy=like';
-      const wordParam = keyword ? `&word=${encodeURIComponent(keyword)}` : '';
-      const cursorParam = cursor ? `&cursor=${cursor}` : '';
+      const wordParam = keyword ? `&keyword=${encodeURIComponent(keyword)}` : '';
       
-      const res = await fetch(`${API_BASE_URL}/articles?take=10${orderParam}${wordParam}${cursorParam}`);
-      if (!res.ok) throw new Error("게시글 로드 실패");
-      
+      const res = await fetchClient(`/articles?pageSize=10${orderParam}${wordParam}`);
       const data = await res.json();
       
-      setPosts((prev) => [...prev, ...data.data]);
-      setCursor(data.nextCursor);
-      setHasMore(data.hasNext);
+      const newPosts = data.list || data || [];
+      
+      setPosts((prev) => [...prev, ...newPosts]);
+      setHasMore(false); 
     } catch (error) {
       console.error(error);
       setHasMore(false);
     } finally {
       setIsLoading(false);
     }
-  }, [cursor, isLoading, hasMore, keyword, sortBy]);
+  }, [isLoading, hasMore, keyword, sortBy]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,7 +106,7 @@ export default function BoardListPage() {
         </h1>
         <div className="flex w-full gap-[16px] md:gap-[24px] overflow-x-auto pb-4 scrollbar-hide lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
           {bestPosts.map((post) => (
-            <Link href={`/board/${post.id}`} key={post.id} className="flex h-[169px] w-[280px] md:w-[384px] lg:w-full shrink-0 flex-col items-start gap-[10px] rounded-[8px] bg-[#F9FAFB] px-[16px] md:px-[24px] py-0 transition-shadow hover:shadow-md">
+            <Link href={`/board/${post.id}`} key={`best-${post.id}`} className="flex h-[169px] w-[280px] md:w-[384px] lg:w-full shrink-0 flex-col items-start gap-[10px] rounded-[8px] bg-[#F9FAFB] px-[16px] md:px-[24px] py-0 transition-shadow hover:shadow-md">
               <div className="w-[80px] md:w-[102px] shrink-0">
                 <Image src="/images/img_badge.svg" alt="Best" width={102} height={32} className="h-auto w-full" />
               </div>
@@ -123,7 +120,9 @@ export default function BoardListPage() {
               </div>
               <div className="flex w-full items-center justify-between">
                 <div className="flex items-center">
-                  <span className="font-['Pretendard'] text-[12px] md:text-[14px] font-normal leading-[24px] text-[#4B5563]">익명</span>
+                  <span className="font-['Pretendard'] text-[12px] md:text-[14px] font-normal leading-[24px] text-[#4B5563]">
+                    {post.writer?.nickname || "익명"}
+                  </span>
                   <div className="ml-[8px] flex items-center gap-[4px]">
                     <div className="relative h-[14px] w-[14px] md:h-[16px] md:w-[16px]">
                       <Image src="/images/ic_heart.svg" alt="좋아요" fill className="object-contain" />
@@ -176,7 +175,7 @@ export default function BoardListPage() {
         
         <div className="mt-[16px] md:mt-[24px] flex w-full flex-col items-start gap-[16px] md:gap-[24px] bg-[#FCFCFC]">
           {posts.map((post) => (
-            <Link href={`/board/${post.id}`} key={post.id} className="flex w-full flex-col border-b border-[#E5E7EB] pb-[16px] md:pb-[24px] transition-colors hover:bg-gray-50">
+            <Link href={`/board/${post.id}`} key={`post-${post.id}`} className="flex w-full flex-col border-b border-[#E5E7EB] pb-[16px] md:pb-[24px] transition-colors hover:bg-gray-50">
               <div className="flex w-full items-start justify-between gap-[16px]">
                 <h3 className="font-['Pretendard'] text-[16px] md:text-[20px] font-semibold leading-[26px] md:leading-[32px] text-[#1F2937] break-all">{post.title}</h3>
                 <div className="flex h-[60px] w-[60px] md:h-[72px] md:w-[72px] shrink-0 items-center justify-center rounded-[8px] border border-[#F3F4F6] bg-[#FFF] p-[8px] md:p-[12px]">
@@ -190,7 +189,9 @@ export default function BoardListPage() {
                   <div className="relative h-[20px] w-[20px] md:h-[24px] md:w-[24px] shrink-0 overflow-hidden rounded-full">
                     <Image src="/images/ic_profile.svg" alt="프로필" fill className="object-cover" />
                   </div>
-                  <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#4B5563]">익명</span>
+                  <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#4B5563]">
+                    {post.writer?.nickname || "익명"}
+                  </span>
                   <span className="ml-[6px] md:ml-[8px] font-['Pretendard'] text-[12px] md:text-[14px] text-[#9CA3AF]">{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center">

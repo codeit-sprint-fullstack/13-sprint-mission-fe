@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL; //이건 내 내서버
 
 export const marketAPI = {
   getArticle: async (params = { page: 1, pageSize: 3 }) => {

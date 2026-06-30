@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/assets/svg/panda_logo.svg";
 import NavLinks from "@/components/common/NavLinks";
+import UserProfile from "@/components/common/UserProfile";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white h-17.5 flex items-center justify-between border-b border-gray-200 px-4 md:px-6 lg:px-20 fixed top-0 left-0 z-50">
+    <header className="w-full bg-white h-17.5 flex items-center justify-between border-b border-gray-200 px-4 md:px-6 lg:px-50 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-6 text-nowrap">
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -23,12 +24,7 @@ export default function Header() {
         <NavLinks />
       </div>
 
-      <Link
-        href="/login"
-        className="bg-primary-100 hover:bg-primary-200 text-nowrap text-white font-medium px-5 py-2.5 rounded-lg transition-colors"
-      >
-        로그인
-      </Link>
+      <UserProfile />
     </header>
   );
 }

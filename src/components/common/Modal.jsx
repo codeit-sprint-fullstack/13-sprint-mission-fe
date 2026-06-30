@@ -1,7 +1,8 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 export default function Modal({ children, onClose }) {
-  return (
+  return createPortal(
     <div
       className="fixed top-0 z-1000 w-full h-full bg-black/70"
       onClick={onClose}
@@ -17,6 +18,7 @@ export default function Modal({ children, onClose }) {
           </span>
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

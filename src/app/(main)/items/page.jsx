@@ -12,46 +12,43 @@ import ProductCardList from "@/components/ui/ProductCardList";
 import Pagination from "@/components/ui/Pagination";
 import { itemService } from "@/lib/itemService";
 
+const menu = [
+  {
+    id: 1,
+    type: "recent",
+    name: "최신순",
+  },
+  {
+    id: 2,
+    type: "favorite",
+    name: "좋아요순",
+  },
+];
+
 export default function ItemPage() {
   const size = useResponsiveWidth();
-  const constant = Object.freeze([
-    {
-      id: 1,
-      type: "recent",
-      name: "최신순",
-    },
-    {
-      id: 2,
-      type: "favorite",
-      name: "좋아요순",
-    },
-  ]);
-
-  const [token, setToken] = useState(null);
   const [input, setInput] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [selected, setSelected] = useState(constant[0]);
+  const [selected, setSelected] = useState(menu[0]);
   const [page, setPage] = useState(1);
 
   const { data: products = { list: [] }, isPending: isProductsPending } =
     useQuery({
-      queryKey: ["products", token, page, selected, keyword, size],
+      queryKey: ["products", page, selected, keyword, size],
       queryFn: async () => {
-        const orderBy = `orderBy=${selected.type === "최신순" ? "recent" : "favorite"}`;
-        const keyword = input ? `keyword=${input}` : "";
-        const pageNum = page !== 1 ? `page=${page}` : "";
-        const pageSize = `pageSize=${size === "mobile" ? 4 : size === "tablet" ? 6 : 10}`;
-        const query = [orderBy, keyword, pageNum, pageSize]
-          .filter(Boolean)
-          .join("&");
-        const result = await itemService.getItems(query);
-        console.log(result);
+        const queryParams = new URLSearchParams({
+          orderBy: selected.type,
+          pageSize: size === "mobile" ? 4 : size === "tablet" ? 6 : 10,
+          ...(input && { keyword: input }),
+          ...(page !== 1 && { page }),
+        });
+        const result = await itemService.getItems(queryParams);
         return result;
       },
     });
 
   const { data: best = { list: [] }, isPending: isBestPending } = useQuery({
-    queryKey: ["best", token, size],
+    queryKey: ["best", size],
     queryFn: () => {
       const pageSize = `pageSize=${size === "mobile" ? 1 : size === "tablet" ? 2 : 4}`;
       return itemService.getItems(`orderBy=favorite&${pageSize}&page=1`);
@@ -59,19 +56,7 @@ export default function ItemPage() {
   });
 
   return (
-    <div
-      className="
-        mx-auto
-        flex flex-col
-        flex-1
-        gap-[40px]
-        pt-[16px]
-        pb-[140px]
-        w-[1200px]
-        max-[1280px]:w-fit
-        max-[1280px]:px-[24px]
-      "
-    >
+    <div className="mx-auto flex flex-col flex-1 gap-[40px] pt-[16px] pb-[140px] w-[1200px] max-[1280px]:w-fit max-[1280px]:px-[24px]">
       {/* 베스트 상품 */}
       <ProductCardList
         title="베스트 상품"
@@ -103,7 +88,7 @@ export default function ItemPage() {
                   width={24}
                   height={24}
                   src="/icons/ic_search.svg"
-                  alt="search icon"
+                  alt="검색 아이콘"
                 />
               }
               placeholder="검색할 상품을 입력하세요"
@@ -125,7 +110,7 @@ export default function ItemPage() {
             />
 
             <Dropdown
-              menu={constant}
+              menus={menu}
               value={selected}
               onChange={(s) => {
                 if (s !== selected) {
@@ -135,7 +120,7 @@ export default function ItemPage() {
               }}
             />
 
-            <Link href="/registeration">
+            <Link href="/items/register">
               <Button variant="rectangle" className="bg-primary">
                 상품 등록하기
               </Button>
@@ -143,7 +128,7 @@ export default function ItemPage() {
           </div>
         ) : (
           <div className="flex flex-col gap-[16px]">
-            <Link href="/registeration">
+            <Link href="/items/register">
               <Button variant="rectangle" className="bg-primary">
                 상품 등록하기
               </Button>
@@ -169,7 +154,7 @@ export default function ItemPage() {
             />
 
             <Dropdown
-              menu={constant}
+              menus={menu}
               value={selected}
               onChange={(s) => {
                 if (s !== selected) {

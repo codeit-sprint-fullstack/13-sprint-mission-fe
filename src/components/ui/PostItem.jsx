@@ -20,7 +20,7 @@ export default function PostItem({ data }) {
         <div className="flex justify-center items-center bg-white border border-secondary-100 rounded-lg w-[72px] h-[72px]">
           <Image
             src="/images/item.png"
-            alt="product image"
+            alt="제품 이미지"
             width={48}
             height={48}
           />
@@ -50,7 +50,7 @@ export default function PostItem({ data }) {
                 ? "/icons/ic_heart_full.svg"
                 : "/icons/ic_heart_empty.svg"
             }
-            alt="heart icon"
+            alt="좋아요 아이콘"
             width={24}
             height={24}
           />

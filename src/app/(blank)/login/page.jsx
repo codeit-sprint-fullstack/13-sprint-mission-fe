@@ -128,7 +128,7 @@ export default function LoginPage() {
       {!!modalMessage && (
         <Modal
           text={modalMessage}
-          disabled={!!!modalMessage}
+          disabled={!modalMessage}
           onClick={() => setModalMessage("")}
         />
       )}

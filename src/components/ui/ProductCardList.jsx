@@ -12,20 +12,8 @@ export default function ProductCardList({
 }) {
   return (
     <div className="flex flex-col justify-between gap-[20px]">
-      <div
-        className="
-          grid h-fit max-w-full items-center gap-[12px]
-          grid-cols-[1fr_auto_auto_auto]
-          max-[720px]:grid-cols-[1fr_auto]
-        "
-      >
-        <h1
-          className="
-            text-[20px] font-bold
-            max-[720px]:col-[1/3]
-            max-[720px]:row-[1]
-          "
-        >
+      <div className="grid h-fit max-w-full items-center gap-[12px] grid-cols-[1fr_auto_auto_auto] max-[720px]:grid-cols-[1fr_auto]">
+        <h1 className="text-[20px] font-bold max-[720px]:col-[1/3] max-[720px]:row-[1]">
           {title}
         </h1>
 
@@ -33,14 +21,7 @@ export default function ProductCardList({
       </div>
 
       <div
-        className="
-          grid max-w-full gap-[24px]
-          auto-rows-fr
-          grid-cols-[repeat(var(--col-desktop),minmax(0,1fr))]
-          max-[1280px]:grid-cols-[repeat(var(--col-tablet),minmax(0,1fr))]
-          max-[720px]:grid-cols-[repeat(var(--col-mobile),minmax(0,1fr))]
-          
-        "
+        className="grid max-w-full gap-[24px] auto-rows-fr grid-cols-[repeat(var(--col-desktop),minmax(0,1fr))] max-[1280px]:grid-cols-[repeat(var(--col-tablet),minmax(0,1fr))] max-[720px]:grid-cols-[repeat(var(--col-mobile),minmax(0,1fr))]"
         style={{
           "--col-desktop": column?.desktop,
           "--col-tablet": column?.tablet,

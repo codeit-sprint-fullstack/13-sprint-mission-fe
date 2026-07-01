@@ -7,6 +7,7 @@ import { userService } from "@/lib/userService";
 const AuthContext = createContext({
   user: null,
   isLogin: false,
+  isAuthLoading: false,
   signup: () => {},
   login: () => {},
   logout: () => {},
@@ -21,6 +22,7 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState({});
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const isLogin = !!Object.values(user).length;
 
   async function signup(data) {
@@ -42,11 +44,13 @@ export default function AuthProvider({ children }) {
   }
   async function getUser() {
     try {
+      setIsAuthLoading(true);
       const result = await userService.getMe();
       setUser(result);
     } catch (e) {
       setUser({});
-      throw new Error(e);
+    } finally {
+      setIsAuthLoading(false);
     }
   }
 
@@ -56,7 +60,9 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLogin, signup, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, isLogin, isAuthLoading, signup, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

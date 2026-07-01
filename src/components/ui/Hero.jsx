@@ -43,7 +43,7 @@ export default function Hero({ text, img, children }) {
           src={img}
           width={752}
           height={340}
-          alt="hero image"
+          alt="히어로 이미지"
           className="
         w-[752px]
         h-auto

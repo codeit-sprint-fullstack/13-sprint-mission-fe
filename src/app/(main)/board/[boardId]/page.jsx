@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
@@ -19,10 +19,9 @@ import { commentService } from "@/lib/commentService";
 
 export default function PostDetailPage() {
   const router = useRouter();
-  const pathname = usePathname();
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const boardId = pathname.split("/")[2];
+  const { boardId } = useParams();
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
@@ -88,7 +87,7 @@ export default function PostDetailPage() {
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
 
-        await deletePost(boardId);
+        deletePost(boardId);
       },
     },
   ];
@@ -112,7 +111,7 @@ export default function PostDetailPage() {
           <h1 className="font-bold text-[20px]/[32px]">{data?.title}</h1>
           <Image
             src="/icons/ic_kebab.svg"
-            alt="kebab icon"
+            alt="케밥 아이콘"
             width={24}
             height={24}
             onClick={() => {
@@ -153,7 +152,7 @@ export default function PostDetailPage() {
                   ? "/icons/ic_heart_full.svg"
                   : "/icons/ic_heart_empty.svg"
               }
-              alt="heart icon"
+              alt="좋아요 아이콘"
               width={32}
               height={32}
             />
@@ -192,8 +191,8 @@ export default function PostDetailPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {/*data?.comments.map((comment, index) => (
-          <div key={index}>
+        {/*data?.comments.map((comment) => (
+          <div key={comment.id}>
             <CommentItem
               data={comment}
               onMenuClick={() => {
@@ -224,7 +223,7 @@ export default function PostDetailPage() {
           목록으로 돌아가기
           <Image
             src="/icons/ic_back.svg"
-            alt="back icon"
+            alt="뒤로가기 아이콘"
             width={24}
             height={24}
           />
@@ -232,7 +231,7 @@ export default function PostDetailPage() {
       </Link>
       <Modal
         text={modalMessage}
-        disabled={!!!modalMessage}
+        disabled={!modalMessage}
         onClick={() => setModalMessage("")}
       />
     </div>

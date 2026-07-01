@@ -5,7 +5,7 @@ export default function UserIcon({ width, height }) {
     <div className="w-fit h-fit rounded-[100%] bg-secondary-300">
       <Image
         src="/icons/ic_user.svg"
-        alt="profile icon"
+        alt="프로필 아이콘"
         width={width}
         height={height}
       />

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import medal from "../assets/ic_medal.png";
+import medal from "../assets/icon/ic_medal.png";
 import defaultImg from "../assets/default.png";
-import heartImg from "../assets/ic_heart.svg";
+import heartImg from "../assets/icon/ic_heart.svg";
 import Link from "next/link";
 
 export default function BestCard({ id, title, date }) {

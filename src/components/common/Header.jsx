@@ -3,11 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import fandaLogo from "../../assets/pandaface.png";
+import fandaLogo from "../../assets/logo/pandaface.svg";
+import profileImg from "../../assets/icon/ic_profile.svg";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Header() {
   const path = usePathname();
+  const { user } = useAuth();
   return (
     <header className="bg-white border-b border-[#DFDFDF] w-full h-17.5">
       <div className="flex justify-between items-center h-full ml-50 max-w-[120rem]">
@@ -32,21 +35,34 @@ export default function Header() {
               자유게시판
             </Link>
             <Link
-              className={`py-6 px-4 font-pretendard font-bold  ${path === "/product" ? "text-[#3692FF]" : ""}`}
-              href={"/product"}
+              className={`py-6 px-4 font-pretendard font-bold  ${path === "/items" ? "text-[#3692FF]" : ""}`}
+              href={"/items"}
             >
               중고마켓
             </Link>
           </div>
         </nav>
-        <Link
-          href={"/"}
-          className="mr-50 rounded-lg bg-[#3692FF] h-10.5 px-[1.44rem]"
-        >
-          <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">
-            로그인
-          </span>
-        </Link>
+        {user ? (
+          <div className="flex shrink-0 gap-[1rem] items-center pr-[12.5rem]">
+            <Image
+              className="w-[2.5rem] h-[2.5rem]"
+              src={profileImg}
+              alt="프로필 이미지"
+            />
+            <span className="font-pretendard text-[1.125rem] font-[400] leading-[1.5rem] text-[#4B5563]">
+              {user.nickname}
+            </span>
+          </div>
+        ) : (
+          <Link
+            href={"/login"}
+            className="mr-50 rounded-lg bg-[#3692FF] h-10.5 px-[1.44rem]"
+          >
+            <span className="text-white font-pretendard text-center text-[1rem] leading-10.5 font-semibold">
+              로그인
+            </span>
+          </Link>
+        )}
       </div>
     </header>
   );

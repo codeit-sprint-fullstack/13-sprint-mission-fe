@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import FacebookImg from "../../assets/ic_facebook.svg";
-import InstagramImg from "../../assets/ic_instagram.svg";
-import TwitterImg from "../../assets/ic_twitter.svg";
-import YoutubeImg from "../../assets/ic_youtube.svg";
+import FacebookImg from "../../assets/social/ic_facebook.svg";
+import InstagramImg from "../../assets/social/ic_instagram.svg";
+import TwitterImg from "../../assets/social/ic_twitter.svg";
+import YoutubeImg from "../../assets/social/ic_youtube.svg";
 import Image from "next/image";
 
 export default function Footer() {

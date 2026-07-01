@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 16px;
+  color: inherit;
+  cursor: pointer;
+}
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.title {
+  width: 100%;
+  padding-bottom: 6px;
+  color: var(--color-secondary-800);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.price {
+  width: 100%;
+  padding-bottom: 6px;
+  color: var(--color-secondary-800);
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-secondary-600);
+}
+.likeIcon {
+  width: 16px;
+  height: 16px;
+}

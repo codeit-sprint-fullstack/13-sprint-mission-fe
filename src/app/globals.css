@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ==================================================
+   기본 CSS 변수
+================================================== */
+:root {
+  /* Brand */
+  --token-blue: #3692ff;
+  --token-yellow: #ffc117;
+  --token-blue-light: #e6f2ff;
+
+  /* Gray */
+  --token-gray-50: #f9fafb;
+  --token-gray-100: #f3f4f6;
+  --token-gray-200: #e5e7eb;
+  --token-gray-300: #d1d5db;
+  --token-gray-400: #9ca3af;
+  --token-gray-500: #6b7280;
+  --token-gray-600: #4b5563;
+  --token-gray-700: #374151;
+  --token-gray-800: #1f2937;
+  --token-gray-900: #111827;
+
+  /* Base */
+  --token-white: #ffffff;
+  --token-black: #000000;
+
+  /* Font */
+  --token-font-pretendard:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+/* ==================================================
+   Tailwind Theme
+================================================== */
+@theme inline {
+  /* Brand colors */
+  --color-brand-blue: var(--token-blue);
+  --color-brand-yellow: var(--token-yellow);
+  --color-brand-blue-light: var(--token-blue-light);
+
+  /* Gray colors */
+  --color-gray-50: var(--token-gray-50);
+  --color-gray-100: var(--token-gray-100);
+  --color-gray-200: var(--token-gray-200);
+  --color-gray-300: var(--token-gray-300);
+  --color-gray-400: var(--token-gray-400);
+  --color-gray-500: var(--token-gray-500);
+  --color-gray-600: var(--token-gray-600);
+  --color-gray-700: var(--token-gray-700);
+  --color-gray-800: var(--token-gray-800);
+  --color-gray-900: var(--token-gray-900);
+
+  /* Base colors */
+  --color-white: var(--token-white);
+  --color-black: var(--token-black);
+
+  /* Font */
+  --font-sans: var(--token-font-pretendard);
+  --font-pretendard: var(--token-font-pretendard);
+
+  /* Breakpoints */
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+
+  /* Max width */
+  --container-page: 1200px;
+  --container-layout: 1520px;
+  --container-auth: 640px;
+
+  /* Body typography */
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 24px;
+  --text-body-sm--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 26px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 26px;
+  --text-body-lg--font-weight: 700;
+
+  /* Title typography */
+  --text-title-sm: 16px;
+  --text-title-sm--line-height: 26px;
+  --text-title-sm--font-weight: 600;
+
+  --text-title-md: 20px;
+  --text-title-md--line-height: 32px;
+  --text-title-md--font-weight: 700;
+
+  /* Button typography */
+  --text-btn: 16px;
+  --text-btn--line-height: 26px;
+  --text-btn--font-weight: 600;
+}
+
+/* ==================================================
+   Global Base Styles
+================================================== */
+@layer base {
+  html {
+    min-width: 320px;
+    background-color: var(--token-white);
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    font-family: var(--token-font-pretendard);
+    color: var(--token-gray-800);
+    background-color: var(--token-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  .max-w-auth {
+    max-width: var(--container-auth);
+  }
+}

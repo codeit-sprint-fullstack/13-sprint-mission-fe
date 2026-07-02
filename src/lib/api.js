@@ -1,7 +1,8 @@
 import axios from "axios";
 import { ACCESS_TOKEN_KEY, clearTokens } from "./auth";
 
-export const API_BASE_URL = "https://panda-market-api.vercel.app";
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:4000";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -56,6 +57,17 @@ export const userApi = {
   },
 };
 
+export const imageApi = {
+  upload: async (files) => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("images", file));
+    const { data } = await api.post("/uploads/images", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return data;
+  },
+};
+
 export const productApi = {
   list: async (params) => {
     const { data } = await api.get("/products", { params });
@@ -63,6 +75,10 @@ export const productApi = {
   },
   detail: async (productId) => {
     const { data } = await api.get(`/products/${productId}`);
+    return data;
+  },
+  create: async (body) => {
+    const { data } = await api.post("/products", body);
     return data;
   },
   update: async (productId, body) => {
@@ -83,6 +99,41 @@ export const productApi = {
   },
 };
 
+export const articleApi = {
+  list: async (params) => {
+    const { data } = await api.get("/articles", { params });
+    return data;
+  },
+  best: async (params) => {
+    const { data } = await api.get("/articles/best", { params });
+    return data;
+  },
+  detail: async (articleId) => {
+    const { data } = await api.get(`/articles/${articleId}`);
+    return data;
+  },
+  create: async (bdoy) => {
+    const { data } = await api.post("/articles", body);
+    return data;
+  },
+  update: async (articleId, body) => {
+    const { data } = await api.patch(`/articles/${articleId}`, body);
+    return data;
+  },
+  remove: async (articleId) => {
+    const { data } = await api.delete(`/articles/${articleId}`);
+    return data;
+  },
+  favorite: async (articleId) => {
+    const { data } = await api.post(`/articles/${articleId}/favorite`);
+    return data;
+  },
+  unfavorite: async (articleId) => {
+    const { data } = await api.delete(`/articles/${articleId}/favorite`);
+    return data;
+  },
+};
+
 export const commentApi = {
   list: async (productId, cursor) => {
     const { data } = await api.get(`/products/${productId}/comments`, {
@@ -92,6 +143,18 @@ export const commentApi = {
   },
   create: async (productId, content) => {
     const { data } = await api.post(`/products/${productId}/comments`, {
+      content,
+    });
+    return data;
+  },
+  listArticle: async (articleId, cursor) => {
+    const { data } = await api.get(`/articles/${articleId}/comments`, {
+      params: { limit: 10, cursor: cursor || undefined },
+    });
+    return data;
+  },
+  createArticle: async (articleId, content) => {
+    const { data } = await api.post(`/articles/${articleId}/comments`, {
       content,
     });
     return data;

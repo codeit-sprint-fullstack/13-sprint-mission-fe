@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LogIn, UserRound } from "lucide-react";
 import Logo from "./Logo";
 import { clearTokens, getAccessToken } from "@/lib/auth";
@@ -12,7 +12,10 @@ import { queryKeys } from "@/lib/queries";
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [hasToken, setHasToken] = useState(false);
+  const isBoard = pathname?.startsWith("/board") || pathname?.startsWith("/freeboard");
+  const isItems = pathname?.startsWith("/items");
 
   useEffect(() => {
     setHasToken(Boolean(getAccessToken()));
@@ -39,8 +42,18 @@ export default function Header() {
           className="flex gap-7 text-[16px] font-bold text-[#1f2937]"
           aria-label="주요 메뉴"
         >
-          <Link href="/board">자유게시판</Link>
-          <Link href="/items">중고마켓</Link>
+          <Link
+            className={isBoard ? "text-[#3692ff]" : "transition-colors hover:text-[#3692ff]"}
+            href="/board"
+          >
+            자유게시판
+          </Link>
+          <Link
+            className={isItems ? "text-[#3692ff]" : "transition-colors hover:text-[#3692ff]"}
+            href="/items"
+          >
+            중고마켓
+          </Link>
         </nav>
         <div className="ml-auto">
           {hasToken ? (

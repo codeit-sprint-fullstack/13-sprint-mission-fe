@@ -24,7 +24,7 @@ export default function ArticleDetailPage() {
   });
   const commentsQuery = useQuery({
     queryKey: queryKeys.articleComments(articleId),
-    aueryFn: () => commentApi.listArticle(articleId),
+    queryFn: () => commentApi.listArticle(articleId),
   });
 
   const toggleLike = useMutation({

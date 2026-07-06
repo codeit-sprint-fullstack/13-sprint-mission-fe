@@ -112,7 +112,7 @@ export const articleApi = {
     const { data } = await api.get(`/articles/${articleId}`);
     return data;
   },
-  create: async (bdoy) => {
+  create: async (body) => {
     const { data } = await api.post("/articles", body);
     return data;
   },

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, Search } from "lucide-react";
 import { useState } from "react";
-import Header from "@/components/commen/Header";
+import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { articleApi } from "@/lib/api";
 import { queryKeys } from "@/lib/queries";
@@ -88,8 +88,8 @@ export default function FreeboardPage() {
   });
 
   const search = (event) => {
-    event.preventDafault();
-    setDraftKeyword(draftKeyword.trim());
+    event.preventDefault();
+    setKeyword(draftKeyword.trim());
   };
 
   return (
@@ -102,7 +102,7 @@ export default function FreeboardPage() {
           <h1 className="mb-[18px] text-xl font-bold">베스트 게시글</h1>
           <div className="grid gap-5 desktop:grid-cols-3">
             {bestQuery.data?.list?.map((article) => (
-              <ArticleCard article={article} best key={artivle.id} />
+              <ArticleCard article={article} best key={article.id} />
             ))}
           </div>
         </section>
@@ -120,7 +120,7 @@ export default function FreeboardPage() {
           <div className="mb-3 flex flex-col items-stretch gap-3 desktop:flex-row desktop:items-center">
             <form
               className="relative h-[42px] w-full rounded-lg bg-[#f3f4f6] text-gray-400 desktop:w-[min(520px,52vw)]"
-              onSubmit={serach}
+              onSubmit={search}
             >
               <Search
                 className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2"

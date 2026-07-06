@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { Heart, MoreVertical, RotateCcw, UserRound } from "lucide-react";
@@ -9,7 +9,6 @@ import Footer from "@/components/common/Footer";
 import Modal from "@/components/common/Modal";
 import ProductEditModal from "@/components/product/ProductEditModal";
 import { commentApi, getErrorMessage, productApi } from "@/lib/api";
-import { getAccessToken } from "@/lib/auth";
 import { queryKeys } from "@/lib/queries";
 
 const shellClass =
@@ -17,7 +16,7 @@ const shellClass =
 
 export default function ItemDetailPage() {
   const params = useParams();
-  const productId = Number(params.itemId);
+  const productId = params.itemId;
   const router = useRouter();
   const queryClient = useQueryClient();
   const [comment, setComment] = useState("");
@@ -31,13 +30,13 @@ export default function ItemDetailPage() {
   const productQuery = useQuery({
     queryKey: queryKeys.product(productId),
     queryFn: () => productApi.detail(productId),
-    enabled: Number.isFinite(productId) && Boolean(getAccessToken()),
+    enabled: Boolean(productId),
   });
 
   const commentsQuery = useQuery({
     queryKey: queryKeys.comments(productId),
     queryFn: () => commentApi.list(productId),
-    enabled: Number.isFinite(productId),
+    enabled: Boolean(productId),
   });
 
   const updateProductMutation = useMutation({
@@ -78,11 +77,15 @@ export default function ItemDetailPage() {
 
   const createCommentMutation = useMutation({
     mutationFn: () => commentApi.create(productId, comment.trim()),
-    onSuccess: () => {
-      (setComment(""),
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.comments(productId),
-        }));
+    onSuccess: (createdComment) => {
+      setComment("");
+      queryClient.setQueryData(queryKeys.comments(productId), (current) => ({
+        ...(current || { list: [] }),
+        list: [createdComment, ...(current?.list || [])],
+      }));
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.comments(productId),
+      });
     },
     onError: (error) =>
       setModalMessage(getErrorMessage(error, "댓글 등록에 실패했어요.")),
@@ -115,14 +118,13 @@ export default function ItemDetailPage() {
   const product = productQuery.data;
   const image =
     product?.images?.[0] || "https://picsum.photos/seed/panda-detail/960/720";
-  const formattedDate = useMemo(() => {
-    if (!product?.createdAt) return "";
-    return new Intl.DateTimeFormat("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(new Date(product.createdAt));
-  }, [product?.createdAt]);
+  const formattedDate = product?.createdAt
+    ? new Intl.DateTimeFormat("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(new Date(product.createdAt))
+    : "";
 
   return (
     <div className="bg-white text-[#1f2937]">

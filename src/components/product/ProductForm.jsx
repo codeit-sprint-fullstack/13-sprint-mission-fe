@@ -78,7 +78,7 @@ export default function ProductForm() {
     setServerError("");
     try {
       const uploaded =
-        files.length > 0 ? await imageApi.uploaded(files) : { imageUrls: [] };
+        files.length > 0 ? await imageApi.upload(files) : { imageUrls: [] };
       await productApi.create({
         name: values.name.trim(),
         description: values.description.trim(),

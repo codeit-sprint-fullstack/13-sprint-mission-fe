@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import Link from "next/link";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import ProductCard from "@/components/product/ProductCard";
@@ -22,14 +23,14 @@ export default function ItemsPage() {
 
   const productsQuery = useQuery({
     queryKey: queryKeys.products(page, orderBy, keyword),
-    queryFn: () => productApi.list({ page, pageSize, orderBy, keyword }),
+    queryFn: () => productApi.list({ page, limit: pageSize, orderBy, keyword }),
     refetchInterval: 1000 * 30,
   });
 
   const bestProductsQuery = useQuery({
     queryKey: queryKeys.products(1, "favorite", ""),
     queryFn: () =>
-      productApi.list({ page: 1, pageSize: 4, orderBy: "favorite" }),
+      productApi.list({ page: 1, limit: 4, orderBy: "favorite" }),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -44,7 +45,12 @@ export default function ItemsPage() {
       queryClient.prefetchQuery({
         queryKey: queryKeys.products(page + 1, orderBy, keyword),
         queryFn: () =>
-          productApi.list({ page: page + 1, pageSize, orderBy, keyword }),
+          productApi.list({
+            page: page + 1,
+            limit: pageSize,
+            orderBy,
+            keyword,
+          }),
       });
     }
   }, [keyword, orderBy, page, queryClient, totalPages]);
@@ -115,12 +121,12 @@ export default function ItemsPage() {
                   placeholder="검색할 상품을 입력해주세요"
                 />
               </form>
-              <button
+              <Link
                 className="inline-flex min-h-[42px] items-center justify-center rounded-lg bg-[#3692ff] px-[18px] font-bold text-white"
-                type="button"
+                href="/items/new"
               >
                 상품 등록하기
-              </button>
+              </Link>
               <label className="relative inline-flex w-full items-center desktop:w-auto">
                 <select
                   className="h-[42px] w-full appearance-none rounded-lg border border-[#e5e7eb] bg-white pl-4 pr-[38px] font-bold"

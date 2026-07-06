@@ -26,20 +26,20 @@ export default function ProductCard({ product }) {
       onMouseEnter={prefetchDetail}
       onFocus={prefetchDetail}
     >
-      <span className="aspect-square overflow-hidden rounded-lg bg-[#f3f4f6]">
+      <span className="block aspect-square overflow-hidden rounded-lg bg-[#f3f4f6]">
         <img
           className="h-full w-full object-cover transition-transform duration-200 hover:scale-[1.03]"
           src={image}
           alt={product.name}
         />
-        <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-          {product.name}
-        </span>
-        <strong>{product.price.toLocaleString("ko-KR")}원</strong>
-        <span className="inline-flex items-center gap-1 text-[13px] text-[#6b7280]">
-          <Heart size={14} />
-          {product.favoriteCount.toLocaleString("ko-KR")}
-        </span>
+      </span>
+      <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+        {product.name}
+      </span>
+      <strong>{product.price.toLocaleString("ko-KR")}원</strong>
+      <span className="inline-flex items-center gap-1 text-[13px] text-[#6b7280]">
+        <Heart size={14} />
+        {(product.favoriteCount ?? 0).toLocaleString("ko-KR")}
       </span>
     </Link>
   );

@@ -44,27 +44,32 @@ export default function PostDetailPage() {
       setModalMessage(e.message);
     },
   });
+  const { mutate: postComment } = useMutation({
+    mutationFn: () => {
+      if (!comment.trim()) return;
 
-  // 제공된 API에 Product의 Comment만 있고 Article의 Comment는 없어서 잠시 주석 처리
-  async function postComment() {
-    // validation
-    if (!comment.trim()) return;
-
-    // userId는 아직 회원가입이 만들어지지 않아서 임의로 1로 지정
-    await commentService.postComment(boardId, {
-      content: comment,
-      userId: 1,
-    });
-    setComment("");
-    getPostDetail();
-  }
-  async function deleteComment() {
-    const result = confirm("댓글을 삭제하시겠습니까?");
-    if (!result) return;
-
-    await commentService.deleteComment(boardId, openedMenuId);
-    getPostDetail();
-  }
+      return commentService.postComment(boardId, {
+        content: comment,
+        userId: 1,
+      });
+    },
+    onSuccess: () => {
+      setComment("");
+      queryClient.invalidateQueries({
+        queryKey: ["board"],
+      });
+    },
+  });
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: (commentId) => {
+      return commentService.deleteComment(boardId, commentId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["board"],
+      });
+    },
+  });
 
   const boardMenus = [
     {
@@ -91,15 +96,21 @@ export default function PostDetailPage() {
       },
     },
   ];
-  const commentMenus = [
+  const createCommentMenus = (comment) => [
     {
       name: "수정하기",
       onClick: () => {},
     },
     {
       name: "삭제하기",
-      onClick: async () => {
-        await deleteComment();
+      onClick: () => {
+        if (user.id !== comment.user.id) {
+          setModalMessage("게시글 작성자만 수정할 수 있습니다.");
+          return;
+        }
+        const result = confirm("게시글을 삭제하시겠습니까?");
+        if (!result) return;
+        deleteComment(comment.id);
       },
     },
   ];
@@ -203,7 +214,7 @@ export default function PostDetailPage() {
             >
               {comment.id === openedMenuId && (
                 <Menu
-                  menus={commentMenus}
+                  menus={createCommentMenus(comment)}
                   onClick={() => {
                     setOpenedMenuId(null);
                   }}

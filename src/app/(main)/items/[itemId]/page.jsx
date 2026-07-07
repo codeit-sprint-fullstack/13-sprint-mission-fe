@@ -2,38 +2,86 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useRouter, useParams } from "next/navigation";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import FormField from "@/components/ui/FormField";
 import UserIcon from "@/components/ui/UserIcon";
 import Button from "@/components/ui/Button";
 import CommentItem from "@/components/ui/CommentItem";
 import Menu from "@/components/ui/Menu";
+import Modal from "@/components/ui/Modal";
 
+import { useAuth } from "@/providers/AuthProvider";
 import { itemService } from "@/lib/itemService";
+import { itemCommentService } from "@/lib/itemCommentService";
 import { getDate } from "@/utils/getDate";
 import { useState } from "react";
 
 export default function ItemPage() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [comment, setComment] = useState("");
   const [openedMenuId, setOpenedMenuId] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
   const { itemId } = useParams();
+
   const { data } = useQuery({
     queryKey: ["product", itemId],
     queryFn: () => itemService.getItem(itemId),
   });
+  const { mutate: deleteItem } = useMutation({
+    mutationKey: ["product", itemId],
+    mutationFn: () => itemService.deleteItem(itemId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+      router.push("/items");
+    },
+  });
+  const { mutate: postComment } = useMutation({
+    mutationKey: ["product", itemId, "comment"],
+    mutationFn: () =>
+      itemCommentService.postItemComment(itemId, { content: comment }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["product", itemId],
+      });
+      setComment("");
+    },
+  });
+  const { mutate: deleteComment } = useMutation({
+    mutationKey: ["product", itemId, "comment"],
+    mutationFn: (commentId) =>
+      itemCommentService.deleteItemComment(itemId, commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["product", itemId],
+      });
+    },
+    onError: (e) => {
+      setModalMessage(e.message);
+    },
+  });
 
-  const commentMenus = [
+  const createCommentMenus = (comment) => [
     {
       name: "수정하기",
       onClick: () => {},
     },
     {
       name: "삭제하기",
-      onClick: async () => {
-        await deleteComment();
+      onClick: () => {
+        if (user.id !== comment.user.id) {
+          setModalMessage("게시글 작성자만 수정할 수 있습니다.");
+          return;
+        }
+        const result = confirm("게시글을 삭제하시겠습니까?");
+        if (!result) return;
+        deleteComment(comment.id);
       },
     },
   ];
@@ -45,7 +93,7 @@ export default function ItemPage() {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
-        router.push(`/board/${boardId}/edit`);
+        router.push(`/items/${itemId}/edit`);
       },
     },
     {
@@ -55,16 +103,16 @@ export default function ItemPage() {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
+
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
 
-        deletePost(boardId);
+        deleteItem();
       },
     },
   ];
 
   if (!data) return <div className="flex-1">Loading...</div>;
-  console.log(data);
   return (
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <div className="w-full flex gap-[16px] pb-[32px] border-b border-b-secondary-200 max-tablet:flex-col">
@@ -116,11 +164,11 @@ export default function ItemPage() {
             <h2 className="text-[14px]/[24px] text-secondary-600 font-semibold mb-[8px]">
               상품 태그
             </h2>
-            <div className="flex gap-[8px]">
+            <div className="flex flex-wrap gap-[8px]">
               {data.tags.map((tag) => (
                 <div
                   key={tag.id}
-                  className="bg-secondary-100 rounded-[26px] px-[16px] py-[5px]"
+                  className="whitespace-nowrap bg-secondary-100 rounded-[26px] px-[16px] py-[5px]"
                 >
                   #{tag.name}
                 </div>
@@ -163,7 +211,7 @@ export default function ItemPage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          //postComment();
+          postComment();
         }}
         className="my-[40px]"
       >
@@ -189,6 +237,17 @@ export default function ItemPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
+        {!data?.comments.length && (
+          <div>
+            <Image
+              src="/images/emtpy_product_comment.png"
+              width={195}
+              height={230}
+              alt="문의 없음 이미지"
+              className="m-auto"
+            />
+          </div>
+        )}
         {data?.comments.map((comment) => (
           <div key={comment.id}>
             <CommentItem
@@ -201,7 +260,7 @@ export default function ItemPage() {
             >
               {comment.id === openedMenuId && (
                 <Menu
-                  menus={commentMenus}
+                  menus={createCommentMenus(comment)}
                   onClick={() => {
                     setOpenedMenuId(null);
                   }}
@@ -227,6 +286,11 @@ export default function ItemPage() {
           />
         </Button>
       </Link>
+      <Modal
+        text={modalMessage}
+        disabled={!modalMessage}
+        onClick={() => setModalMessage("")}
+      />
     </div>
   );
 }

@@ -46,7 +46,7 @@ export default function PostDetailPage() {
   });
 
   // 제공된 API에 Product의 Comment만 있고 Article의 Comment는 없어서 잠시 주석 처리
-  /*async function postComment() {
+  async function postComment() {
     // validation
     if (!comment.trim()) return;
 
@@ -64,7 +64,7 @@ export default function PostDetailPage() {
 
     await commentService.deleteComment(boardId, openedMenuId);
     getPostDetail();
-  }*/
+  }
 
   const boardMenus = [
     {
@@ -91,7 +91,7 @@ export default function PostDetailPage() {
       },
     },
   ];
-  /*const commentMenus = [
+  const commentMenus = [
     {
       name: "수정하기",
       onClick: () => {},
@@ -102,7 +102,7 @@ export default function PostDetailPage() {
         await deleteComment();
       },
     },
-  ];*/
+  ];
 
   return (
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
@@ -191,7 +191,7 @@ export default function PostDetailPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {/*data?.comments.map((comment) => (
+        {data?.comments.map((comment) => (
           <div key={comment.id}>
             <CommentItem
               data={comment}
@@ -212,7 +212,7 @@ export default function PostDetailPage() {
               )}
             </CommentItem>
           </div>
-        ))*/}
+        ))}
       </div>
       <Link href="/board">
         <Button

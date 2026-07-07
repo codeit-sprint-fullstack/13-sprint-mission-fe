@@ -25,7 +25,7 @@ const menu = [
   },
 ];
 
-export default function ItemPage() {
+export default function ItemsPage() {
   const size = useResponsiveWidth();
   const [input, setInput] = useState("");
   const [keyword, setKeyword] = useState("");

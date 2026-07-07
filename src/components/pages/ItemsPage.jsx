@@ -29,8 +29,7 @@ export default function ItemsPage() {
 
   const bestProductsQuery = useQuery({
     queryKey: queryKeys.products(1, "favorite", ""),
-    queryFn: () =>
-      productApi.list({ page: 1, limit: 4, orderBy: "favorite" }),
+    queryFn: () => productApi.list({ page: 1, limit: 4, orderBy: "favorite" }),
     staleTime: 1000 * 60 * 5,
   });
 

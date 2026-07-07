@@ -1,4 +1,4 @@
-import { tempFetch, tempAuthFetch } from "./fetchClient";
+import { apiFetch } from "./fetchClient";
 export const itemService = {
-  getItems: (query) => tempFetch(`/products${query ? `?${query}` : ""}`),
+  getItems: (query) => apiFetch(`/products${query ? `?${query}` : ""}`),
 };

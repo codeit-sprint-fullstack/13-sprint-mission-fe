@@ -1,79 +1,6 @@
-export const defaultFetch = async (url, options = {}) => {
+export const apiFetch = async (url, options = {}) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-  const defaultOptions = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  };
-
-  const mergedOptions = {
-    ...defaultOptions,
-    ...options,
-    headers: {
-      ...defaultOptions.headers,
-      ...options.headers,
-    },
-  };
-
-  const response = await fetch(`${baseURL}${url}`, mergedOptions);
-
-  if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
-  }
-
-  // 응답 본문이 있는지 확인
-  const contentType = response.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
-  }
-
-  // 본문이 없거나 JSON이 아닌 경우 응답 객체 자체 반환
-  return { status: response.status, ok: response.ok };
-};
-
-// 이미 만들어진 서버 사용하는 fetch (내 서버 안 씀)
-export const tempFetch = async (url, options = {}) => {
-  const baseURL = process.env.NEXT_PUBLIC_API_TEMP_URL;
-  const defaultOptions = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  };
-
-  const mergedOptions = {
-    ...defaultOptions,
-    ...options,
-    headers: {
-      ...defaultOptions.headers,
-      ...options.headers,
-    },
-  };
-
-  const response = await fetch(`${baseURL}${url}`, mergedOptions);
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message);
-  }
-
-  // 응답 본문이 있는지 확인
-  const contentType = response.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
-  }
-
-  // 본문이 없거나 JSON이 아닌 경우 응답 객체 자체 반환
-  return { status: response.status, ok: response.ok };
-};
-
-// 이미 만들어진 서버 사용하는 accessToken 포함한 fetch (내 서버 안 씀)
-export const tempAuthFetch = async (url, options = {}) => {
-  const baseURL = process.env.NEXT_PUBLIC_API_TEMP_URL;
   let accessToken;
-
-  // 클라이언트 사이드인 경우에만 localStorage 접근
   if (typeof window !== "undefined") {
     accessToken = localStorage.getItem("accessToken");
   }
@@ -81,9 +8,11 @@ export const tempAuthFetch = async (url, options = {}) => {
   const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
-      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+      ...(accessToken && {
+        Authorization: `Bearer ${accessToken}`,
+      }),
     },
-    /**TODO: next:{revalidate:60}해서 60초마다 재검증하게 만들기 refreshToken으로 accessToken 갱신하는 코드 추가하기 */
+    cache: "no-store",
   };
 
   const mergedOptions = {
@@ -97,11 +26,12 @@ export const tempAuthFetch = async (url, options = {}) => {
 
   const response = await fetch(`${baseURL}${url}`, mergedOptions);
 
-  /**TODO: refreshToken으로 accessToken 갱신하는 코드 추가하기 */
-
+  if (response.status === 401) {
+    /**TODO: refreshToken으로 accessToken 갱신하는 코드 추가하기 */
+  }
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message);
+    /**TODO: 서버에서 보낸 에러 메세지 보내기 */
+    throw new Error(`API error: ${response.status}`);
   }
 
   // 응답 본문이 있는지 확인

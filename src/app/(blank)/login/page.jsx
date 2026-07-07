@@ -31,7 +31,7 @@ export default function LoginPage() {
           e.preventDefault();
           try {
             await login(data);
-            router.push("/market");
+            router.push("/items");
           } catch (e) {
             setModalMessage(e.message);
           }

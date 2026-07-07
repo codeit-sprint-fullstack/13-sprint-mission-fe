@@ -70,7 +70,7 @@ export default function PostDetailPage() {
     {
       name: "수정하기",
       onClick: () => {
-        if (user.id !== data.writer.id) {
+        if (user.id !== data.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
@@ -80,7 +80,7 @@ export default function PostDetailPage() {
     {
       name: "삭제하기",
       onClick: async () => {
-        if (user.id !== data.writer.id) {
+        if (user.id !== data.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
@@ -133,7 +133,7 @@ export default function PostDetailPage() {
           <div className="flex items-center">
             <UserIcon width={40} height={40} />
             <h2 className="text-[14px]/[24px] font-medium ml-[16px] mr-[8px]">
-              {data?.writer.nickname}
+              {data?.user.username}
             </h2>
             <p className="text-[14px]/[24px] text-secondary-400 font-normal">
               {getDate(data?.createdAt)}
@@ -156,7 +156,7 @@ export default function PostDetailPage() {
               width={32}
               height={32}
             />
-            {data?.likeCount}
+            {data?.favoriteCount}
           </div>
         </div>
       </header>

@@ -14,9 +14,10 @@ import PopularPostCard from "@/components/ui/PopularPostCard";
 import { boardService } from "@/lib/boardService";
 import "swiper/css";
 
+const pageSize = 10;
 const menu = [
-  { id: 1, type: "recent", name: "최신순" },
-  { id: 2, type: "like", name: "좋아요순" },
+  { id: 1, type: "createdAt", name: "최신순" },
+  { id: 2, type: "favoriteCount", name: "좋아요순" },
 ];
 
 export default function BoardListPage() {
@@ -28,6 +29,8 @@ export default function BoardListPage() {
     queryFn: () => {
       const queryParams = new URLSearchParams({
         orderBy: selected.type,
+        pageSize,
+        page: 1,
         ...(input && { keyword: input }),
       });
       return boardService.getArticles(queryParams);

@@ -23,7 +23,7 @@ export const useAuth = () => {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState({});
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const isLogin = !!Object.values(user).length;
+  const isLogin = !!Object.values(user ?? {}).length;
 
   async function signup(data) {
     const result = await authService.signUp(data);
@@ -32,7 +32,8 @@ export default function AuthProvider({ children }) {
     localStorage.setItem("refreshToken", result.refreshToken);
   }
   async function login(data) {
-    const result = await authService.login(data);
+    const { email, password } = data;
+    const result = await authService.login({ id: email, password });
     setUser(result.user);
     localStorage.setItem("accessToken", result.accessToken);
     localStorage.setItem("refreshToken", result.refreshToken);

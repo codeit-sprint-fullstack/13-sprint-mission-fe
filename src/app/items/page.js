@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ArticleImage from '@/app/components/ArticleImage';
-import { getProducts } from '@/lib/products';
+import Link from 'next/link';
+import { getProductImageUrl, getProducts } from '@/lib/products';
 
 function formatPrice(price) {
   return Number(price ?? 0).toLocaleString('ko-KR');
@@ -12,11 +13,12 @@ function formatPrice(price) {
 
 export default function ItemsPage() {
   const [products, setProducts] = useState([]);
+  const [orderBy, setOrderBy] = useState('recent');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getProducts({ pageSize: 10, orderBy: 'recent' })
+    getProducts({ pageSize: 10, orderBy })
       .then((data) => {
         setProducts(data.list ?? []);
         setError('');
@@ -26,13 +28,36 @@ export default function ItemsPage() {
         setError('상품을 불러오지 못했습니다.');
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [orderBy]);
+
+  function handleOrderChange(event) {
+    setIsLoading(true);
+    setOrderBy(event.target.value);
+  }
 
   return (
     <div className="min-h-screen bg-white">
       <Header active="market" />
       <main className="mx-auto max-w-[1120px] px-6 py-10">
-        <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">중고마켓</h1>
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <h1 className="text-2xl font-bold text-[#1F2937]">중고마켓</h1>
+          <div className="flex items-center gap-3">
+            <select
+              value={orderBy}
+              onChange={handleOrderChange}
+              className="h-12 rounded-xl border border-[#E5E7EB] bg-white px-4 text-base font-medium text-[#1F2937]"
+            >
+              <option value="recent">최신순</option>
+              <option value="favorite">좋아요순</option>
+            </select>
+            <Link
+              href="/items/write"
+              className="flex h-12 w-[88px] items-center justify-center rounded-lg bg-[#3692FF] text-base font-semibold text-white transition-colors hover:bg-blue-600"
+            >
+              등록
+            </Link>
+          </div>
+        </div>
 
         {isLoading ? (
           <p className="py-20 text-center text-sm text-[#9CA3AF]">불러오는 중...</p>
@@ -41,9 +66,9 @@ export default function ItemsPage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {products.map((product) => (
-              <article key={product.id} className="group">
+              <Link key={product.id} href={`/items/${product.id}`} className="group block">
                 <ArticleImage
-                  src={product.images?.[0]}
+                  src={getProductImageUrl(product)}
                   alt={product.name}
                   width={240}
                   height={240}
@@ -56,9 +81,9 @@ export default function ItemsPage() {
                   {formatPrice(product.price)}원
                 </p>
                 <p className="mt-1 text-sm text-[#6B7280]">
-                  ♡ {product.favoriteCount ?? 0}
+                  ♡ {product.likeCount ?? product.favoriteCount ?? 0}
                 </p>
-              </article>
+              </Link>
             ))}
           </div>
         )}

@@ -5,9 +5,11 @@ export const apiFetch = async (url, options = {}) => {
     accessToken = localStorage.getItem("accessToken");
   }
 
+  const isFormData = options.body instanceof FormData;
+
   const defaultOptions = {
     headers: {
-      "Content-Type": "application/json",
+      ...(!isFormData && { "Content-Type": "application/json" }),
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
       }),

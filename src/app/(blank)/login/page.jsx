@@ -64,7 +64,7 @@ export default function LoginPage() {
             value={data.email}
             onChange={(e) => {
               const input = e.target.value.trim();
-              if (!!!input) {
+              if (!input) {
                 setValidationResults((prev) => ({ ...prev, email: true }));
               }
               setData((prev) => ({ ...prev, email: input }));
@@ -86,7 +86,7 @@ export default function LoginPage() {
             value={data.password}
             onChange={(e) => {
               const input = e.target.value.trim();
-              if (!!!e.target.value) {
+              if (!e.target.value) {
                 setValidationResults((prev) => ({ ...prev, password: true }));
               }
               setData((prev) => ({ ...prev, password: e.target.value }));

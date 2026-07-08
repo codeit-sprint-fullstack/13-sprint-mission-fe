@@ -6,4 +6,9 @@ export const itemService = {
     apiFetch(`/products/${itemId}`, {
       method: "DELETE",
     }),
+  postItem: (formData) =>
+    apiFetch("/products", {
+      method: "POST",
+      body: formData,
+    }),
 };

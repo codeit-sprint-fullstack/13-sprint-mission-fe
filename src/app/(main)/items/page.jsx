@@ -46,9 +46,10 @@ export default function ItemsPage() {
         return result;
       },
     });
+  console.log(products);
 
   const { data: best = { list: [] }, isPending: isBestPending } = useQuery({
-    queryKey: ["best", size],
+    queryKey: ["products", "best", size],
     queryFn: () => {
       const pageSize = `pageSize=${size === "mobile" ? 1 : size === "tablet" ? 2 : 4}`;
       return itemService.getItems(`orderBy=favorite&${pageSize}&page=1`);

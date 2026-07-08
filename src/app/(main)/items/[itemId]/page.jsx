@@ -29,11 +29,11 @@ export default function ItemPage() {
   const { itemId } = useParams();
 
   const { data } = useQuery({
-    queryKey: ["product", itemId],
+    queryKey: ["products", itemId],
     queryFn: () => itemService.getItem(itemId),
   });
   const { mutate: deleteItem } = useMutation({
-    mutationKey: ["product", itemId],
+    mutationKey: ["products", itemId],
     mutationFn: () => itemService.deleteItem(itemId),
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -43,23 +43,23 @@ export default function ItemPage() {
     },
   });
   const { mutate: postComment } = useMutation({
-    mutationKey: ["product", itemId, "comment"],
+    mutationKey: ["products", itemId, "comments"],
     mutationFn: () =>
       itemCommentService.postItemComment(itemId, { content: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["product", itemId],
+        queryKey: ["products", itemId],
       });
       setComment("");
     },
   });
   const { mutate: deleteComment } = useMutation({
-    mutationKey: ["product", itemId, "comment"],
+    mutationKey: ["products", itemId, "comments"],
     mutationFn: (commentId) =>
       itemCommentService.deleteItemComment(itemId, commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["product", itemId],
+        queryKey: ["products", itemId],
       });
     },
     onError: (e) => {
@@ -117,10 +117,15 @@ export default function ItemPage() {
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <div className="w-full flex gap-[16px] pb-[32px] border-b border-b-secondary-200 max-tablet:flex-col">
         <Image
-          src="/images/item2.jpg"
+          src={
+            !!data.images.length
+              ? `${process.env.NEXT_PUBLIC_API_URL}/${data.images[0].url}`
+              : "/images/item2.jpg"
+          }
           width={500}
           height={500}
           alt="아이템 이미지"
+          unoptimized
           className="shrink-0 aspect-square rounded-[16px] max-desktop:max-x-[500px] max-desktop:min-x-[350px] max-tablet:w-full"
         />
         <main className="w-full">

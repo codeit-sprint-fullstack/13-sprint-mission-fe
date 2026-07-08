@@ -14,11 +14,16 @@ export default function Item({ data }) {
       className="flex h-full w-full flex-col gap-[16px] cursor-pointer"
     >
       <Image
-        src="/images/item2.jpg"
+        src={
+          !!data.images.length
+            ? `${process.env.NEXT_PUBLIC_API_URL}/${data.images[0].url}`
+            : "/images/item2.jpg"
+        }
         alt={data.name}
         width={300}
         height={300}
         loading="lazy"
+        unoptimized
         onError={(e) => {
           e.target.src = "/images/item2.jpg";
         }}

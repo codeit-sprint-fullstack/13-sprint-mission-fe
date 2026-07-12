@@ -15,7 +15,7 @@ import MobileLogo from "@/app/assets/logo_m.svg";
 
 export default function Header() {
   const pathname = usePathname();
-  const { user, isInitialized } = useAuth();
+  const { user } = useAuth();
 
   if (WIDTH_HEADER_LIST.includes(pathname)) return null;
 
@@ -65,9 +65,7 @@ export default function Header() {
           </nav>
 
           {/* 유저 프로필 + 닉네임 */}
-          {isInitialized && (
-            <Avatar isInitialized={isInitialized} user={user} />
-          )}
+          <Avatar user={user} />
         </div>
       </div>
     </header>

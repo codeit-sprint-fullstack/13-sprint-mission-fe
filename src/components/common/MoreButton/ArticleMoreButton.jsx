@@ -16,7 +16,6 @@ export default function ArticleMoreButton({ articleId }) {
   /** 게시글 삭제 핸들러 */
   async function handleArticleDelete() {
     try {
-      // TODO: deleteArticleAction token인자 추가하기
       const token = getToken();
       const result = await deleteArticleAction(articleId, token);
 
@@ -35,7 +34,6 @@ export default function ArticleMoreButton({ articleId }) {
       if (!user) return;
 
       try {
-        // TODO: GET /users/me/articles 라우터 개발 후 getMyArticles 추가하기
         const myArticles = await userService.getMyArticles();
         setIsMyArticle(
           myArticles.list.some((p) => p.id === parseInt(articleId, 10)),

@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/components/common/Button";
 import InputBasic from "@/components/common/Form/InputBasic";
-import { authService } from "@/lib/services/authService";
+import { useAuth } from "@/providers/AuthProvider";
 import Modal from "@/components/common/Modal/Modal";
 
 export default function SignupForm({ defaultValue = null }) {
   const router = useRouter();
+  const { signup } = useAuth();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 (API 요청 중 중복 제출 방지 및 UI 피드백용)
   const [isModalOpen, setIsModalOpen] = useState(false); // 에러 모달 상태
@@ -66,9 +67,12 @@ export default function SignupForm({ defaultValue = null }) {
       setIsLoading(true);
 
       const formData = new FormData(e.currentTarget);
-      const newFormData = Object.fromEntries(formData.entries());
+      // passwordConfirmation은 클라이언트 검증용이라 백엔드로 보내지 않음
+      const { passwordConfirmation, ...signupData } = Object.fromEntries(
+        formData.entries(),
+      );
 
-      await authService.signUp(newFormData);
+      await signup(signupData);
       router.push("/items"); // 회원 등록 성공 시 중고마켓 페이지로 이동
     } catch (error) {
       setError(error.message);

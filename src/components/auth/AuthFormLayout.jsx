@@ -6,8 +6,8 @@ import PageContainer from "@/components/common/PageContainer";
 import IcGoogle from "@/app/assets/ic_google.svg";
 import IcKakao from "@/app/assets/ic_kakao.svg";
 import Logo from "@/app/assets/logo_login.svg";
-import SigninForm from "@/app/(auth)/_components/SigninForm";
-import SignupForm from "@/app/(auth)/_components/SignupForm";
+import SigninForm from "@/components/auth/SigninForm";
+import SignupForm from "@/components/auth/SignupForm";
 
 export default function AuthFormLayout({ type = "signin" }) {
   return (

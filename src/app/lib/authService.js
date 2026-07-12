@@ -12,10 +12,4 @@ export const authService = {
       method: "POST",
       body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
     }),
-
-  refreshToken: (refreshToken) =>
-    publicFetch("/auth/refresh-token", {
-      method: "POST",
-      body: JSON.stringify({ refreshToken }),
-    }),
 };

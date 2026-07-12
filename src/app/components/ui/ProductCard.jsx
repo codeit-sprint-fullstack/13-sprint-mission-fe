@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { resolveImageUrl } from "@/app/lib/fetchClient";
 
 export default function ProductCard({ product }) {
   return (
@@ -12,7 +13,7 @@ export default function ProductCard({ product }) {
         {product.images?.[0] ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={product.images[0]}
+            src={resolveImageUrl(product.images[0])}
             alt={product.name}
             className="w-full h-full object-cover"
           />
@@ -36,7 +37,7 @@ export default function ProductCard({ product }) {
             width={16}
             height={16}
           />
-          <span>{product.favoriteCount}</span>
+          <span>{product._count?.likes}</span>
         </div>
       </div>
     </Link>

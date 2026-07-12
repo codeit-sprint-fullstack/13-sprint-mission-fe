@@ -1,15 +1,12 @@
 "use client";
 
 import AuthProvider from "@/providers/AuthProvider";
-import RouteGuard from "@/providers/RouteGuard";
 import QueryProvider from "@/providers/QueryProvider";
 
-export default function Providers({ children }) {
+export default function Providers({ children, initialUser }) {
   return (
     <QueryProvider>
-      <AuthProvider>
-        <RouteGuard>{children}</RouteGuard>
-      </AuthProvider>
+      <AuthProvider initialUser={initialUser}>{children}</AuthProvider>
     </QueryProvider>
   );
 }

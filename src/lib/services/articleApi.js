@@ -1,5 +1,7 @@
 /** 게시글 API */
 
+import { tokenFetch } from "@/lib/services/fetchClient";
+
 // GET /articles
 export async function getAllArticles({
   pageSize = 10,
@@ -51,20 +53,13 @@ export async function getArticleById(id) {
 // POST /articles
 export async function createArticle(body) {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    return await tokenFetch("/articles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-
-    if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
-
-    return await response.json();
+      body: JSON.stringify(body),
+    });
   } catch (error) {
     throw new Error("❌ 게시글 등록 실패", { cause: error });
   }
@@ -73,20 +68,13 @@ export async function createArticle(body) {
 // PATCH /articles/:id
 export async function updateArticle(id, body) {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    return await tokenFetch(`/articles/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-
-    if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
-
-    return await response.json();
+      body: JSON.stringify(body),
+    });
   } catch (error) {
     throw new Error("❌ 게시글 수정 실패", { cause: error });
   }

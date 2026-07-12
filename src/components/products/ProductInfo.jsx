@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { useAuth } from "@/providers/AuthProvider";
-import { userService } from "@/lib/services/userService";
-import { getProductById } from "@/lib/services/productApi";
+import { toggleLikeAction } from "@/lib/actions/user";
+import { getProductByIdAction } from "@/lib/actions/products";
 import formatDate from "@/utils/formatDate";
 
 import ProductMoreButton from "@/components/common/MoreButton/ProductMoreButton";
@@ -26,7 +26,6 @@ export default function ProductInfo({ productId }) {
   const { user } = useAuth();
   const router = useRouter();
 
-  const [favoriteCount, setFavoriteCount] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   /** 상품 정보 조회 */
@@ -36,62 +35,45 @@ export default function ProductInfo({ productId }) {
     error,
   } = useQuery({
     queryKey: ["product", productId],
-    queryFn: () => getProductById(productId),
+    queryFn: () => getProductByIdAction(productId),
   });
 
-  /** 사용자가 좋아요한 상품 확인 */
-  const { data: isActive = false } = useQuery({
-    queryKey: ["favorite", productId],
-    queryFn: () => userService.getProductFavoriteStatus(productId),
-    enabled: !!user, // 로그인 시에만 실행
-  });
+  const isActive = product?.isLiked ?? false;
+  const favoriteCount = product?.likeCount ?? 0;
 
-  /** 좋아요 버튼 토글
-   * wasActive: 클릭 시점의 isActive 값
-   */
+  /** 좋아요 토글 (추가/취소 겸용) */
   const { mutate: toggleLike } = useMutation({
-    mutationFn: (wasActive) =>
-      wasActive
-        ? userService.deleteProductFavorite(product.id)
-        : userService.updateProductFavorite(product.id),
+    mutationFn: () => toggleLikeAction(product.id),
 
     // 낙관적 업데이트
-    onMutate: async (wasActive) => {
-      await queryClient.cancelQueries({ queryKey: ["favorite", productId] });
-      const previousIsActive = queryClient.getQueryData([
-        "favorite",
-        productId,
-      ]);
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["product", productId] });
+      const previousProduct = queryClient.getQueryData(["product", productId]);
 
-      queryClient.setQueryData(["favorite", productId], !wasActive);
-      setFavoriteCount((prev) => (wasActive ? prev - 1 : prev + 1));
+      queryClient.setQueryData(["product", productId], (old) =>
+        old
+          ? {
+              ...old,
+              isLiked: !old.isLiked,
+              likeCount: old.isLiked ? old.likeCount - 1 : old.likeCount + 1,
+            }
+          : old,
+      );
 
-      return { previousIsActive };
+      return { previousProduct };
     },
 
     // 실패 시 롤백
-    onError: (error, wasActive, context) => {
-      queryClient.setQueryData(
-        ["favorite", productId],
-        context.previousIsActive,
-      );
-      setFavoriteCount((prev) => (wasActive ? prev + 1 : prev - 1));
+    onError: (error, _vars, context) => {
+      queryClient.setQueryData(["product", productId], context.previousProduct);
       console.error("좋아요 처리에 실패했습니다.", error.message, error.cause);
     },
 
     // 성공 시 서버 데이터로 동기화
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["favorite", productId] });
       queryClient.invalidateQueries({ queryKey: ["product", productId] });
     },
   });
-
-  useEffect(() => {
-    if (product?.favoriteCount !== undefined) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFavoriteCount(product.favoriteCount);
-    }
-  }, [product?.favoriteCount]);
 
   if (isPending) return <LoadingDisplay />;
 
@@ -125,7 +107,7 @@ export default function ProductInfo({ productId }) {
               원
             </span>
             <div className='absolute top-0 right-0 z-search-icon'>
-              <ProductMoreButton productId={product.id} />
+              <ProductMoreButton productId={product.id} ownerId={product.ownerId} />
             </div>
           </div>
 
@@ -162,7 +144,7 @@ export default function ProductInfo({ productId }) {
 
                 <div>
                   <p className='text-[14px]/[calc(24/14)] font-medium text-secondary-600'>
-                    {product.ownerNickname}
+                    {product.owner?.nickname}
                   </p>
                   <span className='flex items-center text-[14px]/[calc(24/14)] text-cool-gray-400'>
                     {formatDate(product.createdAt)}
@@ -176,7 +158,7 @@ export default function ProductInfo({ productId }) {
                   <button
                     type='button'
                     onClick={() =>
-                      user ? toggleLike(isActive) : setIsLoginModalOpen(true)
+                      user ? toggleLike() : setIsLoginModalOpen(true)
                     }
                   >
                     {isActive ? (

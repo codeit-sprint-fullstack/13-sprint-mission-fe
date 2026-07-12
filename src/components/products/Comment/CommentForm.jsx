@@ -6,10 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   addCommentAction,
   updateCommentAction,
-} from "@/lib/services/actions/productComments";
-import { renewToken } from "@/lib/services/fetchClient";
-import isTokenExpired from "@/utils/isTokenExpired";
-import { useAuth } from "@/providers/AuthProvider";
+} from "@/lib/actions/productComments";
 
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal/Modal";
@@ -21,7 +18,6 @@ export default function CommentForm({
   setIsEditMode,
 }) {
   const router = useRouter();
-  const { getToken } = useAuth();
   const queryClient = useQueryClient();
 
   const [content, setContent] = useState(comments?.content ?? "");
@@ -40,58 +36,41 @@ export default function CommentForm({
 
   /** 댓글 form 제출 핸들러 */
   async function handleAddComment(formData) {
-    try {
-      let token = getToken();
+    const newContent = formData.get("comment");
 
-      // 토큰 없을 때, API요청 중단 및 모달 오픈
-      if (isTokenExpired(token)) {
-        try {
-          token = await renewToken(localStorage.getItem("refreshToken"));
-        } catch (error) {
-          setIsModalOpen((prev) => ({ ...prev, login: true }));
-          return;
-        }
-      }
+    if (isEditMode) {
+      // 댓글 수정 모드
+      const result = await updateCommentAction({
+        productId: parseInt(productId, 10),
+        commentId: comments.id,
+        content: newContent,
+      });
 
-      const newContent = formData.get("comment");
-
-      if (isEditMode) {
-        try {
-          // 댓글 수정 모드
-          // TODO: 추후 직접 개발한 API로 수정
-          const result = await updateCommentAction({
-            token,
-            productId: parseInt(productId, 10),
-            commentId: comments.id,
-            content: newContent,
-          });
-
-          if (result.success) {
-            setIsModalOpen((prev) => ({ ...prev, edit: true }));
-          }
-        } catch (error) {
-          console.error("댓글 수정 실패:", error);
-        }
-
-        // 댓글 추가 모드
+      if (result.success) {
+        setIsModalOpen((prev) => ({ ...prev, edit: true }));
+      } else if (result.code === "UNAUTHORIZED") {
+        setIsModalOpen((prev) => ({ ...prev, login: true }));
       } else {
-        const result = await addCommentAction({
-          token,
-          productId: parseInt(productId, 10),
-          content: newContent,
-        });
-
-        if (result.success) {
-          setContent("");
-          queryClient.invalidateQueries({
-            queryKey: ["comment", productId],
-          });
-        } else {
-          console.error(result.error);
-        }
+        console.error("댓글 수정 실패:", result.error);
       }
-    } catch (error) {
-      console.error("댓글 등록 실패:", error);
+
+      // 댓글 추가 모드
+    } else {
+      const result = await addCommentAction({
+        productId: parseInt(productId, 10),
+        content: newContent,
+      });
+
+      if (result.success) {
+        setContent("");
+        queryClient.invalidateQueries({
+          queryKey: ["comment", productId],
+        });
+      } else if (result.code === "UNAUTHORIZED") {
+        setIsModalOpen((prev) => ({ ...prev, login: true }));
+      } else {
+        console.error("댓글 등록 실패:", result.error);
+      }
     }
   }
 

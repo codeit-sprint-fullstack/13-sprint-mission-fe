@@ -3,10 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { updateCommentAction } from "@/lib/services/actions/productComments";
-import { renewToken } from "@/lib/services/fetchClient";
-import { useAuth } from "@/providers/AuthProvider";
-import isTokenExpired from "@/utils/isTokenExpired";
+import { updateCommentAction } from "@/lib/actions/productComments";
 import { getRelativeTime } from "@/utils/getRelativeTime";
 
 import Button from "@/components/common/Button";
@@ -15,7 +12,6 @@ import Modal from "@/components/common/Modal/Modal";
 import IcProfile from "@/app/assets/ic_profile.svg";
 
 export default function EditCommentForm({ productId, comments, isEditMode, setIsEditMode }) {
-  const { getToken } = useAuth();
   const router = useRouter();
   const [content, setContent] = useState(comments?.content ?? "");
   const [isModalOpen, setIsModalOpen] = useState({
@@ -25,32 +21,18 @@ export default function EditCommentForm({ productId, comments, isEditMode, setIs
 
   // 댓글 form 제출 핸들러
   async function handleEditComment(formData) {
-    let token = getToken();
+    const result = await updateCommentAction({
+      productId: parseInt(productId, 10),
+      commentId: comments.id,
+      content: formData.get("comment"),
+    });
 
-    // 토큰 없을 때, API요청 중단 및 모달 오픈
-    if (!token || isTokenExpired(token)) {
-      try {
-        token = await renewToken(localStorage.getItem("refreshToken"));
-      } catch {
-        setIsModalOpen((prev) => ({ ...prev, login: true }));
-        return;
-      }
-    }
-
-    try {
-      // TODO: 추후 직접 개발한 API로 수정
-      const result = await updateCommentAction({
-        token,
-        productId: parseInt(productId, 10),
-        commentId: comments.id,
-        content: formData.get("comment"),
-      });
-
-      if (result.success) {
-        setIsModalOpen((prev) => ({ ...prev, edit: true }));
-      }
-    } catch (error) {
-      console.error("댓글 수정 실패:", error);
+    if (result.success) {
+      setIsModalOpen((prev) => ({ ...prev, edit: true }));
+    } else if (result.code === "UNAUTHORIZED") {
+      setIsModalOpen((prev) => ({ ...prev, login: true }));
+    } else {
+      console.error("댓글 수정 실패:", result.error);
     }
   }
 
@@ -77,7 +59,7 @@ export default function EditCommentForm({ productId, comments, isEditMode, setIs
             />
             <div className='ml-[8px] md:ml-[12px]'>
               <p className='mb-[4px] text-[12px]/[calc(18/12)] text-secondary-600'>
-                {comments.writer.nickname}
+                {comments.owner?.nickname ?? "익명"}
               </p>
               <span className='block text-[12px]/[calc(18/12)] text-secondary-400'>
                 {getRelativeTime(comments.createdAt)}

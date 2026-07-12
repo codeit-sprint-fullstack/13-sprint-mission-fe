@@ -6,7 +6,7 @@ import Image from "next/image";
 import { getRelativeTime } from "@/utils/getRelativeTime";
 
 import CommentMoreButton from "@/components/common/MoreButton/CommentMoreButton";
-import EditCommentForm from "@/app/items/[id]/_components/EditCommentForm";
+import EditCommentForm from "./EditCommentForm";
 
 import IcProfile from "@/app/assets/ic_profile.svg";
 import clsx from "clsx";
@@ -35,6 +35,7 @@ export default function CommentItem({ productId, commentId, comments }) {
           <CommentMoreButton
             productId={productId}
             commentId={commentId}
+            isMyComment={comments.isMyComment}
             setIsEditMode={setIsEditMode}
           />
         </div>
@@ -49,7 +50,7 @@ export default function CommentItem({ productId, commentId, comments }) {
         />
         <div className='ml-[8px] md:ml-[12px]'>
           <p className='mb-[4px] text-[12px]/[calc(18/12)] text-secondary-600'>
-            {comments.writer.nickname}
+            {comments.owner?.nickname ?? "익명"}
           </p>
           <span className='block text-[12px]/[calc(18/12)] text-secondary-400'>
             {getRelativeTime(comments.createdAt)}

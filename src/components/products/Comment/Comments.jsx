@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 
-import { getAllCommentAction } from "@/lib/services/actions/productComments";
+import { getAllCommentAction } from "@/lib/actions/productComments";
 
-import CommentForm from "@/app/items/[id]/_components/CommentForm";
-import CommentList from "@/app/items/[id]/_components/CommentList";
-import NoComment from "@/app/items/[id]/_components/NoComment";
+import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
+import NoComment from "./NoComment";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 import ErrorDisplay from "@/components/ui/ErrorDisplay";
 import Button from "@/components/common/Button";
@@ -19,8 +19,8 @@ export default function Comments({ productId }) {
   /** 댓글 목록 조회 */
   const { data: comments, isPending, isError } = useQuery({
     queryKey: ["comment", productId],
-    queryFn: () => getAllCommentAction({ productId: productId, limit: 10 }),
-    select: (data) => data.list,
+    queryFn: () => getAllCommentAction({ productId }),
+    select: (data) => data.data,
   });
 
   if (isPending) return <LoadingDisplay />;

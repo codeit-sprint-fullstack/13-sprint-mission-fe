@@ -5,12 +5,12 @@ import {
 } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 
-import { getProductById } from "@/lib/services/productApi";
-import { getAllCommentAction } from "@/lib/services/actions/productComments";
+import { getProductByIdAction } from "@/lib/actions/products";
+import { getAllCommentAction } from "@/lib/actions/productComments";
 
-import ProductInfo from "@/app/items/[id]/_components/ProductInfo";
-import Comments from "@/app/items/[id]/_components/Comments";
 import PageContainer from "@/components/common/PageContainer";
+import ProductInfo from "@/components/products/ProductInfo";
+import Comments from "@/components/products/Comment/Comments";
 
 export const metadata = {
   title: "상품 상세 페이지",
@@ -22,7 +22,7 @@ export default async function ItemDetailPage({ params }) {
   const queryClient = new QueryClient();
   const { id } = await params;
 
-  const product = await getProductById(id);
+  const product = await getProductByIdAction(id);
   if (!product) notFound();
 
   /**
@@ -34,7 +34,7 @@ export default async function ItemDetailPage({ params }) {
     queryClient.setQueryData(["product", id], product),
     queryClient.prefetchQuery({
       queryKey: ["comment", id],
-      queryFn: () => getAllCommentAction({ productId: id, limit: 10 }),
+      queryFn: () => getAllCommentAction({ productId: id }),
     }),
   ]);
 

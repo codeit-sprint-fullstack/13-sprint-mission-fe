@@ -1,4 +1,4 @@
-import CommentItem from "@/app/items/[id]/_components/CommentItem";
+import CommentItem from "./CommentItem";
 
 export default function CommentList({ productId, commentsData }) {
   return (

@@ -23,7 +23,8 @@ export async function getAllProducts({
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
     if (response.status === 204) return null;
 
-    return await response.json();
+    const { products } = await response.json();
+    return products;
   } catch (error) {
     throw new Error(`❌ 게시글 조회 실패 :`, { cause: error });
   }
@@ -40,7 +41,8 @@ export async function getProductById(id) {
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
     if (response.status === 204) return null;
 
-    return await response.json();
+    const { data } = await response.json();
+    return data;
   } catch (error) {
     throw new Error(`❌ 게시글 조회 실패 :`, { cause: error });
   }
@@ -62,7 +64,8 @@ export async function createProduct(body) {
 
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
 
-    return await response.json();
+    const { data } = await response.json();
+    return data;
   } catch (error) {
     throw new Error("❌ 게시글 등록 실패", { cause: error });
   }
@@ -84,7 +87,8 @@ export async function updateProducts(id, body) {
 
     if (!response.ok) throw new Error(`❌ API 에러! 상태: ${response.status}`);
 
-    return await response.json();
+    const { data } = await response.json();
+    return data;
   } catch (error) {
     throw new Error("❌ 게시글 수정 실패", { cause: error });
   }

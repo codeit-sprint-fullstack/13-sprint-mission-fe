@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import Link from "next/link";
 
-import ArticlesTitle from "@/app/articles/_components/ArticlesTitle";
-import BestArticles from "@/app/articles/_components/BestArticles";
-import ArticlesList from "@/app/articles/_components/ArticlesList";
-import FilterBar from "@/app/articles/_components/FilterBar";
+import ArticlesTitle from "@/components/articles/ArticlesTitle";
+import BestArticles from "@/components/articles/BestArticles";
+import ArticlesList from "@/components/articles/ArticlesList";
+import FilterBar from "@/components/articles/FilterBar";
 import Button from "@/components/common/Button";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 import PageContainer from "@/components/common/PageContainer";

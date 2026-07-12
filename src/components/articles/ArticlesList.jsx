@@ -45,7 +45,7 @@ export default function ArticlesList({ articles }) {
                       />
                     </figure>
                     <p className='text-[14px]/[calc(24/14)] text-secondary-600'>
-                      {a.user.username}
+                      {a.owner.nickname}
                     </p>
                     <span className='text-[14px]/[calc(24/14)] text-secondary-400'>
                       {formatDate(a.createdAt)}

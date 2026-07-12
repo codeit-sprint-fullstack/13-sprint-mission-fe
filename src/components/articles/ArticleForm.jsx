@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import Button from "@/components/common/Button";
 import InputBasic from "@/components/common/Form/InputBasic";
 import Textarea from "@/components/common/Form/Textarea";
-import { useRouter } from "next/navigation";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 
 export default function ArticleForm({ defaultValue = null, articleId = null }) {
   const router = useRouter();
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 (API 요청 중 중복 제출 방지 및 UI 피드백용)
   const [isSubmitted, setIsSubmitted] = useState(false); // 제출 완료 상태
 
   // 필드별 유효성 통과 여부. defaultValue가 있으면 초기값부터 valid로 간주
@@ -37,54 +37,57 @@ export default function ArticleForm({ defaultValue = null, articleId = null }) {
       formValues.content !== (defaultValue?.content ?? "")
     : true; // 신규 작성은 항상 true (isFormValid로만 판단
 
+  // 게시글 등록/수정 mutation
+  const { mutate: submitArticle, isPending: isLoading } = useMutation({
+    mutationFn: (payload) => {
+      const url = isEditMode ? `/api/articles/${articleId}` : "/api/articles";
+      const method = isEditMode ? "PATCH" : "POST";
+
+      return fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error(
+            `게시글 ${isEditMode ? "수정" : "등록"}에 실패했습니다.`,
+          );
+        }
+
+        return res.json();
+      });
+    },
+
+    onSuccess: (data) => {
+      const id = data?.data?.id ?? articleId;
+
+      // 등록/수정 성공 시 상세 페이지로 이동
+      if (id) {
+        setIsSubmitted(true); // 성공 후에도 다시 제출되지 않도록 고정
+        router.push(`/articles/${id}`);
+      }
+    },
+
+    onError: (error) => {
+      setError(error.message);
+    },
+  });
+
   const isButtonDisabled =
     isLoading || isSubmitted || !isFormValid || (isEditMode && !isChanged);
 
   /**
-   * 상품 등록 폼 제출 핸들러
-   * @param {React.SubmitEvent<articlesHTMLFormElement>} e
+   * 게시글 등록/수정 폼 제출 핸들러
+   * @param {React.SubmitEvent<HTMLFormElement>} e
    */
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    if (isLoading) return; // 로딩 중 중복 클릭 방지
     setError(null); // 재시도 시 이전 에러 초기화
 
-    try {
-      setIsLoading(true);
-
-      const formData = new FormData(e.currentTarget);
-      const newFormData = Object.fromEntries(formData.entries());
-
-      const url = isEditMode ? `/api/articles/${articleId}` : "/api/articles";
-      const method = isEditMode ? "PATCH" : "POST";
-
-      const res = await fetch(url, {
-        method: method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newFormData),
-      });
-
-      if (!res.ok)
-        throw new Error(
-          `게시글 ${isEditMode ? "수정" : "등록"}에 실패했습니다.`,
-        );
-
-      const data = await res.json();
-      const id = data?.data?.id ?? articleId;
-
-      // 등록 성공 시 상세 페이지로 이동
-      if (id) {
-        setIsSubmitted(true); // 성공 후 finally에서도 다시 풀리지 않도록 고정
-        router.push(`/articles/${id}`);
-      }
-
-      return data;
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false); // 컴포넌트가 마운트된 상태라면 로딩 종료
-    }
+    const formData = new FormData(e.currentTarget);
+    // TODO: 이미지 업로드 기능 추가
+    submitArticle({ ...Object.fromEntries(formData.entries()), images: [] });
   }
 
   /**

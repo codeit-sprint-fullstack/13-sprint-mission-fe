@@ -1,7 +1,10 @@
-import ArticleForm from "@/app/articles/_components/ArticleForm";
+import { notFound } from "next/navigation";
+
+import ArticleForm from "@/components/articles/ArticleForm";
 import PageContainer from "@/components/common/PageContainer";
+import UnauthorizedModal from "@/components/common/Modal/UnauthorizedModal";
 import { getArticleById } from "@/lib/services/articleApi";
-import React from "react";
+import { getCurrentUserId } from "@/lib/actions/auth";
 
 export const metadata = {
   title: "자유 게시판 게시글 수정",
@@ -12,6 +15,21 @@ export const metadata = {
 export default async function EditArticlePage({ params }) {
   const { id } = await params;
   const article = await getArticleById(id); // 서버에서 초기 데이터 fetch
+
+  if (article.notFound) {
+    notFound();
+  }
+
+  // 작성자 본인이 아니면 수정 페이지 접근 차단
+  const userId = await getCurrentUserId();
+  if (article.data.ownerId !== userId) {
+    return (
+      <UnauthorizedModal
+        redirectTo={`/articles/${id}`}
+        description='본인이 작성한 게시글이 아닙니다.'
+      />
+    );
+  }
 
   return (
     <PageContainer>

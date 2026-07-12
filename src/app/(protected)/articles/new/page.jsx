@@ -1,4 +1,4 @@
-import ArticleForm from "@/app/articles/_components/ArticleForm";
+import ArticleForm from "@/components/articles/ArticleForm";
 import PageContainer from "@/components/common/PageContainer";
 
 export const metadata = {

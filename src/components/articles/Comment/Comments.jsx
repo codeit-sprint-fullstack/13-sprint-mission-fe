@@ -4,10 +4,10 @@ import Button from "@/components/common/Button";
 
 import IcBack from "@/app/assets/ic_back.svg";
 
-import CommentForm from "@/app/articles/[id]/_components/CommentForm";
+import CommentForm from "./CommentForm";
 import Link from "next/link";
-import NoComment from "@/app/articles/[id]/_components/NoComment";
-import CommentList from "@/app/articles/[id]/_components/CommentList";
+import NoComment from "./NoComment";
+import CommentList from "./CommentList";
 
 export default function Comments({ articleId, commentsData }) {
   return (

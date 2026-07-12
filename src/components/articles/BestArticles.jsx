@@ -1,7 +1,7 @@
 import { getAllArticles } from "@/lib/services/articleApi";
 
-import ArticlesTitle from "@/app/articles/_components/ArticlesTitle";
-import BestArticleList from "@/app/articles/_components/BestArticleList";
+import ArticlesTitle from "./ArticlesTitle";
+import BestArticleList from "./BestArticleList";
 
 export const revalidate = 60; // ISR: 60초
 

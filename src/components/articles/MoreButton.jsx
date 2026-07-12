@@ -6,18 +6,26 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
 
 import IcKebab from "@/app/assets/ic_kebab.svg";
-import { deleteArticleAction } from "@/lib/services/actions/articles";
-import { deleteCommentAction } from "@/lib/services/actions/comments";
+import { deleteArticleAction } from "@/lib/actions/articles";
+import { deleteCommentAction } from "@/lib/actions/comments";
+import { useAuth } from "@/providers/AuthProvider";
+import ConfirmModal from "@/components/common/Modal/ConfirmModal";
 
 export default function MoreButton({
   type = "article",
   articleId,
+  ownerId = null,
   commentId = null,
   setIsEditMode,
 }) {
+  const { user } = useAuth();
   const router = useRouter();
   const modalRef = useRef(null);
   const [moreModal, setMoreModal] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false); // 게시글 삭제 확인 모달
+
+  // 게시글 작성자 본인만 수정/삭제 가능
+  const isOwner = type !== "article" || (!!user && user.id === ownerId);
 
   // 토글 더보기 모달
   function handleToggleModal(e) {
@@ -30,6 +38,12 @@ export default function MoreButton({
     setIsEditMode((prev) => !prev);
   }
 
+  // 게시글 삭제 확인 모달 오픈
+  function handleArticleDeleteModal() {
+    setMoreModal(false);
+    setIsConfirmOpen(true);
+  }
+
   // 게시글 삭제
   async function handleArticleDelete() {
     try {
@@ -37,10 +51,11 @@ export default function MoreButton({
 
       if (result?.success) {
         router.push("/articles");
-        setMoreModal(false);
       }
     } catch (error) {
       console.error("❌ 게시글 삭제 실패:", error);
+    } finally {
+      setIsConfirmOpen(false);
     }
   }
 
@@ -77,6 +92,8 @@ export default function MoreButton({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  if (!isOwner) return null;
 
   return (
     <div className='relative z-10' ref={modalRef}>
@@ -115,13 +132,25 @@ export default function MoreButton({
               className='flex justify-center items-center h-[45px] w-full cursor-pointer'
               type='button'
               onClick={
-                type === "article" ? handleArticleDelete : handleCommentDelete
+                type === "article"
+                  ? handleArticleDeleteModal
+                  : handleCommentDelete
               }
             >
               삭제하기
             </button>
           </li>
         </ul>
+      )}
+
+      {/* 게시글 삭제 확인 모달 */}
+      {type === "article" && (
+        <ConfirmModal
+          description='정말로 게시글을 삭제하시겠어요?'
+          isOpen={isConfirmOpen}
+          onClose={() => setIsConfirmOpen(false)}
+          onConfirm={handleArticleDelete}
+        />
       )}
     </div>
   );

@@ -3,10 +3,7 @@
 import { useState } from "react";
 
 import Button from "@/components/common/Button";
-import {
-  addCommentAction,
-  updateCommentAction,
-} from "@/lib/services/actions/comments";
+import { addCommentAction, updateCommentAction } from "@/lib/actions/comments";
 
 export default function CommentForm({
   articleId,
@@ -32,6 +29,7 @@ export default function CommentForm({
         commentId: comments.id,
         content: newContent,
       });
+
 
       if (!result.success) console.error(result.error);
 

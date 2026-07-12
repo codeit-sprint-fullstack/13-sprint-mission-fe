@@ -53,7 +53,7 @@ export default function BestArticleList({ articles }) {
               {/* 베스트 게시글 카드 푸터 */}
               <footer className='flex justify-between text-[14px]/[calc(24/14)]'>
                 <div className='flex'>
-                  <p className='mr-2 text-secondary-500'>{a.user.username}</p>
+                  <p className='mr-2 text-secondary-500'>{a.owner.nickname}</p>
                   <Image
                     className='w-auto'
                     src={IcHeart}

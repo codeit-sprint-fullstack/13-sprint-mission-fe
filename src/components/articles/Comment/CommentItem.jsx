@@ -5,8 +5,8 @@ import Image from "next/image";
 
 import { getRelativeTime } from "@/utils/getRelativeTime";
 
-import MoreButton from "@/app/articles/[id]/_components/MoreButton";
-import CommentForm from "@/app/articles/[id]/_components/CommentForm";
+import MoreButton from "../MoreButton";
+import CommentForm from "./CommentForm";
 
 import IcProfile from "@/app/assets/ic_profile.svg";
 
@@ -49,7 +49,7 @@ export default function CommentItem({ id, commentId, comments }) {
         />
         <div className='ml-[8px] md:ml-[12px]'>
           <p className='mb-[4px] text-[12px]/[calc(18/12)] text-secondary-600'>
-            {comments.writer.nickname}
+            {comments.owner.nickname ?? ""}
           </p>
           <span className='text-[12px]/[calc(18/12)] text-secondary-400'>
             {getRelativeTime(comments.createdAt)}

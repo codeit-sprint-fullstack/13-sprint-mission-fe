@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/lib/services/articleApi";
+import { getAllArticles } from "@/lib/actions/articles";
 
 import ArticlesTitle from "./ArticlesTitle";
 import BestArticleList from "./BestArticleList";

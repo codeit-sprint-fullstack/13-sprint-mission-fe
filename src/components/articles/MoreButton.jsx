@@ -7,7 +7,7 @@ import { useRef, useState, useEffect } from "react";
 
 import IcKebab from "@/app/assets/ic_kebab.svg";
 import { deleteArticleAction } from "@/lib/actions/articles";
-import { deleteCommentAction } from "@/lib/actions/comments";
+import { deleteCommentAction } from "@/lib/actions/articleComments";
 import { useAuth } from "@/providers/AuthProvider";
 import ConfirmModal from "@/components/common/Modal/ConfirmModal";
 
@@ -16,6 +16,7 @@ export default function MoreButton({
   articleId,
   ownerId = null,
   commentId = null,
+  isMyComment = false,
   setIsEditMode,
 }) {
   const { user } = useAuth();
@@ -24,8 +25,9 @@ export default function MoreButton({
   const [moreModal, setMoreModal] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false); // 게시글 삭제 확인 모달
 
-  // 게시글 작성자 본인만 수정/삭제 가능
-  const isOwner = type !== "article" || (!!user && user.id === ownerId);
+  // 게시글은 작성자 본인, 댓글은 isMyComment로 소유 여부 판단
+  const isOwner =
+    type === "article" ? !!user && user.id === ownerId : isMyComment;
 
   // 토글 더보기 모달
   function handleToggleModal(e) {

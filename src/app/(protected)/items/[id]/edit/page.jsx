@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ProductForm from "@/components/products/ProductForm";
 import PageContainer from "@/components/common/PageContainer";
 import UnauthorizedModal from "@/components/common/Modal/UnauthorizedModal";
-import { getProductById } from "@/lib/services/productApi";
+import { getProductByIdAction } from "@/lib/actions/products";
 import { getCurrentUserId } from "@/lib/actions/auth";
 
 export const metadata = {
@@ -14,7 +14,7 @@ export const metadata = {
 
 export default async function EditProductPage({ params }) {
   const { id } = await params;
-  const product = await getProductById(id); // 서버에서 초기 데이터 fetch
+  const product = await getProductByIdAction(id); // 서버에서 초기 데이터 fetch
 
   if (!product) {
     notFound();

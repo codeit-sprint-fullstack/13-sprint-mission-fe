@@ -31,8 +31,9 @@ export default function CommentItem({ id, commentId, comments }) {
               </p>
               <MoreButton
                 type='comment'
-                id={id}
+                articleId={id}
                 commentId={commentId}
+                isMyComment={comments.isMyComment}
                 setIsEditMode={setIsEditMode}
               />
             </div>

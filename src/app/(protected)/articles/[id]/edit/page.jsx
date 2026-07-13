@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ArticleForm from "@/components/articles/ArticleForm";
 import PageContainer from "@/components/common/PageContainer";
 import UnauthorizedModal from "@/components/common/Modal/UnauthorizedModal";
-import { getArticleById } from "@/lib/services/articleApi";
+import { getArticleById } from "@/lib/actions/articles";
 import { getCurrentUserId } from "@/lib/actions/auth";
 
 export const metadata = {

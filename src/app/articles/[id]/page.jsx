@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { clsx } from "clsx";
 
-import { getArticleById } from "@/lib/services/articleApi";
+import { getArticleById } from "@/lib/actions/articles";
 import formatDate from "@/utils/formatDate";
 
 import PageContainer from "@/components/common/PageContainer";
@@ -10,7 +10,7 @@ import Comments from "@/components/articles/Comment/Comments";
 
 import IcProfile from "@/app/assets/ic_profile.svg";
 import IcHeart from "@/app/assets/ic_heart.svg";
-import { getAllArticleComments } from "@/lib/services/articleCommentApi";
+import { getAllCommentAction } from "@/lib/actions/articleComments";
 import { notFound } from "next/navigation";
 
 export const metadata = {
@@ -28,7 +28,7 @@ export default async function ArticleDetailPage({ params }) {
     notFound();
   }
 
-  const commentsData = await getAllArticleComments(id);
+  const commentsData = await getAllCommentAction({ articleId: id });
 
   const article = articleData.data;
   const articleComments = commentsData.data;

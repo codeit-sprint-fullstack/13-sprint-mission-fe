@@ -8,6 +8,10 @@ import Button from "@/components/common/Button";
 import InputBasic from "@/components/common/Form/InputBasic";
 import Textarea from "@/components/common/Form/Textarea";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
+import {
+  createArticleAction,
+  updateArticleAction,
+} from "@/lib/actions/articles";
 
 export default function ArticleForm({ defaultValue = null, articleId = null }) {
   const router = useRouter();
@@ -39,27 +43,18 @@ export default function ArticleForm({ defaultValue = null, articleId = null }) {
 
   // 게시글 등록/수정 mutation
   const { mutate: submitArticle, isPending: isLoading } = useMutation({
-    mutationFn: (payload) => {
-      const url = isEditMode ? `/api/articles/${articleId}` : "/api/articles";
-      const method = isEditMode ? "PATCH" : "POST";
+    mutationFn: (payload) =>
+      isEditMode
+        ? updateArticleAction(articleId, payload)
+        : createArticleAction(payload),
 
-      return fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).then(async (res) => {
-        if (!res.ok) {
-          throw new Error(
-            `게시글 ${isEditMode ? "수정" : "등록"}에 실패했습니다.`,
-          );
-        }
+    onSuccess: (result) => {
+      if (!result.success) {
+        setError(result.error);
+        return;
+      }
 
-        return res.json();
-      });
-    },
-
-    onSuccess: (data) => {
-      const id = data?.data?.id ?? articleId;
+      const id = result.data?.id ?? articleId;
 
       // 등록/수정 성공 시 상세 페이지로 이동
       if (id) {

@@ -15,7 +15,7 @@ export async function getAllCommentAction({ productId }) {
     const accessToken = await getServerSideToken("accessToken");
     const response = await fetch(
       `${process.env.API_BASE_URL}/products/${productId}/comments`,
-      accessToken
+        accessToken
         ? { headers: { Authorization: `Bearer ${accessToken}` } }
         : undefined,
     );

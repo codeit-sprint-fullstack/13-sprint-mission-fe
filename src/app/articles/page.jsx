@@ -8,7 +8,7 @@ import FilterBar from "@/components/articles/FilterBar";
 import Button from "@/components/common/Button";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 import PageContainer from "@/components/common/PageContainer";
-import { getAllArticles } from "@/lib/services/articleApi";
+import { getAllArticles } from "@/lib/actions/articles";
 
 export const metadata = {
   title: "자유 게시판",

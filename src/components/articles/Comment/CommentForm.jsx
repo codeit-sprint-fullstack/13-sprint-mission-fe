@@ -3,7 +3,10 @@
 import { useState } from "react";
 
 import Button from "@/components/common/Button";
-import { addCommentAction, updateCommentAction } from "@/lib/actions/comments";
+import {
+  addCommentAction,
+  updateCommentAction,
+} from "@/lib/actions/articleComments";
 
 export default function CommentForm({
   articleId,

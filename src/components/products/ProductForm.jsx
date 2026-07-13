@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import Button from "@/components/common/Button";
 import InputBasic from "@/components/common/Form/InputBasic";
+import InputTag from "@/components/common/Form/InputTag";
 import Textarea from "@/components/common/Form/Textarea";
 import LoadingDisplay from "@/components/ui/LoadingDisplay";
 import {
@@ -18,14 +19,14 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
   const [error, setError] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false); // 제출 완료 상태
 
-  const defaultTags = defaultValue?.tags?.join(", ") ?? "";
+  const defaultTags = defaultValue?.tags ?? [];
 
   // 필드별 유효성 통과 여부. defaultValue가 있으면 초기값부터 valid로 간주
   const [inputStatus, setInputStatus] = useState({
     name: !!defaultValue?.name,
     description: !!defaultValue?.description,
     price: !!defaultValue?.price,
-    tagsInput: !!defaultTags,
+    tags: defaultTags.length > 0,
   });
 
   // 현재 입력값 (수정 모드에서 변경 여부 체크용)
@@ -33,7 +34,7 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
     name: defaultValue?.name ?? "",
     description: defaultValue?.description ?? "",
     price: defaultValue?.price ?? "",
-    tagsInput: defaultTags,
+    tags: defaultTags,
   });
 
   const isEditMode = !!defaultValue; // 수정 모드
@@ -46,7 +47,7 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
     ? formValues.name !== (defaultValue?.name ?? "") ||
       formValues.description !== (defaultValue?.description ?? "") ||
       String(formValues.price) !== String(defaultValue?.price ?? "") ||
-      formValues.tagsInput !== defaultTags
+      formValues.tags.join(",") !== defaultTags.join(",")
     : true;
 
   // 상품 등록/수정 mutation
@@ -86,7 +87,7 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
     setError(null); // 재시도 시 이전 에러 초기화
 
     const formData = new FormData(e.currentTarget);
-    const { name, description, price, tagsInput } = Object.fromEntries(
+    const { name, description, price } = Object.fromEntries(
       formData.entries(),
     );
 
@@ -94,10 +95,7 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
       name,
       description,
       price: Number(price),
-      tags: tagsInput
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
+      tags: formValues.tags,
       // TODO: 이미지 업로드 수정
       images: [],
     });
@@ -166,7 +164,7 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
           onActive={updateFieldValidity}
           validators={{
             fn: (input) => input.length > 0,
-            message: "상품 설명을 입력해주세요",
+            message: "10자 이상 입력해주세요",
           }}
           active={{
             fn: (input) => input.length > 0,
@@ -182,30 +180,27 @@ export default function ProductForm({ defaultValue = null, productId = null }) {
           onActive={updateFieldValidity}
           validators={{
             fn: (input) => Number(input) > 0,
-            message: "올바른 가격을 입력해주세요",
+            message: "숫자로 입력해주세요",
           }}
           active={{
             fn: (input) => input.length > 0,
           }}
         />
-        <InputBasic
+        <InputTag
           label='태그'
-          name='tagsInput'
-          type='text'
-          placeholder='태그를 쉼표(,)로 구분해 입력해주세요'
+          name='tags'
+          placeholder='태그를 입력해주세요'
           defaultValue={defaultTags}
-          onChange={(e) => handleInputChange("tagsInput", e.target.value)}
+          onUpdate={(newTags) =>
+            setFormValues((prev) => ({ ...prev, tags: newTags }))
+          }
           onActive={updateFieldValidity}
           validators={{
-            fn: (input) =>
-              input
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter(Boolean).length > 0,
-            message: "태그를 최소 1개 입력해주세요",
+            fn: (input) => input.length <= 5,
+            message: "5글자 이내로 입력해주세요",
           }}
           active={{
-            fn: (input) => input.length > 0,
+            fn: (tags) => tags.length > 0,
           }}
         />
       </article>

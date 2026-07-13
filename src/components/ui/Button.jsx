@@ -14,18 +14,7 @@ export default function Button({
   return (
     <button
       {...buttonProps}
-      className={`
-        text-center
-        cursor-pointer
-        whitespace-nowrap
-        ${variants[variant]}
-        ${
-          disabled
-            ? "bg-secondary-400 text-secondary-100 cursor-not-allowed"
-            : ""
-        }
-        ${className}
-      `}
+      className={`text-center cursor-pointer whitespace-nowrap ${variants[variant]} ${disabled ? "bg-secondary-400 text-secondary-100 cursor-not-allowed" : ""} ${className}`}
     >
       {children}
     </button>

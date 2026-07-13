@@ -1,4 +1,4 @@
-import { tempAuthFetch } from "./fetchClient";
+import { apiFetch } from "./fetchClient";
 export const userService = {
-  getMe: async () => tempAuthFetch("/users/me"),
+  getMe: async () => apiFetch("/user/me"),
 };

@@ -1,30 +1,33 @@
+"use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 
 export default function Item({ data }) {
+  const router = useRouter();
   return (
     <div
-      className="
-        flex h-full w-full flex-col gap-[16px]
-        cursor-pointer
-      "
+      onClick={() => {
+        router.push(`/items/${data.id}`);
+      }}
+      className="flex h-full w-full flex-col gap-[16px] cursor-pointer"
     >
       <Image
-        src="/images/item2.jpg"
+        src={
+          !!data.images.length
+            ? `${process.env.NEXT_PUBLIC_API_URL}/${data.images[0].url}`
+            : "/images/item2.jpg"
+        }
         alt={data.name}
         width={300}
         height={300}
         loading="lazy"
+        unoptimized
         onError={(e) => {
           e.target.src = "/images/item2.jpg";
         }}
-        className="
-          aspect-square
-          w-full
-          rounded-[16px]
-          object-cover
-        "
+        className="aspect-square w-full rounded-[16px] object-cover"
       />
 
       <div className="flex flex-col gap-[8px]">

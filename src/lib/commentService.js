@@ -1,12 +1,12 @@
-import { defaultFetch } from "./fetchClient";
+import { apiFetch } from "./fetchClient";
 export const commentService = {
   postComment: async (id, body) =>
-    defaultFetch(`/articles/${id}/comments`, {
+    apiFetch(`/articles/${id}/comments`, {
       method: "POST",
       body: JSON.stringify(body),
     }),
   deleteComment: async (articleId, commentId) =>
-    await defaultFetch(`/articles/${articleId}/comments/${commentId}`, {
+    await apiFetch(`/articles/${articleId}/comments/${commentId}`, {
       method: "DELETE",
     }),
 };

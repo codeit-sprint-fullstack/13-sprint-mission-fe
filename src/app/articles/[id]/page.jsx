@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { clsx } from "clsx";
 
-import { getArticleById } from "@/lib/services/articleApi";
+import { getArticleById } from "@/lib/actions/articles";
 import formatDate from "@/utils/formatDate";
 
 import PageContainer from "@/components/common/PageContainer";
-import MoreButton from "@/app/articles/[id]/_components/MoreButton";
-import Comments from "@/app/articles/[id]/_components/Comments";
+import MoreButton from "@/components/articles/MoreButton";
+import Comments from "@/components/articles/Comment/Comments";
 
 import IcProfile from "@/app/assets/ic_profile.svg";
 import IcHeart from "@/app/assets/ic_heart.svg";
-import { getAllArticleComments } from "@/lib/services/articleCommentApi";
+import { getAllCommentAction } from "@/lib/actions/articleComments";
 import { notFound } from "next/navigation";
 
 export const metadata = {
@@ -28,7 +28,7 @@ export default async function ArticleDetailPage({ params }) {
     notFound();
   }
 
-  const commentsData = await getAllArticleComments(id);
+  const commentsData = await getAllCommentAction({ articleId: id });
 
   const article = articleData.data;
   const articleComments = commentsData.data;
@@ -43,7 +43,11 @@ export default async function ArticleDetailPage({ params }) {
               <h1 className='text-[20px]/[calc(32/20)] font-bold text-secondary-800'>
                 {article.title}
               </h1>
-              <MoreButton type='article' articleId={id} />
+              <MoreButton
+                type='article'
+                articleId={id}
+                ownerId={article.ownerId}
+              />
             </div>
 
             {/* 작성자 정보 + 좋아요 수 */}
@@ -55,7 +59,7 @@ export default async function ArticleDetailPage({ params }) {
                 alt='작성자 프로필 사진'
               />
               <p className='ml-[14px] md:ml-[16px] text-[14px]/[calc(24/14)] font-medium text-secondary-600'>
-                {article.user.username}
+                {article.owner.nickname}
               </p>
               <span
                 className={clsx(

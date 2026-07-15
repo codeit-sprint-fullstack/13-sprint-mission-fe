@@ -6,7 +6,7 @@ import Button from "@/components/common/Button";
 import IcProfile from "@/app/assets/ic_profile.svg";
 
 export default function Avatar({ user }) {
-  if (user)
+  if (user) {
     return (
       <div className='flex justify-center items-center gap-[6px]'>
         <Image src={IcProfile} width={40} height={40} alt='유저 프로필 사진' />
@@ -15,6 +15,7 @@ export default function Avatar({ user }) {
         </span>
       </div>
     );
+  }
 
   return (
     <Button as={Link} href='/signin'>

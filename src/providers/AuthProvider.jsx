@@ -1,11 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { authService } from "@/lib/services/authService";
-import { userService } from "@/lib/services/userService";
-import { AuthError } from "@/lib/error";
+import {
+  clearServerSideTokens,
+  signinAction,
+  signupAction,
+} from "@/lib/actions/auth";
+import { apiFetch } from "@/lib/services/fetchClient";
+import { WIDTH_HEADER_LIST } from "@/lib/constants/constants";
 
 const AuthContext = createContext(null);
 
@@ -19,67 +23,56 @@ export const useAuth = () => {
   return context;
 };
 
-export default function AuthProvider({ children }) {
-  const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+export default function AuthProvider({ children, initialUser = null }) {
+  const pathname = usePathname();
+  const [user, setUser] = useState(initialUser);
 
   const getUser = async () => {
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
-      setIsInitialized(true);
-      return; // 비로그인 상태 (정상)
-    }
-
     try {
-      const user = await userService.getMe();
-      setUser(user);
+      const userData = await apiFetch("/api/users/me");
+
+      setUser(userData.data);
     } catch (error) {
-      if (error instanceof AuthError && error.code === "TOKEN_EXPIRED") {
-        // 토큰 만료는 예상된 상황이므로 경고 레벨로만
-        console.warn("토큰이 만료되었습니다. 갱신을 시도합니다.");
-      } else if (
-        error instanceof AuthError &&
-        error.code === "REFRESH_FAILED"
-      ) {
-        console.warn("토큰 갱신 실패 : 로그인 페이지로 이동합니다.");
-        localStorage.removeItem("accessToken");
-        router.push("/signin");
-      } else {
-        // 진짜 예상 못한 에러만 error 레벨
-        console.error("사용자 정보를 가져오는데 실패했습니다:", error);
-      }
+      console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       setUser(null);
-    } finally {
-      setIsInitialized(true);
     }
   };
 
   const signup = async (data) => {
-    await authService.signUp(data);
+    // 회원가입 성공 시 유저데이터를 API 에서 응답해주는 경우, 즉시 로그인 처리 가능
+    const { userData, success } = await signupAction(data);
+
+    if (!success) {
+      throw new Error("회원가입 실패");
+    }
+    setUser(userData);
   };
 
   const signin = async (data) => {
-    await authService.signIn(data);
-    await getUser();
+    // 로그인 성공 시 유저데이터를 API 에서 응답해주는 경우, 유저 상태 변경
+    const { userData, success } = await signinAction(data);
+
+    if (!success) {
+      throw new Error("로그인 실패");
+    }
+    setUser(userData);
   };
 
-  const signout = () => {
-    localStorage.removeItem("accessToken");
-    setUser(null);
-    router.push("/signin");
+  const signout = async () => {
+    try {
+      await clearServerSideTokens();
+      setUser(null);
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
   };
-
-  const updateUser = (updated) => {
-    setUser((prev) => ({ ...prev, ...updated }));
-  };
-
-  const getToken = () => localStorage.getItem("accessToken");
 
   useEffect(() => {
+    // signin/signup 페이지는 로그인 여부를 확인 예외 처리
+    if (WIDTH_HEADER_LIST.includes(pathname)) return;
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    getUser();
+    getUser(); // 웹페이지 랜딩 또는 새로고침 시 마다 서버에서 유저 데이터 동기화
   }, []);
 
   return (
@@ -89,9 +82,6 @@ export default function AuthProvider({ children }) {
         signup,
         signin,
         signout,
-        updateUser,
-        getToken,
-        isInitialized,
       }}
     >
       {children}

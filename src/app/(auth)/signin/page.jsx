@@ -1,5 +1,5 @@
-import AuthFormLayout from "@/app/(auth)/_components/AuthFormLayout";
+import AuthFormLayout from "@/components/auth/AuthFormLayout";
 
-export default function SignupPage() {
+export default function SigninPage() {
   return <AuthFormLayout type='signin' />;
 }

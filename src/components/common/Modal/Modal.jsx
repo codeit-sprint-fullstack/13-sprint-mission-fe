@@ -33,7 +33,7 @@ export default function Modal({
         className='inline-flex flex-col justify-center items-center gap-[40px] max-w-[327px] md:max-w-[540px] py-[52px] px-[67.5px] md:py-[68px] md:px-[162px] rounded-[8px] bg-[#fff]'
         onClick={(e) => e.stopPropagation()}
       >
-        <p className='text-[16px]/[calc(26/16)] md:text-[18px]/[calc(26/18)] font-medium text-secondary-800'>
+        <p className='text-[16px]/[calc(26/16)] md:text-[18px]/[calc(26/18)] text-center font-medium text-secondary-800'>
           {description}
         </p>
         <div className='flex items-center justify-between gap-[8px]'>

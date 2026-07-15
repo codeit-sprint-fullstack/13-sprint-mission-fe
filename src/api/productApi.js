@@ -27,6 +27,26 @@ async function request(path, options) {
   return data;
 }
 
+export async function uploadImages(files) {
+  const token = getToken();
+  const formData = new FormData();
+  for (const file of files) {
+    formData.append("images", file);
+  }
+
+  const res = await fetch(`${API_BASE}/upload`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData,
+  });
+
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    throw new Error(data?.message || "이미지 업로드에 실패했습니다.");
+  }
+  return data.urls;
+}
+
 export async function getProducts({
   page = 1,
   limit = 10,
@@ -42,10 +62,16 @@ export async function getProduct(id) {
   return request(`/products/${id}`);
 }
 
-export async function createProduct({ name, description, price, tags }) {
+export async function createProduct({
+  name,
+  description,
+  price,
+  tags,
+  images,
+}) {
   return request("/products", {
     method: "POST",
-    body: JSON.stringify({ name, description, price, tags }),
+    body: JSON.stringify({ name, description, price, tags, images }),
   });
 }
 

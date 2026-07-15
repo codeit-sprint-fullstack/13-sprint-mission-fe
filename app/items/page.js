@@ -11,12 +11,19 @@ export default function ItemsPage() {
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [keyword, setKeyword] = useState("");
+  const [sort, setSort] = useState("recent");
   const [page, setPage] = useState(1);
   const limit = 10;
 
+  const { data: bestData } = useQuery({
+    queryKey: ["best-products"],
+    queryFn: () => getProducts({ page: 1, limit: 4, sort: "favorite" }),
+  });
+  const bestProducts = bestData?.list || [];
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", page, keyword],
-    queryFn: () => getProducts({ page, limit, keyword, sort: "recent" }),
+    queryKey: ["products", page, keyword, sort],
+    queryFn: () => getProducts({ page, limit, keyword, sort }),
   });
 
   const products = data?.list || [];
@@ -29,8 +36,28 @@ export default function ItemsPage() {
     }
   }
 
+  function handleSortChange(e) {
+    setSort(e.target.value);
+    setPage(1);
+  }
+
   return (
     <main className="mx-auto max-w-[1200px] px-6 py-8">
+      <section className="mb-10">
+        <h2 className="mb-5 text-xl font-bold text-gray-800">베스트 상품</h2>
+        {bestProducts.length > 0 ? (
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {bestProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p className="py-6 text-center text-gray-400">
+            베스트 상품이 없습니다.
+          </p>
+        )}
+      </section>
+
       <section>
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-xl font-bold text-gray-800">판매 중인 상품</h2>
@@ -58,9 +85,11 @@ export default function ItemsPage() {
 
             <select
               className="h-[42px] rounded-xl border border-gray-200 bg-white px-4 text-[15px]"
-              defaultValue="recent"
+              value={sort}
+              onChange={handleSortChange}
             >
               <option value="recent">최신순</option>
+              <option value="favorite">좋아요순</option>
             </select>
           </div>
         </div>

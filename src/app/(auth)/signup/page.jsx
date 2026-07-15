@@ -37,11 +37,13 @@ export default function SignUpPage() {
       router.push("/items");
     },
     onError: (error) => {
-      const message = error.response?.data?.message;
+      const message = error.message ?? error.response?.data?.message;
       if (message === "이미 사용중인 이메일입니다.") {
         setModalMessage("사용중인 이메일입니다.");
       } else if (message === "이미 사용중인 닉네임입니다.") {
         setModalMessage("사용중인 닉네임입니다.");
+      } else {
+        setModalMessage("회원가입에 실패했습니다.\n다시 시도해 주세요.");
       }
     },
   });

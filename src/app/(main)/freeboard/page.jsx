@@ -1,32 +1,58 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import PostList from "./_components/PostList";
 import SearchBar from "./_components/searchBar";
 import BestPostList from "./_components/BestPostList";
 import Link from "next/link";
+import { fetchInstance } from "@/lib/fetchInstance";
 
-// 자유게시판 페이지 - 베스트 게시글 섹션과 일반 게시글 섹션으로 구성
-export default async function Freedoard({ searchParams }) {
-  const { keyword = "", orderBy = "recent" } = await searchParams;
+export default function Freeboard() {
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  const orderBy = searchParams.get("orderBy") || "recent";
 
-  const [bestRes, listRes] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles?page=1&pageSize=3`),
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/articles?keyword=${keyword}&orderBy=${orderBy}&page=1&pageSize=10`,
-    ),
-  ]);
-  const bestData = await bestRes.json();
-  const listData = await listRes.json();
+  const [bestPosts, setBestPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetchInstance(`/articles?page=1&pageSize=3`).then((data) =>
+      setBestPosts(data?.list ?? [])
+    );
+  }, []);
+
+  useEffect(() => {
+    fetchInstance(
+      `/articles?keyword=${keyword}&orderBy=${orderBy}&page=1&pageSize=10`
+    ).then((data) => setPosts(data?.list ?? []));
+  }, [keyword, orderBy]);
+
+  const toggleLike = async (id, isLiked) => {
+    try {
+      const updated = isLiked
+        ? await fetchInstance(`/articles/${id}/like`, { method: "DELETE" })
+        : await fetchInstance(`/articles/${id}/like`, { method: "POST" });
+
+      const update = (list) =>
+        list.map((p) =>
+          p.id === id
+            ? { ...p, isLiked: !isLiked, likeCount: updated.likeCount }
+            : p
+        );
+      setBestPosts((prev) => update(prev));
+      setPosts((prev) => update(prev));
+    } catch {}
+  };
 
   return (
     <div>
-      {/* 베스트 게시글 섹션 */}
       <section>
         <h2 className="text-2lg mb-4 font-bold text-gray-900 md:mb-6 md:text-xl">
           베스트 게시글
         </h2>
-        <BestPostList posts={bestData.list} />
+        <BestPostList posts={bestPosts} onToggleLike={toggleLike} />
       </section>
 
-      {/* 일반 게시글 섹션 - 검색/정렬 기능 포함 */}
       <section>
         <div className="mt-6 flex items-center justify-between self-stretch lg:mt-10">
           <h2 className="text-2lg font-bold text-gray-800 md:text-xl">
@@ -39,9 +65,8 @@ export default async function Freedoard({ searchParams }) {
         <div className="my-4 md:my-12 xl:my-6">
           <SearchBar keyword={keyword} orderBy={orderBy} />
         </div>
-        {/* 고정 높이 + 스크롤로 게시글 목록 표시 */}
         <div className="h-165 overflow-y-auto md:h-179 xl:h-169">
-          <PostList posts={listData.list} />
+          <PostList posts={posts} onToggleLike={toggleLike} />
         </div>
       </section>
     </div>

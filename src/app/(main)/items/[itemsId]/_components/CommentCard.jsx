@@ -4,14 +4,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { getRelativeTime } from "@/utils/dateUtils";
 
-
-// 개별 댓글 카드 - 수정 모드 토글, 케밥 메뉴(수정/삭제) 포함
 export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
-  // 케밥 메뉴 열림/닫힘 상태
   const [isOpen, setIsOpen] = useState(false);
-  // 수정 모드 여부
   const [isEditing, setIsEditing] = useState(false);
-  // 수정 중인 내용 (취소 시 원래 내용으로 복원)
   const [editContent, setEditContent] = useState(comment?.content ?? "");
 
   if (!comment) return null;
@@ -22,7 +17,6 @@ export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
 
   return (
     <div className="border-b border-gray-300 bg-[#FCFCFC] p-4">
-      {/* 댓글 내용 영역 - 수정 중이면 textarea로 전환 */}
       <div className="flex items-start justify-between">
         {isEditing ? (
           <textarea
@@ -51,7 +45,7 @@ export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
                     setIsEditing(true);
                     setIsOpen(false);
                   }}
-                  className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
+                  className="text-md cursor-pointer px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   수정하기
                 </li>
@@ -60,7 +54,7 @@ export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
                     onDelete(comment.id);
                     setIsOpen(false);
                   }}
-                  className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
+                  className="text-md cursor-pointer px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   삭제하기
                 </li>
@@ -70,7 +64,6 @@ export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
         )}
       </div>
 
-      {/* 작성자 정보 - 프로필 아이콘, 닉네임, 상대 시간 */}
       <div className="mt-2 flex items-center gap-2">
         <Image
           src={comment.author?.image ?? "/image/ic_profile.svg"}
@@ -85,15 +78,14 @@ export default function CommentCard({ comment, onEdit, onDelete, isOwner }) {
         </div>
       </div>
 
-      {/* 수정 모드일 때만 표시되는 취소/완료 버튼 */}
       {isEditing && (
         <div className="mt-2 flex items-center justify-end gap-1">
           <button
             onClick={() => {
               setIsEditing(false);
-              setEditContent(content); // 취소 시 원래 내용으로 복원
+              setEditContent(content);
             }}
-            className="px-5 py-1.5 text-2lg text-gray-500"
+            className="text-2lg px-5 py-1.5 text-gray-500"
           >
             취소
           </button>

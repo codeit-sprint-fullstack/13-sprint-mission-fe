@@ -25,7 +25,7 @@ export default function SearchBar({
         <Image src="/image/ic_search.svg" alt="search" width={20} height={20} />
         <input
           type="text"
-          placeholder="상품을 검색해보세요"
+          placeholder="게시글을 검색해보세요"
           value={keyword}
           onChange={(e) => onKeywordChange(e.target.value)}
           className="text-md w-full bg-transparent text-gray-800 placeholder-gray-400 outline-none"
@@ -33,10 +33,10 @@ export default function SearchBar({
       </div>
 
       <button
-        onClick={() => router.push("/registration")}
+        onClick={() => router.push("/freeboard/write")}
         className="bg-primary-100 text-md hidden rounded-xl px-5 py-2 font-semibold whitespace-nowrap text-white transition hover:opacity-90 md:block"
       >
-        상품 등록하기
+        게시글 등록하기
       </button>
 
       <div className="relative">

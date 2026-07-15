@@ -29,12 +29,12 @@ export default function SignInPage() {
     mutationFn: signIn,
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
+      if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
       router.push("/items");
     },
     onError: () => {
-      setEmailError("이메일을 확인해주세요.");
-      setPasswordError("비밀번호를 확인해주세요.");
+      setEmailError("이메일을 확인해 주세요.");
+      setPasswordError("비밀번호를 확인해 주세요.");
       setModalMessage("이메일 또는 비밀번호를\n확인해 주세요.");
     },
   });

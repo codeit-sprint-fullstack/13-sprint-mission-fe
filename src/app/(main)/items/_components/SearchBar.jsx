@@ -12,11 +12,11 @@ export default function SearchBar({
 }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const selected = orderBy === "favorite" ? "좋아요순" : "최신순";
+  const selected = orderBy === "like" ? "좋아요순" : "최신순";
 
   const options = [
     { label: "최신순", value: "recent" },
-    { label: "좋아요순", value: "favorite" },
+    { label: "좋아요순", value: "like" },
   ];
 
   return (

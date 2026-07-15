@@ -1,24 +1,46 @@
-import { getArticle } from "@/api/articles";
-import { getComments } from "@/api/articlesComments";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
+import { fetchInstance } from "@/lib/fetchInstance";
 import PostDetail from "../_components/PostDetail";
 import CommentsSection from "../_components/CommentsSection";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function PostDetailPage({ params }) {
-  const { id } = await params;
+export default function PostDetailPage() {
+  const { id } = useParams();
+  const router = useRouter();
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [post, commentData] = await Promise.all([
-    getArticle(id),
-    getComments(id),
-  ]);
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      router.push("/signin");
+      return;
+    }
+    Promise.all([
+      fetchInstance(`/articles/${id}`),
+      fetchInstance(`/articles/${id}/comments?limit=10`),
+    ])
+      .then(([postData, commentData]) => {
+        setPost(postData);
+        setComments(commentData?.list ?? []);
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) return <p className="p-10 text-center text-gray-400">불러오는 중...</p>;
+  if (!post) return notFound();
 
   return (
     <div className="flex flex-col gap-6 pr-4">
       <PostDetail post={post} />
 
       <CommentsSection
-        initialComments={commentData.list ?? []}
+        initialComments={comments}
         articleId={id}
       />
 

@@ -1,5 +1,6 @@
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "판다마켓",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
         <QueryProvider>
           {children}
         </QueryProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

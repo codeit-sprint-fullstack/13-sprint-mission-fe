@@ -60,14 +60,14 @@ export async function deleteProduct(productId) {
 
 // 좋아요
 export async function addFavorite(productId) {
-  return fetchInstance(`/products/${productId}/favorite`, {
+  return fetchInstance(`/products/${productId}/like`, {
     method: "POST",
   });
 }
 
 // 좋아요 취소
 export async function removeFavorite(productId) {
-  return fetchInstance(`/products/${productId}/favorite`, {
+  return fetchInstance(`/products/${productId}/like`, {
     method: "DELETE",
   });
 }

@@ -6,6 +6,6 @@ export default async function EditPost({ params }) {
   const post = await getArticle(id);
 
   return (
-    <EditForm id={id} initialTitle={post.title} initialContent={post.content} />
+    <EditForm id={id} initialTitle={post.title} initialContent={post.content} initialImages={post.images ?? []} />
   );
 }

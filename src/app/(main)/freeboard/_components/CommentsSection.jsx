@@ -1,17 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   createComment,
   updateComment,
   deleteComment,
   getComments,
 } from "@/api/articlesComments";
+import { getMe } from "@/api/user";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
-// 서버에서 받은 초기 댓글을 상태로 관리하며 CRUD를 처리하는 클라이언트 컴포넌트
 export default function CommentsSection({ initialComments, articleId }) {
   const [comments, setComments] = useState(initialComments);
+  const [myId, setMyId] = useState(null);
+
+  useEffect(() => {
+    getMe().then((me) => setMyId(me?.id)).catch(() => {});
+  }, []);
 
   const refetchComments = async () => {
     const data = await getComments(articleId);
@@ -40,6 +45,7 @@ export default function CommentsSection({ initialComments, articleId }) {
         comments={comments}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        myId={myId}
       />
     </>
   );

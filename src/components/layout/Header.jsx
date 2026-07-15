@@ -55,10 +55,9 @@ export default function Header() {
           <button
             onClick={() => {
               localStorage.removeItem("accessToken");
-              localStorage.removeItem("refreshToken");
               window.location.href = "/signin";
             }}
-            className="btn_small_40"
+            className="hidden md:block btn_small_40"
           >
             로그아웃
           </button>

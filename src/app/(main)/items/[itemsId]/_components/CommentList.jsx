@@ -3,23 +3,19 @@ import CommentCard from "./CommentCard";
 import Image from "next/image";
 
 // 댓글 목록 컴포넌트 - 댓글이 없으면 빈 상태 이미지를 표시
-export default function CommentList({ comments, onEdit, onDelete, myId }) {
+export default function CommentList({ comments = [], onEdit, onDelete, myId }) {
   // 댓글 없음 빈 상태 UI
   if (comments.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-16">
         <Image
-          src="/image/Img_reply_empty.png"
-          alt="댓글없음"
+          src="/image/Img_inquiry_empty.png"
+          alt="문의없음"
           width={140}
           height={140}
           priority
         />
-        <p className="text-center text-2lg text-gray-400">
-          아직 댓글이 없어요,
-          <br />
-          지금 댓글을 달아보세요!
-        </p>
+        <p className="text-center text-lg text-gray-400">아직 문의가 없어요</p>
       </div>
     );
   }

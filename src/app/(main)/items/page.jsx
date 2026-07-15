@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "@/api/product";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getProducts, addFavorite, removeFavorite } from "@/api/product";
 import BestSection from "./_components/BestSection";
 import ProductListSection from "./_components/ProductListSection";
 
@@ -12,6 +12,7 @@ export default function page() {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,12 +36,13 @@ export default function page() {
   const { data: bestData } = useQuery({
     queryKey: ["products", "best", bestCount],
     queryFn: () =>
-      getProducts({ page: 1, pageSize: bestCount, orderBy: "favorite" }),
+      getProducts({ page: 1, pageSize: bestCount, orderBy: "like" }),
   });
 
   const { data: listData, isLoading } = useQuery({
     queryKey: ["products", "list", page, pageSize, orderBy, keyword],
     queryFn: () => getProducts({ page, pageSize, orderBy, keyword }),
+    refetchInterval: 1000 * 60,
   });
 
   const bestProducts = bestData?.list || [];
@@ -57,9 +59,35 @@ export default function page() {
     setPage(1);
   };
 
+  const toggleLike = async (id, isLiked) => {
+    try {
+      const updated = isLiked
+        ? await removeFavorite(id)
+        : await addFavorite(id);
+
+      const updateList = (data) => {
+        if (!data) return data;
+        return {
+          ...data,
+          list: data.list.map((p) =>
+            p.id === id
+              ? { ...p, isLiked: !isLiked, likeCount: updated.likeCount }
+              : p
+          ),
+        };
+      };
+
+      queryClient.setQueryData(["products", "best", bestCount], updateList);
+      queryClient.setQueryData(
+        ["products", "list", page, pageSize, orderBy, keyword],
+        updateList
+      );
+    } catch {}
+  };
+
   return (
     <main className="mx-auto flex max-w-[1200px] flex-col gap-6 pb-10 md:gap-10 md:px-6">
-      <BestSection items={bestProducts} />
+      <BestSection items={bestProducts} onToggleLike={toggleLike} />
       {isLoading ? (
         <p className="text-center text-gray-400">불러오는 중...</p>
       ) : (
@@ -72,6 +100,7 @@ export default function page() {
           totalPages={totalPages}
           page={page}
           setPage={setPage}
+          onToggleLike={toggleLike}
         />
       )}
     </main>

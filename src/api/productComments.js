@@ -22,7 +22,7 @@ export async function createProductComment(productId, content) {
 
 // 상품 댓글 수정
 export async function updateProductComment(commentId, content) {
-  return fetchInstance(`/comments/${commentId}`, {
+  return fetchInstance(`/products/comments/${commentId}`, {
     method: "PATCH",
     body: JSON.stringify({ content }),
   });
@@ -30,7 +30,7 @@ export async function updateProductComment(commentId, content) {
 
 // 상품 댓글 삭제
 export async function deleteProductComment(commentId) {
-  return fetchInstance(`/comments/${commentId}`, {
+  return fetchInstance(`/products/comments/${commentId}`, {
     method: "DELETE",
   });
 }

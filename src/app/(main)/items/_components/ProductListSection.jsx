@@ -14,6 +14,7 @@ export default function ProductListSection({
   totalPages,
   page,
   setPage,
+  onToggleLike,
 }) {
   const router = useRouter();
 
@@ -52,7 +53,7 @@ export default function ProductListSection({
       {/* 상품 카드 그리드 */}
       <div className="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 md:gap-x-4 md:gap-y-10 lg:grid-cols-5 lg:gap-x-6">
         {products?.map((item) => (
-          <ProductCard key={item.id} item={item} />
+          <ProductCard key={item.id} item={item} onToggleLike={onToggleLike} />
         ))}
       </div>
       <Pagination totalPages={totalPages} page={page} setPage={setPage} />

@@ -9,7 +9,7 @@ import { getDate } from "@/utils/getDate";
 
 export default function PostItem({ data }) {
   const router = useRouter();
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(data.liked);
   return (
     <div
       onClick={() => router.push(`/board/${data.id}`)}
@@ -30,7 +30,7 @@ export default function PostItem({ data }) {
         <div className="flex gap-2">
           <UserIcon width={24} height={24} />
           <p className="text-secondary-600 text-[14px]/[24px]">
-            {data.writer.nickname}
+            {data.user.username}
           </p>
           <p className="text-secondary-400 text-[14px]/[24px]">
             {getDate(data.createdAt)}
@@ -55,7 +55,7 @@ export default function PostItem({ data }) {
             height={24}
           />
           <p className="w-[50px] text-[16px]/[26px] text-secondary-500 font-normal">
-            {data.likeCount > 9999 ? "9999+" : data.likeCount}
+            {data.likeCount > 9999 ? "9999+" : data.favoriteCount}
           </p>
         </div>
       </div>

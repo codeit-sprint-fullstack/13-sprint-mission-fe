@@ -1,4 +1,14 @@
-import { tempFetch, tempAuthFetch } from "./fetchClient";
+import { apiFetch } from "./fetchClient";
 export const itemService = {
-  getItems: (query) => tempFetch(`/products${query ? `?${query}` : ""}`),
+  getItems: (query) => apiFetch(`/products${query ? `?${query}` : ""}`),
+  getItem: (itemId) => apiFetch(`/products/${itemId}`),
+  deleteItem: (itemId) =>
+    apiFetch(`/products/${itemId}`, {
+      method: "DELETE",
+    }),
+  postItem: (formData) =>
+    apiFetch("/products", {
+      method: "POST",
+      body: formData,
+    }),
 };

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,7 +25,7 @@ const menu = [
   },
 ];
 
-export default function ItemPage() {
+export default function ItemsPage() {
   const size = useResponsiveWidth();
   const [input, setInput] = useState("");
   const [keyword, setKeyword] = useState("");
@@ -39,21 +39,27 @@ export default function ItemPage() {
         const queryParams = new URLSearchParams({
           orderBy: selected.type,
           pageSize: size === "mobile" ? 4 : size === "tablet" ? 6 : 10,
-          ...(input && { keyword: input }),
-          ...(page !== 1 && { page }),
+          ...(keyword && { keyword }),
+          ...(page && { page }),
         });
         const result = await itemService.getItems(queryParams);
         return result;
       },
     });
+  console.log(products);
 
   const { data: best = { list: [] }, isPending: isBestPending } = useQuery({
-    queryKey: ["best", size],
+    queryKey: ["products", "best", size],
     queryFn: () => {
       const pageSize = `pageSize=${size === "mobile" ? 1 : size === "tablet" ? 2 : 4}`;
       return itemService.getItems(`orderBy=favorite&${pageSize}&page=1`);
     },
   });
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPage(1);
+  }, [size]);
 
   return (
     <div className="mx-auto flex flex-col flex-1 gap-[40px] pt-[16px] pb-[140px] w-[1200px] max-[1280px]:w-fit max-[1280px]:px-[24px]">

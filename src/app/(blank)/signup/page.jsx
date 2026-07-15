@@ -43,7 +43,7 @@ export default function SignUpPage() {
           e.preventDefault();
           try {
             await signup(data);
-            router.push("/market");
+            router.push("/items");
           } catch (e) {
             setModalMessage(e.message);
           }

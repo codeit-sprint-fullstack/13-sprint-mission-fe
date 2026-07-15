@@ -17,22 +17,27 @@ export const validateCheckedPassword = (password, checkedPassword) => {
 
 //상품명 validate
 export const validateName = (data) => {
-  return data.length <= 10;
+  return data.trim().length <= 10;
 };
 
 //상품소개 validate
 export const validateDescription = (data) => {
-  return data.length >= 10;
+  return data.trim().length >= 10;
 };
 
 //태그 validate
 export const validateTag = (data) => {
-  return data.length <= 5;
+  return data.trim().length <= 5;
 };
 
 //숫자 validate (ex. 판매가격 validate)
 export const validateNumber = (data) => {
   return !isNaN(+data);
+};
+
+//이미지들 validate
+export const validateImages = (data) => {
+  return data.length <= 3;
 };
 
 //필드가 비었는지 확인하는 함수

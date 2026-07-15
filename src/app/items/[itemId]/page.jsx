@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getProduct, getProductComments } from "@/app/lib/api";
+import { resolveImageUrl } from "@/app/lib/fetchClient";
 import BackToListButton from "@/app/components/ui/BackToListButton";
 import ProductActions from "./ProductActions";
 import FavoriteButton from "./FavoriteButton";
@@ -41,7 +42,7 @@ export default async function ItemDetailPage({ params }) {
           {product.images?.[0] && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={product.images[0]}
+              src={resolveImageUrl(product.images[0])}
               alt={product.name}
               className="rounded-2xl object-cover w-85.75 h-85.75 xl:w-121.25 xl:h-121.25"
             />
@@ -52,7 +53,7 @@ export default async function ItemDetailPage({ params }) {
             <h1 className="text-lg sm:text-xl font-bold text-secondary-800 leading-snug flex-1">
               {product.name}
             </h1>
-            <ProductActions productId={productId} ownerId={product.ownerId} />
+            <ProductActions productId={productId} ownerId={product.userId} />
           </div>
           <span className="text-3xl font-bold text-secondary-800 mb-4">
             {product.price.toLocaleString()}원
@@ -73,10 +74,10 @@ export default async function ItemDetailPage({ params }) {
             <div className="flex flex-wrap gap-2 mb-4">
               {product.tags.map((tag) => (
                 <span
-                  key={tag}
+                  key={tag.id}
                   className="px-4 py-1.5 bg-secondary-100 rounded-full text-sm text-secondary-800"
                 >
-                  #{tag}
+                  #{tag.name}
                 </span>
               ))}
             </div>
@@ -92,7 +93,7 @@ export default async function ItemDetailPage({ params }) {
               />
               <div className="flex flex-col">
                 <span className="text-secondary-600">
-                  {product.ownerNickname}
+                  {product.user?.nickname}
                 </span>
                 <span className="text-secondary-400">
                   {new Date(product.createdAt)
@@ -109,8 +110,8 @@ export default async function ItemDetailPage({ params }) {
               <Image src={VECTOR_IMG} alt="" width={1} height={34} />
               <FavoriteButton
                 productId={productId}
-                initialIsFavorite={product.isFavorite}
-                initialFavoriteCount={product.favoriteCount}
+                initialIsFavorite={product.isLiked}
+                initialFavoriteCount={product._count?.likes}
               />
             </div>
           </div>

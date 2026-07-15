@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { getProduct, updateProduct } from "@/app/lib/api";
+import ImageUploader from "@/app/components/ui/ImageUploader";
 
 export default function ItemEditPage({ params }) {
   const { itemId } = use(params);
@@ -19,14 +20,9 @@ export default function ItemEditPage({ params }) {
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
+  const [images, setImages] = useState([]);
   const [error, setError] = useState("");
   const prefilled = useRef(false);
-
-  useEffect(() => {
-    if (isInitialized && !user) {
-      router.replace(`/login?redirect=/items/${itemId}/edit`);
-    }
-  }, [isInitialized, user, router, itemId]);
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", productId],
@@ -39,15 +35,16 @@ export default function ItemEditPage({ params }) {
       setName(product.name ?? "");
       setDescription(product.description ?? "");
       setPrice(String(product.price ?? ""));
-      setTags(product.tags ?? []);
+      setTags((product.tags ?? []).map((tag) => tag.name));
+      setImages(product.images ?? []);
     }
   }, [product]);
 
-  useEffect(() => {
-    if (product && user && user.id !== product.ownerId) {
-      router.replace(`/items/${itemId}`);
-    }
-  }, [product, user, router, itemId]);
+  // useEffect(() => {
+  //   if (product && user && user.id !== product.ownerId) {
+  //     router.replace(`/items/${itemId}`);
+  //   }
+  // }, [product, user, router, itemId]);
 
   const updateMutation = useMutation({
     mutationFn: (data) => updateProduct(productId, data),
@@ -85,7 +82,7 @@ export default function ItemEditPage({ params }) {
       description: description.trim(),
       price: Number(price),
       tags,
-      images: product?.images ?? [],
+      images,
     });
   };
 
@@ -113,6 +110,13 @@ export default function ItemEditPage({ params }) {
       )}
 
       <div className="flex flex-col gap-6">
+        <div>
+          <label className="block text-sm font-bold text-secondary-900 mb-2">
+            상품 이미지
+          </label>
+          <ImageUploader images={images} onChange={setImages} />
+        </div>
+
         <div>
           <label className="block text-sm font-bold text-secondary-900 mb-2">
             *상품명

@@ -16,25 +16,18 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // 웬만하면 authprovider안에 useEffect넣기
+  // accessToken은 httpOnly 쿠키라 JS에서 존재 여부를 알 수 없으므로,
+  // 항상 /users/me를 시도해서 응답 성공 여부로 로그인 상태를 판단함
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      setIsInitialized(true); // Error
-      return;
-    }
-    // Promise 체인잉
     userService
       .getMe()
       .then(setUser)
-      .catch(() => localStorage.removeItem("accessToken"))
+      .catch(() => setUser(null))
       .finally(() => setIsInitialized(true));
   }, []);
 
   const signIn = async (email, password) => {
     const data = await authService.signIn(email, password);
-    localStorage.setItem("accessToken", data.accessToken);
-    if (data.refreshToken)
-      localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };
@@ -46,9 +39,6 @@ export default function AuthProvider({ children }) {
       password,
       passwordConfirmation
     );
-    localStorage.setItem("accessToken", data.accessToken);
-    if (data.refreshToken)
-      localStorage.setItem("refreshToken", data.refreshToken);
     setUser(data.user);
     return data;
   };

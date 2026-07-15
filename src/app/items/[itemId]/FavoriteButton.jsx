@@ -17,12 +17,15 @@ export default function FavoriteButton({
   const { data: product } = useQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId),
-    initialData: { isFavorite: initialIsFavorite, favoriteCount: initialFavoriteCount },
+    initialData: {
+      isLiked: initialIsFavorite,
+      _count: { likes: initialFavoriteCount },
+    },
   });
 
   const favoriteMutation = useMutation({
     mutationFn: () =>
-      product?.isFavorite
+      product?.isLiked
         ? unfavoriteProduct(productId)
         : favoriteProduct(productId),
     onSuccess: () => {
@@ -38,12 +41,12 @@ export default function FavoriteButton({
       className="flex items-center gap-1 px-3 py-1 border border-secondary-200 rounded-4xl text-secondary-500"
     >
       <Image
-        src={product?.isFavorite ? HEART_FILLED_ICON : HEART_ICON}
+        src={product?.isLiked ? HEART_FILLED_ICON : HEART_ICON}
         alt=""
         width={16}
         height={16}
       />
-      <span>{product?.favoriteCount}</span>
+      <span>{product?._count?.likes}</span>
     </button>
   );
 }

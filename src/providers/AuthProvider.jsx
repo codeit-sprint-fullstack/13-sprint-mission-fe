@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { BASE_URL } from "@/app/api/config";
 
 const AuthContext = createContext({
   login: () => {},
@@ -24,13 +25,13 @@ export default function AuthProvider({ children }) {
 
   const getUser = async () => {
     try {
-      const user = await fetch("https://panda-market-api.vercel.app/users/me", {
+      const res = await fetch(`${BASE_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      if (!user.ok) throw new Error(`에러 발생 HTTP: ${user.status}`);
-      const data = await user.json();
+      if (!res.ok) throw new Error(`에러 발생 HTTP: ${res.status}`);
+      const data = await res.json();
       setUser(data);
       setIsInitialized(true);
     } catch (err) {
@@ -39,24 +40,19 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  const register = async (nickname, email, password, passwordConfirmation) => {
-    // await authService.register(name, email, password);
+  const register = async (nickname, email, password) => {
     try {
-      const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/signUp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            nickname,
-            password,
-            passwordConfirmation,
-          }),
+      const res = await fetch(`${BASE_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          email,
+          name: nickname,
+          password,
+        }),
+      });
       if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
@@ -68,19 +64,14 @@ export default function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    // await authService.login(email, password);
-    // await getUser();
     try {
-      const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/signIn",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
+      const res = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ email, password }),
+      });
       if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
@@ -94,11 +85,6 @@ export default function AuthProvider({ children }) {
   const logout = async () => {
     setUser(null);
   };
-
-  // const updateUser = async (user) => {
-  //   const updatedUser = await userService.updateMe(user);
-  //   setUser(updatedUser);
-  // };
 
   useEffect(() => {
     setTimeout(() => {

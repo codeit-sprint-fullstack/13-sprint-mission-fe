@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# backend는 별도 git 저장소(13-sprint-mission-be)라 프론트 git에서 제외
+/backend/

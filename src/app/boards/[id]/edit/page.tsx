@@ -5,12 +5,13 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getArticle, updateArticle } from '@/lib/articles';
 import Header from '@/app/components/Header';
-import PostForm from '@/app/components/PostForm';
+import PostForm, { type PostFormValues } from '@/app/components/PostForm';
+import type { Article } from '@/types';
 
 export default function EditPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const [article, setArticle] = useState(null);
+  const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     getArticle(id)
@@ -21,7 +22,7 @@ export default function EditPage() {
       .catch(() => router.replace('/boards'));
   }, [id, router]);
 
-  async function handleSubmit(values) {
+  async function handleSubmit(values: PostFormValues) {
     await updateArticle(id, values);
     router.push(`/boards/${id}`);
   }

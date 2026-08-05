@@ -5,13 +5,14 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ArticleImage from '@/app/components/ArticleImage';
 import { getProducts } from '@/lib/products';
+import type { Product } from '@/types';
 
-function formatPrice(price) {
+function formatPrice(price?: number): string {
   return Number(price ?? 0).toLocaleString('ko-KR');
 }
 
 export default function ItemsPage() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 

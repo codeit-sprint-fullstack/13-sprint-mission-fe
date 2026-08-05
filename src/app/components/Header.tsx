@@ -1,8 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+type HeaderTab = 'boards' | 'market';
+
+interface HeaderProps {
+  active?: HeaderTab;
+}
+
 // 자유게시판 · 중고마켓 공통 헤더
-export default function Header({ active }) {
+export default function Header({ active }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 border-b border-[#dfdfdf] bg-white">
       <div className="mx-auto flex h-[70px] max-w-[1200px] items-center gap-8 px-6">

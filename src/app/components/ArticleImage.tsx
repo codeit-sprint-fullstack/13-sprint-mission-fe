@@ -1,11 +1,19 @@
 'use client';
 
-import Image from 'next/image';
+import Image, { type ImageLoaderProps } from 'next/image';
 import { useState } from 'react';
 
 const DEFAULT_IMAGE = 'https://placehold.co/600x400/e2e8f0/94a3b8?text=Panda';
 
-function passthroughLoader({ src }) {
+interface ArticleImageProps {
+  src?: string | null;
+  alt?: string;
+  width: number;
+  height: number;
+  className?: string;
+}
+
+function passthroughLoader({ src }: ImageLoaderProps): string {
   return src;
 }
 
@@ -15,9 +23,9 @@ export default function ArticleImage({
   width,
   height,
   className,
-}) {
+}: ArticleImageProps) {
   const requestedSrc = src || DEFAULT_IMAGE;
-  const [failedSrc, setFailedSrc] = useState(null);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const imageSrc = failedSrc === requestedSrc ? DEFAULT_IMAGE : requestedSrc;
 
   return (

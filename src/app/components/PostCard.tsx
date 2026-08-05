@@ -1,18 +1,23 @@
 import Link from 'next/link';
 import { getMockNickname, getMockLikeCount } from '@/lib/articles';
 import ArticleImage from '@/app/components/ArticleImage';
+import type { Article } from '@/types';
 
-function formatDate(str) {
-  const date = new Date(str);
+interface PostCardProps {
+  article: Article;
+}
+
+function formatDate(str?: string): string {
+  const date = new Date(str ?? '');
   if (Number.isNaN(date.getTime())) return '-';
   return date.toISOString().slice(0, 10).replace(/-/g, '.');
 }
 
-function formatLike(n) {
+function formatLike(n: number): string | number {
   return n > 9999 ? '9999+' : n;
 }
 
-export default function PostCard({ article }) {
+export default function PostCard({ article }: PostCardProps) {
   const nickname = article.writer?.nickname ?? getMockNickname(article.id);
   const likeCount  = article.likeCount  ?? getMockLikeCount(article.id);
   const image      = article.image;

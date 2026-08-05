@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -16,25 +16,26 @@ import {
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ArticleImage from '@/app/components/ArticleImage';
+import type { Article, Comment } from '@/types';
 
-function formatDate(str) {
+function formatDate(str: string): string {
   const date = new Date(str);
   if (Number.isNaN(date.getTime())) return '-';
   return date.toISOString().slice(0, 10).replace(/-/g, '.');
 }
 
-function formatLike(n) {
+function formatLike(n: number): string | number {
   return n > 9999 ? '9999+' : n;
 }
 
 export default function ArticleDetailPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const [article, setArticle] = useState(null);
+  const [article, setArticle] = useState<Article | null>(null);
   const [likeCount, setLikeCount] = useState(0);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [commentInput, setCommentInput] = useState('');
-  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCommentSubmitting, setIsCommentSubmitting] = useState(false);
@@ -75,7 +76,7 @@ export default function ArticleDetailPage() {
     }
   }
 
-  async function handleCreateComment(event) {
+  async function handleCreateComment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const content = commentInput.trim();
     if (!content || isCommentSubmitting) return;
@@ -95,12 +96,12 @@ export default function ArticleDetailPage() {
     }
   }
 
-  function startEditComment(comment) {
+  function startEditComment(comment: Comment) {
     setEditingCommentId(comment.id);
     setEditingContent(comment.content ?? '');
   }
 
-  async function handleUpdateComment(commentId) {
+  async function handleUpdateComment(commentId: number) {
     const content = editingContent.trim();
     if (!content) return;
 
@@ -117,7 +118,7 @@ export default function ArticleDetailPage() {
     }
   }
 
-  async function handleDeleteComment(commentId) {
+  async function handleDeleteComment(commentId: number) {
     if (!confirm('댓글을 삭제하시겠습니까?')) return;
 
     try {

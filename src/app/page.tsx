@@ -1,7 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
-const features = [
+interface LandingFeature {
+  eyebrow: string;
+  title: ReactNode;
+  description: ReactNode;
+  image: string;
+  alt: string;
+  imagePosition: "left" | "right";
+}
+
+const features: LandingFeature[] = [
   {
     eyebrow: "Hot Item",
     title: (

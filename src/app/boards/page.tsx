@@ -1,18 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import Link from 'next/link';
 import { getArticles } from '@/lib/articles';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import PostCard from '@/app/components/PostCard';
 import BestPostCard from '@/app/components/BestPostCard';
+import type { Article, ArticleOrderBy } from '@/types';
 
 export default function BoardsPage() {
-  const [bestArticles, setBestArticles] = useState([]);
-  const [articles, setArticles] = useState([]);
+  const [bestArticles, setBestArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [keyword, setKeyword] = useState('');
-  const [orderBy, setOrderBy] = useState('recent');
+  const [orderBy, setOrderBy] = useState<ArticleOrderBy>('recent');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -45,14 +46,14 @@ export default function BoardsPage() {
     };
   }, [keyword, orderBy]);
 
-  function handleKeywordChange(event) {
+  function handleKeywordChange(event: ChangeEvent<HTMLInputElement>) {
     setIsLoading(true);
     setKeyword(event.target.value);
   }
 
-  function handleOrderChange(event) {
+  function handleOrderChange(event: ChangeEvent<HTMLSelectElement>) {
     setIsLoading(true);
-    setOrderBy(event.target.value);
+    setOrderBy(event.target.value as ArticleOrderBy);
   }
 
   return (

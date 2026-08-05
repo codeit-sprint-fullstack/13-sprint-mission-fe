@@ -3,12 +3,12 @@
 import { useRouter } from 'next/navigation';
 import { createArticle } from '@/lib/articles';
 import Header from '@/app/components/Header';
-import PostForm from '@/app/components/PostForm';
+import PostForm, { type PostFormValues } from '@/app/components/PostForm';
 
 export default function WritePage() {
   const router = useRouter();
 
-  async function handleSubmit(values) {
+  async function handleSubmit(values: PostFormValues) {
     const article = await createArticle(values);
     router.push(`/boards/${article.id}`);
   }

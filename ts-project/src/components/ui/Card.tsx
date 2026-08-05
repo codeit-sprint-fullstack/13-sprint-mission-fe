@@ -1,4 +1,5 @@
 import Image, { ImageProps } from "next/image";
+import cn from "@/utils/cn";
 
 interface ICardProps extends Omit<ImageProps, "alt"> {
   tag: string;
@@ -17,7 +18,10 @@ export default function Card({
   return (
     <div className="flex items-center justify-center h-fit">
       <div
-        className={`flex w-[988px] bg-[var(--tertiary-bg-color)] hover:cursor-pointer max-desktop:w-full max-desktop:flex-col max-desktop:justify-start max-desktop:gap-[24px] max-desktop:px-[40px] ${flip ? "flex-row-reverse max-desktop:items-end max-desktop:text-end" : ""}`}
+        className={cn(
+          "flex w-[988px] bg-[var(--tertiary-bg-color)] hover:cursor-pointer max-desktop:w-full max-desktop:flex-col max-desktop:justify-start max-desktop:gap-[24px] max-desktop:px-[40px]",
+          flip && "flex-row-reverse max-desktop:items-end max-desktop:text-end",
+        )}
       >
         <Image
           width={588}

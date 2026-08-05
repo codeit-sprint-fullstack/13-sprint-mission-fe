@@ -14,8 +14,8 @@ import Menu from "@/components/ui/Menu";
 import Modal from "@/components/ui/Modal";
 
 import { getDate } from "@/utils/getDate";
-import { boardService } from "@/lib/boardService";
-import { commentService } from "@/lib/commentService";
+import { boardService } from "@/services/boardService";
+import { commentService } from "@/services/commentService";
 
 export default function PostDetailPage() {
   const router = useRouter();

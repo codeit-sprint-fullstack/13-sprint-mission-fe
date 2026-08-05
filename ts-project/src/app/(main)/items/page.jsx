@@ -10,7 +10,7 @@ import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
 import ProductCardList from "@/components/ui/ProductCardList";
 import Pagination from "@/components/ui/Pagination";
-import { itemService } from "@/lib/itemService";
+import { itemService } from "@/services/itemService";
 
 const menu = [
   {

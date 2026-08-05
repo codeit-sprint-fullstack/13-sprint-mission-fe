@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
@@ -13,10 +14,9 @@ import Menu from "@/components/ui/Menu";
 import Modal from "@/components/ui/Modal";
 
 import { useAuth } from "@/providers/AuthProvider";
-import { itemService } from "@/lib/itemService";
-import { itemCommentService } from "@/lib/itemCommentService";
+import { itemService } from "@/services/itemService";
+import { itemCommentService } from "@/services/itemCommentService";
 import { getDate } from "@/utils/getDate";
-import { useState } from "react";
 
 export default function ItemPage() {
   const router = useRouter();

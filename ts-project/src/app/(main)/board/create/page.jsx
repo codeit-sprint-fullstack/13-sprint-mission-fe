@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import PostForm from "../PostForm";
 
-import { boardService } from "@/lib/boardService";
+import { boardService } from "@/services/boardService";
 
 export default function CreatePostPage() {
   const router = useRouter();

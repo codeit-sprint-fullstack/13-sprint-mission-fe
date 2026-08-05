@@ -11,7 +11,7 @@ import Dropdown from "@/components/ui/Dropdown";
 import PostItem from "@/components/ui/PostItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
-import { boardService } from "@/lib/boardService";
+import { boardService } from "@/services/boardService";
 import "swiper/css";
 
 const pageSize = 10;

@@ -15,7 +15,7 @@ import {
   validateTag,
   validateImages,
 } from "@/utils/validation";
-import { itemService } from "@/lib/itemService";
+import { itemService } from "@/services/itemService";
 
 export default function ItemRegisterPage() {
   const router = useRouter();

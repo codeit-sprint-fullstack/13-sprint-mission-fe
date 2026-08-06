@@ -3,15 +3,22 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { authService } from "@/services/authService";
 import { userService } from "@/services/userService";
+import { UserType } from "@/types/user";
 
-const AuthContext = createContext({
-  user: null,
-  isLogin: false,
-  isAuthLoading: false,
-  signup: () => {},
-  login: () => {},
-  logout: () => {},
-});
+interface IAuthContextType {
+  user: UserType | null;
+  isLogin: boolean;
+  isAuthLoading: boolean;
+  signup: (data: UserType) => Promise<void>;
+  login: (data: Pick<UserType, "email" | "password">) => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+interface IAuthProviderProps {
+  children: React.ReactNode;
+}
+
+const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -20,18 +27,18 @@ export const useAuth = () => {
   return context;
 };
 
-export default function AuthProvider({ children }) {
-  const [user, setUser] = useState({});
+export default function AuthProvider({ children }: IAuthProviderProps) {
+  const [user, setUser] = useState<UserType | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const isLogin = !!Object.values(user ?? {}).length;
 
-  async function signup(data) {
+  async function signup(data: UserType) {
     const result = await authService.signUp(data);
     setUser(result.user);
     localStorage.setItem("accessToken", result.accessToken);
     localStorage.setItem("refreshToken", result.refreshToken);
   }
-  async function login(data) {
+  async function login(data: Pick<UserType, "email" | "password">) {
     const { email, password } = data;
     const result = await authService.login({ id: email, password });
     setUser(result.user);
@@ -39,7 +46,7 @@ export default function AuthProvider({ children }) {
     localStorage.setItem("refreshToken", result.refreshToken);
   }
   async function logout() {
-    setUser({});
+    setUser(null);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   }
@@ -49,7 +56,7 @@ export default function AuthProvider({ children }) {
       const result = await userService.getMe();
       setUser(result);
     } catch (e) {
-      setUser({});
+      setUser(null);
     } finally {
       setIsAuthLoading(false);
     }

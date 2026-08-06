@@ -2,10 +2,10 @@ import React from "react";
 import cn from "@/utils/cn";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "rectangle" | "circle";
+  variant?: "rectangle" | "circle";
   disabled: boolean;
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 const variants = {
@@ -15,7 +15,7 @@ const variants = {
 };
 
 export default function Button({
-  variant,
+  variant = "rectangle",
   disabled,
   children,
   className,

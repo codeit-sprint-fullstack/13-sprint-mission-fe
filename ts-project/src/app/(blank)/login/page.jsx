@@ -95,7 +95,7 @@ export default function LoginPage() {
                 password: validatePassword(input),
               }));
             }}
-            suffix={
+            endAdornment={
               <Image
                 src={
                   passwordOpen

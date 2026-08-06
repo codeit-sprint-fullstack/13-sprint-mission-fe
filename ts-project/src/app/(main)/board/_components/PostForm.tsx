@@ -1,7 +1,17 @@
 import Button from "@/components/ui/Button";
 import FormField from "@/components/ui/FormField";
+import { PostType } from "@/types/post";
+import React from "react";
 
-export default function PostForm({ data, setData, onSubmit }) {
+interface IPostFormProps {
+  data: Pick<PostType, "title" | "content">;
+  setData: React.Dispatch<
+    React.SetStateAction<Pick<PostType, "title" | "content">>
+  >;
+  onSubmit: React.SubmitEventHandler<HTMLFormElement>;
+}
+
+export default function PostForm({ data, setData, onSubmit }: IPostFormProps) {
   return (
     <form
       onSubmit={onSubmit}
@@ -23,7 +33,7 @@ export default function PostForm({ data, setData, onSubmit }) {
         <FormField
           title="*제목"
           value={data?.title}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setData((prev) => ({ ...prev, title: e.target.value }));
           }}
           placeholder="제목을 입력해주세요"
@@ -32,7 +42,7 @@ export default function PostForm({ data, setData, onSubmit }) {
           title="*내용"
           multiline={true}
           value={data?.content}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setData((prev) => ({ ...prev, content: e.target.value }));
           }}
           placeholder="내용을 입력해주세요"

@@ -6,10 +6,11 @@ import Image from "next/image";
 import UserIcon from "./UserIcon";
 
 import { getDate } from "@/utils/getDate";
+import { PostType } from "@/types/post";
 
-export default function PostItem({ data }) {
+export default function PostItem({ data }: { data: PostType }) {
   const router = useRouter();
-  const [isClicked, setIsClicked] = useState(data.liked);
+  const [isClicked, setIsClicked] = useState<boolean>(data.liked);
   return (
     <div
       onClick={() => router.push(`/board/${data.id}`)}
@@ -55,7 +56,7 @@ export default function PostItem({ data }) {
             height={24}
           />
           <p className="w-[50px] text-[16px]/[26px] text-secondary-500 font-normal">
-            {data.likeCount > 9999 ? "9999+" : data.favoriteCount}
+            {data.favoriteCount > 9999 ? "9999+" : data.favoriteCount}
           </p>
         </div>
       </div>

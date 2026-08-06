@@ -1,4 +1,13 @@
-export default function Menu({ menus, className, ...props }) {
+import React from "react";
+
+import { MenuType } from "@/types/menu";
+
+interface IMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+  menus: MenuType[];
+  className: string;
+}
+
+export default function Menu({ menus, className, ...props }: IMenuProps) {
   return (
     <div
       {...props}

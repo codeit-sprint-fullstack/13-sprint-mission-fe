@@ -3,8 +3,19 @@ import Image from "next/image";
 import { getTime } from "@/utils/getDate";
 
 import UserIcon from "./UserIcon";
+import { CommentType } from "@/types/comment";
 
-export default function CommentItem({ data, onMenuClick, children }) {
+interface ICommentItemProps {
+  data: CommentType;
+  onMenuClick: () => void;
+  children: React.ReactNode;
+}
+
+export default function CommentItem({
+  data,
+  onMenuClick,
+  children,
+}: ICommentItemProps) {
   return (
     <div className="bg-[#fcfcfc] border-b border-b-secondary-300 pb-[12px] relative">
       <div className="flex justify-between mb-[24px]">
@@ -24,7 +35,9 @@ export default function CommentItem({ data, onMenuClick, children }) {
       <div className="flex items-center gap-[8px]">
         <UserIcon width={32} height={32} />
         <div className="flex flex-col">
-          <p className="text-[12px]/[18px] text-secondary-600">{data.author}</p>
+          <p className="text-[12px]/[18px] text-secondary-600">
+            {data.user.username}
+          </p>
           <p className="text-[12px]/[18px] text-secondary-400 ">
             {getTime(data.createdAt)} 전
           </p>

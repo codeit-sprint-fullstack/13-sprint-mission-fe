@@ -4,10 +4,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { getDate } from "@/utils/getDate";
+import { PostType } from "@/types/post";
 
-export default function PopularPostCard({ data }) {
+export default function PopularPostCard({ data }: { data: PostType }) {
   const router = useRouter();
-  const [isClicked, setIsClicked] = useState(data.liked);
+  const [isClicked, setIsClicked] = useState<boolean>(data.liked);
   return (
     <article
       onClick={() => router.push(`/board/${data.id}`)}

@@ -116,7 +116,7 @@ export default function SignUpPage() {
                 password: validatePassword(input),
               }));
             }}
-            suffix={
+            endAdornment={
               <Image
                 src={
                   passwordOpen
@@ -161,7 +161,7 @@ export default function SignUpPage() {
                 ),
               }));
             }}
-            suffix={
+            endAdornment={
               <Image
                 src={
                   passwordOpen

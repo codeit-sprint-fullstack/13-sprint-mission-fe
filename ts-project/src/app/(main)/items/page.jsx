@@ -89,7 +89,7 @@ export default function ItemsPage() {
         {size !== "mobile" ? (
           <div className="flex items-center gap-[16px]">
             <Input
-              prefix={
+              startAdornment={
                 <Image
                   width={24}
                   height={24}

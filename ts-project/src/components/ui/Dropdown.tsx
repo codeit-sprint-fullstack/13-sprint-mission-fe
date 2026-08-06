@@ -1,10 +1,18 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 import useDropdown from "@/hooks/useDropdown";
+import { MenuType } from "@/types/menu";
 
-export default function Dropdown({ menus, value, onChange }) {
+interface IDropdownProps {
+  menus: MenuType[];
+  value: MenuType;
+  onChange: React.Dispatch<React.SetStateAction<MenuType>>;
+}
+
+export default function Dropdown({ menus, value, onChange }: IDropdownProps) {
   const size = useResponsiveWidth();
   const { open, closeDropdown, toggleDropdown } = useDropdown();
 

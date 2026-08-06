@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 
+import useBoard from "../_hooks/useBoard";
+import useBoardMutations from "../_hooks/useBoardMutations";
+import useCommentMutations from "../_hooks/useCommentMutations";
 import UserIcon from "@/components/ui/UserIcon";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
@@ -14,68 +17,34 @@ import Menu from "@/components/ui/Menu";
 import Modal from "@/components/ui/Modal";
 
 import { getDate } from "@/utils/getDate";
-import { boardService } from "@/services/boardService";
-import { commentService } from "@/services/commentService";
+import { MenuType } from "@/types/menu";
+import { CommentType } from "@/types/comment";
 
 export default function PostDetailPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const { boardId } = useParams();
-  const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const [comment, setComment] = useState("");
-  const [openedMenuId, setOpenedMenuId] = useState(null);
-  const [modalMessage, setModalMessage] = useState("");
+  const { boardId } = useParams<{ boardId: string }>();
 
-  const { data: data } = useQuery({
-    queryKey: ["board", boardId],
-    queryFn: () => boardService.getArticleDetail(boardId),
+  const { postDetail, isPostDetailPending } = useBoard({
+    boardId: Number(boardId),
   });
-  const { mutate: deletePost } = useMutation({
-    mutationKey: ["board", boardId, "delete"],
-    mutationFn: boardService.deleteArticle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["board"],
-      });
-      router.push("/board");
-    },
-    onError: (e) => {
-      setModalMessage(e.message);
-    },
+  const { deletePostMutation } = useBoardMutations({
+    boardId: Number(boardId),
   });
-  const { mutate: postComment } = useMutation({
-    mutationFn: () => {
-      if (!comment.trim()) return;
+  const { postCommentMutation, deleteCommentMutation } = useCommentMutations({
+    boardId: Number(boardId),
+  });
+  const [isLikeClicked, setIsLikeClicked] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>("");
+  const [openedMenuId, setOpenedMenuId] = useState<number | null>(null);
+  const [modalMessage, setModalMessage] = useState<string>("");
 
-      return commentService.postComment(boardId, {
-        content: comment,
-        userId: 1,
-      });
-    },
-    onSuccess: () => {
-      setComment("");
-      queryClient.invalidateQueries({
-        queryKey: ["board"],
-      });
-    },
-  });
-  const { mutate: deleteComment } = useMutation({
-    mutationFn: (commentId) => {
-      return commentService.deleteComment(boardId, commentId);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["board"],
-      });
-    },
-  });
-
-  const boardMenus = [
+  const boardMenus: MenuType[] = [
     {
       name: "수정하기",
       onClick: () => {
-        if (user.id !== data.user.id) {
+        if (user?.id !== postDetail?.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
@@ -85,18 +54,25 @@ export default function PostDetailPage() {
     {
       name: "삭제하기",
       onClick: async () => {
-        if (user.id !== data.user.id) {
+        if (user?.id !== postDetail?.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
 
-        deletePost(boardId);
+        deletePostMutation.mutate(
+          { id: Number(boardId) },
+          {
+            onError: (e) => {
+              setModalMessage(e.message);
+            },
+          },
+        );
       },
     },
   ];
-  const createCommentMenus = (comment) => [
+  const createCommentMenus = (comment: CommentType) => [
     {
       name: "수정하기",
       onClick: () => {},
@@ -104,13 +80,23 @@ export default function PostDetailPage() {
     {
       name: "삭제하기",
       onClick: () => {
-        if (user.id !== comment.user.id) {
+        if (user?.id !== comment.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
-        deleteComment(comment.id);
+        deleteCommentMutation.mutate(
+          { id: comment.id },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: ["board"],
+              });
+              setComment("");
+            },
+          },
+        );
       },
     },
   ];
@@ -119,7 +105,7 @@ export default function PostDetailPage() {
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <header className="border-b border-b-secondary-200">
         <div className="relative flex justify-between items-start mb-[16px]">
-          <h1 className="font-bold text-[20px]/[32px]">{data?.title}</h1>
+          <h1 className="font-bold text-[20px]/[32px]">{postDetail?.title}</h1>
           <Image
             src="/icons/ic_kebab.svg"
             alt="케밥 아이콘"
@@ -144,10 +130,10 @@ export default function PostDetailPage() {
           <div className="flex items-center">
             <UserIcon width={40} height={40} />
             <h2 className="text-[14px]/[24px] font-medium ml-[16px] mr-[8px]">
-              {data?.user.username}
+              {postDetail?.user.username}
             </h2>
             <p className="text-[14px]/[24px] text-secondary-400 font-normal">
-              {getDate(data?.createdAt)}
+              {getDate(postDetail?.createdAt)}
             </p>
           </div>
           <div className="w-px self-stretch bg-secondary-200 mx-[32px]"></div>
@@ -167,17 +153,31 @@ export default function PostDetailPage() {
               width={32}
               height={32}
             />
-            {data?.favoriteCount}
+            {postDetail?.favoriteCount}
           </div>
         </div>
       </header>
       <p className="text-[18px]/[26px] mt-[24px] mb-[32px] whitespace-pre-wrap">
-        {data?.content}
+        {postDetail?.content}
       </p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          postComment();
+          if (!user) {
+            alert("로그인이 필요합니다.");
+            return;
+          }
+          postCommentMutation.mutate(
+            { userId: user?.id, comment },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries({
+                  queryKey: ["board"],
+                });
+                setComment("");
+              },
+            },
+          );
         }}
       >
         <FormField
@@ -185,7 +185,9 @@ export default function PostDetailPage() {
           placeholder="댓글을 입력해주세요."
           multiline={true}
           value={comment}
-          onChange={(e) => {
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+          ) => {
             setComment(e.target.value);
           }}
           className="h-[104px] "
@@ -202,7 +204,7 @@ export default function PostDetailPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {data?.comments.map((comment) => (
+        {postDetail?.comments?.map((comment) => (
           <div key={comment.id}>
             <CommentItem
               data={comment}
@@ -228,6 +230,7 @@ export default function PostDetailPage() {
       <Link href="/board">
         <Button
           variant="circle"
+          disabled={false}
           type="button"
           className="flex items-center gap-[8px] bg-primary text-white px-[40px] py-[11px] m-auto mb-[38px]"
         >

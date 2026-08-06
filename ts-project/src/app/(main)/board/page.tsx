@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,34 +10,20 @@ import Dropdown from "@/components/ui/Dropdown";
 import PostItem from "@/components/ui/PostItem";
 import PopularPostCard from "@/components/ui/PopularPostCard";
 
-import { boardService } from "@/services/boardService";
+import useBoards from "./_hooks/useBoards";
+import { MenuType } from "@/types/menu";
 import "swiper/css";
 
-const pageSize = 10;
-const menu = [
+const menu: MenuType[] = [
   { id: 1, type: "createdAt", name: "최신순" },
   { id: 2, type: "favoriteCount", name: "좋아요순" },
 ];
 
 export default function BoardListPage() {
-  const [input, setInput] = useState("");
-  const [selected, setSelected] = useState(menu[0]);
-
-  const { data: { list: posts = [], totalCount = 0 } = {} } = useQuery({
-    queryKey: ["board", input, selected],
-    queryFn: () => {
-      const queryParams = new URLSearchParams({
-        orderBy: selected.type,
-        pageSize,
-        page: 1,
-        ...(input && { keyword: input }),
-      });
-      return boardService.getArticles(queryParams);
-    },
-  });
-  const { data: { list: bestPosts = [] } = {} } = useQuery({
-    queryKey: ["board", "best"],
-    queryFn: boardService.getBestArticles,
+  const [input, setInput] = useState<string>("");
+  const [selected, setSelected] = useState<MenuType>(menu[0]);
+  const { posts, bestPosts, isPostsPending, isBestPostsPending } = useBoards({
+    selected,
   });
 
   return (
@@ -60,6 +45,7 @@ export default function BoardListPage() {
           <h1 className="text-secondary-900 text-[20px] font-bold">게시글</h1>
           <Link href="/board/create">
             <Button
+              disabled={false}
               type="button"
               variant="rectangle"
               className="bg-primary text-white"
@@ -75,7 +61,7 @@ export default function BoardListPage() {
             onChange={(e) => {
               setInput(e.target.value);
             }}
-            prefix={
+            startAdornment={
               <Image
                 src="/icons/ic_search.svg"
                 alt="검색 아이콘"

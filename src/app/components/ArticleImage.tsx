@@ -3,7 +3,7 @@
 import Image, { type ImageLoaderProps } from 'next/image';
 import { useState } from 'react';
 
-const DEFAULT_IMAGE = 'https://placehold.co/600x400/e2e8f0/94a3b8?text=Panda';
+const DEFAULT_IMAGE = '/images/default-product.svg';
 
 interface ArticleImageProps {
   src?: string | null;

@@ -16,6 +16,8 @@ export interface Article {
   writer?: Writer;
 }
 
+// 자체 백엔드(imageUrl·likeCount)와 실습용 CRUD API(images·favoriteCount)
+// 응답 형태가 달라 두 필드를 모두 optional로 열어두고 화면에서 fallback 처리한다.
 export interface Product {
   id: number;
   name: string;
@@ -23,7 +25,9 @@ export interface Product {
   price: number;
   tags?: string[];
   images?: string[];
+  imageUrl?: string | null;
   favoriteCount?: number;
+  likeCount?: number;
   ownerId?: number;
   createdAt: string;
   updatedAt?: string;
@@ -73,3 +77,17 @@ export interface ArticleCreateInput {
 }
 
 export type ArticleUpdateInput = Partial<ArticleCreateInput>;
+
+export interface ProductCreateInput {
+  name: string;
+  description: string;
+  price: number;
+  tags?: string[];
+  imageUrl?: string | null;
+}
+
+export type ProductUpdateInput = Partial<ProductCreateInput>;
+
+export interface UploadedImage {
+  imageUrl: string;
+}

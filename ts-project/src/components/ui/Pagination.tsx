@@ -2,9 +2,17 @@ import Button from "./Button";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 import { getTotalPage, getRange } from "@/utils/pagination";
 
-const PAGINATION_LENGTH = 5;
+interface IPaginationProps {
+  currentPage: number;
+  totalCount: number;
+  onChange: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export default function Pagination({ currentPage, totalCount, onChange }) {
+export default function Pagination({
+  currentPage,
+  totalCount,
+  onChange,
+}: IPaginationProps) {
   const size = useResponsiveWidth();
   const pageSize = size === "mobile" ? 4 : size === "tablet" ? 6 : 10;
 
@@ -14,6 +22,7 @@ export default function Pagination({ currentPage, totalCount, onChange }) {
   return (
     <div className="mx-auto mt-[43px] flex w-fit justify-center gap-[4px]">
       <Button
+        disabled={false}
         variant="circle"
         onClick={() => {
           if (currentPage > 1) onChange((prev) => prev - 1);
@@ -27,6 +36,7 @@ export default function Pagination({ currentPage, totalCount, onChange }) {
       {numbers.map((n, i) => (
         <Button
           key={i}
+          disabled={false}
           variant="circle"
           onClick={() => {
             onChange(n);
@@ -40,6 +50,7 @@ export default function Pagination({ currentPage, totalCount, onChange }) {
       ))}
 
       <Button
+        disabled={false}
         variant="circle"
         onClick={() => {
           if (currentPage < totalPage) onChange((prev) => prev + 1);

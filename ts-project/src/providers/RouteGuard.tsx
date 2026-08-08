@@ -1,17 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
-const protectedPaths = [
+interface IRouteGuardProps {
+  children: React.ReactNode;
+}
+
+const protectedPaths: (string | RegExp)[] = [
   "/board/create",
   /^\/board\/[^/]+$/,
   /^\/board\/[^/]+\/edit$/,
 ];
-const publicPaths = ["/", "/login", "/register", "/board", "/items"];
+const publicPaths: (string | RegExp)[] = [
+  "/",
+  "/login",
+  "/register",
+  "/board",
+  "/items",
+];
 
-export default function RouteGuard({ children }) {
+export default function RouteGuard({ children }: IRouteGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { isLogin, isAuthLoading } = useAuth();

@@ -4,7 +4,9 @@ import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 
-export default function Item({ data }) {
+import { ProductType } from "@/types/product";
+
+export default function Item({ data }: { data: ProductType }) {
   const router = useRouter();
   return (
     <div
@@ -24,8 +26,8 @@ export default function Item({ data }) {
         height={300}
         loading="lazy"
         unoptimized
-        onError={(e) => {
-          e.target.src = "/images/item2.jpg";
+        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+          e.currentTarget.src = "/images/item2.jpg";
         }}
         className="aspect-square w-full rounded-[16px] object-cover"
       />

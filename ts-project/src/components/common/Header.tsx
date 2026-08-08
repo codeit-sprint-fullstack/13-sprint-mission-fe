@@ -41,6 +41,7 @@ export default function Header() {
       </div>
       {isLogin ? (
         <Button
+          disabled={false}
           type="button"
           variant="rectangle"
           onClick={logout}
@@ -51,6 +52,7 @@ export default function Header() {
       ) : (
         <Link href="/login">
           <Button
+            disabled={false}
             type="button"
             variant="rectangle"
             className="bg-primary text-white max-tablet:text-[16px]"

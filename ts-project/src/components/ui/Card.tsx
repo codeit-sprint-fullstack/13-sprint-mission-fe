@@ -5,7 +5,7 @@ interface ICardProps extends Omit<ImageProps, "alt"> {
   tag: string;
   title: string;
   text: string;
-  flip: boolean;
+  flip?: boolean;
 }
 
 export default function Card({

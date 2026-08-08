@@ -4,8 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
+import useItem from "../_hooks/useItem";
+import useItemMutations from "../_hooks/useItemMutations";
+import useItemCommentMutations from "../_hooks/useItemCommentMutations";
 import FormField from "@/components/ui/FormField";
 import UserIcon from "@/components/ui/UserIcon";
 import Button from "@/components/ui/Button";
@@ -14,60 +17,26 @@ import Menu from "@/components/ui/Menu";
 import Modal from "@/components/ui/Modal";
 
 import { useAuth } from "@/providers/AuthProvider";
-import { itemService } from "@/services/itemService";
-import { itemCommentService } from "@/services/itemCommentService";
 import { getDate } from "@/utils/getDate";
+import { CommentType } from "@/types/comment";
 
 export default function ItemPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { user } = useAuth();
-  const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const [comment, setComment] = useState("");
-  const [openedMenuId, setOpenedMenuId] = useState(null);
-  const [modalMessage, setModalMessage] = useState("");
   const { itemId } = useParams();
+  const { user } = useAuth();
 
-  const { data } = useQuery({
-    queryKey: ["products", itemId],
-    queryFn: () => itemService.getItem(itemId),
-  });
-  const { mutate: deleteItem } = useMutation({
-    mutationKey: ["products", itemId],
-    mutationFn: () => itemService.deleteItem(itemId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
-      router.push("/items");
-    },
-  });
-  const { mutate: postComment } = useMutation({
-    mutationKey: ["products", itemId, "comments"],
-    mutationFn: () =>
-      itemCommentService.postItemComment(itemId, { content: comment }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products", itemId],
-      });
-      setComment("");
-    },
-  });
-  const { mutate: deleteComment } = useMutation({
-    mutationKey: ["products", itemId, "comments"],
-    mutationFn: (commentId) =>
-      itemCommentService.deleteItemComment(itemId, commentId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products", itemId],
-      });
-    },
-    onError: (e) => {
-      setModalMessage(e.message);
-    },
-  });
+  const { item } = useItem({ itemId: Number(itemId) });
+  const { deleteItemMutation } = useItemMutations({ itemId: Number(itemId) });
+  const { postItemCommentMutation, deleteItemCommentMutation } =
+    useItemCommentMutations({ itemId: Number(itemId) });
 
-  const createCommentMenus = (comment) => [
+  const [isLikeClicked, setIsLikeClicked] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>("");
+  const [openedMenuId, setOpenedMenuId] = useState<number | null>(null);
+  const [modalMessage, setModalMessage] = useState<string>("");
+
+  const createCommentMenus = (comment: CommentType) => [
     {
       name: "수정하기",
       onClick: () => {},
@@ -75,13 +44,20 @@ export default function ItemPage() {
     {
       name: "삭제하기",
       onClick: () => {
-        if (user.id !== comment.user.id) {
+        if (user?.id !== comment.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
-        deleteComment(comment.id);
+        deleteItemCommentMutation.mutate(
+          { commentId: Number(comment.id) },
+          {
+            onError: (e) => {
+              setModalMessage(e.message);
+            },
+          },
+        );
       },
     },
   ];
@@ -89,7 +65,7 @@ export default function ItemPage() {
     {
       name: "수정하기",
       onClick: () => {
-        if (user.id !== data.user.id) {
+        if (user?.id !== item?.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
@@ -99,7 +75,7 @@ export default function ItemPage() {
     {
       name: "삭제하기",
       onClick: async () => {
-        if (user.id !== data.user.id) {
+        if (user?.id !== item?.user.id) {
           setModalMessage("게시글 작성자만 수정할 수 있습니다.");
           return;
         }
@@ -107,19 +83,19 @@ export default function ItemPage() {
         const result = confirm("게시글을 삭제하시겠습니까?");
         if (!result) return;
 
-        deleteItem();
+        deleteItemMutation.mutate();
       },
     },
   ];
 
-  if (!data) return <div className="flex-1">Loading...</div>;
+  if (!item) return <div className="flex-1">Loading...</div>;
   return (
     <div className="m-auto w-[1200px] py-[26px] flex-1 max-desktop:px-[20px] max-desktop:w-full">
       <div className="w-full flex gap-[16px] pb-[32px] border-b border-b-secondary-200 max-tablet:flex-col">
         <Image
           src={
-            !!data.images.length
-              ? `${process.env.NEXT_PUBLIC_API_URL}/${data.images[0].url}`
+            !!item.images.length
+              ? `${process.env.NEXT_PUBLIC_API_URL}/${item.images[0].url}`
               : "/images/item2.jpg"
           }
           width={500}
@@ -132,10 +108,10 @@ export default function ItemPage() {
           <section className="relative border-b border-b-secondary-200 pb-[16px] flex justify-between items-start">
             <div>
               <h1 className="text-[20px]/[42px] text-secondary-800 font-semibold">
-                {data.name}
+                {item.name}
               </h1>
               <h1 className="text-[32px]/[42px] text-secondary-800 font-semibold">
-                {data.price.toLocaleString()}원
+                {item.price.toLocaleString()}원
               </h1>
             </div>
 
@@ -163,14 +139,14 @@ export default function ItemPage() {
             <h2 className="text-[14px]/[24px] text-secondary-600 font-semibold mb-[8px]">
               상품 소개
             </h2>
-            <p>{data.description}</p>
+            <p>{item.description}</p>
           </section>
           <section>
             <h2 className="text-[14px]/[24px] text-secondary-600 font-semibold mb-[8px]">
               상품 태그
             </h2>
             <div className="flex flex-wrap gap-[8px]">
-              {data.tags.map((tag) => (
+              {item.tags.map((tag) => (
                 <div
                   key={tag.id}
                   className="whitespace-nowrap bg-secondary-100 rounded-[26px] px-[16px] py-[5px]"
@@ -185,10 +161,10 @@ export default function ItemPage() {
               <UserIcon width={40} height={40} />
               <div className="flex-col">
                 <p className="text-secondary-600 text-[14px]/[24px] whitespace-nowrap">
-                  {data.user.username}
+                  {item.user.username}
                 </p>
                 <p className="text-secondary-400 text-[14px]/[24px] whitespace-nowrap">
-                  {getDate(data.createdAt)}
+                  {getDate(item.createdAt)}
                 </p>
               </div>
             </div>
@@ -208,7 +184,7 @@ export default function ItemPage() {
                 width={32}
                 height={32}
               />
-              {data?.favoriteCount}
+              {item?.favoriteCount}
             </div>
           </section>
         </main>
@@ -216,7 +192,14 @@ export default function ItemPage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          postComment();
+          postItemCommentMutation.mutate(
+            { comment },
+            {
+              onSuccess: () => {
+                setComment("");
+              },
+            },
+          );
         }}
         className="my-[40px]"
       >
@@ -225,7 +208,9 @@ export default function ItemPage() {
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           multiline={true}
           value={comment}
-          onChange={(e) => {
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+          ) => {
             setComment(e.target.value);
           }}
           className="h-[104px]"
@@ -242,7 +227,7 @@ export default function ItemPage() {
         </div>
       </form>
       <div className="flex flex-col gap-[24px] mb-[64px]">
-        {!data?.comments.length && (
+        {!item?.comments.length && (
           <div>
             <Image
               src="/images/emtpy_product_comment.png"
@@ -253,7 +238,7 @@ export default function ItemPage() {
             />
           </div>
         )}
-        {data?.comments.map((comment) => (
+        {item?.comments.map((comment) => (
           <div key={comment.id}>
             <CommentItem
               data={comment}
@@ -276,8 +261,9 @@ export default function ItemPage() {
           </div>
         ))}
       </div>
-      <Link href="/board">
+      <Link href="/items">
         <Button
+          disabled={false}
           variant="circle"
           type="button"
           className="flex items-center gap-[8px] bg-primary text-white px-[40px] py-[11px] m-auto mb-[38px]"

@@ -13,6 +13,7 @@ export default function HomePage() {
       >
         <Link href="/items">
           <Button
+            disabled={false}
             variant="circle"
             className="rounded-[40px] bg-primary px-[124px] py-[16px] text-[20px] font-semibold text-secondary-100"
           >

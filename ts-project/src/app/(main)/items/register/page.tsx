@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
 import Image from "next/image";
 
+import useItemMutations from "../_hooks/useItemMutations";
 import FormField from "@/components/ui/FormField";
 import Button from "@/components/ui/Button";
 import DeleteButton from "@/components/ui/DeleteButton";
@@ -15,13 +14,16 @@ import {
   validateTag,
   validateImages,
 } from "@/utils/validation";
-import { itemService } from "@/services/itemService";
+import { ProductUploadType } from "@/types/product";
 
 export default function ItemRegisterPage() {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const [tagInput, setTagInput] = useState("");
-  const [itemData, setItemData] = useState({
+  const [tagInput, setTagInput] = useState<string>("");
+  const [itemData, setItemData] = useState<
+    Pick<ProductUploadType, "name" | "description" | "images"> & {
+      price: string;
+      tags: string[];
+    }
+  >({
     name: "",
     description: "",
     price: "",
@@ -37,34 +39,16 @@ export default function ItemRegisterPage() {
   });
   const isValidated = Object.values(validationResults).every((i) => i);
 
-  const { mutate: postItem } = useMutation({
-    mutationKey: ["products"],
-    mutationFn: async () => {
-      const formData = new FormData();
-      formData.append("name", itemData.name.trim());
-      formData.append("description", itemData.description.trim());
-      formData.append("price", Number(itemData.price));
-      itemData.tags.forEach((tag) => {
-        formData.append("tags", tag);
-      });
-      itemData.images.forEach((image) => {
-        formData.append("images", image);
-      });
-      return await itemService.postItem(formData);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
-      router.push("/items");
-    },
-  });
+  const { postItemMutation } = useItemMutations({});
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        postItem();
+        const { price, ...rest } = itemData;
+        postItemMutation.mutate({
+          itemData: { ...rest, price: Number(price) },
+        });
       }}
       className="flex-1 pt-[24px] pb-[100px] m-auto w-[1200px] max-desktop:px-[20px] max-desktop:w-full"
     >
@@ -91,8 +75,10 @@ export default function ItemRegisterPage() {
               type="file"
               accept="image/*"
               id="file"
-              onChange={(e) => {
-                const files = Array.from(e.target.files);
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const fileList = e.target.files;
+                if (!fileList) return;
+                const files = Array.from(fileList);
                 setValidationResults((prev) => ({
                   ...prev,
                   images: validateImages(files),
@@ -175,7 +161,9 @@ export default function ItemRegisterPage() {
               : ""
           }
           value={itemData.description}
-          onChange={(e) => {
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+          ) => {
             const input = e.target.value;
             setItemData((prev) => ({ ...prev, description: input }));
             if (!input.trim()) {

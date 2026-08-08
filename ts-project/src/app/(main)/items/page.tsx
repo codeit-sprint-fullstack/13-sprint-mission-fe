@@ -1,18 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Image from "next/image";
 
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
+import useItems from "./_hooks/useItems";
 import Input from "@/components/ui/Input";
 import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
 import ProductCardList from "@/components/ui/ProductCardList";
 import Pagination from "@/components/ui/Pagination";
-import { itemService } from "@/services/itemService";
+import { MenuType } from "@/types/menu";
 
-const menu = [
+const menu: MenuType[] = [
   {
     id: 1,
     type: "recent",
@@ -27,34 +27,18 @@ const menu = [
 
 export default function ItemsPage() {
   const size = useResponsiveWidth();
-  const [input, setInput] = useState("");
-  const [keyword, setKeyword] = useState("");
-  const [selected, setSelected] = useState(menu[0]);
-  const [page, setPage] = useState(1);
+  const [input, setInput] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
+  const [selected, setSelected] = useState<MenuType>(menu[0]);
+  const [page, setPage] = useState<number>(1);
 
-  const { data: products = { list: [] }, isPending: isProductsPending } =
-    useQuery({
-      queryKey: ["products", page, selected, keyword, size],
-      queryFn: async () => {
-        const queryParams = new URLSearchParams({
-          orderBy: selected.type,
-          pageSize: size === "mobile" ? 4 : size === "tablet" ? 6 : 10,
-          ...(keyword && { keyword }),
-          ...(page && { page }),
-        });
-        const result = await itemService.getItems(queryParams);
-        return result;
-      },
-    });
-  console.log(products);
-
-  const { data: best = { list: [] }, isPending: isBestPending } = useQuery({
-    queryKey: ["products", "best", size],
-    queryFn: () => {
-      const pageSize = `pageSize=${size === "mobile" ? 1 : size === "tablet" ? 2 : 4}`;
-      return itemService.getItems(`orderBy=favorite&${pageSize}&page=1`);
-    },
-  });
+  const {
+    products,
+    isProductsPending,
+    totalCount,
+    bestProducts,
+    isBestProductsPending,
+  } = useItems({ page, selected, keyword, size });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -71,8 +55,8 @@ export default function ItemsPage() {
           tablet: 2,
           mobile: 1,
         }}
-        data={best.list}
-        isPending={isBestPending}
+        data={bestProducts}
+        isPending={isBestProductsPending}
       />
 
       {/* 판매 중인 상품 */}
@@ -83,7 +67,7 @@ export default function ItemsPage() {
           tablet: 3,
           mobile: 2,
         }}
-        data={products?.list}
+        data={products}
         isPending={isProductsPending}
       >
         {size !== "mobile" ? (
@@ -127,7 +111,11 @@ export default function ItemsPage() {
             />
 
             <Link href="/items/register">
-              <Button variant="rectangle" className="bg-primary">
+              <Button
+                disabled={false}
+                variant="rectangle"
+                className="bg-primary"
+              >
                 상품 등록하기
               </Button>
             </Link>
@@ -135,7 +123,11 @@ export default function ItemsPage() {
         ) : (
           <div className="flex flex-col gap-[16px]">
             <Link href="/items/register">
-              <Button variant="rectangle" className="bg-primary">
+              <Button
+                disabled={false}
+                variant="rectangle"
+                className="bg-primary"
+              >
                 상품 등록하기
               </Button>
             </Link>
@@ -175,7 +167,7 @@ export default function ItemsPage() {
 
       <Pagination
         currentPage={page}
-        totalCount={products?.totalCount}
+        totalCount={totalCount}
         onChange={setPage}
       />
     </div>

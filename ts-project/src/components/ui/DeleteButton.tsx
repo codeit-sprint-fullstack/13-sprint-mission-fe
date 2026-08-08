@@ -1,4 +1,7 @@
-export default function DeleteButton({ className, ...buttonProps }) {
+export default function DeleteButton({
+  className,
+  ...buttonProps
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       type="button"

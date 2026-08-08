@@ -26,8 +26,8 @@ export default function Button({
       className={cn(
         "text-center cursor-pointer whitespace-nowrap",
         variants[variant],
-        disabled && "bg-secondary-400 text-secondary-100 cursor-not-allowed",
         className,
+        disabled && "bg-secondary-400 text-secondary-100 cursor-not-allowed",
       )}
       {...buttonProps}
     >

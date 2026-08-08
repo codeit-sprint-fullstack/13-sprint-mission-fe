@@ -4,7 +4,7 @@ import Image, { ImageProps } from "next/image";
 interface IHeroProps {
   text: string;
   img: ImageProps["src"];
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function Hero({ text, img, children }: IHeroProps) {

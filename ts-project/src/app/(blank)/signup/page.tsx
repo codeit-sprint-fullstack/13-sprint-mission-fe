@@ -15,14 +15,18 @@ import {
   validatePassword,
   validateCheckedPassword,
 } from "@/utils/validation";
+import { UserType } from "@/types/user";
 
 export default function SignUpPage() {
   const router = useRouter();
   const { signup } = useAuth();
-  const [passwordOpen, setPasswordOpen] = useState(false);
-  const [passwordCheckOpen, setPasswordCheckOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [data, setData] = useState({
+
+  const [passwordOpen, setPasswordOpen] = useState<boolean>(false);
+  const [passwordCheckOpen, setPasswordCheckOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [data, setData] = useState<
+    Partial<UserType> & { passwordConfirmation: string }
+  >({
     email: "",
     nickname: "",
     password: "",
@@ -44,8 +48,8 @@ export default function SignUpPage() {
           try {
             await signup(data);
             router.push("/items");
-          } catch (e) {
-            setModalMessage(e.message);
+          } catch (error) {
+            if (error instanceof Error) setModalMessage(error.message);
           }
         }}
         className="w-[640px] my-[48px] max-tablet:max-w-[640px] max-tablet:px-[16px]"

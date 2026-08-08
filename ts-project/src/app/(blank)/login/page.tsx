@@ -15,8 +15,8 @@ import { validateEmail, validatePassword } from "@/utils/validation";
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
-  const [passwordOpen, setPasswordOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [passwordOpen, setPasswordOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
   const [data, setData] = useState({ email: "", password: "" });
   const [validationResults, setValidationResults] = useState({
     email: true,
@@ -32,8 +32,8 @@ export default function LoginPage() {
           try {
             await login(data);
             router.push("/items");
-          } catch (e) {
-            setModalMessage(e.message);
+          } catch (error) {
+            if (error instanceof Error) setModalMessage(error.message);
           }
         }}
         className="w-[640px] max-tablet:max-w-[640px] max-tablet:px-[16px]"

@@ -9,7 +9,9 @@ interface IAuthContextType {
   user: UserType | null;
   isLogin: boolean;
   isAuthLoading: boolean;
-  signup: (data: UserType) => Promise<void>;
+  signup: (
+    data: Partial<UserType> & { passwordConfirmation: string },
+  ) => Promise<void>;
   login: (data: Pick<UserType, "email" | "password">) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -32,7 +34,9 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const isLogin = !!Object.values(user ?? {}).length;
 
-  async function signup(data: UserType) {
+  async function signup(
+    data: Partial<UserType> & { passwordConfirmation: string },
+  ) {
     const result = await authService.signUp(data);
     setUser(result.user);
     localStorage.setItem("accessToken", result.accessToken);

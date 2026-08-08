@@ -17,7 +17,11 @@ export const metadata = {
   description: "일상의 모든 물건을 판다마켓에 거래해 보세요",
 };
 
-export default function RootLayout({ children }) {
+interface IBlankLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function BlankLayout({ children }: IBlankLayoutProps) {
   return (
     <html
       lang="en"

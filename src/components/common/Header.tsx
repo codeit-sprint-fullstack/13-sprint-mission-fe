@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,7 +13,12 @@ import { queryKeys } from "@/lib/queries";
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  const [hasToken, setHasToken] = useState(() => Boolean(getAccessToken()));
+  const [hasToken, setHasToken] = useState(false);
+
+  useEffect(() => {
+    setHasToken(Boolean(getAccessToken()));
+  }, []);
+
   const isBoard =
     pathname?.startsWith("/board") || pathname?.startsWith("/freeboard");
   const isItems = pathname?.startsWith("/items");
@@ -33,7 +38,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-10 border-b border-[#e5e7eb] bg-white">
-      <div className="mx-auto flex h-[72px] w-[min(100%-32px,640px)] items-center gap-6 tablet:w-[min(100%-48px,1120px)] desktop:w-[1120px]">
+      <div className="tablet:w-[min(100%-48px,1120px)] desktop:w-[1120px] mx-auto flex h-[72px] w-[min(100%-32px,640px)] items-center gap-6">
         <Logo />
         <nav
           className="flex gap-7 text-[16px] font-bold text-[#1f2937]"

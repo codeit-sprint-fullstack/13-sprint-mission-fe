@@ -18,12 +18,12 @@ export type AuthResponseType = UserType & {
 
 export const authService = {
   signUp: async (body: SignUpRequestType): Promise<AuthResponseType> =>
-    await apiFetch("/auth/signUp", {
+    await apiFetch<AuthResponseType>("/auth/signUp", {
       method: "POST",
       body: JSON.stringify(body),
     }),
   login: async (body: LoginRequestType): Promise<AuthResponseType> =>
-    await apiFetch("/auth/signIn", {
+    await apiFetch<AuthResponseType>("/auth/signIn", {
       method: "POST",
       body: JSON.stringify(body),
     }),

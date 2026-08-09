@@ -1,4 +1,7 @@
 import { apiFetch } from "./fetchClient";
+
+import { UserType } from "@/types/user";
+
 export const userService = {
-  getMe: async () => apiFetch("/user/me"),
+  getMe: async (): Promise<UserType> => apiFetch("/user/me"),
 };

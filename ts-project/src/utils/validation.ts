@@ -41,7 +41,7 @@ export const validateNumber: Validation<string> = (data) => {
 };
 
 //이미지들 validate
-export const validateImages: Validation<string> = (data) => {
+export const validateImages: Validation<File[]> = (data) => {
   return data.length <= 3;
 };
 

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 
 import useItem from "../_hooks/useItem";
 import useItemMutations from "../_hooks/useItemMutations";
@@ -22,7 +21,6 @@ import { CommentType } from "@/types/comment";
 
 export default function ItemPage() {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const { itemId } = useParams();
   const { user } = useAuth();
 
@@ -193,7 +191,7 @@ export default function ItemPage() {
         onSubmit={(e) => {
           e.preventDefault();
           postItemCommentMutation.mutate(
-            { comment },
+            { content: comment },
             {
               onSuccess: () => {
                 setComment("");

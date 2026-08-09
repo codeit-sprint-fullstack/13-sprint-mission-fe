@@ -1,6 +1,10 @@
 import { apiFetch } from "./fetchClient";
 
-import { ProductType, ProductUploadType } from "@/types/product";
+import {
+  ProductType,
+  ProductListType,
+  ProductUploadType,
+} from "@/types/product";
 
 export type ItemPostRequestType = {
   itemData: Pick<
@@ -12,14 +16,16 @@ export type ItemPostRequestType = {
 };
 
 export const itemService = {
-  getItems: (query: string) => apiFetch(`/products${query ? `?${query}` : ""}`),
-  getItem: (itemId: ProductType["id"]) => apiFetch(`/products/${itemId}`),
-  deleteItem: (itemId: ProductType["id"]) =>
-    apiFetch(`/products/${itemId}`, {
+  getItems: (query: URLSearchParams | string): Promise<ProductListType> =>
+    apiFetch<ProductListType>(`/products${query ? `?${query}` : ""}`),
+  getItem: (itemId: ProductType["id"]): Promise<ProductType> =>
+    apiFetch<ProductType>(`/products/${itemId}`),
+  deleteItem: (itemId: ProductType["id"]): Promise<ProductType> =>
+    apiFetch<ProductType>(`/products/${itemId}`, {
       method: "DELETE",
     }),
-  postItem: (formData: FormData) =>
-    apiFetch("/products", {
+  postItem: (formData: FormData): Promise<ProductType> =>
+    apiFetch<ProductType>("/products", {
       method: "POST",
       body: formData,
     }),

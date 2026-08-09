@@ -21,8 +21,8 @@ export default function useItemCommentMutations({
     ItemPostRequestType
   >({
     mutationKey: ["products", itemId, "comments"],
-    mutationFn: ({ comment }) =>
-      itemCommentService.postItemComment(itemId, { comment }),
+    mutationFn: ({ content }) =>
+      itemCommentService.postItemComment(itemId, { content }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["products", itemId],

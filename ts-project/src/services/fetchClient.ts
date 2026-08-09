@@ -1,15 +1,22 @@
-export const apiFetch = async (url, options = {}) => {
+export const apiFetch = async <T>(
+  url: string,
+  options: RequestInit = {},
+): Promise<T> => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-  let accessToken;
+
+  let accessToken: string | null = null;
+
   if (typeof window !== "undefined") {
     accessToken = localStorage.getItem("accessToken");
   }
 
   const isFormData = options.body instanceof FormData;
 
-  const defaultOptions = {
+  const defaultOptions: RequestInit = {
     headers: {
-      ...(!isFormData && { "Content-Type": "application/json" }),
+      ...(!isFormData && {
+        "Content-Type": "application/json",
+      }),
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
       }),
@@ -17,7 +24,7 @@ export const apiFetch = async (url, options = {}) => {
     cache: "no-store",
   };
 
-  const mergedOptions = {
+  const mergedOptions: RequestInit = {
     ...defaultOptions,
     ...options,
     headers: {
@@ -29,19 +36,22 @@ export const apiFetch = async (url, options = {}) => {
   const response = await fetch(`${baseURL}${url}`, mergedOptions);
 
   if (response.status === 401) {
-    /**TODO: refreshToken으로 accessToken 갱신하는 코드 추가하기 */
+    // TODO: refreshToken으로 accessToken 갱신
   }
+
   if (!response.ok) {
-    /**TODO: 서버에서 보낸 에러 메세지 보내기 */
+    // TODO: 서버에서 보낸 에러 메세지 보내기
     throw new Error(`API error: ${response.status}`);
   }
 
-  // 응답 본문이 있는지 확인
   const contentType = response.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
+
+  if (contentType?.includes("application/json")) {
+    return response.json() as Promise<T>;
   }
 
-  // 본문이 없거나 JSON이 아닌 경우 응답 객체 자체 반환
-  return { status: response.status, ok: response.ok };
+  return {
+    status: response.status,
+    ok: response.ok,
+  } as T;
 };

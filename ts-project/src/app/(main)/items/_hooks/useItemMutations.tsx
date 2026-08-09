@@ -7,14 +7,6 @@ import { ProductType, ProductUploadType } from "@/types/product";
 interface IItemDataProps {
   itemId?: number;
 }
-interface IItemData {
-  itemData: Pick<
-    ProductUploadType,
-    "name" | "description" | "price" | "images"
-  > & {
-    tags: string[];
-  };
-}
 
 export default function useItemMutations({ itemId }: IItemDataProps) {
   const queryClient = useQueryClient();
@@ -24,7 +16,6 @@ export default function useItemMutations({ itemId }: IItemDataProps) {
     {
       mutationKey: ["products"],
       mutationFn: async ({ itemData }) => {
-        if (!itemData) return;
         const formData = new FormData();
         formData.append("name", itemData.name.trim());
         formData.append("description", itemData.description.trim());

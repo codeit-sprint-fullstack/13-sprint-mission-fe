@@ -15,17 +15,17 @@
 - [x] board 관련 페이지 모두 마이그레이션
 - [x] items 관련 페이지 모두 마이그레이션
 - [x] market 관련 페이지 모두 마이그레이션
-- [ ] 로그인과 회원가입 페이지 모두 마이그레이션
-- [ ] providers.jsx와 provider들 모두 마이그레이션 🚩
-- [ ] 남은 컴포넌트들 마이그레이션 🚩
+- [x] 로그인과 회원가입 페이지 모두 마이그레이션
+- [x] providers.jsx와 provider들 모두 마이그레이션
+- [x] 남은 컴포넌트들 마이그레이션
 - [x] hook들 모두 마이그레이션
-- [ ] services들 모두 마이그레이션
-- [ ] utils 모두 마이그레이션 🚩
+- [x] services들 모두 마이그레이션
+- [x] utils 모두 마이그레이션
 
 **추가 리팩토링**
 
 - [x] clsx와 twmerge 도입하기
-- [ ] tanstack 로직 모두 hook으로 리팩토링 🚩
+- [x] tanstack 로직 모두 hook으로 리팩토링
 
 ### 3. 백엔드 개발 기간
 

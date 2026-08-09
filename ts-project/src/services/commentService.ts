@@ -10,16 +10,22 @@ export type CommentPostRequestType = {
 };
 
 export const commentService = {
-  postComment: async (id: CommentType["id"], body: CommentPostRequestType) =>
-    apiFetch(`/articles/${id}/comments`, {
+  postComment: async (
+    id: CommentType["id"],
+    body: CommentPostRequestType,
+  ): Promise<CommentType> =>
+    apiFetch<CommentType>(`/articles/${id}/comments`, {
       method: "POST",
       body: JSON.stringify(body),
     }),
   deleteComment: async (
     articleId: PostType["id"],
     commentId: CommentType["id"],
-  ) =>
-    await apiFetch(`/articles/${articleId}/comments/${commentId}`, {
-      method: "DELETE",
-    }),
+  ): Promise<CommentType> =>
+    await apiFetch<CommentType>(
+      `/articles/${articleId}/comments/${commentId}`,
+      {
+        method: "DELETE",
+      },
+    ),
 };

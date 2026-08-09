@@ -1,7 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { boardService } from "@/services/boardService";
+import {
+  boardService,
+  BoardPostRequestType,
+  BoardPatchRequestType,
+} from "@/services/boardService";
 import { PostType } from "@/types/post";
 
 interface IUseBoardMutationsProps {
@@ -15,11 +19,7 @@ export default function useBoardMutations({
   const queryClient = useQueryClient();
 
   //Board POST
-  const postPostMutation = useMutation<
-    PostType,
-    Error,
-    Pick<PostType, "title" | "content" | "image">
-  >({
+  const postPostMutation = useMutation<PostType, Error, BoardPostRequestType>({
     mutationKey: ["board", "create"],
     mutationFn: boardService.postArticle,
     onSuccess: (result) => {
@@ -31,7 +31,7 @@ export default function useBoardMutations({
   const patchPostMutation = useMutation<
     PostType,
     Error,
-    { id: PostType["id"]; data: Partial<PostType> }
+    { id: number; data: BoardPatchRequestType }
   >({
     mutationKey: ["board", boardId, "edit"],
     mutationFn: ({ id, data }) => boardService.patchArticle(id, data),

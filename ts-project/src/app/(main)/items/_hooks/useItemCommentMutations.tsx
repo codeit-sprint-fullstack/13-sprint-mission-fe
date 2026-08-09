@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { itemCommentService } from "@/services/itemCommentService";
+import {
+  itemCommentService,
+  ItemPostRequestType,
+} from "@/services/itemCommentService";
 import { CommentType } from "@/types/comment";
 
 interface IUseItemCommentMutationsProps {
@@ -15,11 +18,11 @@ export default function useItemCommentMutations({
   const postItemCommentMutation = useMutation<
     CommentType,
     Error,
-    { comment: string }
+    ItemPostRequestType
   >({
     mutationKey: ["products", itemId, "comments"],
     mutationFn: ({ comment }) =>
-      itemCommentService.postItemComment(itemId, { content: comment }),
+      itemCommentService.postItemComment(itemId, { comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["products", itemId],
@@ -29,7 +32,7 @@ export default function useItemCommentMutations({
   const deleteItemCommentMutation = useMutation<
     CommentType,
     Error,
-    { commentId: number }
+    { commentId: CommentType["id"] }
   >({
     mutationKey: ["products", itemId, "comments"],
     mutationFn: ({ commentId }) =>

@@ -1,11 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { commentService } from "@/services/commentService";
+import {
+  commentService,
+  CommentPostRequestType,
+} from "@/services/commentService";
 import { UserType } from "@/types/user";
+import { PostType } from "@/types/post";
 import { CommentType } from "@/types/comment";
 
 interface IUseCommentMutationsProps {
-  boardId?: string;
+  boardId?: PostType["id"];
 }
 
 export default function useCommentMutations({
@@ -17,14 +21,11 @@ export default function useCommentMutations({
   const postCommentMutation = useMutation<
     CommentType,
     Error,
-    {
-      userId: UserType["id"];
-      comment: CommentType["content"];
-    }
+    CommentPostRequestType
   >({
-    mutationFn: ({ userId, comment }) => {
-      return commentService.postComment(boardId, {
-        content: comment,
+    mutationFn: ({ userId, content }) => {
+      return commentService.postComment(boardId!, {
+        content,
         userId,
       });
     },
@@ -42,7 +43,7 @@ export default function useCommentMutations({
     { id: CommentType["id"] }
   >({
     mutationFn: ({ id }) => {
-      return commentService.deleteComment(boardId, id);
+      return commentService.deleteComment(boardId!, id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

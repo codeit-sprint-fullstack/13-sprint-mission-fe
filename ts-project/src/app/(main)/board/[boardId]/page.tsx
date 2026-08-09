@@ -133,7 +133,7 @@ export default function PostDetailPage() {
               {postDetail?.user.username}
             </h2>
             <p className="text-[14px]/[24px] text-secondary-400 font-normal">
-              {getDate(postDetail?.createdAt)}
+              {postDetail?.createdAt && getDate(postDetail?.createdAt)}
             </p>
           </div>
           <div className="w-px self-stretch bg-secondary-200 mx-[32px]"></div>
@@ -168,7 +168,7 @@ export default function PostDetailPage() {
             return;
           }
           postCommentMutation.mutate(
-            { userId: user?.id, comment },
+            { userId: user?.id, content: comment },
             {
               onSuccess: () => {
                 queryClient.invalidateQueries({

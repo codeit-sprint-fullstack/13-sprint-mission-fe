@@ -1,7 +1,7 @@
-export const getTotalPage = (pageSize, totalCount) => {
+export const getTotalPage = (pageSize: number, totalCount: number): number => {
   return Math.ceil(totalCount / pageSize);
 };
-export const getRange = (currentPage, totalPage) => {
+export const getRange = (currentPage: number, totalPage: number): number[] => {
   const start = Math.floor((currentPage - 1) / 5) * 5 + 1;
   const end = start + 5 - 1;
 

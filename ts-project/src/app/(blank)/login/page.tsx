@@ -30,7 +30,7 @@ export default function LoginPage() {
         onSubmit={async (e) => {
           e.preventDefault();
           try {
-            await login(data);
+            await login({ id: data.email, password: data.password });
             router.push("/items");
           } catch (error) {
             if (error instanceof Error) setModalMessage(error.message);

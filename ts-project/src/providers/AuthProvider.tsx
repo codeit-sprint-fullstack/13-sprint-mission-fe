@@ -1,7 +1,12 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { authService } from "@/services/authService";
+import {
+  authService,
+  SignUpRequestType,
+  LoginRequestType,
+  AuthResponseType,
+} from "@/services/authService";
 import { userService } from "@/services/userService";
 import { UserType } from "@/types/user";
 
@@ -9,10 +14,8 @@ interface IAuthContextType {
   user: UserType | null;
   isLogin: boolean;
   isAuthLoading: boolean;
-  signup: (
-    data: Partial<UserType> & { passwordConfirmation: string },
-  ) => Promise<void>;
-  login: (data: Pick<UserType, "email" | "password">) => Promise<void>;
+  signup: (data: SignUpRequestType) => Promise<void>;
+  login: (data: LoginRequestType) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -34,18 +37,15 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const isLogin = !!Object.values(user ?? {}).length;
 
-  async function signup(
-    data: Partial<UserType> & { passwordConfirmation: string },
-  ) {
+  async function signup(data: SignUpRequestType) {
     const result = await authService.signUp(data);
-    setUser(result.user);
+    setUser(result);
     localStorage.setItem("accessToken", result.accessToken);
     localStorage.setItem("refreshToken", result.refreshToken);
   }
-  async function login(data: Pick<UserType, "email" | "password">) {
-    const { email, password } = data;
-    const result = await authService.login({ id: email, password });
-    setUser(result.user);
+  async function login(data: LoginRequestType) {
+    const result = await authService.login(data);
+    setUser(result);
     localStorage.setItem("accessToken", result.accessToken);
     localStorage.setItem("refreshToken", result.refreshToken);
   }

@@ -159,10 +159,10 @@ export default function SignUpPage() {
               }));
               setValidationResults((prev) => ({
                 ...prev,
-                passwordConfirmation: validateCheckedPassword(
-                  input,
-                  data.password,
-                ),
+                passwordConfirmation: validateCheckedPassword({
+                  password: input,
+                  checkedPassword: data.password,
+                }),
               }));
             }}
             endAdornment={

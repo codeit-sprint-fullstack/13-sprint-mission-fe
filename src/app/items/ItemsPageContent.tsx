@@ -14,6 +14,7 @@ import type { Product, ProductOrderBy } from '@/types';
 import ProductCard from './ProductCard';
 import {
   createItemsUrl,
+  getItemsPageNormalizationUrl,
   getTotalPages,
   getVisiblePages,
   parseProductListState,
@@ -140,6 +141,16 @@ export default function ItemsPageContent() {
     getProducts({ page, pageSize: PRODUCT_PAGE_SIZE, keyword, orderBy })
       .then((data) => {
         if (cancelled) return;
+        const normalizationUrl = getItemsPageNormalizationUrl(
+          { keyword, orderBy, page },
+          data.totalCount ?? 0,
+        );
+
+        if (normalizationUrl) {
+          router.replace(normalizationUrl);
+          return;
+        }
+
         setProductResult({
           requestKey,
           products: data.list ?? [],
@@ -161,7 +172,7 @@ export default function ItemsPageContent() {
     return () => {
       cancelled = true;
     };
-  }, [keyword, orderBy, page, requestKey]);
+  }, [keyword, orderBy, page, requestKey, router]);
 
   const totalPages = getTotalPages(totalCount);
   const visiblePages = getVisiblePages(page, totalPages);

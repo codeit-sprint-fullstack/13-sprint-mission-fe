@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   createItemsUrl,
+  getItemsPageNormalizationUrl,
   getTotalPages,
   getVisiblePages,
   parseProductListState,
@@ -47,4 +48,28 @@ test("현재 페이지 주변의 페이지 번호 창을 계산한다", () => {
   assert.deepEqual(getVisiblePages(1, 10), [1, 2, 3, 4, 5]);
   assert.deepEqual(getVisiblePages(6, 10), [4, 5, 6, 7, 8]);
   assert.deepEqual(getVisiblePages(10, 10), [6, 7, 8, 9, 10]);
+});
+
+test("응답의 마지막 유효 페이지로 상품 목록 URL을 정규화한다", () => {
+  assert.equal(
+    getItemsPageNormalizationUrl(
+      { keyword: "자전거", orderBy: "favorite", page: 999 },
+      21,
+    ),
+    "/items?keyword=%EC%9E%90%EC%A0%84%EA%B1%B0&orderBy=favorite&page=3",
+  );
+  assert.equal(
+    getItemsPageNormalizationUrl(
+      { keyword: "자전거", orderBy: "favorite", page: 2 },
+      0,
+    ),
+    "/items?keyword=%EC%9E%90%EC%A0%84%EA%B1%B0&orderBy=favorite",
+  );
+  assert.equal(
+    getItemsPageNormalizationUrl(
+      { keyword: "자전거", orderBy: "recent", page: 2 },
+      21,
+    ),
+    null,
+  );
 });

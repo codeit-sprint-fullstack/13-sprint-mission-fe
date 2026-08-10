@@ -38,6 +38,17 @@ export function getTotalPages(
   return Math.ceil(totalCount / pageSize);
 }
 
+export function getItemsPageNormalizationUrl(
+  state: ProductListState,
+  totalCount: number,
+): string | null {
+  const lastValidPage = Math.max(1, getTotalPages(totalCount));
+
+  if (state.page <= lastValidPage) return null;
+
+  return createItemsUrl({ ...state, page: lastValidPage });
+}
+
 export function getVisiblePages(
   currentPage: number,
   totalPages: number,

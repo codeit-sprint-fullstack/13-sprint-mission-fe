@@ -91,3 +91,26 @@ export type ProductUpdateInput = Partial<ProductCreateInput>;
 export interface UploadedImage {
   imageUrl: string;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  nickname: string;
+}
+
+export interface AuthResponse {
+  accessToken: string;
+  user: User;
+}
+
+export interface SignInInput {
+  email: string;
+  password: string;
+}
+
+export interface SignUpInput {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirmation: string;
+}

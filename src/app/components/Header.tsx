@@ -1,5 +1,10 @@
+'use client';
+
+import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { clearSession, getStoredUser, subscribeToAuthChange } from '@/lib/auth';
 
 type HeaderTab = 'boards' | 'market';
 
@@ -7,8 +12,20 @@ interface HeaderProps {
   active?: HeaderTab;
 }
 
+function getServerUser() {
+  return null;
+}
+
 // 자유게시판 · 중고마켓 공통 헤더
 export default function Header({ active }: HeaderProps) {
+  const router = useRouter();
+  const user = useSyncExternalStore(subscribeToAuthChange, getStoredUser, getServerUser);
+
+  function handleLogout() {
+    clearSession();
+    router.push('/');
+  }
+
   return (
     <header className="sticky top-0 z-10 border-b border-[#dfdfdf] bg-white">
       <div className="mx-auto flex h-[70px] max-w-[1200px] items-center gap-8 px-6">
@@ -41,12 +58,25 @@ export default function Header({ active }: HeaderProps) {
         </nav>
 
         <div className="ml-auto">
-          <Link
-            href="/login"
-            className="flex h-10 w-[88px] items-center justify-center rounded-lg bg-[#3692FF] text-sm font-semibold text-white transition-colors hover:bg-blue-600"
-          >
-            로그인
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-semibold text-[#374151]">{user.nickname}</span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex h-10 items-center justify-center rounded-lg border border-[#E5E7EB] px-4 text-sm font-semibold text-[#374151] transition-colors hover:border-[#3692FF] hover:text-[#3692FF]"
+              >
+                로그아웃
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="flex h-10 w-[88px] items-center justify-center rounded-lg bg-[#3692FF] text-sm font-semibold text-white transition-colors hover:bg-blue-600"
+            >
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </header>

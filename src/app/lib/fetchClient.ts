@@ -97,3 +97,6 @@ export function resolveImageUrl(path?: string | null): string | null {
   if (/^https?:\/\//.test(path)) return path;
   return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 }
+
+// BFF x
+//

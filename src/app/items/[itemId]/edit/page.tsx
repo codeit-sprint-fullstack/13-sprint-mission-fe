@@ -57,7 +57,8 @@ export default function ItemEditPage({
       queryClient.invalidateQueries({ queryKey: ["product", productId] });
       router.push(`/items/${itemId}`);
     },
-    onError: (err: Error) => setError(err.message || "수정 중 오류가 발생했습니다."),
+    onError: (err: Error) =>
+      setError(err.message || "수정 중 오류가 발생했습니다."),
   });
 
   const isValid = name.trim() && description.trim() && price !== "";
@@ -72,6 +73,7 @@ export default function ItemEditPage({
 
   const handleTagKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      if (e.nativeEvent.isComposing) return;
       e.preventDefault();
       addTag();
     }

@@ -23,7 +23,8 @@ export default function NewItemPage() {
     onSuccess: () => {
       router.push("/items");
     },
-    onError: (err: Error) => setError(err.message || "등록 중 오류가 발생했습니다."),
+    onError: (err: Error) =>
+      setError(err.message || "등록 중 오류가 발생했습니다."),
   });
 
   const isValid = name.trim() && description.trim() && price !== "";
@@ -38,6 +39,9 @@ export default function NewItemPage() {
 
   const handleTagKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      if (e.nativeEvent.isComposing) return; // 한글 조합 중 Enter는 무시 (조합 확정용 Enter가 먼저 발생함)
+      // 한글의 경우 자음과 모음의 조합으로 한 음절이 만들어지는 조합 문자이기 때문에 글자가 조합 중인지, 조합이 끝난 상태인지를 알 수 없기 때문이다.
+      // 이로 인해 키보드 이벤트에는 isComposing 이라는 입력 문자가 조합 문자인지 아닌지를 boolean값으로 반환하는 프로퍼티가 있었다. -> 저번에 멘토님이 언급해주신듯
       e.preventDefault();
       addTag();
     }

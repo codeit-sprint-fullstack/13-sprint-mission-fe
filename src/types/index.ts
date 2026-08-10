@@ -11,6 +11,7 @@ export interface Article {
   content: string;
   image?: string | null;
   likeCount?: number;
+  isLiked?: boolean;
   createdAt: string;
   updatedAt?: string;
   writer?: Writer;

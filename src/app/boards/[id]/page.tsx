@@ -12,7 +12,10 @@ import {
   deleteArticleComment,
   getMockNickname,
   getMockLikeCount,
+  likeArticle,
+  unlikeArticle,
 } from '@/lib/articles';
+import { getStoredUser } from '@/lib/auth';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ArticleImage from '@/app/components/ArticleImage';
@@ -33,6 +36,9 @@ export default function ArticleDetailPage() {
   const router = useRouter();
   const [article, setArticle] = useState<Article | null>(null);
   const [likeCount, setLikeCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
+  const [likeError, setLikeError] = useState('');
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentInput, setCommentInput] = useState('');
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
@@ -48,6 +54,7 @@ export default function ArticleDetailPage() {
         if (!data) { router.replace('/boards'); return; }
         setArticle(data);
         setLikeCount(data.likeCount ?? getMockLikeCount(data.id));
+        setIsLiked(data.isLiked ?? false);
       })
       .catch(() => router.replace('/boards'));
   }, [id, router]);
@@ -73,6 +80,29 @@ export default function ArticleDetailPage() {
       console.error(error);
       setDeleteError('게시글을 삭제하지 못했습니다. 잠시 후 다시 시도해 주세요.');
       setIsDeleting(false);
+    }
+  }
+
+  async function handleToggleLike() {
+    if (isLiking) return;
+
+    if (!getStoredUser()) {
+      router.push('/login');
+      return;
+    }
+
+    setIsLiking(true);
+    setLikeError('');
+
+    try {
+      const updated = isLiked ? await unlikeArticle(id) : await likeArticle(id);
+      setIsLiked(updated.isLiked ?? !isLiked);
+      setLikeCount(updated.likeCount ?? likeCount);
+    } catch (error) {
+      console.error(error);
+      setLikeError('좋아요 처리에 실패했습니다.');
+    } finally {
+      setIsLiking(false);
     }
   }
 
@@ -204,13 +234,20 @@ export default function ArticleDetailPage() {
           </p>
 
           {/* 좋아요 버튼 */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col items-center gap-2">
             <button
-              onClick={() => setLikeCount((n) => n + 1)}
-              className="flex items-center gap-2 rounded-full border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-600 hover:border-[#3692FF] hover:text-[#3692FF] transition-colors"
+              onClick={handleToggleLike}
+              disabled={isLiking}
+              aria-pressed={isLiked}
+              className={`flex items-center gap-2 rounded-full border px-6 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                isLiked
+                  ? 'border-[#3692FF] text-[#3692FF]'
+                  : 'border-slate-200 text-slate-600 hover:border-[#3692FF] hover:text-[#3692FF]'
+              }`}
             >
-              ♡ {formatLike(likeCount)}
+              {isLiked ? '♥' : '♡'} {formatLike(likeCount)}
             </button>
+            {likeError && <p role="alert" className="text-sm text-rose-500">{likeError}</p>}
           </div>
         </article>
 

@@ -15,6 +15,13 @@ const BASE_URL =
 
 // ─── 공통 요청 헬퍼 ───────────────────────────────────────────────────────────
 
+/** 로그인 후 저장되는 토큰 키. products.ts와 동일한 localStorage 키를 참조한다. */
+function getAuthHeaders(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const token = window.localStorage.getItem("accessToken");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 /** 응답 본문 타입을 제네릭으로 받는 공통 fetch 래퍼 */
 async function requestApi<T>(
   path: string,
@@ -30,7 +37,7 @@ async function requestApi<T>(
 
 function jsonBody(data: unknown): RequestInit {
   return {
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
     body: JSON.stringify(data),
   };
 }
@@ -94,6 +101,7 @@ export async function getArticle(id: number | string): Promise<Article> {
   return requestApi<Article>(
     `/articles/${id}`,
     "게시글을 불러오지 못했습니다.",
+    { headers: getAuthHeaders() },
   );
 }
 
@@ -119,6 +127,21 @@ export async function updateArticle(
 export async function deleteArticle(id: number | string): Promise<void> {
   await requestApi<void>(`/articles/${id}`, "게시글 삭제에 실패했습니다.", {
     method: "DELETE",
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function likeArticle(id: number | string): Promise<Article> {
+  return requestApi<Article>(`/articles/${id}/like`, "좋아요 등록에 실패했습니다.", {
+    method: "POST",
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function unlikeArticle(id: number | string): Promise<Article> {
+  return requestApi<Article>(`/articles/${id}/like`, "좋아요 취소에 실패했습니다.", {
+    method: "DELETE",
+    headers: getAuthHeaders(),
   });
 }
 
@@ -165,6 +188,6 @@ export async function deleteArticleComment(
   await requestApi<void>(
     `/articles/${articleId}/comments/${commentId}`,
     "댓글 삭제에 실패했습니다.",
-    { method: "DELETE" },
+    { method: "DELETE", headers: getAuthHeaders() },
   );
 }

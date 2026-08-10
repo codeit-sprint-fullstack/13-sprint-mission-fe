@@ -1,6 +1,10 @@
 "use client";
 
-import { useState, type ChangeEventHandler, type FormEventHandler } from "react";
+import {
+  useState,
+  type ChangeEventHandler,
+  type SubmitEventHandler,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +32,7 @@ interface AuthFormProps {
   mode?: keyof typeof MODES;
   values: AuthFormValues;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit: SubmitEventHandler<HTMLFormElement>;
   disabled?: boolean;
   errors?: Partial<Record<keyof AuthFormValues, string>>;
 }

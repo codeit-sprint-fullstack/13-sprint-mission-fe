@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type SubmitEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -39,11 +39,13 @@ export default function SignupPage() {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const newErrors: Record<string, string> = {};
-    if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(values.email)) {
+    if (
+      !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(values.email)
+    ) {
       newErrors.email = "올바른 이메일 형식이 아닙니다.";
     }
     if (values.password.length < 8) {
@@ -60,7 +62,12 @@ export default function SignupPage() {
     try {
       setLoading(true);
       setErrors({});
-      await signUp(values.email, values.name, values.password, values.passwordRepeat);
+      await signUp(
+        values.email,
+        values.name,
+        values.password,
+        values.passwordRepeat,
+      );
       router.push("/items");
     } catch (error) {
       setModal({

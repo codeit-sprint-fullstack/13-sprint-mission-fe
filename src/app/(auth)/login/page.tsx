@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, Suspense, type ChangeEvent, type FormEvent } from "react";
+import {
+  useEffect,
+  useState,
+  Suspense,
+  type ChangeEvent,
+  type SubmitEvent,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -37,7 +43,7 @@ function LoginContent() {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
       setLoading(true);

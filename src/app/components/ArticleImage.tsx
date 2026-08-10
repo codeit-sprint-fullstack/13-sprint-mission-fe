@@ -11,6 +11,8 @@ interface ArticleImageProps {
   width: number;
   height: number;
   className?: string;
+  sizes?: string;
+  priority?: boolean;
 }
 
 function passthroughLoader({ src }: ImageLoaderProps): string {
@@ -23,6 +25,8 @@ export default function ArticleImage({
   width,
   height,
   className,
+  sizes,
+  priority,
 }: ArticleImageProps) {
   const requestedSrc = src || DEFAULT_IMAGE;
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
@@ -37,6 +41,8 @@ export default function ArticleImage({
       width={width}
       height={height}
       className={className}
+      sizes={sizes}
+      priority={priority}
       onError={() => setFailedSrc(requestedSrc)}
     />
   );

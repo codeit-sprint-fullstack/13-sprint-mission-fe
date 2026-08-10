@@ -12,7 +12,7 @@ interface ArticleImageProps {
   height: number;
   className?: string;
   sizes?: string;
-  priority?: boolean;
+  preload?: boolean;
 }
 
 function passthroughLoader({ src }: ImageLoaderProps): string {
@@ -26,7 +26,7 @@ export default function ArticleImage({
   height,
   className,
   sizes,
-  priority,
+  preload,
 }: ArticleImageProps) {
   const requestedSrc = src || DEFAULT_IMAGE;
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export default function ArticleImage({
       height={height}
       className={className}
       sizes={sizes}
-      priority={priority}
+      preload={preload}
       onError={() => setFailedSrc(requestedSrc)}
     />
   );

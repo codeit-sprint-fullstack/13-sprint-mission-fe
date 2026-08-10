@@ -5,7 +5,7 @@ import type { Product } from '@/types';
 
 interface ProductCardProps {
   product: Product;
-  priority?: boolean;
+  preload?: boolean;
   sizes?: string;
 }
 
@@ -13,7 +13,7 @@ function formatPrice(price: number): string {
   return price.toLocaleString('ko-KR');
 }
 
-export default function ProductCard({ product, priority, sizes }: ProductCardProps) {
+export default function ProductCard({ product, preload, sizes }: ProductCardProps) {
   const favoriteCount = product.likeCount ?? product.favoriteCount ?? 0;
 
   return (
@@ -24,7 +24,7 @@ export default function ProductCard({ product, priority, sizes }: ProductCardPro
         width={240}
         height={240}
         sizes={sizes}
-        priority={priority}
+        preload={preload}
         className="aspect-square w-full rounded-xl object-cover ring-1 ring-slate-100"
       />
       <h2 className="mt-3 line-clamp-1 text-base font-semibold text-[#1F2937]">

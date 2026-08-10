@@ -7,6 +7,7 @@ import {
   getTotalPages,
   getVisiblePages,
   parseProductListState,
+  PRODUCT_PAGE_SIZE,
 } from "../src/app/items/product-list-state.ts";
 
 test("상품 목록 쿼리를 파싱한다", () => {
@@ -44,10 +45,18 @@ test("상품 수에서 전체 페이지 수를 계산한다", () => {
   assert.equal(getTotalPages(0), 0);
 });
 
+test("상품 목록은 페이지당 10개를 사용한다", () => {
+  assert.equal(PRODUCT_PAGE_SIZE, 10);
+});
+
 test("현재 페이지 주변의 페이지 번호 창을 계산한다", () => {
   assert.deepEqual(getVisiblePages(1, 10), [1, 2, 3, 4, 5]);
   assert.deepEqual(getVisiblePages(6, 10), [4, 5, 6, 7, 8]);
   assert.deepEqual(getVisiblePages(10, 10), [6, 7, 8, 9, 10]);
+});
+
+test("전체 페이지가 없으면 페이지 번호를 만들지 않는다", () => {
+  assert.deepEqual(getVisiblePages(1, 0), []);
 });
 
 test("응답의 마지막 유효 페이지로 상품 목록 URL을 정규화한다", () => {

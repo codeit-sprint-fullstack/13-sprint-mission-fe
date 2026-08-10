@@ -44,8 +44,12 @@ function SearchControls({
   }
 
   return (
-    <form className="mb-6 flex gap-3" role="search" onSubmit={handleSubmit}>
-      <div className="relative flex-1">
+    <form
+      className="mb-6 flex flex-col gap-3 sm:flex-row"
+      role="search"
+      onSubmit={handleSubmit}
+    >
+      <div className="relative min-w-0 flex-1">
         <label htmlFor="product-search" className="sr-only">
           상품 검색
         </label>
@@ -216,7 +220,7 @@ export default function ItemsPageContent() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  priority={index < BEST_PRODUCT_COUNT}
+                  preload={index === 0}
                   sizes="(min-width: 768px) 25vw, 50vw"
                 />
               ))}

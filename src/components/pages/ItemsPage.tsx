@@ -128,7 +128,7 @@ export default function ItemsPage() {
               >
                 상품 등록하기
               </Link>
-              <label className="inline-fles desktop:w-auto relative w-full items-center">
+              <label className="desktop:w-auto relative inline-flex w-full items-center">
                 <select
                   className="h-[42px] w-full appearance-none rounded-lg border border-[#e5e7eb] bg-white pr-[38px] pl-4 font-bold"
                   value={orderBy}
@@ -140,7 +140,7 @@ export default function ItemsPage() {
                   <option value="favorite">좋아요순</option>
                 </select>
                 <ChevronDown
-                  className="pointer-events-none absolute right-3.5"
+                  className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2"
                   size={16}
                 />
               </label>
@@ -157,7 +157,7 @@ export default function ItemsPage() {
               상품 목록을 불러오지 못했어요.
             </p>
           ) : null}
-          <div className="gird-cols-2 tablet:grid-cols-3 desktop:grid-cols-5 desktop:gap-x-5 desktop:gap-y-9 grid gap-x-3.5 gap-y-7">
+          <div className="tablet:grid-cols-3 desktop:grid-cols-5 desktop:gap-x-5 desktop:gap-y-9 grid grid-cols-2 gap-x-3.5 gap-y-7">
             {productsQuery.data?.list.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -167,7 +167,7 @@ export default function ItemsPage() {
             <button
               className="h-8 w-8 rounded-full border border-[#e5e7eb] bg-white text-gray-600"
               type="button"
-              onClick={() => setPage((Value) => Math.max(1, value - 1))}
+              onClick={() => setPage((value) => Math.max(1, value - 1))}
             >
               <ChevronLeft size={16} className="mx-auto" />
             </button>
@@ -176,7 +176,7 @@ export default function ItemsPage() {
               (_, index) => index + 1,
             ).map((pageNumber) => (
               <button
-                className={`h-8 w-8 rounded-full border ${page === pageNumber ? "border-[#3692ff] bg-[#3692ff] text-white" : "borer-[#e5e7eb] bg-white text-gray-600"}`}
+                className={`h-8 w-8 rounded-full border ${page === pageNumber ? "border-[#3692ff] bg-[#3692ff] text-white" : "border-[#e5e7eb] bg-white text-gray-600"}`}
                 key={pageNumber}
                 type="button"
                 onClick={() => setPage(pageNumber)}

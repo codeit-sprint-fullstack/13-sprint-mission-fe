@@ -64,7 +64,7 @@ export const authApi = {
     return data;
   },
   signUp: async (body: SignUpFormValues): Promise<AuthResponse> => {
-    const { data } = await api.post<AuthResponse>("/auth?signUp", body);
+    const { data } = await api.post<AuthResponse>("/auth/signUp", body);
     return data;
   },
 };
@@ -191,9 +191,12 @@ export const commentApi = {
     return data;
   },
   create: async (productId: string, content: string): Promise<Comment> => {
-    const { data } = await api.get<Comment>(`/products/${productId}/comments`, {
-      content,
-    });
+    const { data } = await api.post<Comment>(
+      `/products/${productId}/comments`,
+      {
+        content,
+      },
+    );
     return data;
   },
   listArticle: async (

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { getAccessToken } from "@/lib/auth";
 
-const protectedPaths = ["/items/"];
+const protectedPaths = ["/items/new"];
 const publicOnlyPaths = ["/signin", "/signup"];
 
 function isRouteMatch(path: string, route: string): boolean {

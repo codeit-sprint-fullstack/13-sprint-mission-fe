@@ -39,7 +39,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-10 border-b border-[#e5e7eb] bg-white">
       <div className="tablet:w-[min(100%-48px,1120px)] desktop:w-[1120px] mx-auto flex h-[72px] w-[min(100%-32px,640px)] items-center gap-6">
-        <Logo />
+        <Logo href={hasToken ? "/items" : "/"} />
         <nav
           className="flex gap-7 text-[16px] font-bold text-[#1f2937]"
           aria-label="주요 메뉴"
@@ -67,23 +67,27 @@ export default function Header() {
         </nav>
         <div className="ml-auto">
           {hasToken ? (
-            <button
-              className="inline-flex min-h-[42px] items-center gap-2 font-bold text-gray-600"
-              type="button"
-              onClick={handleLogout}
-              title="로그아웃"
-            >
-              {me?.image ? (
-                <img
-                  className="h-7 w-7 rounded-full object-cover"
-                  src={me.image}
-                  alt=""
-                />
-              ) : (
-                <UserRound size={20} />
-              )}
-              <span>{me?.nickname || "내 계정"}</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex min-h-[42px] items-center gap-2 font-bold text-gray-600">
+                {me?.image ? (
+                  <img
+                    className="h-7 w-7 rounded-full object-cover"
+                    src={me.image}
+                    alt=""
+                  />
+                ) : (
+                  <UserRound size={20} />
+                )}
+                <span>{me?.nickname || "내 계정"}</span>
+              </span>
+              <button
+                className="text-sm font-bold text-gray-500 transition-colors hover:text-[#3692ff]"
+                type="button"
+                onClick={handleLogout}
+              >
+                로그아웃
+              </button>
+            </div>
           ) : (
             <Link
               className="inline-flex h-[42px] min-w-[88px] items-center justify-center rounded-lg bg-[#3692ff] px-6 text-[15px] font-bold text-white"

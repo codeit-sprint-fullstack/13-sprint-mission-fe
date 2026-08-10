@@ -2,13 +2,14 @@ import Link from "next/link";
 
 interface LogoProps {
   large?: boolean;
+  href?: string;
 }
 
-export default function Logo({ large = false }: LogoProps) {
+export default function Logo({ large = false, href = "/" }: LogoProps) {
   return (
     <Link
-      className={`inline-flex items-center whitespace-nowrap font-black tracking-normal text-[#3692ff] ${large ? "gap-4 text-[44px]" : "gap-2 text-[25px]"}`}
-      href="/items"
+      className={`inline-flex items-center font-black tracking-normal whitespace-nowrap text-[#3692ff] ${large ? "gap-4 text-[44px]" : "gap-2 text-[25px]"}`}
+      href={href}
       aria-label="판다마켓 홈"
     >
       <img

@@ -82,7 +82,7 @@ function ArticleCard({ article, best = false }: ArticleCardProps) {
 }
 
 export default function FreeboardPage() {
-  const [keyword, setkeyword] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [draftKeyword, setDraftKeyword] = useState("");
   const [orderBy, setOrderBy] = useState<SortOrder>("recent");
 
@@ -97,7 +97,7 @@ export default function FreeboardPage() {
 
   const search = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setkeyword(draftKeyword.trim());
+    setKeyword(draftKeyword.trim());
   };
 
   return (

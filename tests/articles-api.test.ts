@@ -3,7 +3,8 @@ import test, { afterEach } from 'node:test';
 import * as articles from '../src/lib/articles.ts';
 import type { Article, ListResponse } from '../src/types/index.ts';
 
-const baseUrl = 'https://panda-market-api-crud.vercel.app';
+const baseUrl =
+  process.env.NEXT_PUBLIC_API_URL ?? 'https://panda-market-api-crud.vercel.app';
 const originalFetch = globalThis.fetch;
 
 afterEach(() => {

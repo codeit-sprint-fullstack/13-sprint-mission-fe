@@ -18,6 +18,7 @@ import { getStoredUser, subscribeToAuthChange } from '@/lib/auth';
 import {
   canManageArticle,
   canManageArticleComment,
+  createLatestAsyncRunner,
 } from '@/app/boards/article-detail-state';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
@@ -56,17 +57,22 @@ export default function ArticleDetailPage() {
   const [isCommentSubmitting, setIsCommentSubmitting] = useState(false);
   const [deleteError, setDeleteError] = useState('');
   const [commentError, setCommentError] = useState('');
+  const [articleRequestRunner] = useState(createLatestAsyncRunner);
 
   useEffect(() => {
-    getArticle(id)
-      .then((data) => {
+    void articleRequestRunner.run(
+      getArticle(id),
+      (data) => {
         if (!data) { router.replace('/boards'); return; }
         setArticle(data);
         setLikeCount(data.likeCount ?? getMockLikeCount(data.id));
         setIsLiked(data.isLiked ?? false);
-      })
-      .catch(() => router.replace('/boards'));
-  }, [id, router, userId]);
+      },
+      () => router.replace('/boards'),
+    );
+
+    return () => articleRequestRunner.cancel();
+  }, [articleRequestRunner, id, router, userId]);
 
   useEffect(() => {
     getArticleComments(id)

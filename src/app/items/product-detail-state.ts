@@ -1,5 +1,13 @@
 import type { Comment } from "@/types";
 
+export function canSubmitComment(
+  content: string,
+  isCommentsLoading: boolean,
+  isSubmitting: boolean,
+): boolean {
+  return content.trim().length > 0 && !isCommentsLoading && !isSubmitting;
+}
+
 export function isResourceOwner(
   currentUserId: number | undefined,
   ownerId: number | undefined,

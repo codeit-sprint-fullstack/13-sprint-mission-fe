@@ -18,7 +18,12 @@ import {
   updateProductComment,
 } from '@/lib/products';
 import { getStoredUser, subscribeToAuthChange } from '@/lib/auth';
-import { isResourceOwner, removeComment, replaceComment } from '@/app/items/product-detail-state';
+import {
+  canSubmitComment,
+  isResourceOwner,
+  removeComment,
+  replaceComment,
+} from '@/app/items/product-detail-state';
 import type { Comment, Product, User } from '@/types';
 
 function formatPrice(price?: number): string {
@@ -40,8 +45,10 @@ export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const user = useSyncExternalStore(subscribeToAuthChange, getStoredUser, getServerUser);
+  const userId = user?.id;
   const [product, setProduct] = useState<Product | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [settledCommentsProductId, setSettledCommentsProductId] = useState<string | null>(null);
   const [commentInput, setCommentInput] = useState('');
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState('');
@@ -68,7 +75,7 @@ export default function ProductDetailPage() {
     return () => {
       isCurrent = false;
     };
-  }, [id, router]);
+  }, [id, router, userId]);
 
   useEffect(() => {
     let isCurrent = true;
@@ -80,6 +87,9 @@ export default function ProductDetailPage() {
       .catch((error: unknown) => {
         console.error(error);
         if (isCurrent) setCommentError('댓글을 불러오지 못했습니다.');
+      })
+      .finally(() => {
+        if (isCurrent) setSettledCommentsProductId(id);
       });
 
     return () => {
@@ -87,7 +97,8 @@ export default function ProductDetailPage() {
     };
   }, [id]);
 
-  const canManageProduct = isResourceOwner(user?.id, product?.ownerId);
+  const isCommentsLoading = settledCommentsProductId !== id;
+  const canManageProduct = isResourceOwner(userId, product?.ownerId);
 
   async function handleDelete() {
     if (isDeleting || !window.confirm('정말 삭제하시겠습니까?')) return;
@@ -136,8 +147,8 @@ export default function ProductDetailPage() {
     event.preventDefault();
     if (requireLogin()) return;
 
+    if (!canSubmitComment(commentInput, isCommentsLoading, isCommentSubmitting)) return;
     const content = commentInput.trim();
-    if (!content || isCommentSubmitting) return;
 
     setIsCommentSubmitting(true);
     setCommentError('');
@@ -314,21 +325,26 @@ export default function ProductDetailPage() {
               {commentError ? <p role="alert" className="text-sm text-rose-500">{commentError}</p> : <span />}
               <button
                 type="submit"
-                disabled={!user || !commentInput.trim() || isCommentSubmitting}
+                disabled={
+                  !user ||
+                  !canSubmitComment(commentInput, isCommentsLoading, isCommentSubmitting)
+                }
                 aria-label="댓글 등록"
                 className="flex h-10 w-[72px] items-center justify-center rounded-lg bg-[#3692FF] text-sm font-semibold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-[#9CA3AF]"
               >
-                {isCommentSubmitting ? '등록 중' : '등록'}
+                {isCommentSubmitting ? '등록 중' : isCommentsLoading ? '로딩 중' : '등록'}
               </button>
             </div>
           </form>
 
           <div className="mt-4 divide-y divide-[#E5E7EB]">
-            {comments.length === 0 ? (
+            {isCommentsLoading ? (
+              <p className="py-10 text-center text-sm text-[#9CA3AF]">댓글을 불러오는 중...</p>
+            ) : comments.length === 0 ? (
               <p className="py-10 text-center text-sm text-[#9CA3AF]">아직 댓글이 없습니다.</p>
             ) : (
               comments.map((comment) => {
-                const canManageComment = isResourceOwner(user?.id, comment.writer?.id);
+                const canManageComment = isResourceOwner(userId, comment.writer?.id);
                 const isEditing = canManageComment && editingCommentId === comment.id;
                 const isUpdating = updatingCommentId === comment.id;
                 const isDeletingComment = deletingCommentId === comment.id;

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type ChangeEvent } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/lib/articles';
+import { getArticles, getBestArticles } from '@/lib/articles';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import PostCard from '@/app/components/PostCard';
@@ -18,7 +18,7 @@ export default function BoardsPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getArticles({ pageSize: 3, orderBy: 'recent' })
+    getBestArticles()
       .then((data) => setBestArticles(data.list.slice(0, 3)))
       .catch(console.error);
   }, []);

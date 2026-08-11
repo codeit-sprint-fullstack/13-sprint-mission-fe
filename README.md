@@ -21,23 +21,40 @@
 - ESLint
 - Node.js Test Runner
 
-## 시작하기
+## 프론트엔드와 백엔드 함께 시작하기
 
-### 1. 의존성 설치
+로그인, 좋아요, 댓글, 작성자 소유권 기능까지 확인하려면 제공된 백엔드를
+`http://localhost:3001`에서 실행하고 프론트엔드가 그 주소를 사용하도록 설정해야 합니다.
+외부 CRUD API만 연결하면 전체 인증 연동은 동작하지 않습니다.
+
+### 1. 백엔드 실행
+
+백엔드 저장소에서 예시 환경변수를 복사한 뒤 실제 PostgreSQL 접속 정보와 안전한 JWT 비밀키를 입력합니다.
 
 ```bash
+cp .env.example .env
+npm install
+npx prisma migrate deploy
+npm run dev
+```
+
+백엔드는 기본적으로 [http://localhost:3001](http://localhost:3001)에서 실행됩니다.
+`PORT` 환경변수로 다른 포트를 사용할 수 있으며, 그 경우 프론트엔드 URL도 같은 값으로 맞춰야 합니다.
+
+### 2. 프론트엔드 환경변수와 의존성 설정
+
+프론트엔드 저장소에서 다음 명령을 실행합니다.
+
+```bash
+cp .env.example .env.local
 npm install
 ```
 
-### 2. 환경변수 설정
-
-프로젝트 루트에 `.env.local` 파일을 만들고 API 주소를 설정할 수 있습니다.
+생성된 `.env.local`은 다음 백엔드 주소를 사용합니다.
 
 ```env
-NEXT_PUBLIC_API_URL=https://panda-market-api-crud.vercel.app
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
-
-환경변수를 생략하면 위 주소를 기본값으로 사용합니다.
 
 ### 3. 개발 서버 실행
 

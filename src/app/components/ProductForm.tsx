@@ -2,6 +2,7 @@
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import ArticleImage from '@/app/components/ArticleImage';
+import { parseProductPrice } from '@/app/components/product-form-state';
 import { getProductImageUrl, uploadProductImage } from '@/lib/products';
 import type { Product, ProductCreateInput } from '@/types';
 
@@ -42,8 +43,10 @@ export default function ProductForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
-  const isValid =
-    values.name.trim() && values.description.trim() && Number(values.price) >= 0;
+  const parsedPrice = parseProductPrice(values.price);
+  const isValid = Boolean(
+    values.name.trim() && values.description.trim() && parsedPrice !== null,
+  );
 
   function update(field: keyof ProductFormState) {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -60,7 +63,17 @@ export default function ProductForm({
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!isValid || isSubmitting) return;
+    if (isSubmitting) return;
+    if (!isValid || parsedPrice === null) {
+      setError(
+        parsedPrice === null
+          ? values.price.trim()
+            ? '가격은 0 이상의 숫자로 입력해 주세요.'
+            : '가격을 입력해 주세요.'
+          : '필수 항목을 입력해 주세요.',
+      );
+      return;
+    }
 
     setIsSubmitting(true);
     setError('');
@@ -76,7 +89,7 @@ export default function ProductForm({
       await onSubmit({
         name: values.name.trim(),
         description: values.description.trim(),
-        price: Number(values.price),
+        price: parsedPrice,
         tags: values.tags
           .split(',')
           .map((tag) => tag.trim())
@@ -150,7 +163,20 @@ export default function ProductForm({
           className={`${INPUT_CLS} h-14`}
           placeholder="가격을 입력해주세요"
           value={values.price}
-          onChange={update('price')}
+          onChange={(event) => {
+            update('price')(event);
+            setError('');
+          }}
+          onBlur={() => {
+            if (parsedPrice === null) {
+              setError(
+                values.price.trim()
+                  ? '가격은 0 이상의 숫자로 입력해 주세요.'
+                  : '가격을 입력해 주세요.',
+              );
+            }
+          }}
+          aria-invalid={parsedPrice === null}
         />
       </div>
 

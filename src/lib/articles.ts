@@ -42,22 +42,6 @@ function jsonBody(data: unknown): RequestInit {
   };
 }
 
-// ─── 프론트엔드 임의값 처리 ────────────────────────────────────────────────────
-
-const NICKNAMES = [
-  "판다팬",
-  "코드잇러",
-  "쇼핑왕",
-  "베스트셀러",
-  "마켓고수",
-  "판다러버",
-];
-
-// ID 기반 일관된 임의값 (렌더마다 동일하게 유지)
-export function getMockNickname(id: number): string {
-  return NICKNAMES[id % NICKNAMES.length];
-}
-
 export function getMockLikeCount(id: number): number {
   return (id * 7 + 3) % 50;
 }
@@ -80,7 +64,7 @@ export async function getArticles({
 }: ArticleListParams = {}): Promise<ListResponse<Article>> {
   const params = new URLSearchParams({
     page: String(page),
-    pageSize: String(pageSize),
+    limit: String(pageSize),
     orderBy: String(orderBy),
   });
   if (keyword) params.set("keyword", keyword);
@@ -95,6 +79,10 @@ export async function getArticles({
     ...data,
     list: orderBy === "like" ? sortArticlesByLike(data.list) : data.list,
   };
+}
+
+export function getBestArticles(): Promise<ListResponse<Article>> {
+  return getArticles({ pageSize: 3, orderBy: "like" });
 }
 
 export async function getArticle(id: number | string): Promise<Article> {

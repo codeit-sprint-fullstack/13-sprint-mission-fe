@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, useSyncExternalStore, type FormEvent } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -10,16 +10,19 @@ import {
   createArticleComment,
   updateArticleComment,
   deleteArticleComment,
-  getMockNickname,
   getMockLikeCount,
   likeArticle,
   unlikeArticle,
 } from '@/lib/articles';
-import { getStoredUser } from '@/lib/auth';
+import { getStoredUser, subscribeToAuthChange } from '@/lib/auth';
+import {
+  canManageArticle,
+  canManageArticleComment,
+} from '@/app/boards/article-detail-state';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ArticleImage from '@/app/components/ArticleImage';
-import type { Article, Comment } from '@/types';
+import type { Article, Comment, User } from '@/types';
 
 function formatDate(str: string): string {
   const date = new Date(str);
@@ -31,9 +34,15 @@ function formatLike(n: number): string | number {
   return n > 9999 ? '9999+' : n;
 }
 
+function getServerUser(): User | null {
+  return null;
+}
+
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const user = useSyncExternalStore(subscribeToAuthChange, getStoredUser, getServerUser);
+  const userId = user?.id;
   const [article, setArticle] = useState<Article | null>(null);
   const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
@@ -57,7 +66,7 @@ export default function ArticleDetailPage() {
         setIsLiked(data.isLiked ?? false);
       })
       .catch(() => router.replace('/boards'));
-  }, [id, router]);
+  }, [id, router, userId]);
 
   useEffect(() => {
     getArticleComments(id)
@@ -169,7 +178,8 @@ export default function ArticleDetailPage() {
     );
   }
 
-  const nickname = article.writer?.nickname ?? getMockNickname(article.id);
+  const nickname = article.writer?.nickname ?? '알 수 없음';
+  const canManageCurrentArticle = canManageArticle(userId, article);
   const image    = article.image;
 
   return (
@@ -186,21 +196,23 @@ export default function ArticleDetailPage() {
           {/* 제목 + 수정/삭제 */}
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-xl font-bold text-slate-900">{article.title}</h1>
-            <div className="flex shrink-0 items-center gap-2">
-              <Link
-                href={`/boards/${id}/edit`}
-                className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
-              >
-                수정
-              </Link>
-              <button
-                onClick={handleDelete}
-                disabled={isDeleting}
-                className="rounded-lg border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-500 hover:bg-rose-50 transition-colors"
-              >
-                {isDeleting ? '삭제 중...' : '삭제'}
-              </button>
-            </div>
+            {canManageCurrentArticle ? (
+              <div className="flex shrink-0 items-center gap-2">
+                <Link
+                  href={`/boards/${id}/edit`}
+                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
+                >
+                  수정
+                </Link>
+                <button
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                  className="rounded-lg border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-500 hover:bg-rose-50 transition-colors"
+                >
+                  {isDeleting ? '삭제 중...' : '삭제'}
+                </button>
+              </div>
+            ) : null}
           </div>
 
           {/* 작성자 + 날짜 + 좋아요 */}
@@ -278,7 +290,8 @@ export default function ArticleDetailPage() {
               <p className="py-10 text-center text-sm text-[#9CA3AF]">아직 댓글이 없습니다.</p>
             ) : (
               comments.map((comment) => {
-                const isEditing = editingCommentId === comment.id;
+                const canManageComment = canManageArticleComment(userId, comment);
+                const isEditing = canManageComment && editingCommentId === comment.id;
 
                 return (
                   <div key={comment.id} className="py-5">
@@ -310,23 +323,28 @@ export default function ArticleDetailPage() {
                       <>
                         <p className="whitespace-pre-wrap text-base text-[#1F2937]">{comment.content}</p>
                         <div className="mt-3 flex items-center justify-between text-sm text-[#9CA3AF]">
-                          <span>{comment.createdAt ? formatDate(comment.createdAt) : '방금 전'}</span>
-                          <div className="flex gap-3">
-                            <button
-                              type="button"
-                              onClick={() => startEditComment(comment)}
-                              className="transition-colors hover:text-[#3692FF]"
-                            >
-                              수정
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteComment(comment.id)}
-                              className="transition-colors hover:text-rose-500"
-                            >
-                              삭제
-                            </button>
+                          <div className="flex items-center gap-2">
+                            <span>{comment.writer?.nickname ?? '알 수 없음'}</span>
+                            <span>{comment.createdAt ? formatDate(comment.createdAt) : '방금 전'}</span>
                           </div>
+                          {canManageComment ? (
+                            <div className="flex gap-3">
+                              <button
+                                type="button"
+                                onClick={() => startEditComment(comment)}
+                                className="transition-colors hover:text-[#3692FF]"
+                              >
+                                수정
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteComment(comment.id)}
+                                className="transition-colors hover:text-rose-500"
+                              >
+                                삭제
+                              </button>
+                            </div>
+                          ) : null}
                         </div>
                       </>
                     )}

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getMockNickname, getMockLikeCount } from '@/lib/articles';
+import { getMockLikeCount } from '@/lib/articles';
 import ArticleImage from '@/app/components/ArticleImage';
 import type { Article } from '@/types';
 
@@ -18,7 +18,7 @@ function formatLike(n: number): string | number {
 }
 
 export default function PostCard({ article }: PostCardProps) {
-  const nickname = article.writer?.nickname ?? getMockNickname(article.id);
+  const nickname = article.writer?.nickname ?? '알 수 없음';
   const likeCount  = article.likeCount  ?? getMockLikeCount(article.id);
   const image      = article.image;
 

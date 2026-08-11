@@ -1,4 +1,4 @@
-const BASE_URL = 'https://panda-market-api.vercel.app';
+const BASE_URL = 'http://localhost:3000';
 
 export const fetchClient = async (endpoint: string, options: RequestInit = {}) => {
   let token = null;

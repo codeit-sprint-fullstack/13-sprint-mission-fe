@@ -1,5 +1,7 @@
 // API: https://panda-market-api-crud.vercel.app
 import type {
+  Comment,
+  CursorListResponse,
   ListResponse,
   Product,
   ProductCreateInput,
@@ -68,7 +70,77 @@ export async function getProducts({
 }
 
 export async function getProduct(id: number | string): Promise<Product> {
-  return requestApi<Product>(`/products/${id}`, "상품을 불러오지 못했습니다.");
+  return requestApi<Product>(`/products/${id}`, "상품을 불러오지 못했습니다.", {
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function deleteProduct(id: number | string): Promise<void> {
+  await requestApi<void>(`/products/${id}`, "상품 삭제에 실패했습니다.", {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function likeProduct(id: number | string): Promise<Product> {
+  return requestApi<Product>(`/products/${id}/like`, "좋아요 등록에 실패했습니다.", {
+    method: "POST",
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function unlikeProduct(id: number | string): Promise<Product> {
+  return requestApi<Product>(`/products/${id}/like`, "좋아요 취소에 실패했습니다.", {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+  });
+}
+
+export async function getProductComments(
+  productId: number | string,
+  { cursor, limit = 10 }: { cursor?: number | string; limit?: number } = {},
+): Promise<CursorListResponse<Comment>> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (cursor !== undefined) params.set("cursor", String(cursor));
+
+  return requestApi<CursorListResponse<Comment>>(
+    `/products/${productId}/comments?${params}`,
+    "댓글을 불러오지 못했습니다.",
+  );
+}
+
+export async function createProductComment(
+  productId: number | string,
+  { content }: { content: string },
+): Promise<Comment> {
+  return requestApi<Comment>(
+    `/products/${productId}/comments`,
+    "댓글 등록에 실패했습니다.",
+    { method: "POST", ...jsonBody({ content }) },
+  );
+}
+
+export async function updateProductComment(
+  productId: number | string,
+  commentId: number | string,
+  { content }: { content: string },
+): Promise<Comment> {
+  return requestApi<Comment>(
+    `/products/${productId}/comments/${commentId}`,
+    "댓글 수정에 실패했습니다.",
+    { method: "PATCH", ...jsonBody({ content }) },
+  );
+}
+
+export async function deleteProductComment(
+  productId: number | string,
+  commentId: number | string,
+): Promise<void> {
+  await requestApi<void>(
+    `/products/${productId}/comments/${commentId}`,
+    "댓글 삭제에 실패했습니다.",
+    { method: "DELETE", headers: getAuthHeaders() },
+  );
 }
 
 export async function uploadProductImage(file: File): Promise<UploadedImage> {

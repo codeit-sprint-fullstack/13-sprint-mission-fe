@@ -1,13 +1,14 @@
 {
   "name": "panda-market-nextjs",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test tests/product-list-state.test.ts"
+    "test": "node --test tests/*.test.ts"
   },
   "dependencies": {
     "next": "16.2.9",

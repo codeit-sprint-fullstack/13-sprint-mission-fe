@@ -30,6 +30,7 @@ export interface Product {
   favoriteCount?: number;
   likeCount?: number;
   ownerId?: number;
+  isLiked?: boolean;
   createdAt: string;
   updatedAt?: string;
 }

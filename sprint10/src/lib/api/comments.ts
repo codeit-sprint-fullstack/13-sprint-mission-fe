@@ -1,41 +1,31 @@
 import { fetchClient } from "./fetchClient";
-
-export interface Comment {
-  id: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
+import { Comment, PaginatedResponse } from "../../types";
 
 export const commentService = {
   getAllByArticleId: async (articleId: string) => {
       const res = await fetchClient(`/articles/${articleId}/comments?limit=100`);
-      const data = await res.json();
+      const data = (await res.json()) as PaginatedResponse<Comment> | Comment[];
       
-      return data.list || data.data || data || []; 
+      return 'list' in data ? data.list : data; 
   },
   create: async (articleId: string, content: string) => {
     const res = await fetchClient(`/articles/${articleId}/comments`, {
       method: "POST",
       body: JSON.stringify({ content }),
     });
-    return res.json();
+    return (await res.json()) as Comment;
   },
   update: async (commentId: number, content: string) => {
     const res = await fetchClient(`/comments/${commentId}`, {
       method: "PATCH",
       body: JSON.stringify({ content }),
     });
-    return res.json();
+    return (await res.json()) as Comment;
   },
   delete: async (commentId: number) => {
     const res = await fetchClient(`/comments/${commentId}`, {
       method: "DELETE",
     });
-    return res.json();
+    return res.json(); 
   },
 };

@@ -5,23 +5,17 @@ import { authApi } from "../api/authApi";
 import { userApi } from "../api/userApi";
 import type { User } from "./types";
 
-type SaveAuthPayload = {
-  user: User;
-  accessToken: string;
-};
-
 type AuthContextValue = {
   user: User | null;
   isInitialized: boolean;
-  saveAuth: (payload: SaveAuthPayload) => void;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
   register: (
     nickname: string,
     email: string,
     password: string,
     passwordConfirm: string,
-  ) => Promise<void>;
+  ) => Promise<User>;
   updateUser: (data: Partial<User>) => Promise<void>;
 };
 
@@ -39,9 +33,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const saveAuth = ({ user, accessToken }: SaveAuthPayload) => {
+  const login: AuthContextValue["login"] = async (email, password) => {
+    const { accessToken } = await authApi.login(email, password);
     localStorage.setItem("accessToken", accessToken);
-    setUser(user);
+    const me = await userApi.getMe();
+    setUser(me);
+    return me;
   };
 
   const register: AuthContextValue["register"] = async (
@@ -50,20 +47,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password,
     passwordConfirm,
   ) => {
-    const { user, accessToken } = await authApi.register(
-      nickname,
-      email,
-      password,
-      passwordConfirm,
-    );
-    localStorage.setItem("accessToken", accessToken);
-    setUser(user);
-  };
-
-  const login: AuthContextValue["login"] = async (email, password) => {
-    const { user, accessToken } = await authApi.login(email, password);
-    localStorage.setItem("accessToken", accessToken);
-    setUser(user);
+    // 회원가입 응답에는 accessToken이 내려오지 않으므로, 가입 직후 로그인을 이어서 호출한다.
+    await authApi.register(nickname, email, password, passwordConfirm);
+    return login(email, password);
   };
 
   const logout = async () => {
@@ -86,9 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, isInitialized, saveAuth, login, logout, register, updateUser }}
-    >
+    <AuthContext.Provider value={{ user, isInitialized, login, logout, register, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

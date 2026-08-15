@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authApi, useAuth } from "@/entities/user";
+import { useAuth } from "@/entities/user";
 import Modal from "@/shared/ui/Modal";
 import PasswordInput from "@/shared/ui/PasswordInput";
 import { signupSchema, type SignupValues } from "../model/authSchema";
@@ -22,7 +22,7 @@ type ModalState = {
 export default function SignupForm() {
   const [show, setShow] = useState<ShowState>({ password: false, passwordConfirm: false });
   const [modal, setModal] = useState<ModalState | null>(null);
-  const { saveAuth } = useAuth();
+  const { register: signup } = useAuth();
   const router = useRouter();
 
   const {
@@ -36,18 +36,10 @@ export default function SignupForm() {
 
   const onSubmit = async (values: SignupValues) => {
     try {
-      const { user, accessToken } = await authApi.register(
-        values.nickname,
-        values.email,
-        values.password,
-        values.passwordConfirm,
-      );
+      await signup(values.nickname, values.email, values.password, values.passwordConfirm);
       setModal({
         message: "가입 완료되었습니다.",
-        onClose: () => {
-          saveAuth({ user, accessToken });
-          router.push("/items");
-        },
+        onClose: () => router.push("/items"),
       });
     } catch (err) {
       setModal({

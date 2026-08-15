@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authApi, useAuth } from "@/entities/user";
+import { useAuth } from "@/entities/user";
 import Modal from "@/shared/ui/Modal";
 import PasswordInput from "@/shared/ui/PasswordInput";
 import { loginSchema, type LoginValues } from "../model/authSchema";
@@ -17,7 +17,7 @@ type ModalState = {
 export default function LoginForm() {
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState<ModalState | null>(null);
-  const { saveAuth } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const {
@@ -31,8 +31,7 @@ export default function LoginForm() {
 
   const onSubmit = async (values: LoginValues) => {
     try {
-      const { user, accessToken } = await authApi.login(values.email, values.password);
-      saveAuth({ user, accessToken });
+      await login(values.email, values.password);
       router.push("/items");
     } catch (err) {
       setModal({

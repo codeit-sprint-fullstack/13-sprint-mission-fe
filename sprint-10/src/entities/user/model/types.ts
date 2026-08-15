@@ -12,7 +12,7 @@ export type PublicUser = {
   image: string | null;
 };
 
-export type AuthResult = {
-  user: User;
+// /auth/signIn 응답: accessToken만 내려오고 유저 정보는 별도로 /users/me를 호출해야 한다.
+export type LoginResponse = {
   accessToken: string;
 };

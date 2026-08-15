@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/client";
-import type { CommentListResponse } from "../model/types";
+import type { CommentListResponse } from "@/entities/comment";
 
 export const commentApi = {
   getComments: (productId: string, params: { cursor?: string; pageSize?: number } = {}) => {

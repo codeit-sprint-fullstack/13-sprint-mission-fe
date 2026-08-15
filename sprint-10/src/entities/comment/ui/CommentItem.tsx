@@ -5,7 +5,7 @@ import { useState } from "react";
 import KebabMenu from "@/shared/ui/KebabMenu";
 import { formatRelativeTime } from "@/shared/lib/formatRelativeTime";
 import DefaultProfile from "@/assets/png/img_default_profile.png";
-import type { Comment } from "@/entities/product";
+import type { Comment } from "../model/types";
 
 type CommentItemProps = {
   comment: Comment;

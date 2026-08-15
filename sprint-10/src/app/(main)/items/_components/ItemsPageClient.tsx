@@ -6,8 +6,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { productApi, ProductCard, type OrderBy } from "@/entities/product";
 import Pagination from "@/shared/ui/Pagination";
 import SortDropdown from "@/shared/ui/SortDropdown";
+import SearchForm from "@/shared/ui/SearchForm";
 import BestProductSection from "./BestProductSection";
-import SearchForm from "./SearchForm";
 
 const PAGE_SIZE = 10;
 

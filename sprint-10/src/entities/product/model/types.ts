@@ -30,22 +30,3 @@ export type LikeResponse = {
   success: boolean;
   favoriteCount: number;
 };
-
-export type CommentAuthor = {
-  id: string;
-  nickname: string;
-  image: string | null;
-};
-
-export type Comment = {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: CommentAuthor;
-};
-
-export type CommentListResponse = {
-  nextCursor: string | null;
-  list: Comment[];
-};

@@ -7,7 +7,4 @@ export type {
   GetProductsParams,
   OrderBy,
   LikeResponse,
-  Comment,
-  CommentAuthor,
-  CommentListResponse,
 } from "./model/types";

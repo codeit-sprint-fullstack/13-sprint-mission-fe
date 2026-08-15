@@ -8,9 +8,15 @@ type SearchFormProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  placeholder?: string;
 };
 
-export default function SearchForm({ value, onChange, onSubmit }: SearchFormProps) {
+export default function SearchForm({
+  value,
+  onChange,
+  onSubmit,
+  placeholder = "검색할 상품을 입력해주세요",
+}: SearchFormProps) {
   return (
     <form
       onSubmit={onSubmit}
@@ -23,7 +29,7 @@ export default function SearchForm({ value, onChange, onSubmit }: SearchFormProp
         type="text"
         value={value}
         onChange={onChange}
-        placeholder="검색할 상품을 입력해주세요"
+        placeholder={placeholder}
         className="bg-transparent outline-none text-sm flex-1 placeholder:text-gray-400"
       />
     </form>

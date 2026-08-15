@@ -9,6 +9,7 @@ import { useAuth } from "@/entities/user";
 import { formatDate } from "@/shared/lib/formatDate";
 import KebabMenu from "@/shared/ui/KebabMenu";
 import AlertModal from "@/shared/ui/AlertModal";
+import ImageGallery from "@/shared/ui/ImageGallery";
 import DefaultImg from "@/assets/png/img_board_default.png";
 import DefaultProfile from "@/assets/png/img_default_profile.png";
 import HeartIcon from "@/assets/svg/ic_heart.svg";
@@ -89,20 +90,15 @@ export default function ProductSection({ productId }: { productId: string }) {
     return <p className="text-center text-gray-500 py-10">상품 정보를 불러오지 못했습니다.</p>;
   if (!product) return null;
 
-  const thumbnail = product.images?.[0];
-
   return (
     <>
       <div className="flex flex-col md:flex-row gap-6 pb-6 border-b border-gray-200">
-        <div className="relative w-full md:w-[48%] aspect-square rounded-2xl overflow-hidden bg-gray-100 shrink-0">
-          <Image
-            src={thumbnail ?? DefaultImg}
-            alt={product.name}
-            fill
-            className="object-cover"
-            unoptimized={!!thumbnail}
-          />
-        </div>
+        <ImageGallery
+          images={product.images}
+          alt={product.name}
+          fallbackSrc={DefaultImg}
+          className="w-full md:w-[48%] aspect-square rounded-2xl"
+        />
 
         <div className="flex flex-col gap-4 flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
@@ -142,14 +138,17 @@ export default function ProductSection({ productId }: { productId: string }) {
           <div className="mt-auto flex items-center justify-between pt-4 border-gray-200">
             <div className="flex items-center gap-2">
               <Image
-                src={DefaultProfile}
+                src={product.user?.image ?? DefaultProfile}
                 alt="프로필"
                 width={40}
                 height={40}
                 className="rounded-full w-10 h-10 object-cover"
+                unoptimized={!!product.user?.image}
               />
               <div>
-                <p className="text-sm font-medium text-gray-800">판매자</p>
+                <p className="text-sm font-medium text-gray-800">
+                  {product.user?.nickname ?? "판매자"}
+                </p>
                 <p className="text-xs text-gray-400">{formatDate(product.createdAt)}</p>
               </div>
             </div>

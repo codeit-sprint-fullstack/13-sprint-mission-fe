@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { SyntheticEvent } from "react";
+import { resolveImageUrl } from "@/shared/lib/resolveImageUrl";
 import DefaultImg from "@/assets/png/img_board_default.png";
 import HeartIcon from "@/assets/svg/ic_heart.svg";
 import type { Product } from "../model/types";
@@ -12,7 +13,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <Link href={`/items/${product.id}`} className="flex flex-col gap-2">
       <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gray-100">
         <Image
-          src={thumbnail ?? DefaultImg}
+          src={thumbnail ? resolveImageUrl(thumbnail) : DefaultImg}
           alt={product.name}
           fill
           className="object-cover"

@@ -7,4 +7,5 @@ export type {
   GetProductsParams,
   OrderBy,
   LikeResponse,
+  ProductInput,
 } from "./model/types";

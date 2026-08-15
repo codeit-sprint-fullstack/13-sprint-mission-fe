@@ -9,7 +9,9 @@ import { useAuth } from "@/entities/user";
 import { formatDate } from "@/shared/lib/formatDate";
 import KebabMenu from "@/shared/ui/KebabMenu";
 import AlertModal from "@/shared/ui/AlertModal";
+import ImageGallery from "@/shared/ui/ImageGallery";
 import DefaultProfile from "@/assets/png/img_default_profile.png";
+import DefaultImg from "@/assets/png/img_board_default.png";
 
 export default function ArticleSection({ articleId }: { articleId: string }) {
   const router = useRouter();
@@ -81,6 +83,15 @@ export default function ArticleSection({ articleId }: { articleId: string }) {
           <span className="text-gray-300">|</span>
           <span>{formatDate(article.createdAt)}</span>
         </div>
+
+        {article.images.length > 0 && (
+          <ImageGallery
+            images={article.images}
+            alt={article.title}
+            fallbackSrc={DefaultImg}
+            className="w-full aspect-video rounded-2xl"
+          />
+        )}
 
         <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
           {article.content}

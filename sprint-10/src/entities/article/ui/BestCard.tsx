@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { SyntheticEvent } from "react";
+import { resolveImageUrl } from "@/shared/lib/resolveImageUrl";
 import MedalIcon from "@/assets/svg/ic_medal.svg";
 import DefaultImage from "@/assets/png/img_board_default.png";
 import { formatDate } from "@/shared/lib/formatDate";
@@ -7,6 +9,7 @@ import type { Article } from "../model/types";
 
 export default function BestCard({ article }: { article: Article }) {
   const displayLike = article.favoriteCount > 9999 ? "9999+" : article.favoriteCount;
+  const thumbnail = article.images?.[0];
 
   return (
     <Link
@@ -24,11 +27,15 @@ export default function BestCard({ article }: { article: Article }) {
         </p>
         <div className="w-16 h-16 md:w-17 md:h-17 lg:w-18 lg:h-18 rounded-lg overflow-hidden border border-gray-200 shrink-0">
           <Image
-            src={DefaultImage}
+            src={thumbnail ? resolveImageUrl(thumbnail) : DefaultImage}
             alt="게시글 이미지"
             width={72}
             height={72}
             className="object-cover w-full h-full"
+            onError={(e: SyntheticEvent<HTMLImageElement>) => {
+              e.currentTarget.src = DefaultImage.src;
+            }}
+            unoptimized={!!thumbnail}
           />
         </div>
       </div>

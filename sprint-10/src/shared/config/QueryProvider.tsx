@@ -22,12 +22,12 @@ function makeQueryClient() {
   });
 }
 
-let browserQueryClient: QueryClient | undefined;
+const browserQueryClientBox: { current: QueryClient | undefined } = { current: undefined };
 
 function getQueryClient() {
   if (typeof window === "undefined") return makeQueryClient();
-  if (!browserQueryClient) browserQueryClient = makeQueryClient();
-  return browserQueryClient;
+  if (!browserQueryClientBox.current) browserQueryClientBox.current = makeQueryClient();
+  return browserQueryClientBox.current;
 }
 
 export default function QueryProvider({ children }: { children: ReactNode }) {

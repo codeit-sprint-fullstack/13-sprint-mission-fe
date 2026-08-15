@@ -4,6 +4,7 @@ export type Article = {
   id: string;
   title: string;
   content: string;
+  images: string[];
   favoriteCount: number;
   isLiked?: boolean;
   createdAt: string;

@@ -10,7 +10,12 @@ export default async function EditBoardPage({ params }: PageProps<"/boards/[id]/
 
   return (
     <main className="mx-4 mt-4">
-      <PostForm articleId={id} initialTitle={article.title} initialContent={article.content} />
+      <PostForm
+        articleId={id}
+        initialTitle={article.title}
+        initialContent={article.content}
+        initialImages={article.images}
+      />
     </main>
   );
 }

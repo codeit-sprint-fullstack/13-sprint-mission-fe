@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { articleApi } from "@/entities/article";
+import { resolveImageUrl } from "@/shared/lib/resolveImageUrl";
 import Modal from "@/shared/ui/Modal";
+import PlusIcon from "@/assets/svg/ic_plus.svg";
 import { postSchema, type PostValues } from "../model/postSchema";
 
 const TITLE_MAX = 10;
 const CONTENT_MAX = 100;
+const MAX_IMAGES = 5;
 
 type PostFormProps = {
   articleId?: string;
   initialTitle?: string;
   initialContent?: string;
+  initialImages?: string[];
 };
 
 type ModalState = {
@@ -26,9 +32,14 @@ export default function PostForm({
   articleId,
   initialTitle = "",
   initialContent = "",
+  initialImages = [],
 }: PostFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [modal, setModal] = useState<ModalState | null>(null);
+  const [images, setImages] = useState<string[]>(initialImages);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const isEdit = !!articleId;
 
   const {
@@ -47,13 +58,40 @@ export default function PostForm({
   const titleLength = title?.trim().length ?? 0;
   const contentLength = content?.trim().length ?? 0;
 
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (files.length === 0) return;
+
+    const filesToUpload = files.slice(0, MAX_IMAGES - images.length);
+    setIsUploading(true);
+    try {
+      const uploaded = await articleApi.uploadImages(filesToUpload);
+      setImages((prev) => [...prev, ...uploaded]);
+    } catch (err) {
+      setModal({
+        message: err instanceof Error ? err.message : "이미지 업로드에 실패했습니다.",
+        onClose: () => setModal(null),
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const onSubmit = async (values: PostValues) => {
     try {
       if (articleId) {
-        await articleApi.updateArticle(articleId, values);
+        await articleApi.updateArticle(articleId, { ...values, images });
+        await queryClient.invalidateQueries({ queryKey: ["article", articleId] });
+        await queryClient.invalidateQueries({ queryKey: ["articles"] });
         router.push(`/boards/${articleId}`);
       } else {
-        await articleApi.createArticle(values.title, values.content);
+        await articleApi.createArticle(values.title, values.content, images);
+        await queryClient.invalidateQueries({ queryKey: ["articles"] });
         router.push("/boards");
       }
     } catch (err) {
@@ -118,6 +156,54 @@ export default function PostForm({
             {...register("content")}
           />
           {errors.content && <p className="text-xs text-red-500">{errors.content.message}</p>}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium text-gray-800">이미지</label>
+          <div className="flex flex-wrap gap-3">
+            {images.map((url, index) => (
+              <div
+                key={url}
+                className="relative w-39 h-39 rounded-2xl overflow-hidden border border-gray-200 shrink-0"
+              >
+                <Image
+                  src={resolveImageUrl(url)}
+                  alt={`이미지 ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute top-1.5 right-1.5 w-5 h-5 flex items-center justify-center rounded-full bg-black/50 text-white text-xs leading-none"
+                  aria-label="이미지 삭제"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+
+            {images.length < MAX_IMAGES && (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="w-39 h-39 flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-gray-300 text-gray-400 hover:border-primary-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Image src={PlusIcon} alt="" width={24} height={24} />
+                <span className="text-sm">{isUploading ? "업로드 중..." : "이미지 등록"}</span>
+              </button>
+            )}
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/gif,image/webp"
+            multiple
+            onChange={handleFileChange}
+            className="hidden"
+          />
         </div>
       </form>
     </>

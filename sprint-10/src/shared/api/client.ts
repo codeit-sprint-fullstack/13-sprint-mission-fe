@@ -63,3 +63,21 @@ export const apiClient = {
   delete: <T = null>(endpoint: string, options: RequestInit = {}) =>
     authorizedRequest<T>(endpoint, { method: "DELETE", ...options }),
 };
+
+// multipart/form-data 업로드 전용: Content-Type을 직접 지정하지 않아야
+// 브라우저가 boundary를 포함한 값을 자동으로 설정한다.
+export async function uploadFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    method: "POST",
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message ?? `HTTP Error ${response.status}: ${endpoint}`);
+  }
+
+  return response.json();
+}

@@ -4,20 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { commentService, Comment } from "../../../lib/api/comments";
-import { fetchClient } from "../../../lib/api/fetchClient";
-
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  likeCount?: number; 
-  writer?: {       
-    id: number;
-    nickname: string;
-  };
-}
+import { commentService } from "@/lib/api/comments";
+import { fetchClient } from "@/lib/api/fetchClient";
+import { Article, Comment } from "@/types";
 
 const formatDate = (dateString: string) => {
   const d = new Date(dateString);
@@ -37,16 +26,13 @@ const timeAgo = (dateString: string) => {
   return `${diffInDays}일 전`;
 };
 
+interface CommentItemProps {
+  data: Comment;
+  onUpdate: (id: number, content: string) => Promise<void>;
+  onDelete: (id: number) => Promise<void>;
+}
 
-function CommentItem({ 
-  data, 
-  onUpdate, 
-  onDelete 
-}: { 
-  data: Comment; 
-  onUpdate: (id: number, content: string) => Promise<void>; 
-  onDelete: (id: number) => Promise<void> 
-}) {
+function CommentItem({ data, onUpdate, onDelete }: CommentItemProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(data.content);
@@ -131,7 +117,7 @@ function CommentItem({
 export default function BoardDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = params.id as string;
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
   
   const [article, setArticle] = useState<Article | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -150,15 +136,19 @@ export default function BoardDetailPage() {
       setIsLoading(true);
       
       const artRes = await fetchClient(`/articles/${id}`, { cache: 'no-store' });
-      const articleData = await artRes.json();
+      const articleData = (await artRes.json()) as Article;
       
       setArticle(articleData);
       setLikeCount(articleData.likeCount || 0);
 
       const allComments = await commentService.getAllByArticleId(id);
       setComments(allComments);
-    } catch (e) {
-      console.error("게시글 로딩 실패:", e);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+          console.error("게시글 로딩 실패:", e.message);
+      } else {
+          console.error("게시글 로딩 실패:", e);
+      }
       alert("존재하지 않거나 삭제된 게시글입니다.");
       router.push('/board'); 
     } finally {
@@ -208,6 +198,7 @@ export default function BoardDetailPage() {
       setNewComment("");
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("댓글 등록에 실패했습니다. (로그인 필요)");
     }
   };
@@ -217,6 +208,7 @@ export default function BoardDetailPage() {
       await commentService.update(commentId, content);
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("본인의 댓글만 수정할 수 있습니다.");
     }
   };
@@ -227,6 +219,7 @@ export default function BoardDetailPage() {
       await commentService.delete(commentId);
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("본인의 댓글만 삭제할 수 있습니다.");
     }
   };

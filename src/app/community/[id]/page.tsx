@@ -13,14 +13,20 @@ import { marketAPI } from "@/lib/services/marketApi";
 import { useParams, useRouter } from "next/navigation";
 
 export default function page() {
-  const [open, isOpen] = useState(false);
-  const { id } = useParams();
-  const [articleData, setArticle] = useState({});
-  const [comments, setCommets] = useState([]);
-  const [fieldComment, setFieldComment] = useState("");
-  const [loading, setLoading] = useState(true);
-  const isEnabled = fieldComment.trim();
-  const router = useRouter();
+  const [open, isOpen] = useState<boolean>(false);
+  const { id } = useParams<{ id: string }>();
+  const [articleData, setArticle] = useState<{
+    title: string;
+    createdAt: number;
+    content: string;
+  }>({ title: "", createdAt: 0, content: "" });
+  const [comments, setCommets] = useState<{ id: number; content: string }[]>(
+    [],
+  );
+  const [fieldComment, setFieldComment] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const isEnabled: string = fieldComment.trim();
+  const router = useRouter<AppRouterInstance>();
 
   const fetchCommentData = async () => {
     const [articleRes, commentRes] = await Promise.all([
@@ -28,7 +34,7 @@ export default function page() {
       marketAPI.getComments(id),
     ]);
     setCommets(commentRes);
-    setArticle(...articleRes);
+    setArticle(articleRes);
     setLoading(false);
   };
 

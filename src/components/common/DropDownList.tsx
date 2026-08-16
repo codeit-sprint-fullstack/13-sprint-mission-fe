@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function DropDownList({ updateFunc, deleteFunc }) {
+export default function DropDownList({
+  updateFunc,
+  deleteFunc,
+}: {
+  updateFunc: () => void;
+  deleteFunc: () => void;
+}) {
   const handleUpdate = () => {
     updateFunc();
   };

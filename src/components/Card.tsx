@@ -5,7 +5,7 @@ import profileImg from "../assets/icon/ic_profile.svg";
 import heartImg from "../assets/icon/ic_heart.svg";
 import Link from "next/link";
 
-export default function Card({ id, title, date }) {
+export default function Card({ id, title, date }: CardType) {
   return (
     <Link href={`community/${id}`}>
       <div className="flex gap-[1rem] flex-col items-start self-stretch ">

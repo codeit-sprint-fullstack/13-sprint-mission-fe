@@ -1,7 +1,13 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-export default function Modal({ children, onClose }) {
+export default function Modal({
+  children,
+  onClose,
+}: {
+  children: React.ReactNode;
+  onClose: () => void;
+}) {
   return createPortal(
     <div
       className="fixed top-0 z-1000 w-full h-full bg-black/70"

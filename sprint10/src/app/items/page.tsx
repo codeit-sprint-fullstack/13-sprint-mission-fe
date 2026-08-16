@@ -3,17 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { fetchClient } from "../../lib/api/fetchClient";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  createdAt: string;
-  favoriteCount: number;
-  image?: string;
-  images?: string[];
-}
+import { fetchClient } from "@/lib/api/fetchClient";
+import { Product, PaginatedResponse } from "@/types";
 
 export default function ItemsListPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,13 +20,13 @@ export default function ItemsListPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 1. 베스트 상품 로드
   useEffect(() => {
     const fetchBestItems = async () => {
       try {
         const res = await fetchClient("/products?orderBy=favorite&pageSize=4");
-        const data = await res.json();
-        setBestItems(data.list || data);
+        const data = (await res.json()) as PaginatedResponse<Product> | Product[];
+        const list = 'list' in data ? data.list : data;
+        setBestItems(list);
       } catch (error) {
         console.error("베스트 상품 로드 실패:", error);
       }
@@ -46,19 +37,30 @@ export default function ItemsListPage() {
   const fetchItems = useCallback(async () => {
     setIsLoading(true);
     try {
-      const orderParam = sortBy === '최신순' ? 'recent' : 'favorite';
-      const wordParam = keyword ? `&keyword=${encodeURIComponent(keyword)}` : '';
+      const params = new URLSearchParams({
+        page: page.toString(),
+        pageSize: '10',
+        orderBy: sortBy === '최신순' ? 'recent' : 'favorite'
+      });
       
-      const res = await fetchClient(`/products?page=${page}&pageSize=10&orderBy=${orderParam}${wordParam}`);
-      const data = await res.json();
+      if (keyword) {
+        params.append('keyword', keyword);
+      }
       
-      const fetchedItems = data.list || data || [];
+      const res = await fetchClient(`/products?${params.toString()}`);
+      const data = (await res.json()) as PaginatedResponse<Product>;
+      
+      const fetchedItems = data.list || [];
       setItems(fetchedItems);
       
       const total = data.totalCount || 75; 
       setTotalPages(Math.ceil(total / 10));
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error(error);
+      }
     } finally {
       setIsLoading(false);
     }

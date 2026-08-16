@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchClient } from "../../../lib/api/fetchClient";
+import { fetchClient } from "@/lib/api/fetchClient";
+import { Product, Comment } from "@/types";
 
 const formatDate = (dateString: string) => {
   const d = new Date(dateString);
@@ -24,32 +25,13 @@ const timeAgo = (dateString: string) => {
   return `${diffInDays}일 전`;
 };
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  tags: string[];
-  createdAt: string;
-  favoriteCount: number;
-  isFavorite?: boolean;
-  image?: string;
-  images?: string[];
-  ownerId?: number;
-  ownerNickname?: string;
+interface ProductCommentItemProps {
+  data: Comment;
+  onUpdate: (id: number, content: string) => Promise<void>;
+  onDelete: (id: number) => void;
 }
 
-interface Comment {
-  id: number;
-  content: string;
-  createdAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
-
-function ProductCommentItem({ data, onUpdate, onDelete }: any) {
+function ProductCommentItem({ data, onUpdate, onDelete }: ProductCommentItemProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(data.content);
@@ -94,7 +76,7 @@ function ProductCommentItem({ data, onUpdate, onDelete }: any) {
                   수정하기
                 </button>
                 <button 
-                  onClick={const_handleDelete => { onDelete(data.id); setIsMenuOpen(false); }} 
+                  onClick={() => { onDelete(data.id); setIsMenuOpen(false); }} 
                   className="flex h-[46px] w-full items-center justify-center gap-[10px] rounded-b-[8px] border-b border-l border-r border-[#D1D5DB] bg-[#FFF] px-[17px] pb-[16px] pt-[12px] font-['Pretendard'] text-[14px] text-[#6B7280] hover:bg-gray-50"
                 >
                   삭제하기
@@ -126,8 +108,9 @@ function ProductCommentItem({ data, onUpdate, onDelete }: any) {
 }
 
 export default function ItemDetailPage() {
-  const { id } = useParams();
+  const params = useParams();
   const router = useRouter();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const [product, setProduct] = useState<Product | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -139,10 +122,12 @@ export default function ItemDetailPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fetchData = useCallback(async () => {
+    if (!id) return;
     try {
       setIsLoading(true);
       const prodRes = await fetchClient(`/products/${id}`);
-      const prodData = await prodRes.json();
+      const prodData = (await prodRes.json()) as Product;
+      
       setProduct(prodData);
       setIsFavorite(prodData.isFavorite || false);
       setFavoriteCount(prodData.favoriteCount || 0);
@@ -150,7 +135,12 @@ export default function ItemDetailPage() {
       const commRes = await fetchClient(`/products/${id}/comments?limit=100`);
       const commData = await commRes.json();
       setComments(commData.list || commData.data || commData || []);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error(error);
+      }
       alert("존재하지 않거나 삭제된 상품입니다.");
       router.push('/items');
     } finally {
@@ -174,6 +164,7 @@ export default function ItemDetailPage() {
         await fetchClient(`/products/${id}/favorite`, { method: 'POST' });
       }
     } catch (error) {
+      console.error(error);
       setIsFavorite(prevIsFavorite);
       setFavoriteCount(prevCount);
       alert("관심 상품 등록에 실패했습니다. (로그인이 필요합니다)");
@@ -187,6 +178,7 @@ export default function ItemDetailPage() {
       alert("상품이 삭제되었습니다.");
       router.push('/items');
     } catch (error) {
+      console.error(error);
       alert("본인이 등록한 상품만 삭제할 수 있습니다.");
     }
   };
@@ -201,6 +193,7 @@ export default function ItemDetailPage() {
       setNewComment("");
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("댓글 등록에 실패했습니다.");
     }
   };
@@ -210,6 +203,7 @@ export default function ItemDetailPage() {
       await fetchClient(`/comments/${commentId}`, { method: 'PATCH', body: JSON.stringify({ content }) });
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("본인의 댓글만 수정할 수 있습니다.");
     }
   };
@@ -220,6 +214,7 @@ export default function ItemDetailPage() {
       await fetchClient(`/comments/${commentId}`, { method: 'DELETE' });
       await fetchData();
     } catch (error) {
+      console.error(error);
       alert("본인의 댓글만 삭제할 수 있습니다.");
     }
   };

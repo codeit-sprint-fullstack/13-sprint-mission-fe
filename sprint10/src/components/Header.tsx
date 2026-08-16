@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClient } from "../lib/api/fetchClient";
+import { User } from "../types";
 
 export default function Header() {
   const [token, setToken] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export default function Header() {
     setToken(localStorage.getItem("accessToken"));
   }, []);
 
-  const { data: user, isError } = useQuery({
+  const { data: user, isError } = useQuery<User>({
     queryKey: ["userMe"],
     queryFn: async () => {
       const res = await fetchClient("/users/me");

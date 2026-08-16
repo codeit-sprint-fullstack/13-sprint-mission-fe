@@ -1,5 +1,6 @@
 import { apiClient, uploadFormData } from "@/shared/api/client";
-import type { Article, ArticleListResponse, GetArticlesParams } from "../model/types";
+import type { ApiSuccessResponse } from "@/shared/types/api";
+import type { Article, ArticleInput, ArticleListResponse, GetArticlesParams } from "../model/types";
 
 function fetchArticles({
   page = 1,
@@ -27,7 +28,7 @@ export const articleApi = {
   getArticle: (id: string) => apiClient.get<Article>(`/articles/${id}`),
 
   createArticle: async (title: string, content: string, images: string[] = []) => {
-    const res = await apiClient.post<{ success: boolean; data: Article }>("/articles", {
+    const res = await apiClient.post<ApiSuccessResponse<Article>>("/articles", {
       title,
       content,
       images,
@@ -35,7 +36,7 @@ export const articleApi = {
     return res.data;
   },
 
-  updateArticle: (id: string, data: { title: string; content: string; images?: string[] }) =>
+  updateArticle: (id: string, data: ArticleInput) =>
     apiClient.patch<Article>(`/articles/${id}`, data),
 
   deleteArticle: (id: string) => apiClient.delete(`/articles/${id}`),

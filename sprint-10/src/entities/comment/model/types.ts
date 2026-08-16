@@ -1,4 +1,5 @@
 import type { PublicUser } from "@/entities/user";
+import type { CursorResponse } from "@/shared/types/api";
 
 export type Comment = {
   id: string;
@@ -8,7 +9,4 @@ export type Comment = {
   user: PublicUser;
 };
 
-export type CommentListResponse = {
-  nextCursor: string | null;
-  list: Comment[];
-};
+export type CommentListResponse = CursorResponse<Comment>;

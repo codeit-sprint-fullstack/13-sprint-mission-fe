@@ -1,4 +1,5 @@
 import type { PublicUser } from "@/entities/user";
+import type { PaginatedResponse, PaginationParams } from "@/shared/types/api";
 
 export type Product = {
   id: string;
@@ -16,19 +17,11 @@ export type Product = {
   user?: PublicUser;
 };
 
-export type ProductListResponse = {
-  list: Product[];
-  totalCount: number;
-};
+export type ProductListResponse = PaginatedResponse<Product>;
 
 export type OrderBy = "recent" | "oldest";
 
-export type GetProductsParams = {
-  page?: number;
-  pageSize?: number;
-  orderBy?: OrderBy;
-  keyword?: string;
-};
+export type GetProductsParams = PaginationParams<OrderBy>;
 
 export type LikeResponse = {
   success: boolean;

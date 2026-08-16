@@ -1,8 +1,9 @@
 import { apiClient } from "@/shared/api/client";
+import type { CursorParams } from "@/shared/types/api";
 import type { CommentListResponse } from "@/entities/comment";
 
 export const articleCommentApi = {
-  getComments: (articleId: string, params: { cursor?: string; pageSize?: number } = {}) => {
+  getComments: (articleId: string, params: CursorParams = {}) => {
     const query = new URLSearchParams();
     if (params.cursor) query.set("cursor", params.cursor);
     query.set("pageSize", String(params.pageSize ?? 10));

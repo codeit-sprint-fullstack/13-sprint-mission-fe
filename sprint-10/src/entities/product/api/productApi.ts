@@ -1,4 +1,5 @@
 import { apiClient, uploadFormData } from "@/shared/api/client";
+import type { ApiSuccessResponse } from "@/shared/types/api";
 import type {
   GetProductsParams,
   LikeResponse,
@@ -34,7 +35,7 @@ export const productApi = {
   getProduct: (id: string) => apiClient.get<Product>(`/products/${id}`),
 
   createProduct: async (data: ProductInput) => {
-    const res = await apiClient.post<{ success: boolean; data: Product }>("/products", data);
+    const res = await apiClient.post<ApiSuccessResponse<Product>>("/products", data);
     return res.data;
   },
 

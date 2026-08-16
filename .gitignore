@@ -1,0 +1,6 @@
+**/node_modules/
+**/build/
+**/dist/
+**/.npm-cache/
+**/.env
+**/.env.local

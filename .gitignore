@@ -23,10 +23,7 @@
 # misc
 .DS_Store
 *.pem
-<<<<<<< HEAD
 .vscode/
-=======
->>>>>>> bc280c9 (chore: 파일 옮기기)
 
 # debug
 npm-debug.log*

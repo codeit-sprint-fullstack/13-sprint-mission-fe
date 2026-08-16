@@ -26,13 +26,8 @@
 }
 
 @theme inline {
-<<<<<<< HEAD
   --font-pretendard: var(--font-pretendard);   /* className="font-pretendard" 로 사용 */
   --font-rokaf: "ROKAF Sans", sans-serif;       /* className="font-rokaf" 로 사용 */
-=======
-  --font-pretendard: var(--font-pretendard);
-  --font-rokaf: "ROKAF Sans", sans-serif;
->>>>>>> bc280c9 (chore: 파일 옮기기)
 
   --color-blue-100: var(--color-blue-100);
   --color-blue-200: var(--color-blue-200);

@@ -97,10 +97,9 @@ export interface ProductQuery {
   pageSize?: number;
 }
 
-export interface ProductPayload {
-  name: string;
-  description: string;
-  price: number;
+export type ProductPayload = Omit<
+  Product,
+  "id" | "userId" | "user" | "createdAt" | "updatedAt" | "isLiked" | "_count" | "tags"
+> & {
   tags: string[];
-  images: string[];
-}
+};

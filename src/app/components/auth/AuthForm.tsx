@@ -35,6 +35,7 @@ interface AuthFormProps {
   onSubmit: SubmitEventHandler<HTMLFormElement>;
   disabled?: boolean;
   errors?: Partial<Record<keyof AuthFormValues, string>>;
+  // Partial로 에러난 필드만 있어도 되게 함
 }
 
 export default function AuthForm({

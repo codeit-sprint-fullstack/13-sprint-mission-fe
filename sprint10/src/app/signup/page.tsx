@@ -8,6 +8,13 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { fetchClient } from "../../lib/api/fetchClient";
 
+interface SignUpFormData {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirm: string; 
+}
+
 export default function SignUpPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -25,33 +32,38 @@ export default function SignUpPage() {
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm<SignUpFormData>({ mode: "onChange" });
 
   const currentPassword = watch("password");
 
   const signupMutation = useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: SignUpFormData) => {
       const payload = {
         email: data.email,
         nickname: data.nickname,
         password: data.password,
-        passwordConfirmation: data.passwordConfirm,
+        passwordConfirmation: data.passwordConfirm, 
       };
       const res = await fetchClient("/auth/signUp", {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      return res.json();
+      return res.json(); 
     },
     onSuccess: () => {
       setModalMessage("가입이 완료되었습니다. 로그인해주세요.");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      if (error instanceof Error) {
+        console.error("회원가입 에러:", error.message);
+      } else {
+        console.error("회원가입 에러:", error);
+      }
       router.push("/signin?error=duplicate");
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: SignUpFormData) => {
     signupMutation.mutate(data);
   };
 
@@ -80,7 +92,7 @@ export default function SignUpPage() {
               placeholder="이메일을 입력해주세요"
               className={`mt-[16px] h-[56px] w-full rounded-[12px] bg-[#F3F4F6] px-[24px] py-[16px] font-['Pretendard'] text-[16px] outline-none transition-colors ${errors.email ? "border border-[#F74747]" : "border border-transparent focus:border-[#3692FF]"}`}
             />
-            {errors.email && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.email.message as string}</span>}
+            {errors.email?.message && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.email.message}</span>}
           </div>
 
           <div className="mt-[24px] flex flex-col">
@@ -94,7 +106,7 @@ export default function SignUpPage() {
               placeholder="닉네임을 입력해주세요"
               className={`mt-[16px] h-[56px] w-full rounded-[12px] bg-[#F3F4F6] px-[24px] py-[16px] font-['Pretendard'] text-[16px] outline-none transition-colors ${errors.nickname ? "border border-[#F74747]" : "border border-transparent focus:border-[#3692FF]"}`}
             />
-            {errors.nickname && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.nickname.message as string}</span>}
+            {errors.nickname?.message && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.nickname.message}</span>}
           </div>
 
           <div className="mt-[24px] flex flex-col">
@@ -113,7 +125,7 @@ export default function SignUpPage() {
                 <Image src={showPassword ? "/images/btn_visibility_on_24px.svg" : "/images/btn_visibility_off_24px.svg"} alt="비밀번호 숨김/표시" width={24} height={24} />
               </button>
             </div>
-            {errors.password && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.password.message as string}</span>}
+            {errors.password?.message && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.password.message}</span>}
           </div>
 
           <div className="mt-[24px] flex flex-col">
@@ -132,7 +144,7 @@ export default function SignUpPage() {
                 <Image src={showPasswordConfirm ? "/images/btn_visibility_on_24px.svg" : "/images/btn_visibility_off_24px.svg"} alt="비밀번호 숨김/표시" width={24} height={24} />
               </button>
             </div>
-            {errors.passwordConfirm && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.passwordConfirm.message as string}</span>}
+            {errors.passwordConfirm?.message && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.passwordConfirm.message}</span>}
           </div>
 
           <button

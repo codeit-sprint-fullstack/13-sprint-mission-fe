@@ -1,22 +1,13 @@
 import React from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import styled, { css } from "styled-components";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { useAuth } from "../../contexts/AuthContext";
 import LinkButton from "../UI/LinkButton";
 import defaultProfileImage from "../../assets/images/ui/ic_profile.svg";
-import { ReactComponent as Logo } from "../../assets/images/logo/logo.svg";
-import { ReactComponent as TextLogo } from "../../assets/images/logo/text_logo.svg";
+import Logo from "../../assets/images/logo/logo.svg?react";
+import TextLogo from "../../assets/images/logo/text_logo.svg?react";
 import Footer from "./Footer";
-
-const fullWidthStyle = css`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 14px;
-
-  @media ${({ theme }) => theme.mediaQuery.tablet} {
-    padding: 14px 24px;
-  }
-`;
+import ToggleMenu from "../UI/ToggleMenu";
 
 const Container = styled.div`
   display: flex;
@@ -44,9 +35,9 @@ const HeaderMenu = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 8px;
   font-weight: bold;
   font-size: 16px;
+  line-height: 26px;
   color: #4b5563;
   gap: 47px;
 
@@ -74,11 +65,25 @@ const HeaderNavLink = styled(NavLink)`
 const LoginLink = styled(LinkButton)`
   font-size: 16px;
   font-weight: 600;
+  line-height: 24px;
   border-radius: 8px;
   padding: 11px 23px;
 `;
 
-const ProfileLink = styled(Link)`
+const ProfileMenu = styled(ToggleMenu)`
+  & > button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 2px 4px;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+  }
+`;
+
+const ProfileInfo = styled.span`
   display: flex;
   align-items: center;
   gap: 6px;
@@ -101,25 +106,56 @@ const Nickname = styled.span`
 const HeaderWrapper = styled.header`
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 100;
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--gray-200);
 `;
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${fullWidthStyle}
-  background-color: #ffffff;
-  border-bottom: 1px solid #dfdfdf;
+  width: 100%;
+  max-width: 1520px;
+  height: 70px;
+  margin: 0 auto;
+  padding: 9px 24px;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    padding: 9px 16px;
+  }
 `;
 
 const Main = styled.main`
   flex: 1;
-  ${({ $fullWidth }) => !$fullWidth && fullWidthStyle}
+  width: 100%;
+  ${({ $fullWidth }) =>
+    !$fullWidth &&
+    `
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 0;
+
+      @media screen and (max-width: 1199px) {
+        padding: 14px 24px;
+      }
+
+      @media screen and (max-width: 743px) {
+        padding: 14px 16px;
+      }
+    `}
 `;
 
-function Header() {
-  const { user } = useAuth();
+function Header({ isHome }) {
+  const { user, signout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleProfileMenuSelect = ({ value }) => {
+    if (value !== "logout") return;
+    signout();
+    navigate("/signin", { replace: true });
+  };
 
   return (
     <HeaderWrapper>
@@ -132,27 +168,37 @@ function Header() {
                 <StyledTextLogo />
               </HeaderLogoLink>
             </li>
-            <li>
-              <HeaderNavLink to="/community">
-                자유게시판
-              </HeaderNavLink>
-            </li>
-            <li>
-              <HeaderNavLink to="/items">
-                중고마켓
-              </HeaderNavLink>
-            </li>
+            {!isHome && (
+              <>
+                <li>
+                  <HeaderNavLink to="/community">
+                    자유게시판
+                  </HeaderNavLink>
+                </li>
+                <li>
+                  <HeaderNavLink to="/items">
+                    중고마켓
+                  </HeaderNavLink>
+                </li>
+              </>
+            )}
           </HeaderMenu>
         </HeaderNav>
 
         {user ? (
-          <ProfileLink to="/my" aria-label="마이페이지로 이동">
-            <ProfileImage
-              src={user.image ?? defaultProfileImage}
-              alt={`${user.nickname} 프로필 이미지`}
-            />
-            <Nickname>{user.nickname}</Nickname>
-          </ProfileLink>
+          <ProfileMenu
+            label={`${user.nickname} 사용자 메뉴`}
+            options={[{ value: "logout", label: "로그아웃" }]}
+            onSelect={handleProfileMenuSelect}
+          >
+            <ProfileInfo>
+              <ProfileImage
+                src={user.image ?? defaultProfileImage}
+                alt=""
+              />
+              <Nickname>{user.nickname}</Nickname>
+            </ProfileInfo>
+          </ProfileMenu>
         ) : (
           <LoginLink to="/signin">로그인</LoginLink>
         )}
@@ -167,7 +213,7 @@ function HeaderLayout() {
 
   return (
     <Container>
-      <Header />
+      <Header isHome={isHome} />
       <Main $fullWidth={isHome}>
         <Outlet />
       </Main>

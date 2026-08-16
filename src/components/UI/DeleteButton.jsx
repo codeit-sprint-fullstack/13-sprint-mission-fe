@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as CloseIcon } from "../../assets/images/icons/ic_x.svg";
+import CloseIcon from "../../assets/images/icons/ic_x.svg?react";
 
 const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.gray[0]};
+  flex: 0 0 auto;
+  background-color: ${({ theme }) => theme.colors.gray[500]};
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -11,8 +12,13 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.blue[0]};
+    background-color: ${({ theme }) => theme.colors.gray[600]};
   }
 `;
 

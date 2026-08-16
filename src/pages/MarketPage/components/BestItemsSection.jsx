@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import ItemCard from './ItemCard';
 import { getProducts } from '../../../api/products';
-import { ReactComponent as Spinner } from '../../../assets/images/ui/spinner.svg';
+import Spinner from '../../../assets/images/ui/spinner.svg?react';
 
 const PAGE_SIZE = 4;
+const BEST_MIN_FAVORITE_COUNT = 1;
 
 const Container = styled.div`
   display: flex;
@@ -22,21 +23,20 @@ const Container = styled.div`
 const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  gap: 24px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     grid-template-columns: repeat(2, 1fr);
 
-    & :nth-child(3),
-    & :nth-child(4) {
+    & > :nth-child(n + 3) {
       display: none;
     }
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
 
-    & :nth-child(2) {
+    & > :nth-child(n + 2) {
       display: none;
     }
   }
@@ -46,7 +46,7 @@ const Title = styled.h2`
   color: #111827;
   font-weight: bold;
   font-size: 20px;
-  line-height: normal;
+  line-height: 32px;
 `;
 
 const SpinnerContainer = styled.div`
@@ -86,15 +86,19 @@ function BestItemsSection() {
   // 베스트 아이템이 없다면 아무것도 보여주지 않습니다.
   if (!data || data.list.length === 0) return null;
 
-  const items = data.list;
+  const items = data.list.filter(
+    (item) => (item.favoriteCount ?? 0) >= BEST_MIN_FAVORITE_COUNT
+  );
+
+  if (items.length === 0) return null;
 
   return (
     <Container>
       <Title>베스트 상품</Title>
       <Content>
         {items.map((item) => (
-          <Link to={`/items/${item.id}`}>
-            <ItemCard item={item} key={item.id} />
+          <Link key={item.id} to={`/items/${item.id}`}>
+            <ItemCard item={item} featured />
           </Link>
         ))}
       </Content>

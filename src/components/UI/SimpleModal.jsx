@@ -2,25 +2,37 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import Button from "./Button";
 
-const ModalContent = styled.div`
-  padding: 47px;
+const Container = styled.div`
+  display: flex;
+  min-height: 170px;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
 `;
 
-const ModalFooter = styled.div`
-  display: flex;
+const ModalContent = styled.p`
+  margin: auto 0;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
 
-  ${Button} {
-    margin-left: auto;
-  }
+const ConfirmButton = styled(Button)`
+  width: 166px;
 `;
 
 function SimpleModal({ isOpen, text = "", onClose }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalContent>{text}</ModalContent>
-      <ModalFooter>
-        <Button onClick={onClose}>확인</Button>
-      </ModalFooter>
+      <Container>
+        <ModalContent>{text}</ModalContent>
+        <ConfirmButton type="button" onClick={onClose}>
+          확인
+        </ConfirmButton>
+      </Container>
     </Modal>
   );
 }

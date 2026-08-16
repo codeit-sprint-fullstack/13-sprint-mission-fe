@@ -1,20 +1,23 @@
 import styled, { css } from "styled-components";
-import { ReactComponent as Spinner } from "../../assets/images/ui/spinner.svg";
+import Spinner from "../../assets/images/ui/spinner.svg?react";
 
 export const buttonStyle = css`
   background-color: ${({ theme }) => theme.colors.blue[0]};
   color: #ffffff;
   border-radius: ${({ $pill }) => ($pill ? "999px" : "8px")};
-  padding: 14px 46px;
+  min-height: 48px;
+  padding: 12px 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: 600;
+  line-height: 24px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.blue[1]};
   }
 
-  &:focus {
+  &:active {
     background-color: ${({ theme }) => theme.colors.blue[2]};
   }
 
@@ -31,10 +34,19 @@ export const buttonStyle = css`
       border: 1px solid ${theme.colors.blue[0]};
       color: ${theme.colors.blue[0]};
 
-      &:focus,
-      &:hover,
-      &:disabled {
+      &:hover {
         color: ${theme.colors.white};
+      }
+
+      &:active {
+        background-color: ${theme.colors.blue[2]};
+        color: ${theme.colors.white};
+      }
+
+      &:disabled {
+        color: ${theme.colors.gray[0]};
+        background-color: ${theme.colors.white};
+        border-color: ${theme.colors.gray[0]};
       }
     `}
 `;

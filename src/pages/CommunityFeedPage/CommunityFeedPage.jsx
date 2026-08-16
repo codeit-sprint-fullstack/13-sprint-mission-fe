@@ -4,17 +4,25 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { getArticles } from "../../api/articles";
 import PaginationBar from "../../components/UI/PaginationBar";
+import DropdownMenu from "../../components/UI/DropdownMenu";
 import ArticleCard from "./components/ArticleCard";
-import { ReactComponent as SearchIcon } from "../../assets/images/icons/ic_search.svg";
-import { ReactComponent as Spinner } from "../../assets/images/ui/spinner.svg";
+import SearchIcon from "../../assets/images/icons/ic_search.svg?react";
+import Spinner from "../../assets/images/ui/spinner.svg?react";
+import emptyImage from "../../assets/images/ui/empty-comments.svg";
 
 const PAGE_SIZE = 10;
+const BEST_MIN_FAVORITE_COUNT = 1;
 
 const Page = styled.div`
   display: flex;
   flex-direction: column;
   gap: 48px;
   padding: 24px 0 64px;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    gap: 40px;
+    padding-top: 16px;
+  }
 `;
 
 const Header = styled.div`
@@ -27,15 +35,26 @@ const Header = styled.div`
 
 const Title = styled.h1`
   color: var(--gray-900);
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
 `;
 
 const WriteLink = styled(Link)`
-  padding: 12px 24px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 24px;
   border-radius: 8px;
   background: var(--blue);
   color: #fff;
   font-weight: 600;
+  line-height: 24px;
+
+  &:hover {
+    background: var(--blue-hover);
+  }
 `;
 
 const BestGrid = styled.div`
@@ -45,10 +64,18 @@ const BestGrid = styled.div`
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    & > :nth-child(3) {
+      display: none;
+    }
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
     grid-template-columns: 1fr;
+
+    & > :nth-child(n + 2) {
+      display: none;
+    }
   }
 `;
 
@@ -63,9 +90,14 @@ const Search = styled.label`
   flex: 1;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
+  min-height: 42px;
+  padding: 8px 16px;
   border-radius: 12px;
   background: var(--gray-100);
+
+  &:focus-within {
+    box-shadow: inset 0 0 0 1px var(--blue);
+  }
 
   input {
     width: 100%;
@@ -73,14 +105,6 @@ const Search = styled.label`
     outline: 0;
     background: transparent;
   }
-`;
-
-const Select = styled.select`
-  min-width: 130px;
-  padding: 12px 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 12px;
-  background: #fff;
 `;
 
 const List = styled.div`
@@ -94,10 +118,30 @@ const Center = styled.div`
   padding: 40px;
 `;
 
-const Empty = styled.p`
-  padding: 48px 0;
-  color: var(--gray-400);
+const Empty = styled.div`
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 48px 0 80px;
   text-align: center;
+
+  img {
+    width: 188px;
+    height: 152px;
+  }
+
+  p {
+    color: var(--gray-400);
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  ${WriteLink} {
+    min-width: 196px;
+  }
 `;
 
 function CommunityFeedPage() {
@@ -116,52 +160,56 @@ function CommunityFeedPage() {
     queryFn: () => getArticles({ page, pageSize: PAGE_SIZE, orderBy, keyword }),
     placeholderData: keepPreviousData,
   });
+  const bestArticles = (bestQuery.data?.list ?? []).filter(
+    (article) => (article.favoriteCount ?? 0) >= BEST_MIN_FAVORITE_COUNT
+  );
 
   const handleKeywordChange = (event) => {
     setKeyword(event.target.value);
     setPage(1);
   };
 
-  const handleOrderChange = (event) => {
-    setOrderBy(event.target.value);
+  const handleOrderChange = (nextOrderBy) => {
+    setOrderBy(nextOrderBy);
     setPage(1);
   };
 
   return (
     <Page>
-      <section>
-        <Header><Title>베스트 게시글</Title></Header>
-        {bestQuery.data?.list?.length > 0 && (
+      {bestArticles.length > 0 && (
+        <section>
+          <Header><Title>베스트 게시글</Title></Header>
           <BestGrid>
-            {bestQuery.data.list.map((article) => (
+            {bestArticles.map((article) => (
               <ArticleCard key={article.id} article={article} featured />
             ))}
           </BestGrid>
-        )}
-      </section>
+        </section>
+      )}
 
       <section>
         <Header>
           <Title>게시글</Title>
-          <WriteLink to="/community/new">글쓰기</WriteLink>
+          <WriteLink to="/community/new">게시글 등록하기</WriteLink>
         </Header>
         <Toolbar>
           <Search>
             <SearchIcon />
             <input value={keyword} onChange={handleKeywordChange} placeholder="검색할 키워드를 입력해 주세요" />
           </Search>
-          <Select value={orderBy} onChange={handleOrderChange} aria-label="게시글 정렬">
-            <option value="recent">최신순</option>
-            <option value="favorite">좋아요순</option>
-          </Select>
+          <DropdownMenu value={orderBy} onSortSelection={handleOrderChange} />
         </Toolbar>
 
         {articlesQuery.isPending ? (
           <Center><Spinner width="56" /></Center>
         ) : articlesQuery.isError ? (
-          <Empty>{articlesQuery.error.message}</Empty>
+          <Empty><p>{articlesQuery.error.message}</p></Empty>
         ) : articlesQuery.data.list.length === 0 ? (
-          <Empty>검색된 게시글이 없습니다.</Empty>
+          <Empty>
+            <img src={emptyImage} alt="" />
+            <p>{keyword ? "검색 결과가 없습니다." : "아직 등록된 게시글이 없어요."}</p>
+            {!keyword && <WriteLink to="/community/new">게시글 등록하러 가기</WriteLink>}
+          </Empty>
         ) : (
           <>
             <List>

@@ -4,9 +4,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import { createArticle, getArticle, updateArticle } from "../../api/articles";
 import Button from "../../components/UI/Button";
+import ImageUpload from "../../components/UI/ImageUpload";
 
 const Form = styled.form`
-  max-width: 900px;
+  width: 100%;
+  max-width: 1200px;
   margin: 24px auto 64px;
 `;
 
@@ -14,7 +16,18 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+
+  h1 {
+    color: var(--gray-900);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+
+  button {
+    min-width: 88px;
+  }
 `;
 
 const Field = styled.label`
@@ -22,19 +35,37 @@ const Field = styled.label`
   gap: 10px;
   margin-bottom: 24px;
   color: var(--gray-900);
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
 
   input, textarea {
     width: 100%;
-    border: 0;
+    border: 1px solid transparent;
     border-radius: 12px;
     outline: 0;
-    background: var(--gray-50);
-    padding: 16px 20px;
+    background: var(--gray-100);
+    padding: 15px 24px;
+    color: var(--gray-800);
+    font-size: 16px;
     font-weight: 400;
+    line-height: 24px;
+
+    &:focus {
+      border-color: var(--blue);
+    }
+
+    &::placeholder {
+      color: var(--gray-400);
+    }
   }
 
-  textarea { min-height: 280px; resize: vertical; }
+  input { min-height: 56px; }
+  textarea { min-height: 240px; resize: none; }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    font-size: 16px;
+  }
 `;
 
 const ErrorText = styled.p`
@@ -49,6 +80,7 @@ function ArticleFormPage() {
   const queryClient = useQueryClient();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [images, setImages] = useState([]);
 
   const articleQuery = useQuery({
     queryKey: ["articles", articleId],
@@ -60,13 +92,14 @@ function ArticleFormPage() {
     if (articleQuery.data) {
       setTitle(articleQuery.data.title);
       setContent(articleQuery.data.content);
+      setImages(articleQuery.data.image ? [articleQuery.data.image] : []);
     }
   }, [articleQuery.data]);
 
   const mutation = useMutation({
     mutationFn: () => isEdit
-      ? updateArticle(articleId, { title, content })
-      : createArticle({ title, content }),
+      ? updateArticle(articleId, { title, content, image: images[0] ?? null })
+      : createArticle({ title, content, image: images[0] ?? null }),
     onSuccess: (article) => {
       queryClient.invalidateQueries({ queryKey: ["articles"] });
       navigate(`/community/${article.id}`);
@@ -94,6 +127,13 @@ function ArticleFormPage() {
         *내용
         <textarea value={content} onChange={(event) => setContent(event.target.value)} placeholder="내용을 입력해 주세요" />
       </Field>
+      <ImageUpload
+        id="article-image"
+        label="이미지"
+        value={images}
+        onChange={setImages}
+        maxImages={1}
+      />
       {mutation.isError && <ErrorText>{mutation.error.message}</ErrorText>}
     </Form>
   );

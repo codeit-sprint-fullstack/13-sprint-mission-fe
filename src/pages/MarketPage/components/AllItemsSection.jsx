@@ -5,8 +5,8 @@ import { getProduct, getProducts } from "../../../api/products";
 import ItemCard from "./ItemCard";
 import DropdownMenu from "../../../components/UI/DropdownMenu";
 import PaginationBar from "../../../components/UI/PaginationBar";
-import { ReactComponent as SearchIcon } from "../../../assets/images/icons/ic_search.svg";
-import { ReactComponent as Spinner } from "../../../assets/images/ui/spinner.svg";
+import SearchIcon from "../../../assets/images/icons/ic_search.svg?react";
+import Spinner from "../../../assets/images/ui/spinner.svg?react";
 import styled from "styled-components";
 import useResponsivePageSize from "../../../hooks/useResponsivePageSize";
 
@@ -67,16 +67,15 @@ function AllItemsSection() {
     setPage(1);
   };
 
+  const handleSort = (nextOrderBy) => {
+    setOrderBy(nextOrderBy);
+    setPage(1);
+  };
+
   return (
     <div className="allItemsContainer">
-      <div className="allItemsSectionHeader">
+      <div className="allItemsToolbar">
         <h2 className="sectionTitle">판매 중인 상품</h2>
-        <Link to="/registration" className="loginLink button">
-          상품 등록하기
-        </Link>
-      </div>
-
-      <div className="allItemsSectionHeader">
         <div className="searchBarWrapper">
           <SearchIcon />
           <input
@@ -86,7 +85,10 @@ function AllItemsSection() {
             onChange={handleSearch}
           />
         </div>
-        <DropdownMenu onSortSelection={setOrderBy} />
+        <Link to="/registration" className="loginLink button">
+          상품 등록하기
+        </Link>
+        <DropdownMenu value={orderBy} onSortSelection={handleSort} />
       </div>
 
       {!data && isFetching && ( // 처음 로딩할 때만 스피너 보여주기
@@ -96,26 +98,34 @@ function AllItemsSection() {
       )}
       {data && (
         <>
-          <div className="allItemsCardSection">
-            {data.list.map((item) => (
-              <Link
-                key={`market-item-${item.id}`}
-                to={`/items/${item.id}`}
-                onMouseEnter={() => prefetchProduct(item.id)}
-                onFocus={() => prefetchProduct(item.id)}
-              >
-                <ItemCard item={item} />
-              </Link>
-            ))}
-          </div>
+          {data.list.length > 0 ? (
+            <>
+              <div className="allItemsCardSection">
+                {data.list.map((item) => (
+                  <Link
+                    key={`market-item-${item.id}`}
+                    to={`/items/${item.id}`}
+                    onMouseEnter={() => prefetchProduct(item.id)}
+                    onFocus={() => prefetchProduct(item.id)}
+                  >
+                    <ItemCard item={item} />
+                  </Link>
+                ))}
+              </div>
 
-          <div className="paginationBarWrapper">
-            <PaginationBar
-              totalPageNum={Math.ceil(data.totalCount / pageSize)}
-              activePageNum={page}
-              onPageChange={setPage}
-            />
-          </div>
+              <div className="paginationBarWrapper">
+                <PaginationBar
+                  totalPageNum={Math.ceil(data.totalCount / pageSize)}
+                  activePageNum={page}
+                  onPageChange={setPage}
+                />
+              </div>
+            </>
+          ) : (
+            <p className="emptyItemsMessage">
+              {keyword ? "검색 결과가 없습니다." : "등록된 상품이 없습니다."}
+            </p>
+          )}
         </>
       )}
     </div>

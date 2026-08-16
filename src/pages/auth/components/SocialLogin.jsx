@@ -43,7 +43,7 @@ function SocialLogin() {
       <SocialLoginLinksContainer>
         <SocialLoginLink
           name="구글 로그인"
-          url={`${process.env.REACT_APP_API_BASE_URL}/auth/google`}
+          url={`${import.meta.env.VITE_API_BASE_URL}/auth/google`}
           logoSrc={googleLogo}
         />
         <SocialLoginLink

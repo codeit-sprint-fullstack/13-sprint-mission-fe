@@ -9,6 +9,7 @@ import {
   SubmitButton,
 } from "./AuthStyles";
 import logo from "../../assets/images/logo/logo.svg";
+import textLogo from "../../assets/images/logo/text_logo.svg";
 import InputItem from "../../components/UI/InputItem";
 import SocialLogin from "./components/SocialLogin";
 import PasswordInput from "./components/PasswordInput";
@@ -19,12 +20,12 @@ const SignupPage = () => {
   const { user, signup } = useAuth();
   const navigate = useNavigate();
   const {
-    register, // 각 입력 필드를 폼에 등록하고 유효성 검사 규칙을 설정하는 함수
-    handleSubmit, // 폼 제출을 처리하는 함수
-    watch, //  폼 필드의 변경을 감지하는 함수
-    trigger, // 폼의 유효성 검사를 트리거하는 함수
-    formState: { errors, isValid }, // 폼의 상태를 나타내는 객체
-  } = useForm({ mode: "onBlur" });
+    register,
+    handleSubmit,
+    watch,
+    trigger,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm({ mode: "onChange", reValidateMode: "onChange" });
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data) => {
@@ -38,11 +39,9 @@ const SignupPage = () => {
     }
   };
 
-  // 실시간으로 입력값을 감지해야 하는 경우, 폼의 현재 상태를 가져오는 getValues보다 watch 함수를 사용하는 것이 더 적합해요.
   const password = watch("password");
   const passwordConfirmation = watch("passwordConfirmation");
 
-  // 비밀번호가 변경될 때마다 비밀번호 확인 필드의 유효성을 검사
   useEffect(() => {
     if (password && passwordConfirmation) {
       trigger("passwordConfirmation");
@@ -56,8 +55,9 @@ const SignupPage = () => {
   return (
     <>
       <AuthContainer>
-        <LogoHomeLink href="/" aria-label="홈으로 이동">
-          <img src={logo} alt="판다마켓 로고" />
+        <LogoHomeLink to="/" aria-label="홈으로 이동">
+          <img className="logoMark" src={logo} alt="" />
+          <img className="logoText" src={textLogo} alt="판다마켓" />
         </LogoHomeLink>
 
         <Form id="signupForm" onSubmit={handleSubmit(onSubmit)}>
@@ -67,10 +67,9 @@ const SignupPage = () => {
             placeholder="이메일을 입력해 주세요"
             error={errors.email?.message}
             register={register("email", {
-              // required에 boolean 값을 넣어줄 수도 있지만, 대신 오류 메세지 문자열을 넣어놓으면 해당 필드를 필수 항목으로 설정함과 동시에 폼 제출 시 입력값이 없을 경우 해당 메시지가 표시돼요.
               required: "이메일을 입력해 주세요",
               pattern: {
-                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: "잘못된 이메일 형식입니다",
               },
             })}
@@ -108,11 +107,11 @@ const SignupPage = () => {
             register={register("passwordConfirmation", {
               required: "비밀번호를 다시 한 번 입력해 주세요",
               validate: (value) =>
-                value === password || "비밀번호가 일치하지 않습니다",
+                value === password || "비밀번호가 일치하지 않아요.",
             })}
           />
 
-          <SubmitButton type="submit" disabled={!isValid}>
+          <SubmitButton type="submit" disabled={!isValid || isSubmitting} isLoading={isSubmitting}>
             회원가입
           </SubmitButton>
         </Form>

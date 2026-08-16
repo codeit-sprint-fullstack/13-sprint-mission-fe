@@ -1,33 +1,43 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Button from "../../components/UI/Button";
 
 export const AuthContainer = styled.main`
-  padding: 24px 16px;
-  max-width: 432px;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
-  padding: 60px 0;
+  padding: 80px max(16px, calc((100% - 640px) / 2)) 231px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
-    max-width: 640px;
-    padding: 48px 0;
+    padding-top: 190px;
+    padding-bottom: 325px;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    padding-top: 231px;
+    padding-bottom: 284px;
   }
 `;
 
-export const LogoHomeLink = styled.a`
-  display: block;
+export const LogoHomeLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 24px;
-  text-align: center;
 
-  img {
-    width: 198px;
+  .logoMark {
+    width: 56px;
+    height: 58px;
+  }
+
+  .logoText {
+    width: 141px;
+    height: auto;
   }
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     margin-bottom: 40px;
-
-    image {
-      width: 396px;
-    }
   }
 `;
 

@@ -14,7 +14,7 @@ import {
   deleteProductFavorite,
   getProduct,
 } from "../../../api/products";
-import { ReactComponent as SeeMoreIcon } from "../../../assets/images/icons/ic_kebab.svg";
+import SeeMoreIcon from "../../../assets/images/icons/ic_kebab.svg?react";
 import SafeImage from "./SafeImage";
 
 const SectionContainer = styled.section`
@@ -24,9 +24,11 @@ const SectionContainer = styled.section`
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     flex-direction: row;
+    gap: 24px;
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
+    flex-direction: row;
     gap: 24px;
   }
 `;
@@ -34,12 +36,18 @@ const SectionContainer = styled.section`
 const StyledSafeImage = styled(SafeImage)`
   width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 12px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
+    width: calc(50% - 12px);
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
     aspect-ratio: 1 / 1;
-    width: 40%;
+    width: 486px;
+    height: 486px;
     max-width: 486px;
   }
 `;
@@ -50,6 +58,7 @@ const ItemDetailsContainer = styled.div`
   justify-content: space-between;
   flex: 1;
   align-items: flex-start;
+  min-width: 0;
 `;
 
 const MainDetails = styled.div`
@@ -59,47 +68,59 @@ const MainDetails = styled.div`
 
 const SeeMoreToggleMenu = styled(ToggleMenu)`
   position: absolute;
+  top: 0;
   right: 0;
 `;
 
 const ItemTitle = styled.h1`
+  padding-right: 40px;
+  color: var(--gray-900);
   font-size: 16px;
   font-weight: 600;
+  line-height: 26px;
   margin-bottom: 8px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     font-size: 20px;
+    line-height: 32px;
     margin-bottom: 12px;
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
     font-size: 24px;
+    line-height: 32px;
     margin-bottom: 16px;
   }
 `;
 
 const ItemPrice = styled.h2`
+  color: var(--gray-900);
   font-size: 24px;
   font-weight: 600;
+  line-height: 32px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     font-size: 32px;
+    line-height: 42px;
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    font-size: 40px;
+    font-size: 32px;
+    line-height: 42px;
   }
 `;
 
 const Description = styled.p`
   font-size: 16px;
-  line-height: 140%;
+  line-height: 26px;
+  white-space: pre-wrap;
 `;
 
 const SectionLabel = styled.h3`
   color: var(--gray-600);
   font-size: 14px;
   font-weight: 500;
+  line-height: 24px;
   margin-bottom: 8px;
 `;
 
@@ -159,7 +180,7 @@ function ItemProfileSection({ productId }) {
   return (
     <SectionContainer>
       <StyledSafeImage
-        src={product.images[0]}
+        src={product.images?.[0]}
         alt={`${product.name} 상품 대표 사진`}
       />
 
@@ -169,6 +190,7 @@ function ItemProfileSection({ productId }) {
             <SeeMoreToggleMenu
               options={seeMoreOptions}
               onSelect={handleSeeMoreSelect}
+              label="상품 메뉴"
             >
               <SeeMoreIcon />
             </SeeMoreToggleMenu>
@@ -176,7 +198,7 @@ function ItemProfileSection({ productId }) {
 
           <div>
             <ItemTitle>{product.name}</ItemTitle>
-            <ItemPrice>{product.price.toLocaleString()}원</ItemPrice>
+            <ItemPrice>{Number(product.price).toLocaleString()}원</ItemPrice>
           </div>
 
           <LineDivider />
@@ -199,7 +221,7 @@ function ItemProfileSection({ productId }) {
         />
       </ItemDetailsContainer>
       <ConfirmModal
-        content="정말 삭제하시겠어요?"
+        content="정말로 상품을 삭제하시겠어요?"
         isOpen={isOpenDeleteModal}
         onClose={() => setIsOpenDeleteModal(false)}
         onConfirm={() => deleteMutation.mutate()}

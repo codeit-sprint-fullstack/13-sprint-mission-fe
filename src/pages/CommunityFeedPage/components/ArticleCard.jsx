@@ -1,22 +1,34 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { formatUpdatedAt } from "../../../utils/dateUtils";
 import defaultImage from "../../../assets/images/icons/img_default.svg";
-import { ReactComponent as HeartIcon } from "../../../assets/images/icons/ic_heart.svg";
+import HeartIcon from "../../../assets/images/icons/ic_heart.svg?react";
 
 const Card = styled(Link)`
   display: block;
   min-width: 0;
-  padding: 20px;
-  border-radius: 12px;
-  background: ${({ $featured }) => ($featured ? "var(--gray-50)" : "#fff")};
-  border: 1px solid var(--gray-200);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-200);
+  background: #fff;
+
+  ${({ $featured }) => $featured && css`
+    min-height: 169px;
+    padding: 24px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--gray-50);
+  `}
+
+  &:hover h3 {
+    color: var(--blue);
+  }
 `;
 
 const Body = styled.div`
   display: flex;
+  align-items: flex-start;
   gap: 16px;
-  min-height: 96px;
+  min-height: ${({ $featured }) => ($featured ? "82px" : "48px")};
 `;
 
 const Text = styled.div`
@@ -25,53 +37,55 @@ const Text = styled.div`
 `;
 
 const Badge = styled.span`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   margin-bottom: 10px;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 999px;
   background: var(--blue);
   color: #fff;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 18px;
 `;
 
 const Title = styled.h3`
-  overflow: hidden;
-  margin-bottom: 10px;
-  color: var(--gray-900);
-  font-size: 18px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-const Content = styled.p`
   display: -webkit-box;
   overflow: hidden;
-  color: var(--gray-500);
-  line-height: 1.5;
+  color: var(--gray-900);
+  font-size: ${({ $featured }) => ($featured ? "18px" : "16px")};
+  font-weight: 600;
+  line-height: ${({ $featured }) => ($featured ? "26px" : "24px")};
+  text-overflow: ellipsis;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: ${({ $featured }) => ($featured ? 2 : 1)};
 `;
 
 const Thumbnail = styled.img`
-  width: 96px;
-  height: 96px;
+  width: ${({ $featured }) => ($featured ? "72px" : "48px")};
+  height: ${({ $featured }) => ($featured ? "72px" : "48px")};
+  flex: 0 0 auto;
   border-radius: 8px;
-  background: var(--gray-50);
+  background: var(--gray-100);
   object-fit: cover;
 `;
 
 const Meta = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 12px;
   color: var(--gray-400);
   font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
 `;
 
 const Like = styled.span`
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 4px;
 `;
@@ -79,17 +93,27 @@ const Like = styled.span`
 function ArticleCard({ article, featured = false }) {
   return (
     <Card to={`/community/${article.id}`} $featured={featured}>
-      <Body>
+      <Body $featured={featured}>
         <Text>
-          {featured && <Badge>Best</Badge>}
-          <Title>{article.title}</Title>
-          <Content>{article.content}</Content>
+          {featured && (
+            <Badge>
+              <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
+                <path fill="#FFC83D" d="m6 1.2 1.42 2.88 3.18.46-2.3 2.24.54 3.17L6 8.45 3.16 9.95l.54-3.17-2.3-2.24 3.18-.46L6 1.2Z" />
+              </svg>
+              Best
+            </Badge>
+          )}
+          <Title $featured={featured}>{article.title}</Title>
         </Text>
-        <Thumbnail src={article.image || defaultImage} alt="" />
+        <Thumbnail
+          $featured={featured}
+          src={article.image || defaultImage}
+          alt={article.image ? `${article.title} 게시글 이미지` : ""}
+        />
       </Body>
       <Meta>
         <span>{article.writer?.nickname || "판다마켓 사용자"} · {formatUpdatedAt(article.createdAt)}</span>
-        <Like><HeartIcon width="16" /> {article.favoriteCount ?? 0}</Like>
+        <Like><HeartIcon width="16" height="16" /> {article.favoriteCount ?? 0}</Like>
       </Meta>
     </Card>
   );

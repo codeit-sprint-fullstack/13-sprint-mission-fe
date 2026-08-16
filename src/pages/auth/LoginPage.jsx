@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   AuthContainer,
@@ -9,6 +9,7 @@ import {
   SubmitButton,
 } from "./AuthStyles";
 import logo from "../../assets/images/logo/logo.svg";
+import textLogo from "../../assets/images/logo/text_logo.svg";
 import InputItem from "../../components/UI/InputItem";
 import SocialLogin from "./components/SocialLogin";
 import PasswordInput from "./components/PasswordInput";
@@ -18,19 +19,23 @@ import SimpleModal from "../../components/UI/SimpleModal";
 function LoginPage() {
   const { user, signin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
-    register, // 각 입력 필드를 폼에 등록하고 유효성 검사 규칙을 설정하는 함수
-    handleSubmit, // 폼 제출을 처리하는 함수
-    trigger, // 폼의 유효성 검사를 트리거하는 함수
-    formState: { errors, isValid }, // 폼의 상태를 나타내는 객체
-  } = useForm({ mode: "onBlur" });
+    register,
+    handleSubmit,
+    trigger,
+    setError,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm({ mode: "onChange", reValidateMode: "onChange" });
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data) => {
     try {
       await signin(data);
-      navigate("/items");
+      navigate(location.state?.from ?? "/items", { replace: true });
     } catch (error) {
+      setError("email", { type: "server", message: "이메일을 확인해 주세요." });
+      setError("password", { type: "server", message: "비밀번호를 확인해 주세요." });
       if (error.message) {
         setErrorMessage(error.message);
       }
@@ -38,14 +43,15 @@ function LoginPage() {
   };
 
   if (user) {
-    return <Navigate to="/items" />
+    return <Navigate to="/items" />;
   }
 
   return (
     <>
       <AuthContainer>
-        <LogoHomeLink href="/" aria-label="홈으로 이동">
-          <img src={logo} alt="판다마켓 로고" />
+        <LogoHomeLink to="/" aria-label="홈으로 이동">
+          <img className="logoMark" src={logo} alt="" />
+          <img className="logoText" src={textLogo} alt="판다마켓" />
         </LogoHomeLink>
 
         <Form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
@@ -57,7 +63,7 @@ function LoginPage() {
             register={register("email", {
               required: "이메일을 입력해 주세요",
               pattern: {
-                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: "잘못된 이메일 형식입니다",
               },
             })}
@@ -78,7 +84,7 @@ function LoginPage() {
             })}
           />
 
-          <SubmitButton type="submit" disabled={!isValid}>
+          <SubmitButton type="submit" disabled={!isValid || isSubmitting} isLoading={isSubmitting}>
             로그인
           </SubmitButton>
         </Form>

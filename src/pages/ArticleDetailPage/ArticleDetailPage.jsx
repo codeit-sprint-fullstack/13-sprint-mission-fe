@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import {
@@ -11,11 +11,17 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import { formatUpdatedAt } from "../../utils/dateUtils";
 import ConfirmModal from "../../components/UI/ConfirmModal";
+import ToggleMenu from "../../components/UI/ToggleMenu";
+import LinkButton from "../../components/UI/LinkButton";
 import ArticleCommentSection from "./components/ArticleCommentSection";
-import { ReactComponent as HeartIcon } from "../../assets/images/icons/ic_heart.svg";
+import HeartIcon from "../../assets/images/icons/ic_heart.svg?react";
+import SeeMoreIcon from "../../assets/images/icons/ic_kebab.svg?react";
+import BackIcon from "../../assets/images/icons/ic_back.svg?react";
+import defaultProfileImage from "../../assets/images/ui/ic_profile.svg";
 
 const Page = styled.article`
-  max-width: 900px;
+  width: 100%;
+  max-width: 1200px;
   margin: 24px auto 64px;
 `;
 
@@ -25,45 +31,115 @@ const Header = styled.header`
 `;
 
 const Top = styled.div`
+  position: relative;
+  padding-right: 40px;
+
+  h1 {
+    color: var(--gray-900);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+`;
+
+const ArticleMenu = styled(ToggleMenu)`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const MetaRow = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-`;
-
-const Meta = styled.p`
+  gap: 16px;
   margin-top: 16px;
-  color: var(--gray-400);
-  font-size: 14px;
 `;
 
-const Actions = styled.div`
+const Author = styled.div`
   display: flex;
-  gap: 12px;
-  color: var(--blue);
+  align-items: center;
+  gap: 8px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  strong {
+    display: block;
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  time {
+    display: block;
+    color: var(--gray-400);
+    font-size: 12px;
+    line-height: 18px;
+  }
+`;
+
+const ArticleBody = styled.div`
+  min-height: 220px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 32px 0;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Content = styled.div`
+  flex: 1;
+  min-width: 0;
   min-height: 220px;
-  padding: 32px 0;
+  color: var(--gray-800);
+  font-size: 16px;
+  line-height: 26px;
   white-space: pre-wrap;
-  line-height: 1.7;
+`;
+
+const ArticleImage = styled.img`
+  width: 282px;
+  max-height: 423px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  object-fit: cover;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    width: 100%;
+    max-height: none;
+  }
 `;
 
 const FavoriteButton = styled.button`
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 6px;
+  padding: 7px 12px;
   border: 1px solid var(--gray-200);
   border-radius: 999px;
-  color: ${({ $active }) => ($active ? "var(--blue)" : "var(--gray-500)")};
+  background: #fff;
+  color: ${({ $active }) => ($active ? "var(--red)" : "var(--gray-500)")};
+  font-size: 14px;
+  line-height: 24px;
 `;
 
-const Back = styled(Link)`
-  display: block;
+const Back = styled(LinkButton)`
+  display: flex;
   width: fit-content;
+  align-items: center;
+  gap: 10px;
   margin: 48px auto 0;
-  color: var(--blue);
+  font-size: 18px;
   font-weight: 600;
 `;
 
@@ -95,6 +171,15 @@ function ArticleDetailPage() {
   if (articleQuery.isError) return <Page>{articleQuery.error.message}</Page>;
 
   const isWriter = user?.id === article.writer.id;
+  const menuOptions = [
+    { value: "edit", label: "수정하기" },
+    { value: "delete", label: "삭제하기" },
+  ];
+
+  const handleMenuSelect = ({ value }) => {
+    if (value === "edit") navigate(`/community/${articleId}/edit`);
+    if (value === "delete") setDeleteOpen(true);
+  };
 
   return (
     <Page>
@@ -102,22 +187,41 @@ function ArticleDetailPage() {
         <Top>
           <h1>{article.title}</h1>
           {isWriter && (
-            <Actions>
-              <Link to={`/community/${articleId}/edit`}>수정</Link>
-              <button onClick={() => setDeleteOpen(true)}>삭제</button>
-            </Actions>
+            <ArticleMenu options={menuOptions} onSelect={handleMenuSelect} label="게시글 메뉴">
+              <SeeMoreIcon />
+            </ArticleMenu>
           )}
         </Top>
-        <Meta>{article.writer.nickname} · {formatUpdatedAt(article.createdAt)}</Meta>
+        <MetaRow>
+          <Author>
+            <img src={article.writer.image || defaultProfileImage} alt="" />
+            <div>
+              <strong>{article.writer.nickname}</strong>
+              <time>{formatUpdatedAt(article.createdAt)}</time>
+            </div>
+          </Author>
+          <FavoriteButton
+            type="button"
+            $active={article.isLiked}
+            aria-pressed={article.isLiked}
+            disabled={!user || favoriteMutation.isPending}
+            onClick={() => favoriteMutation.mutate()}
+          >
+            <HeartIcon width="18" height="18" /> {article.favoriteCount ?? 0}
+          </FavoriteButton>
+        </MetaRow>
       </Header>
-      <Content>{article.content}</Content>
-      <FavoriteButton $active={article.isLiked} onClick={() => favoriteMutation.mutate()}>
-        <HeartIcon width="18" /> {article.favoriteCount ?? 0}
-      </FavoriteButton>
+      <ArticleBody>
+        <Content>{article.content}</Content>
+        {article.image && <ArticleImage src={article.image} alt="게시글 첨부 이미지" />}
+      </ArticleBody>
       <ArticleCommentSection articleId={articleId} />
-      <Back to="/community">목록으로 돌아가기 →</Back>
+      <Back $pill to="/community">
+        목록으로 돌아가기
+        <BackIcon />
+      </Back>
       <ConfirmModal
-        content="게시글을 삭제하시겠습니까?"
+        content="정말로 게시글을 삭제하시겠어요?"
         isOpen={isDeleteOpen}
         onClose={() => setDeleteOpen(false)}
         onConfirm={() => deleteMutation.mutate()}

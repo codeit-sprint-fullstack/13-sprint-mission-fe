@@ -1,42 +1,79 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: 0;
+  z-index: 2;
 `;
 
 const Menu = styled.ul`
-  ${({ $isOpen }) =>
-    !$isOpen &&
-    css`
-      display: none;
-    `}
+  ${({ $isOpen }) => !$isOpen && css`display: none;`}
   position: absolute;
-  top: 110%;
+  top: calc(100% + 8px);
   right: 0;
-  z-index: 1;
-  background: #fff;
+  z-index: 20;
+  width: 130px;
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
   list-style: none;
 `;
 
 const ToggleButton = styled.button`
-  background-color: none;
-  border: none;
-  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: transparent;
 `;
 
-const MenuItem = styled.li`
-  font-size: 16px;
-  padding: 12px 41px;
-  color: #1f2937;
-  cursor: pointer;
+const MenuItem = styled.button`
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-800);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--gray-100);
+  }
+
+  li:last-child & {
+    border-bottom: 0;
+  }
 `;
 
-function ToggleMenu({ className, children, options, onSelect }) {
+function ToggleMenu({ className, children, options, onSelect, label = "더보기" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!wrapperRef.current?.contains(event.target)) setIsOpen(false);
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const handleSelectOption = (option) => {
     onSelect(option);
@@ -44,18 +81,27 @@ function ToggleMenu({ className, children, options, onSelect }) {
   };
 
   return (
-    <Wrapper className={className}>
-      <ToggleButton type="button" onClick={() => setIsOpen((v) => !v)}>
+    <Wrapper className={className} ref={wrapperRef}>
+      <ToggleButton
+        type="button"
+        aria-label={label}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((value) => !value)}
+      >
         {children}
       </ToggleButton>
-      <Menu $isOpen={isOpen}>
+      <Menu $isOpen={isOpen} role="menu">
         {options.map((option) => (
-          <MenuItem
-            key={option.value}
-            onClick={() => handleSelectOption(option)}
-          >
-            {option.label}
-          </MenuItem>
+          <li key={option.value}>
+            <MenuItem
+              type="button"
+              role="menuitem"
+              onClick={() => handleSelectOption(option)}
+            >
+              {option.label}
+            </MenuItem>
+          </li>
         ))}
       </Menu>
     </Wrapper>

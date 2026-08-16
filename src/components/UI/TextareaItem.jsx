@@ -16,15 +16,19 @@ function TextareaItem({
   register = {},
   ...inputProps
 }) {
+  const errorId = id ? `${id}-error` : undefined;
+
   return (<div>
     {label && <Label htmlFor={id}>{label}</Label>}
     <Textarea
       id={id}
       $error={!!error}
+      aria-invalid={!!error}
+      aria-describedby={error ? errorId : undefined}
       {...inputProps}
       {...register}
     />
-    {error && <ErrorMessage>{error}</ErrorMessage>}
+    {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
   </div>
   )
 }

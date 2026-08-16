@@ -2,7 +2,7 @@ import axiosLib from "axios";
 import NProgress from "nprogress";
 import { clearTokens, getTokens, setTokens } from "../utils/authToken";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function omitEmptyParams(params) {
   return Object.fromEntries(

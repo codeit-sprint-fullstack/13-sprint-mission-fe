@@ -14,32 +14,16 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.0",
     "react-router-dom": "^6.22.3",
-    "react-scripts": "5.0.1",
-    "styled-components": "^6.1.8",
-    "web-vitals": "^2.1.4"
+    "styled-components": "^6.1.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "vite": "^8.2.1",
+    "vite-plugin-svgr": "^5.2.0"
   }
 }

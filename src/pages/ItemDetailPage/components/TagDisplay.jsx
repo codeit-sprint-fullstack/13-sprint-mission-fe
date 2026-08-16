@@ -7,11 +7,16 @@ const TagsDisplaySection = styled.div`
 `;
 
 const Tag = styled.div`
-  background-color: ${({ theme }) => theme.colors.gray[1]};
-  color: ${({ theme }) => theme.colors.gray[0]};
-  padding: 6px 16px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.gray[100]};
+  color: ${({ theme }) => theme.colors.gray[600]};
+  padding: 6px 12px;
   border-radius: 999px;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
 `;
 
 function TagDisplay({ tags }) {

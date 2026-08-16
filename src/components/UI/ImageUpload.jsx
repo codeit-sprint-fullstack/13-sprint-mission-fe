@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import DeleteButton from './DeleteButton';
 import Label from './Label';
-import { ReactComponent as PlusIcon } from '../../assets/images/icons/ic_plus.svg';
+import PlusIcon from '../../assets/images/icons/ic_plus.svg?react';
 import { uploadImage } from '../../api/images';
 import { useMutation } from '@tanstack/react-query';
 import ErrorMessage from './ErrorMessage';
 
 const ImageUploadContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
@@ -27,10 +28,12 @@ const squareStyles = css`
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     width: 162px;
+    max-width: none;
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
     width: 282px;
+    max-width: none;
   }
 `;
 
@@ -43,10 +46,12 @@ const UploadButton = styled.label`
   justify-content: center;
   gap: 12px;
   font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
+    background-color: ${({ theme }) => theme.colors.gray[2]};
   }
 
   ${squareStyles}
@@ -76,7 +81,7 @@ const HiddenFileInput = styled.input`
  * 서버에서 받은 이미지 주소를 가지고 값을 변경하는 인풋입니다.
  * 이미지를 업로드하거나 제거할 때마다 배열 값으로 `onChange()`를 실행합니다.
  */
-function ImageUpload({ id, label, value = [], onChange }) {
+function ImageUpload({ id, label, value = [], onChange, maxImages = 3 }) {
   const uploadMutation = useMutation({
     mutationFn: uploadImage,
     onSuccess: (uploadedUrl) => onChange([...value, uploadedUrl]),
@@ -95,7 +100,7 @@ function ImageUpload({ id, label, value = [], onChange }) {
     onChange(nextValue);
   };
 
-  const uploadEnabled = value.length < 3;
+  const uploadEnabled = value.length < maxImages;
 
   return (
     <div aria-busy={uploadMutation.isPending}>
@@ -114,6 +119,7 @@ function ImageUpload({ id, label, value = [], onChange }) {
               type="file"
               onChange={handleImageChange}
               accept="image/*"
+              disabled={uploadMutation.isPending}
             />
           </>
         )}

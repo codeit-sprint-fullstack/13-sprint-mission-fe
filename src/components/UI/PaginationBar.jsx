@@ -1,7 +1,7 @@
 import React from "react";
 import "./PaginationBar.css";
-import { ReactComponent as LeftArrow } from "../../assets/images/icons/arrow_left.svg";
-import { ReactComponent as RightArrow } from "../../assets/images/icons/arrow_right.svg";
+import LeftArrow from "../../assets/images/icons/arrow_left.svg?react";
+import RightArrow from "../../assets/images/icons/arrow_right.svg?react";
 
 const PaginationBar = ({ totalPageNum, activePageNum, onPageChange }) => {
   const maxVisiblePages = 5;
@@ -20,9 +20,11 @@ const PaginationBar = ({ totalPageNum, activePageNum, onPageChange }) => {
   );
 
   return (
-    <div className="paginationBar">
+    <nav className="paginationBar" aria-label="페이지 이동">
       <button
+        type="button"
         className="paginationButton"
+        aria-label="이전 페이지"
         disabled={activePageNum === 1}
         onClick={() => onPageChange(activePageNum - 1)}
       >
@@ -30,23 +32,28 @@ const PaginationBar = ({ totalPageNum, activePageNum, onPageChange }) => {
       </button>
       {pages.map((page) => (
         <button
+          type="button"
           key={page}
           className={`paginationButton ${
             activePageNum === page ? "active" : ""
           }`}
           onClick={() => onPageChange(page)}
+          aria-label={`${page}페이지`}
+          aria-current={activePageNum === page ? "page" : undefined}
         >
           {page}
         </button>
       ))}
       <button
+        type="button"
         className="paginationButton"
+        aria-label="다음 페이지"
         disabled={activePageNum === totalPageNum}
         onClick={() => onPageChange(activePageNum + 1)}
       >
         <RightArrow />
       </button>
-    </div>
+    </nav>
   );
 };
 

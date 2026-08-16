@@ -9,8 +9,8 @@ import ToggleMenu from "../../../components/UI/ToggleMenu";
 import ConfirmModal from "../../../components/UI/ConfirmModal";
 import CommentForm from "./CommentForm";
 import { formatUpdatedAt } from "../../../utils/dateUtils";
-import { ReactComponent as EmptyStateImage } from "../../../assets/images/ui/empty-comments.svg";
-import { ReactComponent as SeeMoreIcon } from "../../../assets/images/icons/ic_kebab.svg";
+import EmptyStateImage from "../../../assets/images/ui/empty-comments.svg?react";
+import SeeMoreIcon from "../../../assets/images/icons/ic_kebab.svg?react";
 import DefaultProfileImage from "../../../assets/images/ui/ic_profile.svg";
 
 const CommentContainer = styled.div`
@@ -49,7 +49,7 @@ const Username = styled.p`
 `;
 
 const Timestamp = styled.p`
-  color: ${({ theme }) => theme.colors.gray[400]};
+  color: var(--gray-400);
   font-size: 12px;
 `;
 
@@ -130,7 +130,7 @@ function CommentItem({ comment, onSubmit }) {
         content="정말 삭제하시겠습니까?"
         isOpen={mode === "delete"}
         onConfirm={() => deleteMutation.mutate()}
-        onClose={() => setMode()}
+        onClose={() => setMode("view")}
       />
 
       <LineDivider $margin="0" />
@@ -147,7 +147,7 @@ const EmptyStateContainer = styled.div`
 `;
 
 const EmptyStateText = styled.p`
-  color: ${({ theme }) => theme.colors.gray[400]};
+  color: var(--gray-400);
   font-size: 16px;
   line-height: 24px;
 `;

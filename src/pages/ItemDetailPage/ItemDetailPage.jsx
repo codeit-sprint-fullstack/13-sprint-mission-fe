@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container } from "../../styles/CommonStyles";
 import ItemProfileSection from "./components/ItemProfileSection";
 import ItemCommentSection from "./components/ItemCommentSection";
-import { ReactComponent as BackIcon } from "../../assets/images/icons/ic_back.svg";
+import BackIcon from "../../assets/images/icons/ic_back.svg?react";
 import LinkButton from "../../components/UI/LinkButton";
 import LineDivider from "../../components/UI/LineDivider";
 
@@ -13,7 +13,23 @@ const BackToMarketPageLink = styled(LinkButton)`
   gap: 10px;
   font-size: 18px;
   font-weight: 600;
+  width: 240px;
+  min-height: 48px;
   margin: 0 auto;
+`;
+
+const DetailContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  & > hr {
+    margin: 0;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    gap: 20px;
+  }
 `;
 
 function ItemDetailPage() {
@@ -22,7 +38,7 @@ function ItemDetailPage() {
   if (!productId) return null;
 
   return (
-    <Container>
+    <DetailContainer>
       <ItemProfileSection productId={productId} />
 
       <LineDivider />
@@ -34,7 +50,7 @@ function ItemDetailPage() {
         목록으로 돌아가기
         <BackIcon />
       </BackToMarketPageLink>
-    </Container>
+    </DetailContainer>
   );
 }
 

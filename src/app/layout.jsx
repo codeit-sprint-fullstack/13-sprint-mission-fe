@@ -5,7 +5,7 @@ import Providers from "@/app/providers/Providers";
 import localFont from "next/font/local";
 
 const Pretendard = localFont({
-  src: "../../public/fonts/PretendardVariable.ttf",
+  src: "../../public/fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
   display: "swap",
   weight: "100 900",

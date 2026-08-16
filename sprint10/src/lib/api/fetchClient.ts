@@ -23,6 +23,9 @@ export const fetchClient = async (endpoint: string, options: RequestInit = {}) =
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
+    
+    console.error("🔥 백엔드 에러 원본:", errorData); 
+    
     throw new Error(errorData.message || 'API 통신 에러가 발생했습니다.');
   }
 

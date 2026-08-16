@@ -25,7 +25,8 @@ export default function ItemsListPage() {
       try {
         const res = await fetchClient("/products?orderBy=favorite&pageSize=4");
         const data = (await res.json()) as PaginatedResponse<Product> | Product[];
-        const list = 'list' in data ? data.list : data;
+        
+        const list = Array.isArray(data) ? data : (data?.list || []);
         setBestItems(list);
       } catch (error) {
         console.error("베스트 상품 로드 실패:", error);
@@ -42,18 +43,17 @@ export default function ItemsListPage() {
         pageSize: '10',
         orderBy: sortBy === '최신순' ? 'recent' : 'favorite'
       });
-      
       if (keyword) {
         params.append('keyword', keyword);
       }
       
       const res = await fetchClient(`/products?${params.toString()}`);
-      const data = (await res.json()) as PaginatedResponse<Product>;
+      const data = (await res.json()) as PaginatedResponse<Product> | Product[];
       
-      const fetchedItems = data.list || [];
+      const fetchedItems = Array.isArray(data) ? data : (data?.list || []);
       setItems(fetchedItems);
       
-      const total = data.totalCount || 75; 
+      const total = ('totalCount' in data ? data.totalCount : (data as any).data?.totalCount) || 75; 
       setTotalPages(Math.ceil(total / 10));
     } catch (error: unknown) {
       if (error instanceof Error) {

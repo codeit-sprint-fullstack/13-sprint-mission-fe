@@ -27,9 +27,8 @@ export default function Header() {
   useEffect(() => {
     if (isError) {
       localStorage.removeItem("accessToken");
-      setToken(null)
-
-      alert("로그인 시간이 만료되었습니다.")
+      setToken(null);
+      alert("로그인 시간이 만료되었습니다.");
     }
   }, [isError]);
 
@@ -51,11 +50,11 @@ export default function Header() {
               height={40} 
               priority
             />
-            <span className="hidden sm:inline font-['Pretendard'] text-[20px] font-bold text-[#3692FF]">
+            <span className="hidden font-['Pretendard'] text-[20px] font-bold text-[#3692FF] sm:inline">
               판다마켓
             </span>
           </Link>
-          <nav className="hidden md:flex gap-[24px]">
+          <nav className="hidden gap-[24px] md:flex">
             <Link href="/board" className="font-['Pretendard'] text-[18px] font-bold text-[#4B5563] hover:text-[#1F2937]">
               자유게시판
             </Link>
@@ -69,7 +68,7 @@ export default function Header() {
           {token ? (
             user ? (
               <div className="flex items-center gap-[12px]">
-                <div className="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-100 border border-gray-200">
+                <div className="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-gray-100">
                   <Image 
                     src={user.image || "/images/ic_profile.svg"} 
                     alt="User Profile" 
@@ -84,7 +83,7 @@ export default function Header() {
                   </span>
                   <button 
                     onClick={handleLogout} 
-                    className="font-['Pretendard'] text-[14px] text-gray-400 hover:text-[#F74747] transition-colors"
+                    className="font-['Pretendard'] text-[14px] text-gray-400 transition-colors hover:text-[#F74747]"
                   >
                     로그아웃
                   </button>

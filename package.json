@@ -3,6 +3,10 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jihun5914/13-sprint-mission-fe.git"
+  },
   "dependencies": {
     "@tanstack/react-query": "^5.56.2",
     "@testing-library/jest-dom": "^5.17.0",

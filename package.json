@@ -1,5 +1,6 @@
 {
   "name": "panda-market-react",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,11 +19,16 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/nprogress": "^0.2.3",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^6.0.5",
+    "typescript": "^5.7.3",
     "vite": "^8.2.1",
     "vite-plugin-svgr": "^5.2.0"
   }

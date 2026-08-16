@@ -34,3 +34,15 @@ npm install
 ```
 npm run dev
 ```
+
+## TypeScript 검사와 빌드
+
+모든 컴포넌트, 훅, API 응답 모델은 TypeScript로 작성되어 있습니다.
+
+```shell
+npm run typecheck
+npm run build
+```
+
+- `npm run typecheck`: JavaScript 파일을 만들지 않고 타입만 검사합니다.
+- `npm run build`: 타입 검사를 통과한 뒤 Vite 배포 파일을 생성합니다.

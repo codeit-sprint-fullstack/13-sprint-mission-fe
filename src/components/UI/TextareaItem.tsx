@@ -1,0 +1,49 @@
+import type { TextareaHTMLAttributes } from "react";
+import type { UseFormRegisterReturn } from "react-hook-form";
+import styled from "styled-components";
+import { inputStyle } from "./InputItem";
+import Label from "./Label";
+import ErrorMessage from "./ErrorMessage";
+
+interface TextareaStyleProps {
+  $error?: boolean;
+}
+
+interface TextareaItemProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
+  error?: string;
+  register?: UseFormRegisterReturn;
+}
+
+const Textarea = styled.textarea<TextareaStyleProps>`
+  ${inputStyle}
+  height: 200px;
+  resize: none;
+`;
+
+function TextareaItem({
+  id,
+  label,
+  error,
+  register,
+  ...inputProps
+}: TextareaItemProps) {
+  const errorId = id ? `${id}-error` : undefined;
+
+  return (<div>
+    {label && <Label htmlFor={id}>{label}</Label>}
+    <Textarea
+      id={id}
+      $error={!!error}
+      aria-invalid={!!error}
+      aria-describedby={error ? errorId : undefined}
+      {...inputProps}
+      {...register}
+    />
+    {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
+  </div>
+  )
+}
+
+export default TextareaItem;

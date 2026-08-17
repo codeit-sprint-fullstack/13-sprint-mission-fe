@@ -17,14 +17,7 @@ export default function CommentItem({
   content: string;
   commentId: number;
   id: string;
-  setComments: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        content: string;
-      }[]
-    >
-  >;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 }) {
   const [open, isOpen] = useState(false);
   const router = useRouter();
@@ -35,7 +28,7 @@ export default function CommentItem({
 
   const deleteFunc = async () => {
     await marketAPI.deleteComment(commentId);
-    const comments = await marketAPI.getComments(id);
+    const comments = await marketAPI.getComments(Number(id));
     if (!comments || comments.length === 0) setComments([]);
     else setComments(comments);
   };

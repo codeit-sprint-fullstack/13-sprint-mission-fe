@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import defaultImg from "../assets/default.png";
 import profileImg from "../assets/icon/ic_profile.svg";
 import heartImg from "../assets/icon/ic_heart.svg";

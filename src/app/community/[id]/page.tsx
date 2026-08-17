@@ -15,26 +15,20 @@ import { useParams, useRouter } from "next/navigation";
 export default function page() {
   const [open, isOpen] = useState<boolean>(false);
   const { id } = useParams<{ id: string }>();
-  const [articleData, setArticle] = useState<{
-    title: string;
-    createdAt: number;
-    content: string;
-  }>({ title: "", createdAt: 0, content: "" });
-  const [comments, setCommets] = useState<{ id: number; content: string }[]>(
-    [],
-  );
+  const [articleData, setArticle] = useState<Article>();
+  const [comments, setCommets] = useState<Comment[]>([]);
   const [fieldComment, setFieldComment] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const isEnabled: string = fieldComment.trim();
-  const router = useRouter<AppRouterInstance>();
+  const router = useRouter();
 
-  const fetchCommentData = async () => {
+  const fetchCommentData: () => Promise<void> = async () => {
     const [articleRes, commentRes] = await Promise.all([
-      marketAPI.getDetailArticle(id),
-      marketAPI.getComments(id),
+      marketAPI.getDetailArticle(Number(id)),
+      marketAPI.getComments(Number(id)),
     ]);
-    setCommets(commentRes);
-    setArticle(articleRes);
+    if (commentRes) setCommets(commentRes);
+    if (articleRes) setArticle(articleRes);
     setLoading(false);
   };
 
@@ -44,7 +38,12 @@ export default function page() {
   }, []);
 
   const handleSubmit = async () => {
-    const data = await marketAPI.postComment({ content: fieldComment }, id);
+    const data = await marketAPI.postComment(
+      { content: fieldComment },
+      Number(id),
+    );
+    if (!data) return;
+
     if (!comments || comments.length === 0) setCommets([data]);
     else setCommets([...comments, data]);
     setFieldComment("");
@@ -55,7 +54,7 @@ export default function page() {
   };
 
   const deleteFunc = async () => {
-    await marketAPI.deleteArticle(id);
+    await marketAPI.deleteArticle(Number(id));
     router.push(`/community`);
   };
 
@@ -68,7 +67,7 @@ export default function page() {
       <section className="flex flex-col items-start gap-[1rem] self-stretch">
         <div className="flex justify-between items-start gap-[0.5rem] self-stretch relative">
           <h2 className="font-pretendard text-[1.25rem] font-[700] leading-[2rem] text-[#1F2937]">
-            {articleData.title}
+            {articleData?.title}
           </h2>
           <Image
             className="cursor-pointer"
@@ -95,13 +94,15 @@ export default function page() {
                 총명한 판다
               </span>
               <span className="font-pretendard text-[0.875remrem] font-[400] leading-[1.5rem] text-[#9CA3AF]">
-                {new Date(articleData.createdAt)
-                  .toLocaleDateString("ko-KR", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  })
-                  .slice(0, -1)}
+                {articleData
+                  ? new Date(articleData.createdAt)
+                      .toLocaleDateString("ko-KR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })
+                      .slice(0, -1)
+                  : ""}
               </span>
             </div>
           </div>
@@ -138,7 +139,7 @@ export default function page() {
           <path d="M0 0.5H1200" stroke="#E5E7EB" />
         </svg>
         <span className="font-pretendard text-[1.125rem] font-[400] leading-[1.625rem] text-[#1F2937]">
-          {articleData.content}
+          {articleData?.content}
         </span>
       </section>
       <section className="flex flex-col items-start gap-[2.5rem] self-stretch">

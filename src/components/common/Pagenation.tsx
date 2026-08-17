@@ -13,7 +13,7 @@ export default function Pagenation({
 
   useEffect(() => {
     async function getProduct() {
-      const data = await productAPI.Get({
+      const data = await productAPI.getProduct({
         page: 1,
         pageSize: 10,
         orderBy: "recent",

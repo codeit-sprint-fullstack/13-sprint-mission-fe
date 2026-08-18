@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/app/components/common/Header";
 import Footer from "@/app/components/common/Footer";
 import Providers from "@/app/providers/Providers";
-import localFont from "next/font/local";
 
 const Pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -11,14 +12,14 @@ const Pretendard = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
-  title: "판다마켓",
+export const metadata: Metadata = {
+  title: "판다마켓 ",
   description: "자유롭게 거래하는 판다마켓",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className={`h-full antialiased ${Pretendard.variable}`}>
+    <html lang="ko" className={`${Pretendard.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Providers>
           <Header />

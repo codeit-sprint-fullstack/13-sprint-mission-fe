@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "module": "esnext",
+    "esModuleInterop": true, // CommonJS 모듈 호환성
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true, // 디버깅용 소스맵 생성
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/**/*",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ], // 컴파일 대상 폴더
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts", // 테스트 파일 제외
+    "src/**/*.spec.ts", // 스펙 파일 제외
+    "src/temp/**/*", // 임시 폴더 제외
+    "src/generated/**/*"
+  ]
+}

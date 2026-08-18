@@ -4,10 +4,9 @@ import DropDown from "@/components/common/DropDown";
 import Input from "@/components/common/Input";
 import { marketAPI } from "@/lib/services/marketApi";
 import Link from "next/link";
-import React from "react";
 
 export default async function ComuunityPage() {
-  const articles = await marketAPI.getArticle();
+  const articles: ArticleResponse | undefined = await marketAPI.getArticle();
   return (
     <div className="flex gap-[2.5rem] flex-col items-start max-w-[75rem] mt-[1.5rem] mx-auto">
       <section className="flex flex-col gap-[1.5rem] items-start self-stretch">
@@ -15,7 +14,7 @@ export default async function ComuunityPage() {
           베스트 게시글
         </h2>
         <div className="grid grid-cols-3 gap-[1.5rem] items-start">
-          {articles.list.map((best) => (
+          {articles?.list.map((best) => (
             <BestCard
               title={best.title}
               date={best.createdAt}
@@ -44,7 +43,7 @@ export default async function ComuunityPage() {
           <DropDown />
         </div>
         <div className="flex w-full gap-[1.5rem] flex-col">
-          {articles.list.map((item) => (
+          {articles?.list.map((item) => (
             <Card
               title={item.title}
               date={item.createdAt}

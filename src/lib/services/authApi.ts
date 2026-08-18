@@ -1,5 +1,5 @@
 export const authAPI = {
-  login: async (email, password) => {
+  login: async (email: string, password: string): Promise<AuthResponse> => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
     const response = await fetch(`${baseURL}/auth/signIn`, {
@@ -19,7 +19,12 @@ export const authAPI = {
     return await response.json();
   },
 
-  register: async (nickname, email, password, passwordConfirmation) => {
+  register: async (
+    nickname: string,
+    email: string,
+    password: string,
+    passwordConfirmation: string,
+  ): Promise<AuthResponse> => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
     const response = await fetch(`${baseURL}/auth/signUp`, {
@@ -38,7 +43,7 @@ export const authAPI = {
 
     return await response.json();
   },
-  getUser: async () => {
+  getUser: async (): Promise<User> => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
     const token = localStorage.getItem("accessToken");

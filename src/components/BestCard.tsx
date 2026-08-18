@@ -5,7 +5,7 @@ import defaultImg from "../assets/default.png";
 import heartImg from "../assets/icon/ic_heart.svg";
 import Link from "next/link";
 
-export default function BestCard({ id, title, date }) {
+export default function BestCard({ id, title, date }: CardType) {
   return (
     <Link
       href={`community/${id}`}

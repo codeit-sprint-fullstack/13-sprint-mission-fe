@@ -1,13 +1,20 @@
 "use client";
 
 import { authAPI } from "@/lib/services/authApi";
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-const AuthContext = createContext({
-  user: null,
-  login: () => {},
-  register: () => {},
-});
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    passwordConfirmation: string,
+  ) => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -17,10 +24,19 @@ export const useAuth = () => {
   return context;
 };
 
-export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+export default function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [user, setUser] = useState<User | null>(null);
 
-  const register = async (name, email, password, passwordConfirmation) => {
+  const register = async (
+    name: string,
+    email: string,
+    password: string,
+    passwordConfirmation: string,
+  ): Promise<void> => {
     const registerData = await authAPI.register(
       name,
       email,
@@ -31,13 +47,13 @@ export default function AuthProvider({ children }) {
     await getUser();
   };
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string): Promise<void> => {
     const loginData = await authAPI.login(email, password);
     localStorage.setItem("accessToken", loginData.accessToken);
     await getUser();
   };
 
-  const getUser = async () => {
+  const getUser = async (): Promise<void> => {
     try {
       const user = await authAPI.getUser();
       setUser(user);

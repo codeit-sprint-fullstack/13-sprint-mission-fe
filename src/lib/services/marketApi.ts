@@ -1,16 +1,21 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL; //이건 내 내서버
 
 export const marketAPI = {
-  getArticle: async (params = { page: 1, pageSize: 3 }) => {
+  getArticle: async (
+    params: PageParam = { page: 1, pageSize: 3 },
+  ): Promise<ArticleResponse | undefined> => {
     try {
-      const searchParam = new URLSearchParams(params);
+      const searchParam = new URLSearchParams({
+        page: String(params.page),
+        pageSize: String(params.pageSize),
+      });
       const response = await fetch(`${BASE_URL}/articles?${searchParam}`);
       return await response.json();
     } catch (error) {
       console.error(error);
     }
   },
-  getDetailArticle: async (id) => {
+  getDetailArticle: async (id: number): Promise<Article | undefined> => {
     try {
       const response = await fetch(`${BASE_URL}/articles/${id}`);
       return await response.json();
@@ -18,7 +23,7 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  getComments: async (id) => {
+  getComments: async (id: number): Promise<Comment[] | null | undefined> => {
     try {
       const response = await fetch(`${BASE_URL}/articles/${id}/comments`);
       if (!response.ok) return null;
@@ -27,9 +32,11 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  postComment: async (params, id) => {
+  postComment: async (
+    params: { content: string },
+    id: number,
+  ): Promise<Comment | undefined> => {
     try {
-      console.log(params);
       const response = await fetch(`${BASE_URL}/articles/${id}/comments`, {
         method: "POST",
         headers: {
@@ -42,7 +49,7 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  deleteComment: async (id) => {
+  deleteComment: async (id: number): Promise<void> => {
     try {
       console.log(`${BASE_URL}/comments/${id}`);
       const response = await fetch(`${BASE_URL}/comments/${id}`, {
@@ -53,7 +60,10 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  postArticle: async (params) => {
+  postArticle: async (params: {
+    title: string;
+    content: string;
+  }): Promise<Article | undefined> => {
     try {
       const response = await fetch(`${BASE_URL}/articles`, {
         method: "POST",
@@ -67,7 +77,10 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  patchArticle: async (params, id) => {
+  patchArticle: async (
+    params: { title: string; content: string },
+    id: number,
+  ): Promise<Article | undefined> => {
     try {
       const response = await fetch(`${BASE_URL}/articles/${id}`, {
         method: "PATCH",
@@ -81,7 +94,7 @@ export const marketAPI = {
       console.error(error);
     }
   },
-  deleteArticle: async (id) => {
+  deleteArticle: async (id: number): Promise<void> => {
     try {
       const response = await fetch(`${BASE_URL}/articles/${id}`, {
         method: "DELETE",

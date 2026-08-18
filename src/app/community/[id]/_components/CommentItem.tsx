@@ -2,13 +2,25 @@
 
 import DropDownList from "@/components/common/DropDownList";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import kebabImg from "../../../../assets/ic_kebab.png";
 import profileImg from "../../../../assets/ic_profile.svg";
 import { marketAPI } from "@/lib/services/marketApi";
+import { useRouter } from "next/navigation";
 
-export default function CommentItem({ content, commentId, id, setComments }) {
+export default function CommentItem({
+  content,
+  commentId,
+  id,
+  setComments,
+}: {
+  content: string;
+  commentId: number;
+  id: string;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+}) {
   const [open, isOpen] = useState(false);
+  const router = useRouter();
 
   const updateFunc = () => {
     router.push(`/patch?id=${id}`);
@@ -16,7 +28,7 @@ export default function CommentItem({ content, commentId, id, setComments }) {
 
   const deleteFunc = async () => {
     await marketAPI.deleteComment(commentId);
-    const comments = await marketAPI.getComments(id);
+    const comments = await marketAPI.getComments(Number(id));
     if (!comments || comments.length === 0) setComments([]);
     else setComments(comments);
   };

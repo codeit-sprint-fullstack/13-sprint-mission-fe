@@ -5,16 +5,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 export default function page() {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const isEnabled = title.trim() && desc.trim();
+  const [title, setTitle] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
+  const isEnabled: string = title.trim() && desc.trim();
   const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const id: string | null = searchParams.get("id");
   const router = useRouter();
 
-  async function handleSubmit() {
+  async function handleSubmit(): Promise<void> {
     if (!isEnabled) return;
-    await marketAPI.patchArticle({ title, content: desc }, id);
+    await marketAPI.patchArticle({ title, content: desc }, Number(id));
     router.push(`community/${id}`);
   }
 

@@ -8,6 +8,20 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { fetchClient } from "../../lib/api/fetchClient";
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
+interface SignInResponse {
+  accessToken: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+  };
+}
+
 export default function SignInPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +35,7 @@ export default function SignInPage() {
     const searchParams = new URLSearchParams(window.location.search);
     if (searchParams.get("error") === "duplicate") {
       setModalMessage("사용 중인 이메일입니다.");
-      window.history.replaceState(null, "", "/signin"); // 주소창 청소
+      window.history.replaceState(null, "", "/signin");
     }
   }, [router]);
 
@@ -29,27 +43,31 @@ export default function SignInPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm<SignInFormData>({ mode: "onChange" });
 
   const loginMutation = useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: SignInFormData) => {
       const res = await fetchClient("/auth/signIn", {
         method: "POST",
         body: JSON.stringify(data),
       });
-      return res.json();
+      return (await res.json()) as SignInResponse;
     },
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.accessToken);
       router.push("/items");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       setModalMessage("비밀번호가 일치하지 않습니다.");
-      console.error("로그인 에러:", error);
+      if (error instanceof Error) {
+        console.error("로그인 에러:", error.message);
+      } else {
+        console.error("로그인 에러:", error);
+      }
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: SignInFormData) => {
     loginMutation.mutate(data);
   };
 
@@ -78,7 +96,7 @@ export default function SignInPage() {
               placeholder="이메일을 입력해주세요"
               className={`mt-[16px] h-[56px] w-[640px] rounded-[12px] bg-[#F3F4F6] px-[24px] py-[16px] font-['Pretendard'] text-[16px] outline-none transition-colors ${errors.email ? "border border-[#F74747]" : "border border-transparent focus:border-[#3692FF]"}`}
             />
-            {errors.email && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.email.message as string}</span>}
+            {errors.email && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.email.message}</span>}
           </div>
 
           <div className="mt-[24px] flex flex-col">
@@ -97,7 +115,7 @@ export default function SignInPage() {
                 <Image src={showPassword ? "/images/btn_visibility_on_24px.svg" : "/images/btn_visibility_off_24px.svg"} alt="비밀번호 숨김/표시" width={24} height={24} />
               </button>
             </div>
-            {errors.password && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.password.message as string}</span>}
+            {errors.password && <span className="mt-[8px] font-['Pretendard'] text-[14px] font-semibold leading-[24px] text-[#F74747]">{errors.password.message}</span>}
           </div>
 
           <button

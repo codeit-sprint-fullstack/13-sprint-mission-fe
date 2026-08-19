@@ -3,24 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { fetchClient } from "../../lib/api/fetchClient";
-
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  likeCount?: number;
-  createdAt: string;
-  writer?: {
-    id: number;
-    nickname: string;
-  };
-}
+import { fetchClient } from "@/lib/api/fetchClient";
+import { Article, PaginatedResponse } from "@/types";
 
 export default function BoardListPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [sortBy, setSortBy] = useState('최신순');
-  
   const [searchInput, setSearchInput] = useState('');
   const [keyword, setKeyword] = useState('');
 
@@ -36,8 +24,9 @@ export default function BoardListPage() {
     const fetchBestPosts = async () => {
       try {
         const res = await fetchClient("/articles?orderBy=like&pageSize=3");
-        const data = await res.json();
-        setBestPosts(data.list || data);
+        const data = (await res.json()) as PaginatedResponse<Article> | Article[];
+        const list = Array.isArray(data) ? data : (data?.list || []);
+        setBestPosts(list);
       } catch (error) {
         console.error("베스트 게시글 로드 실패:", error);
       }
@@ -55,16 +44,24 @@ export default function BoardListPage() {
     
     setIsLoading(true);
     try {
-      const orderParam = sortBy === '최신순' ? '&orderBy=recent' : '&orderBy=like';
-      const wordParam = keyword ? `&keyword=${encodeURIComponent(keyword)}` : '';
+      const params = new URLSearchParams({
+        pageSize: '10',
+        orderBy: sortBy === '최신순' ? 'recent' : 'like'
+      });
+      if (keyword) {
+        params.append('keyword', keyword);
+      }
       
-      const res = await fetchClient(`/articles?pageSize=10${orderParam}${wordParam}`);
-      const data = await res.json();
+      const res = await fetchClient(`/articles?${params.toString()}`);
+      const data = (await res.json()) as PaginatedResponse<Article> | Article[];
       
-      const newPosts = data.list || data || [];
+      const newPosts = Array.isArray(data) ? data : (data?.list || []);
       
       setPosts((prev) => [...prev, ...newPosts]);
-      setHasMore(false); 
+      
+      if (newPosts.length < 10) {
+        setHasMore(false); 
+      }
     } catch (error) {
       console.error(error);
       setHasMore(false);
@@ -89,17 +86,13 @@ export default function BoardListPage() {
     };
   }, [loadMorePosts, isLoading, hasMore]);
 
-  const executeSearch = () => {
-    setKeyword(searchInput);
-  };
-
+  const executeSearch = () => setKeyword(searchInput);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') executeSearch();
   };
 
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col items-start gap-[24px] md:gap-[40px] px-[16px] md:px-[24px] lg:px-0 pt-[24px] md:pt-[32px]">
-      
       <div className="w-full">
         <h1 className="mb-[16px] md:mb-[24px] font-['Pretendard'] text-[18px] md:text-[20px] font-bold text-[#111827]">
           베스트 게시글

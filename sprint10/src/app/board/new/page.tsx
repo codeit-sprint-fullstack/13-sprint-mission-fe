@@ -4,7 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { fetchClient } from '@/lib/api/fetchClient';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003';
+interface CreateArticleResponse {
+  id?: number;
+  data?: {
+    id: number;
+  };
+}
 
 export default function BoardWritePage() {
   const router = useRouter();
@@ -17,7 +22,9 @@ export default function BoardWritePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !content) return;
+    if (!title || !content || isSubmitting) return;
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetchClient("/articles", {
@@ -25,13 +32,25 @@ export default function BoardWritePage() {
         body: JSON.stringify({ title, content }),
       });
       
-      const data = await response.json();
+      const data = (await response.json()) as CreateArticleResponse;
       const newPostId = data.id || (data.data && data.data.id);
       
-      router.push(`/board/${newPostId}`);
-    } catch (error) {
-      console.error(error);
-      alert("게시글 등록에 실패했습니다.");
+      if (newPostId) {
+        router.push(`/board/${newPostId}`);
+      } else {
+        throw new Error("게시글 ID를 받아오지 못했습니다.");
+      }
+    } catch (error: unknown) {
+      let errorMessage = "알 수 없는 에러가 발생했습니다.";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        console.error("게시글 등록 에러:", errorMessage);
+      } else {
+        console.error("게시글 등록 에러:", error);
+      }
+      alert(`게시글 등록 실패: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,7 +67,7 @@ export default function BoardWritePage() {
           disabled={!isFormValid || isSubmitting}
           type="button"
           className={`flex h-[42px] items-center justify-center gap-[10px] rounded-[8px] px-[23px] py-[12px] transition-colors
-            ${isFormValid 
+            ${isFormValid && !isSubmitting
               ? 'bg-[#3692FF] text-[#FFF] hover:bg-blue-600 cursor-pointer' 
               : 'bg-[#9CA3AF] text-[#F3F4F6] cursor-not-allowed'
             }

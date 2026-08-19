@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { productService } from "@/services/productService";
@@ -29,8 +29,10 @@ export default function ItemDetailPage() {
 
   const { user } = useAuth();
 
+  const [currentImg, setCurrentImg] = useState(defaultItemImage);
+
   const {
-    data: product,
+    data: productData,
     isLoading: isProductLoading,
     isError: isProductError,
   } = useQuery({
@@ -56,6 +58,15 @@ export default function ItemDetailPage() {
     },
   });
 
+  const product = productData?.data;
+  const comments = commentsData?.list || [];
+
+  useEffect(() => {
+    if (product?.images?.[0]) {
+      setCurrentImg(product.images[0]);
+    }
+  }, [product?.images]);
+
   if (isProductLoading || isCommentsLoading)
     return <div className="py-20 text-center">로딩 중입니다...</div>;
   if (isProductError || !product)
@@ -65,8 +76,6 @@ export default function ItemDetailPage() {
       </div>
     );
 
-  const comments = commentsData?.list || [];
-
   return (
     <div className="m-auto mb-69.25 flex w-full max-w-300 flex-col items-center gap-16 p-4">
       <section className="flex w-full flex-col items-start gap-10 self-stretch">
@@ -75,10 +84,11 @@ export default function ItemDetailPage() {
             <div className="relative h-121.5 w-full shrink-0 md:w-121.5">
               <Image
                 className="rounded-2xl object-cover"
-                src={product.images?.[0] || defaultItemImage}
+                src={currentImg}
                 fill
                 alt="상품 이미지"
                 priority
+                onError={() => setCurrentImg(defaultItemImage)}
               />
             </div>
             <div className="flex w-full flex-col items-start gap-6">
@@ -92,7 +102,7 @@ export default function ItemDetailPage() {
                       {product.price?.toLocaleString()}원
                     </span>
                   </div>
-                  {user?.id === product.writer?.id && (
+                  {user?.id === (product.writer?.id || product.ownerId) && (
                     <KebabDropdown
                       onEdit={() => router.push(ROUTES.ITEM.EDIT(itemId))}
                       onDelete={() => setIsDeleteModalOpen(true)}
@@ -127,14 +137,17 @@ export default function ItemDetailPage() {
               </div>
               <div className="flex w-full items-center justify-between pt-4">
                 <WriterInfo
-                  writer={product.writer}
+                  writer={{
+                    id: product.ownerId,
+                    nickname: product.ownerNickname,
+                  }}
                   createdAt={product.createdAt}
                 />
                 <div className="border-cool-gray-200 flex h-8.5 items-center gap-6 border-l pl-6">
                   <LikeButton
                     productId={itemId}
-                    favoriteCount={product.favoriteCount}
-                    isFavorite={product.isFavorite}
+                    favoriteCount={product.likeCount}
+                    isFavorite={product.isLiked}
                   />
                 </div>
               </div>

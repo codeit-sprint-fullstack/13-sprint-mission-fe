@@ -17,10 +17,13 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.101.0",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^6.0.3"
   }
 }

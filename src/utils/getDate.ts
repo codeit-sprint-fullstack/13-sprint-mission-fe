@@ -11,5 +11,5 @@ export const getTime = (stringDate: string): string => {
   if (subtractedMinutes < 60) return `${Math.round(subtractedMinutes)}분`;
   if (subtractedMinutes < 60 * 24)
     return `${Math.round(subtractedMinutes / 60)}시간`;
-  return `${Math.round(subtractedMinutes / 60 / 24)}시간`;
+  return `${Math.round(subtractedMinutes / 60 / 24)}일`;
 };

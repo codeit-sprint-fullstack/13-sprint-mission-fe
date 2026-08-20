@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.4",
@@ -22,13 +24,16 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.101.4",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
+    "jest": "^30.4.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-jest": "^29.4.12",
+    "typescript": "^5.9.3"
   }
 }

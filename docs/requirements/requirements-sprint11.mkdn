@@ -1,0 +1,10 @@
+## 프런트엔드 테스트 구현
+
+### 체크리스트
+
+- [x] Jest로 Util 함수 테스트하기
+  - [x] cn.ts는 스타일 관련이고 외부 라이브러리 사용하는 로직이 거의 다라서 스킵
+  - [x] validation.ts는 zod로 바꿀 예정이라 스킵
+- [ ] React Testing Library + Jest로 Hook함수 테스트하기
+
+https://capprojectfactory.tistory.com/manage/newpost/153?type=post&returnURL=https%3A%2F%2Fcapprojectfactory.tistory.com%2Fmanage%2Fposts%2F

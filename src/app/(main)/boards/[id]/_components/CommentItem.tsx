@@ -6,6 +6,7 @@ import { formatTimeAgo } from "@/lib/formatDate";
 import KebabMenu from "@/components/common/KebabMenu";
 import { updateComment, deleteComment } from "@/lib/api";
 import type { Comment } from "@/types/api";
+import { getErrorMessage } from "@/lib/errors";
 
 interface CommentItemProps {
   comment: Comment;
@@ -31,7 +32,7 @@ export default function CommentItem({
       onUpdate(updated); // 부모 state 교체 -> 즉시 반영
       setIsEditing(false);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "댓글 수정에 실패했어요.");
+      alert(getErrorMessage(err, "댓글 수정에 실패했어요."));
     }
   }
 
@@ -40,7 +41,7 @@ export default function CommentItem({
       await deleteComment(comment.id);
       onRemove(comment.id); // 부모 state에서 제거
     } catch (err) {
-      alert(err instanceof Error ? err.message : "댓글 삭제에 실패했어요.");
+      alert(getErrorMessage(err, "댓글 삭제에 실패했어요."));
     }
   }
 

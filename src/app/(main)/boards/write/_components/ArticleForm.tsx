@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createArticle, updateArticle } from "@/lib/api";
+import { getErrorMessage } from "@/lib/errors";
 
 interface ArticleFormProps {
   // articleId가 있으면 수정 모드, 없으면(null) 등록 모드
@@ -40,7 +41,7 @@ export default function ArticleForm({
       router.push(`/boards/${article.id}`);
       router.refresh(); // 서버 컴포넌트(목록/상세) 캐시 갱신
     } catch (err) {
-      alert(err instanceof Error ? err.message : "저장에 실패했어요.");
+      alert(getErrorMessage(err, "저장에 실패했어요."));
       setIsSubmitting(false); // 성공 시엔 페이지 이동하므로 실패 때만 복구
     }
   }

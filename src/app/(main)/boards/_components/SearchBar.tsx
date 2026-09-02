@@ -12,9 +12,10 @@ export default function SearchBar() {
   // (e.target은 EventTarget이라 폼 요소 접근이 안 됨 - 교안 28 참고)
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const input = e.currentTarget.elements.namedItem(
-      "keyword",
-    ) as HTMLInputElement;
+    const input = e.currentTarget.elements.namedItem("keyword");
+    // namedItem은 Element | RadioNodeList | null을 반환함
+    // instanceof로 좁히면 폼 구조가 바뀌어도 컴파일러가 거짓말을 안함
+    if (!(input instanceof HTMLInputElement)) return;
     const keyword = input.value.trim();
 
     const params = new URLSearchParams(searchParams);
@@ -28,7 +29,12 @@ export default function SearchBar() {
   return (
     <form onSubmit={handleSubmit} className="relative flex-1">
       <span className="absolute top-1/2 left-4 -translate-y-1/2">
-        <Image src="/icons/ui/ic_search.svg" alt="검색" width={24} height={24} />
+        <Image
+          src="/icons/ui/ic_search.svg"
+          alt="검색"
+          width={24}
+          height={24}
+        />
       </span>
       <input
         name="keyword"

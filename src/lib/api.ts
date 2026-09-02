@@ -7,11 +7,10 @@ import type {
   ListParams,
   ListResponse,
   Product,
+  ProductFormValues,
   UploadResponse,
   User,
 } from "../types/api";
-import { Recoverable } from "node:repl";
-import { promises } from "node:dns";
 
 // fetch 옵션에 우리가 추가로 쓰는 필드를 얹은 타입
 interface FetchOptions extends RequestInit {
@@ -19,22 +18,28 @@ interface FetchOptions extends RequestInit {
   errorMessage?: string;
 }
 
-// localStorage에서 accessToken을 읽어 Authorization 헤더를 붙이는 fetch 래퍼.
-// 401이 오면 토큰을 지우고 로그인 페이지로 이동한다.
-// 제네릭 T = 이 요청이 반환할 JSON 타입 (호출부에서 지정)
+// 본문을 파싱하지 않는 요청용 (DELETE 등) - 반환은 항상 void
+interface NoParseOptions extends Omit<FetchOptions, "parse"> {
+  parse: false;
+}
+
+// parse: false면 본문을 읽지 않으므로 void
+async function tokenFetch(path: string, options: NoParseOptions): Promise<void>;
+// 그 외에는 호출부가 지정한 T
+async function tokenFetch<T>(path: string, options?: FetchOptions): Promise<T>;
+// 구현 시그니처 (외부에 노출되지 않음)
 async function tokenFetch<T>(
   path: string,
   { parse = true, ...options }: FetchOptions = {},
-): Promise<T> {
+): Promise<T | void> {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
-  // FormData면 브라우저가 multipart boundary를 포함해 Content-Type을 직접 설정해야 함
-  const isFormData = options.body instanceof FormData;
+  const isFormDate = options.body instanceof FormData;
 
   const res = await fetch(`${BASE_URL}${path}`, {
     ...options,
     headers: {
-      ...(isFormData ? {} : { "Content-Type": "application/json" }),
+      ...(isFormDate ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers,
     },
@@ -42,7 +47,7 @@ async function tokenFetch<T>(
 
   if (res.status === 401) {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("access_token");
+      localStorage.remove("access_token");
       window.location.href = "/signin";
     }
     throw new Error("인증이 필요해요. 다시 로그인해 주세요.");
@@ -53,14 +58,17 @@ async function tokenFetch<T>(
     throw new Error(body.message ?? `요청에 실패했어요. (${res.status})`);
   }
 
-  return parse ? res.json() : (undefined as T);
+  // 단언이 사라졌다 : parse가 false면 그냥 반환하지 않는다.
+  if (!parse) return;
+  return res.json();
 }
 
-// 인증 불필요한 기본 fetch 래퍼
+async function apiFetch(path: string, options: NoParseOptions): Promise<void>;
+async function apiFetch<T>(path: string, options?: FetchOptions): Promise<T>;
 async function apiFetch<T>(
   path: string,
   { errorMessage, parse = true, ...options }: FetchOptions = {},
-): Promise<T> {
+): Promise<T | void> {
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: { "Content-Type": "application/json" },
     ...options,
@@ -68,13 +76,13 @@ async function apiFetch<T>(
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    // 서버가 준 메시지 우선 -> 호출부 errorMessage -> 기본 문구 순
     throw new Error(
       body.message ?? errorMessage ?? `요청에 실패했어요. (${res.status})`,
     );
   }
 
-  return parse ? res.json() : (undefined as T);
+  if (!parse) return;
+  return res.json();
 }
 
 // JSON 본문 옵션 헬퍼
@@ -152,9 +160,7 @@ export async function getProduct(id: number | string): Promise<Product> {
 }
 
 // 상품 등록 (토큰 필요)
-export async function createProduct(
-  data: Partial<Product> | Record<string, unknown>,
-): Promise<Product> {
+export async function createProduct(data: ProductFormValues): Promise<Product> {
   return tokenFetch<Product>("/products", {
     ...jsonBody("POST", data),
   });
@@ -163,7 +169,7 @@ export async function createProduct(
 // 상품 수정 (토큰 필요)
 export async function updateProduct(
   id: number | string,
-  data: Partial<Product> | Record<string, unknown>,
+  data: Partial<ProductFormValues>,
 ): Promise<Product> {
   return tokenFetch<Product>(`/products/${id}`, {
     ...jsonBody("PATCH", data),
@@ -172,7 +178,7 @@ export async function updateProduct(
 
 // 상품 삭제 (토큰 필요)
 export async function deleteProduct(id: number | string): Promise<void> {
-  return tokenFetch<void>(`/products/${id}`, {
+  return tokenFetch(`/products/${id}`, {
     method: "DELETE",
     parse: false,
   });
@@ -185,7 +191,7 @@ export async function favoriteProduct(id: number | string): Promise<Product> {
 
 // 좋아요 취소 (토큰 필요)
 export async function unfavoriteProduct(id: number | string): Promise<void> {
-  return tokenFetch<void>(`/products/${id}/favorite`, {
+  return tokenFetch(`/products/${id}/favorite`, {
     method: "DELETE",
     parse: false,
   });
@@ -228,7 +234,7 @@ export async function updateComment(
 
 // 댓글 삭제 (토큰 필요)
 export async function deleteComment(commentId: number | string): Promise<void> {
-  return tokenFetch<void>(`/comments/${commentId}`, {
+  return tokenFetch(`/comments/${commentId}`, {
     method: "DELETE",
     parse: false,
   });
@@ -248,7 +254,9 @@ export async function getArticles({
     orderBy,
   });
   if (keyword) params.set("keyword", keyword);
-  return apiFetch(`/articles?${params}`, { cache: "no-store" });
+  return apiFetch<ListResponse<Article>>(`/articles?${params}`, {
+    cache: "no-store",
+  });
 }
 
 // 베스트 게시글 - 좋아요 많은 순 상위 3개
@@ -280,7 +288,7 @@ export async function updateArticle(
 }
 
 export async function deleteArticle(id: number | string): Promise<void> {
-  return tokenFetch<void>(`/articles/${id}`, {
+  return tokenFetch(`/articles/${id}`, {
     method: "DELETE",
     parse: false,
   });

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createComment } from "@/lib/api";
 import type { Comment } from "@/types/api";
+import { getErrorMessage } from "@/lib/errors";
 
 interface CommentFormProps {
   articleId: number | string;
@@ -22,7 +23,7 @@ export default function CommentForm({ articleId, onAdd }: CommentFormProps) {
       onAdd(created); // 부모 state에 추가 -> 즉시 화면 반영
       setContent("");
     } catch (err) {
-      alert(err instanceof Error ? err.message : "댓글 등록에 실패했어요.");
+      alert(getErrorMessage(err, "댓글 등록에 실패했어요."));
     } finally {
       setIsSubmitting(false);
     }

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { uploadImage } from "@/lib/api";
+import { getErrorMessage } from "@/lib/errors";
 
 const MAX_IMAGES = 3;
 
@@ -35,7 +36,7 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
       const { url } = await uploadImage(file);
       onChange([...images, url]);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "이미지 업로드에 실패했어요.");
+      alert(getErrorMessage(err, "이미지 업로드에 실패했어요."));
     } finally {
       setIsUploading(false);
     }

@@ -29,9 +29,6 @@ export interface Comment {
   content: string;
   createdAt: string;
   updatedAt: string;
-  userId: number;
-  productId: number | null;
-  articleId: number | null;
   writer: Writer;
 }
 
@@ -44,7 +41,6 @@ export interface Product {
   images: string[];
   createdAt: string;
   updatedAt: string;
-  userId: number;
   // 평탄화된 필드들
   ownerId: number;
   ownerNickname: string;
@@ -61,7 +57,6 @@ export interface Article {
   image: string | null;
   createdAt: string;
   updatedAt: string;
-  userId: number;
   // 평탄화된 필드들
   ownerId: number;
   nickname: string;
@@ -92,4 +87,13 @@ export interface ListParams {
   pageSize?: number;
   keyword?: string;
   orderBy?: string;
+}
+
+// 상품 등록/수정 요청 바디 (폼이 정제해서 보내는 값)
+export interface ProductFormValues {
+  name: string;
+  description: string;
+  price: number;
+  tags: string[];
+  images: string[];
 }
